@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Festival Ready - Optimize Your Film Festival Submission</title>
+    <meta name="description" content="AI-powered screenplay optimization tool that analyzes your script and creates compelling taglines, synopses, and festival category recommendations for maximum submission success.">
+    <meta name="keywords" content="film festival, screenplay, script optimization, tagline generator, synopsis writing, festival submission">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Festival Ready - Optimize Your Film Festival Submission">
+    <meta property="og:description" content="AI-powered tool that creates compelling taglines, synopses, and festival recommendations for your screenplay">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://festival-ready.com">
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'GA_MEASUREMENT_ID');
+    </script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 60px 0 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            animation: float 20s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .logo {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .tagline {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            opacity: 0.95;
+            font-weight: 300;
+        }
+        
+        .hero-description {
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto 40px;
+            opacity: 0.9;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: #ff6b6b;
+            color: white;
+            padding: 18px 40px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(255, 107, 107, 0.4);
+            background: #ff5252;
+        }
+        
+        .beta-badge {
+            background: #ff6b6b;
+            color: white;
+            font-size: 0.6rem;
+            padding: 4px 8px;
+            border-radius: 10px;
+            margin-left: 10px;
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 80px 0;
+            background: white;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 60px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+        
+        .feature-card {
+            background: #f8f9fa;
+            padding: 40px 30px;
+            border-radius: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid #e9ecef;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border-color: #667eea;
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .feature-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        /* How It Works */
+        .how-it-works {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+        
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+        
+        .step {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        
+        .step-number {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #667eea;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        
+        .step h3 {
+            margin: 20px 0 15px;
+            color: #333;
+            font-size: 1.3rem;
+        }
+        
+        .step p {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        /* Authority Section */
+        .authority {
+            padding: 80px 0;
+            background: white;
+        }
+        
+        .authority-content {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .authority-photo {
+            flex-shrink: 0;
+        }
+        
+        .authority-photo img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid #667eea;
+            margin-right: 40px;
+        }
+        
+        .authority-text h2 {
+            font-size: 2.2rem;
+            color: #333;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        
+        .authority-text p {
+            color: #666;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        .credentials {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+            margin-top: 20px;
+        }
+        
+        .credentials h4 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .credentials ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .credentials li {
+            color: #666;
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .credentials li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+        }
+        
+        /* Demo Section */
+        .demo {
+            padding: 80px 0;
+            background: #f8f9fa;
+        }
+        
+        .demo-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .demo-video {
+            background: #333;
+            border-radius: 15px;
+            padding: 60px;
+            margin: 40px 0;
+            color: white;
+            font-size: 1.2rem;
+        }
+        
+        /* Guarantee Section */
+        .guarantee {
+            padding: 60px 0;
+            background: white;
+            text-align: center;
+        }
+        
+        .guarantee-box {
+            background: linear-gradient(135deg, #ff6b6b, #ff8a80);
+            color: white;
+            padding: 40px;
+            border-radius: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+            box-shadow: 0 15px 35px rgba(255, 107, 107, 0.3);
+        }
+        
+        .guarantee-box h3 {
+            color: #ff6b6b;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+        
+        /* Footer */
+        footer {
+            background: #2c3e50;
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+        
+        footer p {
+            margin-bottom: 20px;
+        }
+        
+        footer a {
+            color: #667eea;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+        
+        footer a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Animations */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.6s ease;
+        }
+        
+        .scroll-reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 2.5rem;
+            }
+            
+            .tagline {
+                font-size: 1.1rem;
+            }
+            
+            .hero-description {
+                font-size: 1rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .steps {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .authority-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .authority-photo {
+                margin-bottom: 20px;
+            }
+            
+            .authority-photo img {
+                margin-right: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="logo">🎬 Festival Ready <span class="beta-badge">BETA</span></h1>
+                <p class="tagline">AI-Powered Screenplay Optimization for Film Festival Success</p>
+                <p class="hero-description">Upload your script and get compelling taglines, professional synopses, and targeted festival recommendations in minutes.</p>
+                <a href="#demo" class="cta-button">Start Optimizing Free →</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Features Section -->
+    <section class="features scroll-reveal">
+        <div class="container">
+            <h2 class="section-title">Everything You Need for Festival Success</h2>
+            <p class="section-subtitle">Stop spending hours crafting the perfect pitch. Let AI analyze your screenplay and create professional submission materials that get noticed.</p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <span class="feature-icon">🎯</span>
+                    <h3>Smart Tagline Generation</h3>
+                    <p>AI analyzes your script's themes, tone, and genre to create multiple compelling taglines that capture your story's essence and hook festival programmers.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <span class="feature-icon">📝</span>
+                    <h3>Professional Synopses</h3>
+                    <p>Generate polished short and long synopses that highlight your story's unique elements, character arcs, and dramatic structure in industry-standard format.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <span class="feature-icon">🏆</span>
+                    <h3>Festival Category Matching</h3>
+                    <p>Get personalized recommendations for the best festival categories based on your script's genre, budget, themes, and target audience.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <span class="feature-icon">⚡</span>
+                    <h3>Instant Results</h3>
+                    <p>Upload your script and receive all optimization materials in under 60 seconds. No more writer's block or endless revisions.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <span class="feature-icon">🎨</span>
+                    <h3>Multiple Variations</h3>
+                    <p>Receive 3-5 different versions of each element so you can choose the style that best represents your vision and story.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <span class="feature-icon">💰</span>
+                    <h3>100% Free Beta</h3>
+                    <p>Complete access to all features during our beta phase. Help us improve while optimizing your submissions at no cost.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-it-works scroll-reveal">
+        <div class="container">
+            <h2 class="section-title">How It Works</h2>
+            <p class="section-subtitle">From script to submission-ready in three simple steps</p>
+            
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Upload Your Script</h3>
+                    <p>Upload your screenplay in PDF, Final Draft, or text format. Your script is processed securely and never stored permanently.</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>AI Analysis</h3>
+                    <p>Our AI reads your entire script, analyzing themes, character arcs, genre elements, tone, and narrative structure.</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Get Your Materials</h3>
+                    <p>Receive multiple taglines, professional synopses, and targeted festival category recommendations ready for submission.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Authority Section -->
+    <section class="authority scroll-reveal">
+        <div class="container">
+            <div class="authority-content">
+                <div class="authority-photo">
+                    <img src="./images/mikel-fair-photo.jpg" alt="Mikel Fair">
+                </div>
+                <div class="authority-text">
+                    <h2>Created by Festival Industry Professionals</h2>
+                    <p>Festival Ready was developed by Mikel Fair, a veteran film festival director with over a decade of experience programming festivals and reading thousands of submissions.</p>
+                    <p>Having seen both winning and losing submissions, Mikel understands exactly what festival programmers look for and built Festival Ready to give every screenwriter those same advantages.</p>
+                    
+                    <div class="credentials">
+                        <h4>Industry Experience:</h4>
+                        <ul>
+                            <li>Film Festival Circuit - Festival Directory Platform</li>
+                            <li>10+ Years Programming Film Festivals</li>
+                            <li>Thousands of Screenplay Submissions Reviewed</li>
+                            <li>Direct Insight into Festival Selection Process</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Section -->
+    <section class="demo scroll-reveal" id="demo">
+        <div class="container">
+            <div class="demo-container">
+                <h2 class="section-title">Ready to Try Festival Ready?</h2>
+                <p class="section-subtitle">Upload your screenplay and see the magic happen</p>
+                
+                <div class="demo-video">
+                    <p>🚧 Interactive Demo Coming Soon 🚧</p>
+                    <p>The full Festival Ready app with AI processing will be available shortly. Sign up below to be notified when it launches!</p>
+                </div>
+                
+                <a href="#signup" class="cta-button">Get Early Access →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Guarantee -->
+    <section class="guarantee scroll-reveal">
+        <div class="container">
+            <div class="guarantee-box">
+                <h3>🎯 Our Promise</h3>
+                <p>Festival Ready will save you hours of work and help you create professional submission materials that stand out. If you're not completely satisfied with the quality of your generated content, we'll work with you to make it right.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Festival Ready • Created by Mikel Fair</p>
+            <div>
+                <a href="https://filmfestivalcircuit.com" target="_blank">Film Festival Circuit</a>
+                <a href="#" onclick="openDonatePage()">💝 Support Development</a>
+            </div>
+            <p style="font-size: 0.9rem; opacity: 0.8;">Beta Version • Free Tool • No Credit Card Required</p>
+        </div>
+    </footer>
+
+    <script>
+        // Scroll reveal animation
+        function revealOnScroll() {
+            const reveals = document.querySelectorAll('.scroll-reveal');
+            
+            reveals.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('revealed');
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', revealOnScroll);
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Button click tracking
+        function trackButtonClick(buttonName) {
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'click', {
+                    'event_category': 'button',
+                    'event_label': buttonName
+                });
+            }
+        }
+        
+        // Add click tracking to CTA buttons
+        document.querySelectorAll('.cta-button').forEach(button => {
+            button.addEventListener('click', () => trackButtonClick('CTA Button'));
+        });
+
+        // Open donation page
+        function openDonatePage() {
+            window.open('donate.html', '_blank');
+            trackButtonClick('Donation Page Opened');
+        }
+
+        // Initialize scroll reveal on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            revealOnScroll();
+        });
+    </script>
+</body>
+</html>
