@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Screenplay Questionnaire - Festival Ready</title>
+    <meta name="description" content="Complete our comprehensive screenplay questionnaire to generate professional submission materials">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .wizard-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.2);
+            max-width: 700px;
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .wizard-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .wizard-header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .wizard-header p {
+            opacity: 0.9;
+            font-size: 1rem;
+        }
+        
+        .progress-container {
+            background: rgba(255,255,255,0.2);
+            height: 8px;
+            border-radius: 4px;
+            margin-top: 20px;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            background: #ff6b6b;
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.5s ease;
+            width: 6.25%;
+        }
+        
+        .step-content {
+            padding: 40px;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .step {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .step.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateX(30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        .step h2 {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .step p {
+            color: #666;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+        
+        .form-group input[type="text"],
+        .form-group input[type="number"],
+        .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+            font-family: inherit;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+        
+        .checkbox-item:hover {
+            background: #e9ecef;
+        }
+        
+        .checkbox-item input[type="checkbox"] {
+            margin-right: 10px;
+            transform: scale(1.2);
+        }
+        
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .radio-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .radio-item:hover {
+            background: #e9ecef;
+        }
+        
+        .radio-item input[type="radio"] {
+            margin-right: 12px;
+            transform: scale(1.2);
+        }
+        
+        .radio-item.selected {
+            background: #667eea;
+            color: white;
+        }
+        
+        .wizard-navigation {
+            background: #f8f9fa;
+            padding: 25px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #e9ecef;
+        }
+        
+        .nav-button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .nav-button.primary {
+            background: #667eea;
+            color: white;
+        }
+        
+        .nav-button.primary:hover {
+            background: #5a6fd8;
+            transform: translateY(-2px);
+        }
+        
+        .nav-button.secondary {
+            background: #6c757d;
+            color: white;
+        }
+        
+        .nav-button.secondary:hover {
+            background: #5a6268;
+        }
+        
+        .nav-button:disabled {
+            background: #e9ecef;
+            color: #6c757d;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .step-indicator {
+            text-align: center;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .file-upload-area {
+            border: 2px dashed #667eea;
+            border-radius: 15px;
+            padding: 40px;
+            text-align: center;
+            background: #f8f9ff;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .file-upload-area:hover {
+            background: #f0f3ff;
+            border-color: #5a6fd8;
+        }
+        
+        .file-upload-area.dragover {
+            background: #e8f2ff;
+            border-color: #4dabf7;
+        }
+        
+        .upload-icon {
+            font-size: 3rem;
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+        
+        .upload-text {
+            color: #333;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+        
+        .upload-subtext {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .file-input {
+            display: none;
+        }
+        
+        .uploaded-file {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .file-info {
+            display: flex;
+            align-items: center;
+            color: #155724;
+        }
+        
+        .file-info::before {
+            content: '📄';
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .remove-file {
+            background: none;
+            border: none;
+            color: #721c24;
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+        
+        @media (max-width: 768px) {
+            .wizard-container {
+                margin: 10px;
+            }
+            
+            .wizard-header {
+                padding: 20px;
+            }
+            
+            .wizard-header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .step-content {
+                padding: 25px;
+                min-height: 350px;
+            }
+            
+            .wizard-navigation {
+                padding: 20px 25px;
+            }
+            
+            .checkbox-group {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="wizard-container">
+        <div class="wizard-header">
+            <h1>🎬 Screenplay Questionnaire</h1>
+            <p>Help us create the perfect submission materials for your screenplay</p>
+            <div class="progress-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+        </div>
+        
+        <div class="step-content">
+            <!-- Step 1: Title -->
+            <div class="step active" id="step1">
+                <h2>What's the title of your screenplay?</h2>
+                <p>This will be the main title used in all your submission materials.</p>
+                <div class="form-group">
+                    <label for="title">Screenplay Title</label>
+                    <input type="text" id="title" name="title" placeholder="Enter your screenplay title">
+                </div>
+            </div>
+            
+            <!-- Step 2: Writers -->
+            <div class="step" id="step2">
+                <h2>Who are the primary writers and story contributors?</h2>
+                <p>Include all writers, co-writers, and anyone who contributed significantly to the story.</p>
+                <div class="form-group">
+                    <label for="writers">Writers & Contributors</label>
+                    <textarea id="writers" name="writers" placeholder="List all writers and contributors..."></textarea>
+                </div>
+            </div>
+            
+            <!-- Step 3: Genre -->
+            <div class="step" id="step3">
+                <h2>What genre(s) best describe your story?</h2>
+                <p>Select all that apply. This helps with festival category recommendations.</p>
+                <div class="form-group">
+                    <label>Select Genre(s)</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="drama" name="genres" value="drama">
+                            <label for="drama">Drama</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="comedy" name="genres" value="comedy">
+                            <label for="comedy">Comedy</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="thriller" name="genres" value="thriller">
+                            <label for="thriller">Thriller</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="horror" name="genres" value="horror">
+                            <label for="horror">Horror</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="romance" name="genres" value="romance">
+                            <label for="romance">Romance</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="action" name="genres" value="action">
+                            <label for="action">Action</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="scifi" name="genres" value="scifi">
+                            <label for="scifi">Sci-Fi</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="fantasy" name="genres" value="fantasy">
+                            <label for="fantasy">Fantasy</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="documentary" name="genres" value="documentary">
+                            <label for="documentary">Documentary</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="animation" name="genres" value="animation">
+                            <label for="animation">Animation</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="musical" name="genres" value="musical">
+                            <label for="musical">Musical</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="other-genre" name="genres" value="other">
+                            <label for="other-genre">Other</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Step 4: Page Count -->
+            <div class="step" id="step4">
+                <h2>How many pages is this version of the screenplay?</h2>
+                <p>This helps determine the appropriate festival categories and submission guidelines.</p>
+                <div class="form-group">
+                    <label for="pageCount">Number of Pages</label>
+                    <input type="number" id="pageCount" name="pageCount" placeholder="e.g., 90" min="1" max="300">
+                </div>
+            </div>
+            
+            <!-- Step 5: Standalone vs Series -->
+            <div class="step" id="step5">
+                <h2>Is this screenplay a standalone film or part of an ongoing series?</h2>
+                <p>This affects how we position your story in submission materials.</p>
+                <div class="form-group">
+                    <div class="radio-group">
+                        <div class="radio-item">
+                            <input type="radio" id="standalone" name="storyType" value="standalone">
+                            <label for="standalone">Standalone film</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" id="series" name="storyType" value="series">
+                            <label for="series">Part of an ongoing series</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" id="pilot" name="storyType" value="pilot">
+                            <label for="pilot">TV/Web series pilot</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Step 6: Main Characters -->
+            <div class="step" id="step6">
+                <h2>Who are the main character(s)?</h2>
+                <p>List the primary characters that drive your story forward.</p>
+                <div class="form-group">
+                    <label for="mainCharacters">Main Characters</label>
+                    <textarea id="mainCharacters" name="mainCharacters" placeholder="Describe your main characters..."></textarea>
+                </div>
+            </div>
+            
+            <!-- Step 7: Main Challenge -->
+            <div class="step" id="step7">
+                <h2>What is the main challenge or stakes that your protagonist faces?</h2>
+                <p>Without revealing the ending, describe the central conflict or problem your main character must overcome.</p>
+                <div class="form-group">
+                    <label for="mainChallenge">Main Challenge/Stakes</label>
+                    <textarea id="mainChallenge" name="mainChallenge" placeholder="Describe the main challenge or stakes..."></textarea>
+                </div>
+            </div>
+            
+            <!-- Step 8: Similar Films -->
+            <div class="step" id="step8">
+                <h2>Are there films or series with a similar style or genre?</h2>
+                <p>Think "If you liked [Movie/Show], you'll love this story." This helps with marketing comparisons.</p>
+                <div class="form-group">
+                    <label for="similarWorks">Similar Films/Series</label>
+                    <textarea id="similarWorks" name="similarWorks" placeholder="List films or series that share similar style, tone, or audience..."></textarea>
+                </div>
+            </div>
+            
+            <!-- Step 9: Influences -->
+            <div class="step" id="step9">
+                <h2>What influences did you have while writing this story?</h2>
+                <p>Include writing style, character, or story influences that shaped your screenplay.</p>
+                <div class="form-group">
+                    <label for="influences">Writing Influences</label>
+                    <textarea id="influences" name="influences" placeholder="Describe your influences and inspirations..."></textarea>
+                </div>
+            </div>
+            
+            <!-- Step 10: Mature Content -->
+            <div class="step" id="step10">
+                <h2>Does your story contain mature content inappropriate for children?</h2>
+                <p>This affects festival category selection and content warnings.</p>
+                <div class="form-group">
+                    <div class="radio-group">
+                        <div class="radio-item">
+                            <input type="radio" id="mature-yes" name="matureContent" value="yes">
+                            <label for="mature-yes">Yes, contains mature content</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" id="mature-no" name="matureContent" value="no">
+                            <label for="mature-no">No, appropriate for all audiences</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" id="mature-some" name="matureContent" value="some">
+                            <label for="mature-some">Some mature themes (PG-13 level)</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Step 11: Reader Memory -->
+            <div class="step" id="step11">
+                <h2>What do you hope readers will remember most about your story?</h2>
+                <p>This helps us craft taglines and synopses that highlight your story's most memorable elements.</p>
+                <div class="form-group">
+                    <label for="readerMemory">Most Memorable Aspect</label>
+                    <textarea id="readerMemory" name="readerMemory" placeholder="What should stick with readers after they experience your story..."></textarea>
+                </div>
+            </div>
+            
+            <!-- Step 12: Personal Motivation -->
+            <div class="step" id="step12">
+                <h2>Why did you decide to write this particular story?</h2>
+                <p>Your personal connection to the story can be powerful in submission materials.</p>
+                <div class="form-group">
+                    <label for="personalMotivation">Personal Motivation</label>
+                    <textarea id="personalMotivation" name="personalMotivation" placeholder="What drove you to write this story..."></textarea>
+                </div>
+            </div>
+            
+            <!-- Step 13: Production Help -->
+            <div class="step" id="step13">
+                <h2>What would help you get this screenplay produced as a film?</h2>
+                <p>This helps us understand your goals and tailor recommendations accordingly.</p>
+                <div class="form-group">
+                    <label for="productionHelp">Production Needs</label>
+                    <textarea id="productionHelp" name="productionHelp" placeholder="What do you need to move this project forward..."></textarea>
+                </div>
+            </div>
+            
+            <!-- Step 14: Festival Networking -->
+            <div class="step" id="step14">
+                <h2>Who are you hoping to meet when networking at film festivals?</h2>
+                <p>Select all that apply. This helps with festival selection and networking strategy.</p>
+                <div class="form-group">
+                    <label>Festival Networking Goals</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="producers" name="networking" value="producers">
+                            <label for="producers">Producers</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="directors" name="networking" value="directors">
+                            <label for="directors">Directors</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="actors" name="networking" value="actors">
+                            <label for="actors">Actors</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="agents" name="networking" value="agents">
+                            <label for="agents">Agents</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="distributors" name="networking" value="distributors">
+                            <label for="distributors">Distributors</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="other-writers" name="networking" value="writers">
+                            <label for="other-writers">Other Writers</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="film-critics" name="networking" value="critics">
+                            <label for="film-critics">Film Critics</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="festival-programmers" name="networking" value="programmers">
+                            <label for="festival-programmers">Festival Programmers</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Step 15: Looking For -->
+            <div class="step" id="step15">
+                <h2>What specific type of help are you looking for?</h2>
+                <p>Select all that apply. This helps prioritize your networking and submission strategy.</p>
+                <div class="form-group">
+                    <label>What You're Seeking</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="financing" name="seeking" value="financing">
+                            <label for="financing">Financing</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="distribution" name="seeking" value="distribution">
+                            <label for="distribution">Distribution</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="representation" name="seeking" value="representation">
+                            <label for="representation">Agent/Manager Representation</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="cast" name="seeking" value="cast">
+                            <label for="cast">Cast (Actors)</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="crew" name="seeking" value="crew">
+                            <label for="crew">Crew (Director, DP, etc.)</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="feedback" name="seeking" value="feedback">
+                            <label for="feedback">Script Feedback</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="industry-exposure" name="seeking" value="exposure">
+                            <label for="industry-exposure">Industry Exposure</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="awards" name="seeking" value="awards">
+                            <label for="awards">Awards Recognition</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Step 16: Optional Script Upload -->
+            <div class="step" id="step16">
+                <h2>Optional: Upload or share your screenplay</h2>
+                <p>For the best results, you can upload a PDF of your script or paste the text directly.</p>
+                <div class="form-group">
+                    <label>Upload Script PDF (Optional)</label>
+                    <div class="file-upload-area" id="uploadArea">
+                        <div class="upload-icon">📄</div>
+                        <div class="upload-text">Click to upload or drag and drop PDF</div>
+                        <div class="upload-subtext">PDF files only</div>
+                    </div>
+                    <input type="file" id="scriptFile" class="file-input" accept=".pdf">
+                    <div id="uploadedFile" class="uploaded-file" style="display: none;">
+                        <div class="file-info" id="fileInfo"></div>
+                        <button type="button" class="remove-file" id="removeFile">×</button>
+                    </div>
+                </div>
+                
+                <div class="form-group" style="margin-top: 30px;">
+                    <label for="scriptText">Or paste your script text here:</label>
+                    <textarea id="scriptText" name="scriptText" placeholder="Paste your screenplay text here for best results..." style="min-height: 150px;"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="additionalDetails">Additional story details:</label>
+                    <textarea id="additionalDetails" name="additionalDetails" placeholder="Any additional details about your story that would help create better submission materials..."></textarea>
+                </div>
+            </div>
+        </div>
+        
+        <div class="wizard-navigation">
+            <button type="button" class="nav-button secondary" id="prevBtn" disabled>← Previous</button>
+            <div class="step-indicator">
+                Step <span id="currentStep">1</span> of 16
+            </div>
+            <button type="button" class="nav-button primary" id="nextBtn">Next →</button>
+        </div>
+    </div>
+
+    <script>
+        let currentStepNumber = 1;
+        const totalSteps = 16;
+        const formData = {};
+
+        // Navigation elements
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const progressBar = document.getElementById('progressBar');
+        const currentStepSpan = document.getElementById('currentStep');
+
+        // File upload elements
+        const uploadArea = document.getElementById('uploadArea');
+        const scriptFile = document.getElementById('scriptFile');
+        const uploadedFile = document.getElementById('uploadedFile');
+        const fileInfo = document.getElementById('fileInfo');
+        const removeFile = document.getElementById('removeFile');
+
+        // Initialize wizard
+        updateStepDisplay();
+        setupEventListeners();
+
+        function updateStepDisplay() {
+            // Hide all steps
+            document.querySelectorAll('.step').forEach(step => {
+                step.classList.remove('active');
+            });
+
+            // Show current step
+            document.getElementById(`step${currentStepNumber}`).classList.add('active');
+
+            // Update progress bar
+            const progress = (currentStepNumber / totalSteps) * 100;
+            progressBar.style.width = `${progress}%`;
+
+            // Update step indicator
+            currentStepSpan.textContent = currentStepNumber;
+
+            // Update navigation buttons
+            prevBtn.disabled = currentStepNumber === 1;
+            if (currentStepNumber === totalSteps) {
+                nextBtn.textContent = 'Generate Materials →';
+                nextBtn.classList.add('primary');
+            } else {
+                nextBtn.textContent = 'Next →';
+            }
+        }
+
+        function setupEventListeners() {
+            // Navigation buttons
+            prevBtn.addEventListener('click', previousStep);
+            nextBtn.addEventListener('click', nextStep);
+
+            // Radio button styling
+            document.querySelectorAll('input[type="radio"]').forEach(radio => {
+                radio.addEventListener('change', function() {
+                    // Remove selected class from all radio items in this group
+                    const groupName = this.name;
+                    document.querySelectorAll(`input[name="${groupName}"]`).forEach(r => {
+                        r.closest('.radio-item').classList.remove('selected');
+                    });
+                    // Add selected class to current item
+                    this.closest('.radio-item').classList.add('selected');
+                });
+            });
+
+            // File upload functionality
+            uploadArea.addEventListener('click', () => scriptFile.click());
+            uploadArea.addEventListener('dragover', handleDragOver);
+            uploadArea.addEventListener('drop', handleDrop);
+            scriptFile.addEventListener('change', handleFileSelect);
+            removeFile.addEventListener('click', handleFileRemove);
+        }
+
+        function previousStep() {
+            if (currentStepNumber > 1) {
+                saveCurrentStepData();
+                currentStepNumber--;
+                updateStepDisplay();
+            }
+        }
+
+        function nextStep() {
+            if (validateCurrentStep()) {
+                saveCurrentStepData();
+                
+                if (currentStepNumber < totalSteps) {
+                    currentStepNumber++;
+                    updateStepDisplay();
+                } else {
+                    submitForm();
+                }
+            }
+        }
+
+        function validateCurrentStep() {
+            const currentStep = document.getElementById(`step${currentStepNumber}`);
+            const requiredFields = currentStep.querySelectorAll('input[required], textarea[required]');
+            
+            for (let field of requiredFields) {
+                if (!field.value.trim()) {
+                    field.focus();
+                    alert('Please fill in all required fields before continuing.');
+                    return false;
+                }
+            }
+            
+            // Special validation for checkboxes and radios
+            if (currentStepNumber === 3) { // Genre step
+                const checkedGenres = currentStep.querySelectorAll('input[name="genres"]:checked');
+                if (checkedGenres.length === 0) {
+                    alert('Please select at least one genre.');
+                    return false;
+                }
+            }
+            
+            return true;
+        }
+
+        function saveCurrentStepData() {
+            const currentStep = document.getElementById(`step${currentStepNumber}`);
+            const inputs = currentStep.querySelectorAll('input, textarea');
+            
+            inputs.forEach(input => {
+                if (input.type === 'checkbox') {
+                    if (!formData[input.name]) formData[input.name] = [];
+                    if (input.checked && !formData[input.name].includes(input.value)) {
+                        formData[input.name].push(input.value);
+                    } else if (!input.checked) {
+                        formData[input.name] = formData[input.name].filter(val => val !== input.value);
+                    }
+                } else if (input.type === 'radio') {
+                    if (input.checked) {
+                        formData[input.name] = input.value;
+                    }
+                } else {
+                    formData[input.name] = input.value;
+                }
+            });
+            
+            console.log('Form data saved:', formData);
+        }
+
+        function submitForm() {
+            saveCurrentStepData();
+            
+            // Here you would normally send the data to your backend
+            console.log('Final form data:', formData);
+            
+            // For now, show a success message
+            alert('Thank you! Your questionnaire has been submitted. We\'ll generate your professional submission materials shortly.');
+            
+            // Redirect back to main page or show results
+            window.location.href = 'index.html';
+        }
+
+        // File upload handlers
+        function handleDragOver(e) {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        }
+
+        function handleDrop(e) {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                handleFile(files[0]);
+            }
+        }
+
+        function handleFileSelect(e) {
+            const file = e.target.files[0];
+            if (file) {
+                handleFile(file);
+            }
+        }
+
+        function handleFile(file) {
+            const maxSize = 10 * 1024 * 1024; // 10MB
+            const allowedTypes = ['.pdf'];
+            const fileExtension = '.' + file.name.split('.').pop().toLowerCase();
+            
+            if (file.size > maxSize) {
+                alert('File size must be less than 10MB');
+                return;
+            }
+            
+            if (!allowedTypes.includes(fileExtension)) {
+                alert('Please upload a PDF file only');
+                return;
+            }
+            
+            // Show uploaded file
+            fileInfo.textContent = `${file.name} (${(file.size / 1024 / 1024).toFixed(2)} MB)`;
+            uploadedFile.style.display = 'flex';
+            uploadArea.style.display = 'none';
+            
+            formData.uploadedFile = file;
+        }
+
+        function handleFileRemove() {
+            uploadedFile.style.display = 'none';
+            uploadArea.style.display = 'block';
+            scriptFile.value = '';
+            delete formData.uploadedFile;
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && e.target.tagName !== 'TEXTAREA') {
+                e.preventDefault();
+                nextStep();
+            }
+        });
+    </script>
+</body>
+</html>
