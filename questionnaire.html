@@ -388,48 +388,56 @@
                     <label>Select Genre(s)</label>
                     <div class="checkbox-group">
                         <div class="checkbox-item">
-                            <input type="checkbox" id="drama" name="genres" value="drama">
-                            <label for="drama">Drama</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="comedy" name="genres" value="comedy">
-                            <label for="comedy">Comedy</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="thriller" name="genres" value="thriller">
-                            <label for="thriller">Thriller</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="horror" name="genres" value="horror">
-                            <label for="horror">Horror</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="romance" name="genres" value="romance">
-                            <label for="romance">Romance</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="action" name="genres" value="action">
-                            <label for="action">Action</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="scifi" name="genres" value="scifi">
-                            <label for="scifi">Sci-Fi</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="fantasy" name="genres" value="fantasy">
-                            <label for="fantasy">Fantasy</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="documentary" name="genres" value="documentary">
-                            <label for="documentary">Documentary</label>
+                            <input type="checkbox" id="action-thriller" name="genres" value="action-thriller">
+                            <label for="action-thriller">Action or Suspense Thriller</label>
                         </div>
                         <div class="checkbox-item">
                             <input type="checkbox" id="animation" name="genres" value="animation">
                             <label for="animation">Animation</label>
                         </div>
                         <div class="checkbox-item">
-                            <input type="checkbox" id="musical" name="genres" value="musical">
-                            <label for="musical">Musical</label>
+                            <input type="checkbox" id="comedy" name="genres" value="comedy">
+                            <label for="comedy">Comedy</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="documentary" name="genres" value="documentary">
+                            <label for="documentary">Documentary</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="drama" name="genres" value="drama">
+                            <label for="drama">Drama</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="experimental" name="genres" value="experimental">
+                            <label for="experimental">Experimental</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="fantasy" name="genres" value="fantasy">
+                            <label for="fantasy">Fantasy</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="horror" name="genres" value="horror">
+                            <label for="horror">Horror</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="mockumentary" name="genres" value="mockumentary">
+                            <label for="mockumentary">Mockumentary</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="music-video" name="genres" value="music-video">
+                            <label for="music-video">Music Video</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="relationship-drama" name="genres" value="relationship-drama">
+                            <label for="relationship-drama">Relationship Drama</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="romantic-comedy" name="genres" value="romantic-comedy">
+                            <label for="romantic-comedy">Romantic Comedy</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="scifi" name="genres" value="scifi">
+                            <label for="scifi">Sci-Fi</label>
                         </div>
                         <div class="checkbox-item">
                             <input type="checkbox" id="other-genre" name="genres" value="other">
@@ -461,7 +469,11 @@
                         </div>
                         <div class="radio-item">
                             <input type="radio" id="series" name="storyType" value="series">
-                            <label for="series">Part of an ongoing series</label>
+                            <label for="series">An episode in an ongoing series. (Teleplay)</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" id="undecided" name="storyType" value="undecided">
+                            <label for="undecided">Undecided</label>
                         </div>
                     </div>
                 </div>
@@ -510,7 +522,7 @@
             <!-- Step 10: Mature Content -->
             <div class="step" id="step10">
                 <h2>Does your story contain mature content inappropriate for children?</h2>
-                <p>This affects festival category selection and content warnings.</p>
+                <p>This affects festival category selection and content warnings. Detailed descriptions of violence, sexual situations and drug use are examples of mature content that is intended for adults.</p>
                 <div class="form-group">
                     <div class="radio-group">
                         <div class="radio-item">
@@ -522,8 +534,8 @@
                             <label for="mature-no">No, appropriate for all audiences</label>
                         </div>
                         <div class="radio-item">
-                            <input type="radio" id="mature-some" name="matureContent" value="some">
-                            <label for="mature-some">Some mature themes (PG-13 level)</label>
+                            <input type="radio" id="mature-unsure" name="matureContent" value="unsure">
+                            <label for="mature-unsure">I'm not sure</label>
                         </div>
                     </div>
                 </div>
@@ -557,14 +569,6 @@
                     <label>Festival Networking Goals</label>
                     <div class="checkbox-group">
                         <div class="checkbox-item">
-                            <input type="checkbox" id="producers" name="networking" value="producers">
-                            <label for="producers">Producers</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="directors" name="networking" value="directors">
-                            <label for="directors">Directors</label>
-                        </div>
-                        <div class="checkbox-item">
                             <input type="checkbox" id="actors" name="networking" value="actors">
                             <label for="actors">Actors</label>
                         </div>
@@ -573,72 +577,101 @@
                             <label for="agents">Agents</label>
                         </div>
                         <div class="checkbox-item">
+                            <input type="checkbox" id="animators" name="networking" value="animators">
+                            <label for="animators">Animators</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="casting-directors" name="networking" value="casting-directors">
+                            <label for="casting-directors">Casting Directors</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="composers" name="networking" value="composers">
+                            <label for="composers">Composers</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="directors" name="networking" value="directors">
+                            <label for="directors">Directors</label>
+                        </div>
+                        <div class="checkbox-item">
                             <input type="checkbox" id="distributors" name="networking" value="distributors">
                             <label for="distributors">Distributors</label>
                         </div>
                         <div class="checkbox-item">
-                            <input type="checkbox" id="other-writers" name="networking" value="writers">
-                            <label for="other-writers">Other Writers</label>
+                            <input type="checkbox" id="editors" name="networking" value="editors">
+                            <label for="editors">Editors</label>
                         </div>
                         <div class="checkbox-item">
-                            <input type="checkbox" id="film-critics" name="networking" value="critics">
-                            <label for="film-critics">Film Critics</label>
+                            <input type="checkbox" id="entertainment-attorneys" name="networking" value="entertainment-attorneys">
+                            <label for="entertainment-attorneys">Entertainment Attorneys</label>
                         </div>
                         <div class="checkbox-item">
-                            <input type="checkbox" id="festival-programmers" name="networking" value="programmers">
-                            <label for="festival-programmers">Festival Programmers</label>
+                            <input type="checkbox" id="film-crew" name="networking" value="film-crew">
+                            <label for="film-crew">Film Crew</label>
                         </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="graphic-designers" name="networking" value="graphic-designers">
+                            <label for="graphic-designers">Graphic Designers</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="investors" name="networking" value="investors">
+                            <label for="investors">Investors</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="journalists" name="networking" value="journalists">
+                            <label for="journalists">Journalists</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="location-scouts" name="networking" value="location-scouts">
+                            <label for="location-scouts">Location Scouts</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="photographers" name="networking" value="photographers">
+                            <label for="photographers">Photographers</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="producers" name="networking" value="producers">
+                            <label for="producers">Producers</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="production-companies" name="networking" value="production-companies">
+                            <label for="production-companies">Production Companies</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="screenwriters" name="networking" value="screenwriters">
+                            <label for="screenwriters">Screenwriters</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="script-coverage" name="networking" value="script-coverage">
+                            <label for="script-coverage">Script Coverage</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="wga-members" name="networking" value="wga-members">
+                            <label for="wga-members">WGA Members (Writers Guild Of America)</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="networking-other" name="networking" value="other">
+                            <label for="networking-other">Other</label>
+                        </div>
+                    </div>
+                    <div class="form-group" id="networkingOtherGroup" style="display: none; margin-top: 15px;">
+                        <label for="networkingOtherText">Please specify:</label>
+                        <input type="text" id="networkingOtherText" name="networkingOtherText" placeholder="Who else would you like to meet?">
                     </div>
                 </div>
             </div>
-            
-            <!-- Step 14: Looking For -->
+            <!-- Step 14: Optional Script Upload -->
             <div class="step" id="step14">
-                <h2>What specific type of help are you looking for?</h2>
-                <p>Select all that apply. This helps prioritize your networking and submission strategy.</p>
-                <div class="form-group">
-                    <label>What You're Seeking</label>
-                    <div class="checkbox-group">
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="financing" name="seeking" value="financing">
-                            <label for="financing">Financing</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="distribution" name="seeking" value="distribution">
-                            <label for="distribution">Distribution</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="representation" name="seeking" value="representation">
-                            <label for="representation">Agent/Manager Representation</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="cast" name="seeking" value="cast">
-                            <label for="cast">Cast (Actors)</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="crew" name="seeking" value="crew">
-                            <label for="crew">Crew (Director, DP, etc.)</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="feedback" name="seeking" value="feedback">
-                            <label for="feedback">Script Feedback</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="industry-exposure" name="seeking" value="exposure">
-                            <label for="industry-exposure">Industry Exposure</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="awards" name="seeking" value="awards">
-                            <label for="awards">Awards Recognition</label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Step 15: Optional Script Upload -->
-            <div class="step" id="step15">
                 <h2>Optional: Upload or share your screenplay</h2>
                 <p>For the best results, you can upload a PDF of your script or paste the text directly.</p>
+                
+                <!-- Privacy Disclaimer -->
+                <div style="background: #e8f4fd; border: 1px solid #bee5eb; border-radius: 10px; padding: 20px; margin-bottom: 25px;">
+                    <h4 style="color: #0c5460; margin-bottom: 10px; font-size: 1rem;">🔒 Privacy & Copyright Protection</h4>
+                    <p style="color: #0c5460; font-size: 0.9rem; line-height: 1.5; margin: 0;">
+                        The information from your script and story are not distributed to others or made public. This information is for your private use and does not affect copyright or give legal use to your script to a third party. Your creative ideas and work will not be used for AI training purposes.
+                    </p>
+                </div>
+                
                 <div class="form-group">
                     <label>Upload Script PDF (Optional)</label>
                     <div class="file-upload-area" id="uploadArea">
@@ -654,7 +687,7 @@
                 </div>
                 
                 <div class="form-group" style="margin-top: 30px;">
-                    <label for="scriptText">Or paste your script text here:</label>
+                    <label for="scriptText">Or paste as much text from your story or screenplay as you'd like:</label>
                     <textarea id="scriptText" name="scriptText" placeholder="Paste your screenplay text here for best results..." style="min-height: 150px;"></textarea>
                 </div>
                 
@@ -668,7 +701,7 @@
         <div class="wizard-navigation">
             <button type="button" class="nav-button secondary" id="prevBtn" disabled>← Previous</button>
             <div class="step-indicator">
-                Step <span id="currentStep">1</span> of 15
+                Step <span id="currentStep">1</span> of 14
             </div>
             <button type="button" class="nav-button primary" id="nextBtn">Next →</button>
         </div>
@@ -676,7 +709,7 @@
 
     <script>
         let currentStepNumber = 1;
-        const totalSteps = 15;
+        const totalSteps = 14;
         const formData = {};
 
         // Navigation elements
@@ -739,6 +772,21 @@
                     this.closest('.radio-item').classList.add('selected');
                 });
             });
+
+            // Handle "Other" option in networking section
+            const networkingOtherCheckbox = document.getElementById('networking-other');
+            const networkingOtherGroup = document.getElementById('networkingOtherGroup');
+            
+            if (networkingOtherCheckbox) {
+                networkingOtherCheckbox.addEventListener('change', function() {
+                    if (this.checked) {
+                        networkingOtherGroup.style.display = 'block';
+                    } else {
+                        networkingOtherGroup.style.display = 'none';
+                        document.getElementById('networkingOtherText').value = '';
+                    }
+                });
+            }
 
             // File upload functionality
             uploadArea.addEventListener('click', () => scriptFile.click());
