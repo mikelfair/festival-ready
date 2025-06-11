@@ -79,6 +79,14 @@
             margin-bottom: 10px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
+
+        .hero-question {
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            opacity: 0.95;
+            font-weight: 400;
+            font-style: italic;
+        }
         
         .tagline {
             font-size: 1.3rem;
@@ -89,7 +97,7 @@
         
         .hero-description {
             font-size: 1.1rem;
-            max-width: 600px;
+            max-width: 700px;
             margin: 0 auto 40px;
             opacity: 0.9;
         }
@@ -124,12 +132,12 @@
             margin-left: 10px;
         }
         
-        /* Features Section */
-        .features {
+        /* How It Works */
+        .how-it-works {
             padding: 80px 0;
-            background: white;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
         }
-        
+
         .section-title {
             text-align: center;
             font-size: 2.5rem;
@@ -146,52 +154,6 @@
             max-width: 600px;
             margin-left: auto;
             margin-right: auto;
-        }
-        
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-            margin-top: 60px;
-        }
-        
-        .feature-card {
-            background: #f8f9fa;
-            padding: 40px 30px;
-            border-radius: 20px;
-            text-align: center;
-            transition: all 0.3s ease;
-            border: 1px solid #e9ecef;
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            border-color: #667eea;
-        }
-        
-        .feature-icon {
-            font-size: 3rem;
-            margin-bottom: 20px;
-            display: block;
-        }
-        
-        .feature-card h3 {
-            font-size: 1.5rem;
-            color: #333;
-            margin-bottom: 15px;
-            font-weight: 600;
-        }
-        
-        .feature-card p {
-            color: #666;
-            line-height: 1.6;
-        }
-        
-        /* How It Works */
-        .how-it-works {
-            padding: 80px 0;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
         }
         
         .steps {
@@ -396,6 +358,10 @@
                 font-size: 2.5rem;
             }
             
+            .hero-question {
+                font-size: 1.2rem;
+            }
+
             .tagline {
                 font-size: 1.1rem;
             }
@@ -406,11 +372,6 @@
             
             .section-title {
                 font-size: 2rem;
-            }
-            
-            .features-grid {
-                grid-template-columns: 1fr;
-                gap: 30px;
             }
             
             .steps {
@@ -439,58 +400,13 @@
         <div class="container">
             <div class="hero-content">
                 <h1 class="logo">🎬 Festival Ready <span class="beta-badge">BETA</span></h1>
-                <p class="tagline">AI-Powered Screenplay Optimization for Film Festival Success</p>
-                <p class="hero-description">Upload your script and get compelling taglines, professional synopses, and targeted festival recommendations in minutes.</p>
-                <a href="#demo" class="cta-button">Start Optimizing Free →</a>
+                <p class="hero-question">Need help creating a film festival submission form for your screenplay that looks polished and professional?</p>
+                <p class="tagline">Screenplay Submission Form Optimization for Festival Success</p>
+                <p class="hero-description">Complete our comprehensive screenplay questionnaire and get professional submission materials tailored specifically to your story.</p>
+                <a href="questionnaire.html" class="cta-button">Start Questionnaire →</a>
             </div>
         </div>
     </header>
-
-    <!-- Features Section -->
-    <section class="features scroll-reveal">
-        <div class="container">
-            <h2 class="section-title">Everything You Need for Festival Success</h2>
-            <p class="section-subtitle">Stop spending hours crafting the perfect pitch. Let AI analyze your screenplay and create professional submission materials that get noticed.</p>
-            
-            <div class="features-grid">
-                <div class="feature-card">
-                    <span class="feature-icon">🎯</span>
-                    <h3>Smart Tagline Generation</h3>
-                    <p>AI analyzes your script's themes, tone, and genre to create multiple compelling taglines that capture your story's essence and hook festival programmers.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <span class="feature-icon">📝</span>
-                    <h3>Professional Synopses</h3>
-                    <p>Generate polished short and long synopses that highlight your story's unique elements, character arcs, and dramatic structure in industry-standard format.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <span class="feature-icon">🏆</span>
-                    <h3>Festival Category Matching</h3>
-                    <p>Get personalized recommendations for the best festival categories based on your script's genre, budget, themes, and target audience.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <span class="feature-icon">⚡</span>
-                    <h3>Instant Results</h3>
-                    <p>Upload your script and receive all optimization materials in under 60 seconds. No more writer's block or endless revisions.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <span class="feature-icon">🎨</span>
-                    <h3>Multiple Variations</h3>
-                    <p>Receive 3-5 different versions of each element so you can choose the style that best represents your vision and story.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <span class="feature-icon">💰</span>
-                    <h3>100% Free Beta</h3>
-                    <p>Complete access to all features during our beta phase. Help us improve while optimizing your submissions at no cost.</p>
-                </div>
-            </div>
-        </div>
-    </section>
 
     <!-- How It Works -->
     <section class="how-it-works scroll-reveal">
@@ -501,20 +417,20 @@
             <div class="steps">
                 <div class="step">
                     <div class="step-number">1</div>
-                    <h3>Upload Your Script</h3>
-                    <p>Upload your screenplay in PDF, Final Draft, or text format. Your script is processed securely and never stored permanently.</p>
+                    <h3>Complete Questionnaire</h3>
+                    <p>Answer our comprehensive 16-question wizard about your screenplay, story, and goals. Takes just 5-10 minutes to complete.</p>
                 </div>
                 
                 <div class="step">
                     <div class="step-number">2</div>
-                    <h3>AI Analysis</h3>
-                    <p>Our AI reads your entire script, analyzing themes, character arcs, genre elements, tone, and narrative structure.</p>
+                    <h3>AI Processing</h3>
+                    <p>Our AI analyzes your responses and optionally your script to understand your story's themes, tone, characters, and target audience.</p>
                 </div>
                 
                 <div class="step">
                     <div class="step-number">3</div>
-                    <h3>Get Your Materials</h3>
-                    <p>Receive multiple taglines, professional synopses, and targeted festival category recommendations ready for submission.</p>
+                    <h3>Get Professional Materials</h3>
+                    <p>Receive customized taglines, compelling synopses, and professional writer's statements tailored specifically to your story and goals.</p>
                 </div>
             </div>
         </div>
