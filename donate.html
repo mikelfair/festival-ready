@@ -260,10 +260,12 @@
                     <p>Fast payments with CashApp</p>
                 </a>
                 
-                <a href="bitcoin:bc1qvwterr9437hftfd6mm5jx56x9tslfmukusgnr2" class="donation-option bitcoin" target="_blank" rel="noopener noreferrer">
+                <div class="donation-option bitcoin">
                     <h3>₿ Bitcoin</h3>
                     <p>Cryptocurrency donations welcome</p>
-                </a>
+                    <div class="bitcoin-address">bc1qvwterr9437hftfd6mm5jx56x9tslfmukusgnr2</div>
+                    <button class="copy-btn" onclick="copyBitcoinAddress()">📋 Copy Address</button>
+                </div>
             </div>
 
             <div class="impact-section">
@@ -324,6 +326,55 @@
                 return;
             }
         });
+
+        // Copy Bitcoin address to clipboard
+        function copyBitcoinAddress() {
+            const address = 'bc1qvwterr9437hftfd6mm5jx56x9tslfmukusgnr2';
+            
+            // Try the modern clipboard API first
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(address).then(() => {
+                    showCopySuccess();
+                }).catch(() => {
+                    fallbackCopy(address);
+                });
+            } else {
+                // Fallback for older browsers
+                fallbackCopy(address);
+            }
+        }
+
+        function fallbackCopy(text) {
+            const textArea = document.createElement('textarea');
+            textArea.value = text;
+            textArea.style.position = 'fixed';
+            textArea.style.left = '-999999px';
+            textArea.style.top = '-999999px';
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            
+            try {
+                document.execCommand('copy');
+                showCopySuccess();
+            } catch (err) {
+                alert('Please manually copy the Bitcoin address: ' + text);
+            }
+            
+            document.body.removeChild(textArea);
+        }
+
+        function showCopySuccess() {
+            const btn = document.querySelector('.copy-btn');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '✅ Copied!';
+            btn.style.background = 'rgba(0, 255, 0, 0.3)';
+            
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.style.background = 'rgba(255,255,255,0.2)';
+            }, 2000);
+        }
     </script>
 </body>
 </html>
