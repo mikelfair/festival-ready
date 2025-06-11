@@ -463,10 +463,6 @@
                             <input type="radio" id="series" name="storyType" value="series">
                             <label for="series">Part of an ongoing series</label>
                         </div>
-                        <div class="radio-item">
-                            <input type="radio" id="pilot" name="storyType" value="pilot">
-                            <label for="pilot">TV/Web series pilot</label>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -476,8 +472,8 @@
                 <h2>Who are the main character(s)?</h2>
                 <p>List the primary characters that drive your story forward.</p>
                 <div class="form-group">
-                    <label for="mainCharacters">Main Characters</label>
-                    <textarea id="mainCharacters" name="mainCharacters" placeholder="Describe your main characters..."></textarea>
+                    <label for="mainCharacters">Describe Your Main Characters</label>
+                    <textarea id="mainCharacters" name="mainCharacters" placeholder="Example: Robert is the father and he interacts with his 9 year old daughter Rebecca the most in this story."></textarea>
                 </div>
             </div>
             
@@ -487,7 +483,7 @@
                 <p>Without revealing the ending, describe the central conflict or problem your main character must overcome.</p>
                 <div class="form-group">
                     <label for="mainChallenge">Main Challenge/Stakes</label>
-                    <textarea id="mainChallenge" name="mainChallenge" placeholder="Describe the main challenge or stakes..."></textarea>
+                    <textarea id="mainChallenge" name="mainChallenge" placeholder="Example: Robert and Rebecca struggle for survival in a snow covered wasteland."></textarea>
                 </div>
             </div>
             
@@ -507,7 +503,7 @@
                 <p>Include writing style, character, or story influences that shaped your screenplay.</p>
                 <div class="form-group">
                     <label for="influences">Writing Influences</label>
-                    <textarea id="influences" name="influences" placeholder="Describe your influences and inspirations..."></textarea>
+                    <textarea id="influences" name="influences" placeholder="Example: Author Stephen King, the Bladerunner movies, etc..."></textarea>
                 </div>
             </div>
             
@@ -553,18 +549,8 @@
                 </div>
             </div>
             
-            <!-- Step 13: Production Help -->
+            <!-- Step 13: Festival Networking -->
             <div class="step" id="step13">
-                <h2>What would help you get this screenplay produced as a film?</h2>
-                <p>This helps us understand your goals and tailor recommendations accordingly.</p>
-                <div class="form-group">
-                    <label for="productionHelp">Production Needs</label>
-                    <textarea id="productionHelp" name="productionHelp" placeholder="What do you need to move this project forward..."></textarea>
-                </div>
-            </div>
-            
-            <!-- Step 14: Festival Networking -->
-            <div class="step" id="step14">
                 <h2>Who are you hoping to meet when networking at film festivals?</h2>
                 <p>Select all that apply. This helps with festival selection and networking strategy.</p>
                 <div class="form-group">
@@ -606,8 +592,8 @@
                 </div>
             </div>
             
-            <!-- Step 15: Looking For -->
-            <div class="step" id="step15">
+            <!-- Step 14: Looking For -->
+            <div class="step" id="step14">
                 <h2>What specific type of help are you looking for?</h2>
                 <p>Select all that apply. This helps prioritize your networking and submission strategy.</p>
                 <div class="form-group">
@@ -649,8 +635,8 @@
                 </div>
             </div>
             
-            <!-- Step 16: Optional Script Upload -->
-            <div class="step" id="step16">
+            <!-- Step 15: Optional Script Upload -->
+            <div class="step" id="step15">
                 <h2>Optional: Upload or share your screenplay</h2>
                 <p>For the best results, you can upload a PDF of your script or paste the text directly.</p>
                 <div class="form-group">
@@ -682,7 +668,7 @@
         <div class="wizard-navigation">
             <button type="button" class="nav-button secondary" id="prevBtn" disabled>← Previous</button>
             <div class="step-indicator">
-                Step <span id="currentStep">1</span> of 16
+                Step <span id="currentStep">1</span> of 15
             </div>
             <button type="button" class="nav-button primary" id="nextBtn">Next →</button>
         </div>
@@ -690,7 +676,7 @@
 
     <script>
         let currentStepNumber = 1;
-        const totalSteps = 16;
+        const totalSteps = 15;
         const formData = {};
 
         // Navigation elements
