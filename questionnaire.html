@@ -66,7 +66,7 @@
             height: 100%;
             border-radius: 4px;
             transition: width 0.5s ease;
-            width: 6.25%;
+            width: 6.67%;
         }
         
         .step-content {
@@ -117,6 +117,7 @@
         }
         
         .form-group input[type="text"],
+        .form-group input[type="email"],
         .form-group input[type="number"],
         .form-group textarea {
             width: 100%;
@@ -400,10 +401,6 @@
                             <label for="comedy">Comedy</label>
                         </div>
                         <div class="checkbox-item">
-                            <input type="checkbox" id="documentary" name="genres" value="documentary">
-                            <label for="documentary">Documentary</label>
-                        </div>
-                        <div class="checkbox-item">
                             <input type="checkbox" id="drama" name="genres" value="drama">
                             <label for="drama">Drama</label>
                         </div>
@@ -659,9 +656,10 @@
                     </div>
                 </div>
             </div>
+            
             <!-- Step 14: Optional Script Upload -->
             <div class="step" id="step14">
-                <h2>Optional: Upload or share your screenplay</h2>
+                <h2>Optional: Upload or share some text from your screenplay</h2>
                 <p>For the best results, you can upload a PDF of your script or paste the text directly.</p>
                 
                 <!-- Privacy Disclaimer -->
@@ -694,6 +692,34 @@
                 <div class="form-group">
                     <label for="additionalDetails">Additional story details:</label>
                     <textarea id="additionalDetails" name="additionalDetails" placeholder="Any additional details about your story that would help create better submission materials..."></textarea>
+                </div>
+            </div>
+            
+            <!-- Step 15: Email Address -->
+            <!-- Step 15: Email Address -->
+            <div class="step" id="step15">
+                <h2>What's your email address?</h2>
+                <p>Please allow 15 minutes for us to send your custom tagline, synopsis, and writer's statement to this email address.</p>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+                </div>
+                <div style="background: #e8f4fd; border: 1px solid #bee5eb; border-radius: 10px; padding: 15px; margin-top: 15px;">
+                    <p style="color: #0c5460; font-size: 0.9rem; margin: 0;">
+                        🔒 <strong>Privacy:</strong> Your email is only used to send you your results. We don't share your information with any third parties or marketing without your consent.
+                    </p>
+                </div>
+                
+                <!-- Email Preferences -->
+                <div class="form-group" style="margin-top: 20px;">
+                    <div class="checkbox-item" style="margin-bottom: 15px;">
+                        <input type="checkbox" id="updateEmails" name="updateEmails" value="yes">
+                        <label for="updateEmails">Please check this box if you'd like us to email you when this app is updated.</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="festivalDiscounts" name="festivalDiscounts" value="yes">
+                        <label for="festivalDiscounts">Optionally, please check this box if you'd like us to email you a list of discounts and promo codes for the twelve film festivals that we operate in Portland, Austin and Georgia. We welcome your direct screenplay submissions. <a href="https://filmfestivalcircuit.com/submissions" target="_blank" style="color: #667eea; text-decoration: underline;">https://filmfestivalcircuit.com/submissions</a></label>
+                    </div>
                 </div>
             </div>
         </div>
@@ -822,11 +848,13 @@
             }
 
             // File upload functionality
-            uploadArea.addEventListener('click', () => scriptFile.click());
-            uploadArea.addEventListener('dragover', handleDragOver);
-            uploadArea.addEventListener('drop', handleDrop);
-            scriptFile.addEventListener('change', handleFileSelect);
-            removeFile.addEventListener('click', handleFileRemove);
+            if (uploadArea) {
+                uploadArea.addEventListener('click', () => scriptFile.click());
+                uploadArea.addEventListener('dragover', handleDragOver);
+                uploadArea.addEventListener('drop', handleDrop);
+                scriptFile.addEventListener('change', handleFileSelect);
+                removeFile.addEventListener('click', handleFileRemove);
+            }
         }
 
         function previousStep() {
@@ -872,7 +900,7 @@
             }
             
             // Email validation
-            if (currentStepNumber === 13) {
+            if (currentStepNumber === 15) {
                 const emailField = document.getElementById('email');
                 if (!emailField.value || !isValidEmail(emailField.value)) {
                     emailField.focus();
@@ -942,6 +970,8 @@
                 networking_other: formData.networkingOtherText || '',
                 script_text: formData.scriptText || '',
                 additional_details: formData.additionalDetails || '',
+                update_emails: formData.updateEmails === 'yes',
+                festival_discounts: formData.festivalDiscounts === 'yes',
                 status: 'pending'
             };
             
@@ -974,7 +1004,7 @@
                         <p><strong>📧 Your Results Will Be Emailed To:</strong><br>${formData.email}</p>
                         <p style="margin-top: 15px;"><strong>🆔 Submission ID:</strong><br>${submissionId}</p>
                     </div>
-                    <p style="color: #666; font-size: 0.95rem;">You should receive your custom tagline, synopsis, and writer's statement within the next few minutes.</p>
+                    <p style="color: #666; font-size: 0.95rem;">You should receive your custom tagline, synopsis, and writer's statement within 15 minutes.</p>
                     <div style="margin-top: 30px;">
                         <a href="index.html" style="background: #667eea; color: white; padding: 12px 25px; border-radius: 25px; text-decoration: none; font-weight: 600;">← Back to Homepage</a>
                     </div>
