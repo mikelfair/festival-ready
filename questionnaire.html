@@ -701,7 +701,7 @@
         <div class="wizard-navigation">
             <button type="button" class="nav-button secondary" id="prevBtn" disabled>← Previous</button>
             <div class="step-indicator">
-                Step <span id="currentStep">1</span> of 14
+                Step <span id="currentStep">1</span> of 15
             </div>
             <button type="button" class="nav-button primary" id="nextBtn">Next →</button>
         </div>
@@ -709,8 +709,41 @@
 
     <script>
         let currentStepNumber = 1;
-        const totalSteps = 14;
+        const totalSteps = 15;
         const formData = {};
+
+        // Supabase configuration
+        const SUPABASE_URL = 'https://vmfhxkfprrbshwniguaq.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZtZmh4a2ZwcnJic2h3bmlndWFxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk2ODYxNTcsImV4cCI6MjA2NTI2MjE1N30.k0OdvFzcO1nwZzxsgLPcQBeSITmV6dA_ncXpN0cpAgQ';
+
+        // Simple Supabase client
+        class SupabaseClient {
+            constructor(url, key) {
+                this.url = url;
+                this.key = key;
+            }
+
+            async insert(table, data) {
+                const response = await fetch(`${this.url}/rest/v1/${table}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'apikey': this.key,
+                        'Authorization': `Bearer ${this.key}`,
+                        'Prefer': 'return=representation'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Supabase error: ${response.status}`);
+                }
+
+                return await response.json();
+            }
+        }
+
+        const supabase = new SupabaseClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
         // Navigation elements
         const prevBtn = document.getElementById('prevBtn');
@@ -838,6 +871,16 @@
                 }
             }
             
+            // Email validation
+            if (currentStepNumber === 13) {
+                const emailField = document.getElementById('email');
+                if (!emailField.value || !isValidEmail(emailField.value)) {
+                    emailField.focus();
+                    alert('Please enter a valid email address.');
+                    return false;
+                }
+            }
+            
             return true;
         }
 
@@ -868,14 +911,75 @@
         function submitForm() {
             saveCurrentStepData();
             
-            // Here you would normally send the data to your backend
-            console.log('Final form data:', formData);
+            // Show loading state
+            nextBtn.textContent = 'Processing...';
+            nextBtn.disabled = true;
             
-            // For now, show a success message
-            alert('Thank you! Your questionnaire has been submitted. We\'ll generate your professional submission materials shortly.');
+            // Validate email
+            if (!formData.email || !isValidEmail(formData.email)) {
+                alert('Please provide a valid email address.');
+                nextBtn.textContent = 'Generate Materials →';
+                nextBtn.disabled = false;
+                return;
+            }
             
-            // Redirect back to main page or show results
-            window.location.href = 'index.html';
+            // Prepare submission data for Supabase
+            const submissionData = {
+                email: formData.email,
+                title: formData.title || '',
+                writers: formData.writers || '',
+                genres: formData.genres || [],
+                page_count: formData.pageCount ? parseInt(formData.pageCount) : null,
+                story_type: formData.storyType || '',
+                main_characters: formData.mainCharacters || '',
+                main_challenge: formData.mainChallenge || '',
+                similar_works: formData.similarWorks || '',
+                influences: formData.influences || '',
+                mature_content: formData.matureContent || '',
+                reader_memory: formData.readerMemory || '',
+                personal_motivation: formData.personalMotivation || '',
+                networking_goals: formData.networking || [],
+                networking_other: formData.networkingOtherText || '',
+                script_text: formData.scriptText || '',
+                additional_details: formData.additionalDetails || '',
+                status: 'pending'
+            };
+            
+            // Submit to Supabase
+            supabase.insert('submissions', submissionData)
+                .then(result => {
+                    console.log('Submission successful:', result);
+                    showSuccessMessage(result[0].id);
+                })
+                .catch(error => {
+                    console.error('Submission error:', error);
+                    alert('Something went wrong submitting your questionnaire. Please try again.');
+                    nextBtn.textContent = 'Generate Materials →';
+                    nextBtn.disabled = false;
+                });
+        }
+
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        function showSuccessMessage(submissionId) {
+            // Replace questionnaire with success message
+            document.querySelector('.wizard-container').innerHTML = `
+                <div style="text-align: center; padding: 60px 40px;">
+                    <h2 style="color: #667eea; margin-bottom: 20px;">🎉 Questionnaire Submitted Successfully!</h2>
+                    <p style="font-size: 1.1rem; margin-bottom: 20px;">Thank you! We're now processing your screenplay details.</p>
+                    <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin: 20px 0;">
+                        <p><strong>📧 Your Results Will Be Emailed To:</strong><br>${formData.email}</p>
+                        <p style="margin-top: 15px;"><strong>🆔 Submission ID:</strong><br>${submissionId}</p>
+                    </div>
+                    <p style="color: #666; font-size: 0.95rem;">You should receive your custom tagline, synopsis, and writer's statement within the next few minutes.</p>
+                    <div style="margin-top: 30px;">
+                        <a href="index.html" style="background: #667eea; color: white; padding: 12px 25px; border-radius: 25px; text-decoration: none; font-weight: 600;">← Back to Homepage</a>
+                    </div>
+                </div>
+            `;
         }
 
         // File upload handlers
