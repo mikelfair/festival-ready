@@ -40,6 +40,33 @@
             color: white;
             padding: 30px;
             text-align: center;
+            position: relative;
+        }
+        
+        .home-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .home-button:hover {
+            background: rgba(255,255,255,0.3);
+            border-color: rgba(255,255,255,0.5);
+            transform: scale(1.1);
+            color: white;
+            text-decoration: none;
         }
         
         .wizard-header h1 {
@@ -335,6 +362,14 @@
                 font-size: 1.5rem;
             }
             
+            .home-button {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+                top: 15px;
+                left: 15px;
+            }
+            
             .step-content {
                 padding: 25px;
                 min-height: 350px;
@@ -353,6 +388,7 @@
 <body>
     <div class="wizard-container">
         <div class="wizard-header">
+            <a href="index.html" class="home-button" title="Return to Homepage">🏠</a>
             <h1>🎬 Screenplay Questionnaire</h1>
             <p>Help us create the perfect submission materials for your screenplay</p>
             <div class="progress-container">
@@ -951,8 +987,17 @@
                 return;
             }
             
+            // Generate custom ID: MM-DD-YYYY-NNNN
+            const now = new Date();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            const year = now.getFullYear();
+            const randomNum = String(Math.floor(Math.random() * 9999) + 1).padStart(4, '0');
+            const customId = `${month}-${day}-${year}-${randomNum}`;
+            
             // Prepare submission data for Supabase
             const submissionData = {
+                custom_id: customId,
                 email: formData.email,
                 title: formData.title || '',
                 writers: formData.writers || '',
@@ -979,7 +1024,7 @@
             supabase.insert('submissions', submissionData)
                 .then(result => {
                     console.log('Submission successful:', result);
-                    showSuccessMessage(result[0].id);
+                    showSuccessMessage(customId);
                 })
                 .catch(error => {
                     console.error('Submission error:', error);
