@@ -93,7 +93,7 @@
             height: 100%;
             border-radius: 4px;
             transition: width 0.5s ease;
-            width: 6.67%;
+            width: 6.25%;
         }
         
         .step-content {
@@ -146,7 +146,8 @@
         .form-group input[type="text"],
         .form-group input[type="email"],
         .form-group input[type="number"],
-        .form-group textarea {
+        .form-group textarea,
+        .form-group select {
             width: 100%;
             padding: 15px;
             border: 2px solid #e9ecef;
@@ -157,7 +158,8 @@
         }
         
         .form-group input:focus,
-        .form-group textarea:focus {
+        .form-group textarea:focus,
+        .form-group select:focus {
             outline: none;
             border-color: #667eea;
             box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
@@ -732,7 +734,6 @@
             </div>
             
             <!-- Step 15: Email Address -->
-            <!-- Step 15: Email Address -->
             <div class="step" id="step15">
                 <h2>What's your email address?</h2>
                 <p>Please allow 15 minutes for us to send your custom tagline, synopsis, and writer's statement to this email address.</p>
@@ -758,12 +759,78 @@
                     </div>
                 </div>
             </div>
+            
+            <!-- Step 16: Country -->
+            <div class="step" id="step16">
+                <h2>What country are you from?</h2>
+                <p>This helps us better understand our user base and tailor festival recommendations.</p>
+                <div class="form-group">
+                    <label for="country">Select Your Country</label>
+                    <select id="country" name="country" required>
+                        <option value="">-- Select Country --</option>
+                        <option value="US">United States</option>
+                        <option value="CA">Canada</option>
+                        <option value="AU">Australia</option>
+                        <option value="" disabled>──────────────────</option>
+                        <option value="AR">Argentina</option>
+                        <option value="AT">Austria</option>
+                        <option value="BD">Bangladesh</option>
+                        <option value="BE">Belgium</option>
+                        <option value="BR">Brazil</option>
+                        <option value="CL">Chile</option>
+                        <option value="CN">China</option>
+                        <option value="CO">Colombia</option>
+                        <option value="CZ">Czech Republic</option>
+                        <option value="DK">Denmark</option>
+                        <option value="EG">Egypt</option>
+                        <option value="FI">Finland</option>
+                        <option value="FR">France</option>
+                        <option value="DE">Germany</option>
+                        <option value="GR">Greece</option>
+                        <option value="HU">Hungary</option>
+                        <option value="IN">India</option>
+                        <option value="ID">Indonesia</option>
+                        <option value="IE">Ireland</option>
+                        <option value="IL">Israel</option>
+                        <option value="IT">Italy</option>
+                        <option value="JP">Japan</option>
+                        <option value="KE">Kenya</option>
+                        <option value="MY">Malaysia</option>
+                        <option value="MX">Mexico</option>
+                        <option value="MA">Morocco</option>
+                        <option value="NL">Netherlands</option>
+                        <option value="NZ">New Zealand</option>
+                        <option value="NG">Nigeria</option>
+                        <option value="NO">Norway</option>
+                        <option value="PK">Pakistan</option>
+                        <option value="PE">Peru</option>
+                        <option value="PH">Philippines</option>
+                        <option value="PL">Poland</option>
+                        <option value="PT">Portugal</option>
+                        <option value="RO">Romania</option>
+                        <option value="RU">Russia</option>
+                        <option value="SG">Singapore</option>
+                        <option value="ZA">South Africa</option>
+                        <option value="KR">South Korea</option>
+                        <option value="ES">Spain</option>
+                        <option value="SE">Sweden</option>
+                        <option value="CH">Switzerland</option>
+                        <option value="TH">Thailand</option>
+                        <option value="TR">Turkey</option>
+                        <option value="UA">Ukraine</option>
+                        <option value="GB">United Kingdom</option>
+                        <option value="VE">Venezuela</option>
+                        <option value="VN">Vietnam</option>
+                        <option value="OTHER">Other</option>
+                    </select>
+                </div>
+            </div>
         </div>
         
         <div class="wizard-navigation">
             <button type="button" class="nav-button secondary" id="prevBtn" disabled>← Previous</button>
             <div class="step-indicator">
-                Step <span id="currentStep">1</span> of 15
+                Step <span id="currentStep">1</span> of 16
             </div>
             <button type="button" class="nav-button primary" id="nextBtn">Next →</button>
         </div>
@@ -771,7 +838,7 @@
 
     <script>
         let currentStepNumber = 1;
-        const totalSteps = 15;
+        const totalSteps = 16; // Updated from 15 to 16
         const formData = {};
 
         // Supabase configuration
@@ -916,7 +983,7 @@
 
         function validateCurrentStep() {
             const currentStep = document.getElementById(`step${currentStepNumber}`);
-            const requiredFields = currentStep.querySelectorAll('input[required], textarea[required]');
+            const requiredFields = currentStep.querySelectorAll('input[required], textarea[required], select[required]');
             
             for (let field of requiredFields) {
                 if (!field.value.trim()) {
@@ -945,12 +1012,22 @@
                 }
             }
             
+            // Country validation
+            if (currentStepNumber === 16) {
+                const countryField = document.getElementById('country');
+                if (!countryField.value) {
+                    countryField.focus();
+                    alert('Please select your country.');
+                    return false;
+                }
+            }
+            
             return true;
         }
 
         function saveCurrentStepData() {
             const currentStep = document.getElementById(`step${currentStepNumber}`);
-            const inputs = currentStep.querySelectorAll('input, textarea');
+            const inputs = currentStep.querySelectorAll('input, textarea, select');
             
             inputs.forEach(input => {
                 if (input.type === 'checkbox') {
@@ -1017,6 +1094,7 @@
                 additional_details: formData.additionalDetails || '',
                 update_emails: formData.updateEmails === 'yes',
                 festival_discounts: formData.festivalDiscounts === 'yes',
+                country: formData.country || '', // Add country field
                 status: 'pending'
             };
             
