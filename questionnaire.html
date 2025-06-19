@@ -836,67 +836,24 @@
         </div>
     </div>
 
+    <!-- Import Supabase JS Library -->
+    <script type="module">
+        import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.45.4';
+        
+        // Initialize Supabase client with real library
+        const SUPABASE_URL = 'https://vmfhxkfprrbshwniguaq.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZtZmh4a2ZwcnJic2h3bmlndWFxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk2ODYxNTcsImV4cCI6MjA2NTI2MjE1N30.k0OdvFzcO1nwZzxsgLPcQBeSITmV6dA_ncXpN0cpAgQ';
+        
+        const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        
+        // Make supabase available globally
+        window.supabase = supabase;
+    </script>
+
     <script>
         let currentStepNumber = 1;
         const totalSteps = 16;
         const formData = {};
-
-        // Supabase configuration
-        const SUPABASE_URL = 'https://vmfhxkfprrbshwniguaq.supabase.co';
-        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZtZmh4a2ZwcnJic2h3bmlndWFxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk2ODYxNTcsImV4cCI6MjA2NTI2MjE1N30.k0OdvFzcO1nwZzxsgLPcQBeSITmV6dA_ncXpN0cpAgQ';
-
-        // Simple Supabase client
-        class SupabaseClient {
-            constructor(url, key) {
-                this.url = url;
-                this.key = key;
-            }
-
-            async insert(table, data) {
-                const response = await fetch(`${this.url}/rest/v1/${table}`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'apikey': this.key,
-                        'Authorization': `Bearer ${this.key}`,
-                        'Prefer': 'return=representation'
-                    },
-                    body: JSON.stringify(data)
-                });
-
-                if (!response.ok) {
-                    throw new Error(`Supabase error: ${response.status}`);
-                }
-
-                return await response.json();
-            }
-
-            // Add functions.invoke method for edge functions
-            get functions() {
-                return {
-                    invoke: async (functionName, options = {}) => {
-                        const response = await fetch(`${this.url}/functions/v1/${functionName}`, {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'apikey': this.key,
-                                'Authorization': `Bearer ${this.key}`
-                            },
-                            body: JSON.stringify(options.body || {})
-                        });
-
-                        if (!response.ok) {
-                            return { data: null, error: { message: `Function error: ${response.status}` } };
-                        }
-
-                        const data = await response.json();
-                        return { data, error: null };
-                    }
-                };
-            }
-        }
-
-        const supabase = new SupabaseClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
         // Navigation elements
         const prevBtn = document.getElementById('prevBtn');
@@ -1073,7 +1030,7 @@
             console.log('Form data saved:', formData);
         }
 
-        function submitForm() {
+        async function submitForm() {
             saveCurrentStepData();
             
             // Show loading state
@@ -1086,6 +1043,11 @@
                 nextBtn.textContent = 'Generate Materials →';
                 nextBtn.disabled = false;
                 return;
+            }
+            
+            // Wait for Supabase to be available
+            while (!window.supabase) {
+                await new Promise(resolve => setTimeout(resolve, 100));
             }
             
             // Generate custom ID: MM-DD-YYYY-NNNN
@@ -1122,38 +1084,46 @@
                 status: 'pending'
             };
             
-            // Submit to Supabase
-            supabase.insert('submissions', submissionData)
-                .then(async result => {
-                    console.log('Submission successful:', result);
+            try {
+                // Submit to Supabase using real library
+                const { data: result, error: insertError } = await window.supabase
+                    .from('submissions')
+                    .insert([submissionData])
+                    .select();
+                
+                if (insertError) {
+                    throw insertError;
+                }
+                
+                console.log('Submission successful:', result);
+                
+                // Trigger AI processing using Supabase JS
+                try {
+                    const submissionId = result[0].id;
+                    console.log('Triggering AI processing for submission:', submissionId);
                     
-                    // Trigger AI processing using Supabase JS
-                    try {
-                        const submissionId = result[0].id;
-                        console.log('Triggering AI processing for submission:', submissionId);
-                        
-                        const { data: processResponse, error: processError } = await supabase.functions.invoke('process-screenplay', {
-                            body: { submission_id: submissionId }
-                        });
-                        
-                        if (processError) {
-                            console.error('Processing failed:', processError);
-                        } else {
-                            console.log('AI processing triggered successfully:', processResponse);
-                        }
-                    } catch (processError) {
-                        console.error('Error triggering AI processing:', processError);
-                        // Don't block the success message if processing fails
+                    const { data: processResponse, error: processError } = await window.supabase.functions.invoke('process-screenplay', {
+                        body: { submission_id: submissionId }
+                    });
+                    
+                    if (processError) {
+                        console.error('Processing failed:', processError);
+                    } else {
+                        console.log('AI processing triggered successfully:', processResponse);
                     }
-                    
-                    showSuccessMessage(customId);
-                })
-                .catch(error => {
-                    console.error('Submission error:', error);
-                    alert('Something went wrong submitting your questionnaire. Please try again.');
-                    nextBtn.textContent = 'Generate Materials →';
-                    nextBtn.disabled = false;
-                });
+                } catch (processError) {
+                    console.error('Error triggering AI processing:', processError);
+                    // Don't block the success message if processing fails
+                }
+                
+                showSuccessMessage(customId);
+                
+            } catch (error) {
+                console.error('Submission error:', error);
+                alert('Something went wrong submitting your questionnaire. Please try again.');
+                nextBtn.textContent = 'Generate Materials →';
+                nextBtn.disabled = false;
+            }
         }
 
         function isValidEmail(email) {
