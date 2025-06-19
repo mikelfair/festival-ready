@@ -1100,8 +1100,35 @@
             
             // Submit to Supabase
             supabase.insert('submissions', submissionData)
-                .then(result => {
+                .then(async result => {
                     console.log('Submission successful:', result);
+                    
+                    // Trigger AI processing
+                    try {
+                        const submissionId = result[0].id;
+                        console.log('Triggering AI processing for submission:', submissionId);
+                        
+                        const processResponse = await fetch(`${SUPABASE_URL}/functions/v1/process-screenplay`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+                            },
+                            body: JSON.stringify({
+                                submission_id: submissionId
+                            })
+                        });
+                        
+                        if (!processResponse.ok) {
+                            console.error('Processing failed:', await processResponse.text());
+                        } else {
+                            console.log('AI processing triggered successfully');
+                        }
+                    } catch (processError) {
+                        console.error('Error triggering AI processing:', processError);
+                        // Don't block the success message if processing fails
+                    }
+                    
                     showSuccessMessage(customId);
                 })
                 .catch(error => {
