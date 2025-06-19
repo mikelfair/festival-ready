@@ -1058,7 +1058,7 @@
             const randomNum = String(Math.floor(Math.random() * 9999) + 1).padStart(4, '0');
             const customId = `${month}-${day}-${year}-${randomNum}`;
             
-            // Prepare submission data for Supabase
+            // Prepare submission data for Supabase - FIXED FIELD NAMES
             const submissionData = {
                 custom_id: customId,
                 email: formData.email,
@@ -1067,7 +1067,7 @@
                 genres: formData.genres || [],
                 page_count: formData.pageCount ? parseInt(formData.pageCount) : null,
                 story_type: formData.storyType || '',
-                main_characters: formData.mainCharacters || '',
+                main_character: formData.mainCharacters || '',  // FIXED: Changed from main_characters to main_character
                 main_challenge: formData.mainChallenge || '',
                 similar_works: formData.similarWorks || '',
                 influences: formData.influences || '',
@@ -1078,8 +1078,8 @@
                 networking_other: formData.networkingOtherText || '',
                 script_text: formData.scriptText || '',
                 additional_details: formData.additionalDetails || '',
-                update_emails: formData.updateEmails === 'yes',
-                festival_discounts: formData.festivalDiscounts === 'yes',
+                update_emails: formData.updateEmails && formData.updateEmails.includes('yes'),
+                festival_discounts: formData.festivalDiscounts && formData.festivalDiscounts.includes('yes'),
                 country: formData.country || '',
                 status: 'pending'
             };
@@ -1108,6 +1108,25 @@
                     
                     if (processError) {
                         console.error('Processing failed:', processError);
+                        // Try direct fetch as fallback
+                        console.log('Trying direct fetch with auth headers...');
+                        
+                        const directResponse = await fetch('https://vmfhxkfprrbshwniguaq.supabase.co/functions/v1/process-screenplay', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZtZmh4a2ZwcnJic2h3bmlndWFxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk2ODYxNTcsImV4cCI6MjA2NTI2MjE1N30.k0OdvFzcO1nwZzxsgLPcQBeSITmV6dA_ncXpN0cpAgQ',
+                                'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZtZmh4a2ZwcnJic2h3bmlndWFxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk2ODYxNTcsImV4cCI6MjA2NTI2MjE1N30.k0OdvFzcO1nwZzxsgLPcQBeSITmV6dA_ncXpN0cpAgQ'
+                            },
+                            body: JSON.stringify({ submission_id: submissionId })
+                        });
+                        
+                        if (directResponse.ok) {
+                            const directData = await directResponse.json();
+                            console.log('Direct fetch successful:', directData);
+                        } else {
+                            console.error('Direct fetch failed:', directResponse.status, directResponse.statusText);
+                        }
                     } else {
                         console.log('AI processing triggered successfully:', processResponse);
                     }
