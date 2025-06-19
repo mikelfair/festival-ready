@@ -838,7 +838,7 @@
 
     <script>
         let currentStepNumber = 1;
-        const totalSteps = 16; // Updated from 15 to 16
+        const totalSteps = 16;
         const formData = {};
 
         // Supabase configuration
@@ -869,6 +869,30 @@
                 }
 
                 return await response.json();
+            }
+
+            // Add functions.invoke method for edge functions
+            get functions() {
+                return {
+                    invoke: async (functionName, options = {}) => {
+                        const response = await fetch(`${this.url}/functions/v1/${functionName}`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'apikey': this.key,
+                                'Authorization': `Bearer ${this.key}`
+                            },
+                            body: JSON.stringify(options.body || {})
+                        });
+
+                        if (!response.ok) {
+                            return { data: null, error: { message: `Function error: ${response.status}` } };
+                        }
+
+                        const data = await response.json();
+                        return { data, error: null };
+                    }
+                };
             }
         }
 
@@ -1094,7 +1118,7 @@
                 additional_details: formData.additionalDetails || '',
                 update_emails: formData.updateEmails === 'yes',
                 festival_discounts: formData.festivalDiscounts === 'yes',
-                country: formData.country || '', // Add country field
+                country: formData.country || '',
                 status: 'pending'
             };
             
@@ -1103,26 +1127,19 @@
                 .then(async result => {
                     console.log('Submission successful:', result);
                     
-                    // Trigger AI processing
+                    // Trigger AI processing using Supabase JS
                     try {
                         const submissionId = result[0].id;
                         console.log('Triggering AI processing for submission:', submissionId);
                         
-                        const processResponse = await fetch(`${SUPABASE_URL}/functions/v1/process-screenplay`, {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
-                            },
-                            body: JSON.stringify({
-                                submission_id: submissionId
-                            })
+                        const { data: processResponse, error: processError } = await supabase.functions.invoke('process-screenplay', {
+                            body: { submission_id: submissionId }
                         });
                         
-                        if (!processResponse.ok) {
-                            console.error('Processing failed:', await processResponse.text());
+                        if (processError) {
+                            console.error('Processing failed:', processError);
                         } else {
-                            console.log('AI processing triggered successfully');
+                            console.log('AI processing triggered successfully:', processResponse);
                         }
                     } catch (processError) {
                         console.error('Error triggering AI processing:', processError);
