@@ -1058,7 +1058,7 @@
             const randomNum = String(Math.floor(Math.random() * 9999) + 1).padStart(4, '0');
             const customId = `${month}-${day}-${year}-${randomNum}`;
             
-            // Prepare submission data for Supabase - FIXED FIELD NAMES
+            // Prepare submission data for Supabase
             const submissionData = {
                 custom_id: customId,
                 email: formData.email,
@@ -1067,7 +1067,7 @@
                 genres: formData.genres || [],
                 page_count: formData.pageCount ? parseInt(formData.pageCount) : null,
                 story_type: formData.storyType || '',
-                main_characters: formData.mainCharacters || '',  // Keep plural to match database
+                main_characters: formData.mainCharacters || '',  // Plural to match database
                 main_challenge: formData.mainChallenge || '',
                 similar_works: formData.similarWorks || '',
                 influences: formData.influences || '',
@@ -1097,43 +1097,8 @@
                 
                 console.log('Submission successful:', result);
                 
-                // Trigger AI processing using Supabase JS
-                try {
-                    const submissionId = result[0].id;
-                    console.log('Triggering AI processing for submission:', submissionId);
-                    
-                    const { data: processResponse, error: processError } = await window.supabase.functions.invoke('process-screenplay', {
-                        body: { submission_id: submissionId }
-                    });
-                    
-                    if (processError) {
-                        console.error('Processing failed:', processError);
-                        // Try direct fetch as fallback
-                        console.log('Trying direct fetch with auth headers...');
-                        
-                        const directResponse = await fetch('https://vmfhxkfprrbshwniguaq.supabase.co/functions/v1/process-screenplay', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZtZmh4a2ZwcnJic2h3bmlndWFxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk2ODYxNTcsImV4cCI6MjA2NTI2MjE1N30.k0OdvFzcO1nwZzxsgLPcQBeSITmV6dA_ncXpN0cpAgQ',
-                                'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZtZmh4a2ZwcnJic2h3bmlndWFxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk2ODYxNTcsImV4cCI6MjA2NTI2MjE1N30.k0OdvFzcO1nwZzxsgLPcQBeSITmV6dA_ncXpN0cpAgQ'
-                            },
-                            body: JSON.stringify({ submission_id: submissionId })
-                        });
-                        
-                        if (directResponse.ok) {
-                            const directData = await directResponse.json();
-                            console.log('Direct fetch successful:', directData);
-                        } else {
-                            console.error('Direct fetch failed:', directResponse.status, directResponse.statusText);
-                        }
-                    } else {
-                        console.log('AI processing triggered successfully:', processResponse);
-                    }
-                } catch (processError) {
-                    console.error('Error triggering AI processing:', processError);
-                    // Don't block the success message if processing fails
-                }
+                // The webhook will handle AI processing automatically
+                // No need to call the edge function from here anymore
                 
                 showSuccessMessage(customId);
                 
