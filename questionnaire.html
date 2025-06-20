@@ -351,6 +351,12 @@
             font-size: 1.2rem;
         }
         
+        small {
+            display: block;
+            margin-top: 5px;
+            font-size: 0.875rem;
+        }
+        
         @media (max-width: 768px) {
             .wizard-container {
                 margin: 10px;
@@ -399,23 +405,23 @@
         </div>
         
         <div class="step-content">
-            <!-- Step 1: Title -->
+            <!-- Step 1: Title (REQUIRED) -->
             <div class="step active" id="step1">
-                <h2>What's the title of your screenplay?</h2>
+                <h2>What's the title of your screenplay? *</h2>
                 <p>This will be the main title used in all your submission materials.</p>
                 <div class="form-group">
-                    <label for="title">Screenplay Title</label>
-                    <input type="text" id="title" name="title" placeholder="Enter your screenplay title">
+                    <label for="title">Screenplay Title <span style="color: #e74c3c;">*</span></label>
+                    <input type="text" id="title" name="title" placeholder="Enter your screenplay title" required>
                 </div>
             </div>
             
-            <!-- Step 2: Writers -->
+            <!-- Step 2: Writers (REQUIRED) -->
             <div class="step" id="step2">
-                <h2>Who are the primary writers and story contributors?</h2>
+                <h2>Who are the primary writers and story contributors? *</h2>
                 <p>Include all writers, co-writers, and anyone who contributed significantly to the story.</p>
                 <div class="form-group">
-                    <label for="writers">Writers & Contributors</label>
-                    <textarea id="writers" name="writers" placeholder="List all writers and contributors..."></textarea>
+                    <label for="writers">Writers & Contributors <span style="color: #e74c3c;">*</span></label>
+                    <textarea id="writers" name="writers" placeholder="List all writers and contributors..." required></textarea>
                 </div>
             </div>
             
@@ -482,32 +488,32 @@
                 </div>
             </div>
             
-            <!-- Step 4: Page Count -->
+            <!-- Step 4: Page Count (REQUIRED) -->
             <div class="step" id="step4">
-                <h2>How many pages is this version of the screenplay?</h2>
+                <h2>How many pages is this version of the screenplay? *</h2>
                 <p>This helps determine the appropriate festival categories and submission guidelines.</p>
                 <div class="form-group">
-                    <label for="pageCount">Number of Pages</label>
-                    <input type="number" id="pageCount" name="pageCount" placeholder="e.g., 90" min="1" max="300">
+                    <label for="pageCount">Number of Pages <span style="color: #e74c3c;">*</span></label>
+                    <input type="number" id="pageCount" name="pageCount" placeholder="e.g., 90" min="1" max="300" required>
                 </div>
             </div>
             
-            <!-- Step 5: Standalone vs Series -->
+            <!-- Step 5: Standalone vs Series (REQUIRED) -->
             <div class="step" id="step5">
-                <h2>Is this screenplay a standalone film or part of an ongoing series?</h2>
+                <h2>Is this screenplay a standalone film or part of an ongoing series? *</h2>
                 <p>This affects how we position your story in submission materials.</p>
                 <div class="form-group">
                     <div class="radio-group">
                         <div class="radio-item">
-                            <input type="radio" id="standalone" name="storyType" value="standalone">
+                            <input type="radio" id="standalone" name="storyType" value="standalone" required>
                             <label for="standalone">Standalone film</label>
                         </div>
                         <div class="radio-item">
-                            <input type="radio" id="series" name="storyType" value="series">
+                            <input type="radio" id="series" name="storyType" value="series" required>
                             <label for="series">An episode in an ongoing series. (Teleplay)</label>
                         </div>
                         <div class="radio-item">
-                            <input type="radio" id="undecided" name="storyType" value="undecided">
+                            <input type="radio" id="undecided" name="storyType" value="undecided" required>
                             <label for="undecided">Undecided</label>
                         </div>
                     </div>
@@ -524,13 +530,15 @@
                 </div>
             </div>
             
-            <!-- Step 7: Main Challenge -->
+            <!-- Step 7: Main Challenge (UPDATED TEXT) -->
             <div class="step" id="step7">
                 <h2>What is the main challenge or stakes that your protagonist faces?</h2>
-                <p>Without revealing the ending, describe the central conflict or problem your main character must overcome.</p>
+                <p>Describe the central conflict without revealing the ending. If you already have a synopsis or tagline, you can include them here as well.</p>
                 <div class="form-group">
-                    <label for="mainChallenge">Main Challenge/Stakes</label>
-                    <textarea id="mainChallenge" name="mainChallenge" placeholder="Example: Robert and Rebecca struggle for survival in a snow covered wasteland."></textarea>
+                    <label for="mainChallenge">Main Challenge/Stakes (and optional existing synopsis/tagline)</label>
+                    <textarea id="mainChallenge" name="mainChallenge" placeholder="Example: Robert and Rebecca struggle for survival in a snow covered wasteland.
+
+You can also paste your existing synopsis or tagline here if you have one."></textarea>
                 </div>
             </div>
             
@@ -554,22 +562,22 @@
                 </div>
             </div>
             
-            <!-- Step 10: Mature Content -->
+            <!-- Step 10: Mature Content (REQUIRED) -->
             <div class="step" id="step10">
-                <h2>Does your story contain mature content inappropriate for children?</h2>
+                <h2>Does your story contain mature content inappropriate for children? *</h2>
                 <p>This affects festival category selection and content warnings. Detailed descriptions of violence, sexual situations and drug use are examples of mature content that is intended for adults.</p>
                 <div class="form-group">
                     <div class="radio-group">
                         <div class="radio-item">
-                            <input type="radio" id="mature-yes" name="matureContent" value="yes">
+                            <input type="radio" id="mature-yes" name="matureContent" value="yes" required>
                             <label for="mature-yes">Yes, contains mature content</label>
                         </div>
                         <div class="radio-item">
-                            <input type="radio" id="mature-no" name="matureContent" value="no">
+                            <input type="radio" id="mature-no" name="matureContent" value="no" required>
                             <label for="mature-no">No, appropriate for all audiences</label>
                         </div>
                         <div class="radio-item">
-                            <input type="radio" id="mature-unsure" name="matureContent" value="unsure">
+                            <input type="radio" id="mature-unsure" name="matureContent" value="unsure" required>
                             <label for="mature-unsure">I'm not sure</label>
                         </div>
                     </div>
@@ -586,17 +594,17 @@
                 </div>
             </div>
             
-            <!-- Step 12: Personal Motivation -->
+            <!-- Step 12: Personal Motivation (REQUIRED, UPDATED TEXT) -->
             <div class="step" id="step12">
-                <h2>Why did you decide to write this particular story?</h2>
-                <p>Your personal connection to the story can be powerful in submission materials.</p>
+                <h2>Why did you decide to write this particular story? *</h2>
+                <p>This helps us create your writer's statement - a key part of festival submissions that helps judges connect with your story on a personal level.</p>
                 <div class="form-group">
-                    <label for="personalMotivation">Personal Motivation</label>
-                    <textarea id="personalMotivation" name="personalMotivation" placeholder="What drove you to write this story..."></textarea>
+                    <label for="personalMotivation">Personal Motivation <span style="color: #e74c3c;">*</span></label>
+                    <textarea id="personalMotivation" name="personalMotivation" placeholder="What drove you to write this story..." required></textarea>
                 </div>
             </div>
             
-            <!-- Step 13: Festival Networking -->
+            <!-- Step 13: Festival Networking (ADDED GRANT WRITERS) -->
             <div class="step" id="step13">
                 <h2>Who are you hoping to meet when networking at film festivals?</h2>
                 <p>Select all that apply. This helps with festival selection and networking strategy.</p>
@@ -642,6 +650,10 @@
                         <div class="checkbox-item">
                             <input type="checkbox" id="film-crew" name="networking" value="film-crew">
                             <label for="film-crew">Film Crew</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="grant-writers" name="networking" value="grant-writers">
+                            <label for="grant-writers">Grant Writers</label>
                         </div>
                         <div class="checkbox-item">
                             <input type="checkbox" id="graphic-designers" name="networking" value="graphic-designers">
@@ -733,13 +745,18 @@
                 </div>
             </div>
             
-            <!-- Step 15: Email Address -->
+            <!-- Step 15: Email Address (UPDATED WITH CONFIRMATION) -->
             <div class="step" id="step15">
                 <h2>What's your email address?</h2>
                 <p>Please allow 15 minutes for us to send your custom tagline, synopsis, and writer's statement to this email address.</p>
                 <div class="form-group">
                     <label for="email">Email Address</label>
                     <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+                </div>
+                <div class="form-group">
+                    <label for="emailConfirm">Confirm Email Address</label>
+                    <input type="email" id="emailConfirm" name="emailConfirm" placeholder="Re-enter your email address" required>
+                    <small style="color: #e74c3c; display: none;" id="emailMismatch">Email addresses don't match</small>
                 </div>
                 <div style="background: #e8f4fd; border: 1px solid #bee5eb; border-radius: 10px; padding: 15px; margin-top: 15px;">
                     <p style="color: #0c5460; font-size: 0.9rem; margin: 0;">
@@ -964,13 +981,29 @@
 
         function validateCurrentStep() {
             const currentStep = document.getElementById(`step${currentStepNumber}`);
-            const requiredFields = currentStep.querySelectorAll('input[required], textarea[required], select[required]');
             
-            for (let field of requiredFields) {
-                if (!field.value.trim()) {
-                    field.focus();
-                    alert('Please fill in all required fields before continuing.');
-                    return false;
+            // Required fields validation for specific steps
+            const requiredSteps = [1, 2, 4, 5, 10, 12];
+            
+            if (requiredSteps.includes(currentStepNumber)) {
+                const requiredFields = currentStep.querySelectorAll('input[required], textarea[required], select[required]');
+                
+                for (let field of requiredFields) {
+                    if (!field.value.trim()) {
+                        field.focus();
+                        alert('This field is required. Please fill it in before continuing.');
+                        return false;
+                    }
+                }
+                
+                // Special validation for radio buttons (steps 5 and 10)
+                if (currentStepNumber === 5 || currentStepNumber === 10) {
+                    const radioGroup = currentStep.querySelector('.radio-group');
+                    const checkedRadio = radioGroup.querySelector('input[type="radio"]:checked');
+                    if (!checkedRadio) {
+                        alert('Please select an option before continuing.');
+                        return false;
+                    }
                 }
             }
             
@@ -983,14 +1016,25 @@
                 }
             }
             
-            // Email validation
+            // Email validation with confirmation
             if (currentStepNumber === 15) {
                 const emailField = document.getElementById('email');
+                const emailConfirmField = document.getElementById('emailConfirm');
+                const mismatchMsg = document.getElementById('emailMismatch');
+                
                 if (!emailField.value || !isValidEmail(emailField.value)) {
                     emailField.focus();
                     alert('Please enter a valid email address.');
                     return false;
                 }
+                
+                if (emailField.value !== emailConfirmField.value) {
+                    mismatchMsg.style.display = 'block';
+                    emailConfirmField.focus();
+                    alert('Email addresses must match. Please check and re-enter.');
+                    return false;
+                }
+                mismatchMsg.style.display = 'none';
             }
             
             // Country validation
