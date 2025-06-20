@@ -357,6 +357,29 @@
             font-size: 0.875rem;
         }
         
+        /* Honeypot field - visually hidden but accessible to bots */
+        .ohnohoney {
+            opacity: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 0;
+            width: 0;
+            z-index: -1;
+        }
+        
+        .ohnohoney input {
+            opacity: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 0;
+            width: 0;
+            z-index: -1;
+            border: none;
+            background: transparent;
+        }
+        
         @media (max-width: 768px) {
             .wizard-container {
                 margin: 10px;
@@ -405,6 +428,12 @@
         </div>
         
         <div class="step-content">
+            <!-- Honeypot Field - DO NOT REMOVE -->
+            <div class="ohnohoney" aria-hidden="true">
+                <label for="website">Website</label>
+                <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+            </div>
+            
             <!-- Step 1: Title (REQUIRED) -->
             <div class="step active" id="step1">
                 <h2>What's the title of your screenplay? *</h2>
@@ -889,6 +918,21 @@ You can also paste your existing synopsis or tagline here if you have one."></te
         updateStepDisplay();
         setupEventListeners();
 
+        // Clear honeypot field on page load and monitor it
+        document.addEventListener('DOMContentLoaded', function() {
+            const honeypot = document.getElementById('website');
+            if (honeypot) {
+                honeypot.value = '';
+                
+                // Monitor honeypot interactions
+                honeypot.addEventListener('input', function(e) {
+                    if (e.target.value) {
+                        console.warn('Honeypot field interaction detected');
+                    }
+                });
+            }
+        });
+
         function updateStepDisplay() {
             // Hide all steps
             document.querySelectorAll('.step').forEach(step => {
@@ -1076,6 +1120,36 @@ You can also paste your existing synopsis or tagline here if you have one."></te
 
         async function submitForm() {
             saveCurrentStepData();
+            
+            // HONEYPOT CHECK - Bot Detection
+            const honeypot = document.getElementById('website');
+            if (honeypot && honeypot.value) {
+                // Bot detected! Honeypot field was filled
+                console.warn('Bot submission detected - honeypot triggered');
+                
+                // Track the bot attempt in database
+                try {
+                    const { data, error } = await window.supabase
+                        .from('bot_attempts')
+                        .insert([{
+                            form_data: formData,  // All form data as JSON
+                            honeypot_value: honeypot.value  // What the bot entered
+                        }]);
+                        
+                    if (error) {
+                        console.error('Failed to log bot attempt:', error);
+                    } else {
+                        console.log('Bot attempt logged successfully');
+                    }
+                } catch (e) {
+                    console.error('Error logging bot attempt:', e);
+                    // Don't let this break the flow - silently continue
+                }
+                
+                // Show fake success to the bot
+                showSuccessMessage('BOT-DETECTED-' + Date.now());
+                return; // Exit without actually submitting
+            }
             
             // Show loading state
             nextBtn.textContent = 'Processing...';
