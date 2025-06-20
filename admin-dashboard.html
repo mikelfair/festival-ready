@@ -162,12 +162,48 @@
             margin-bottom: 20px;
             border-bottom: 2px solid #f0f0f0;
             padding-bottom: 10px;
+            cursor: pointer;
+            user-select: none;
+        }
+        
+        .section-header.collapsible:hover {
+            background: #f8f9fa;
+            margin: -10px -25px 20px;
+            padding: 10px 25px;
+            border-radius: 10px 10px 0 0;
         }
         
         .section-header h2 {
             margin: 0;
             border: none;
             padding: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .collapse-arrow {
+            display: inline-block;
+            width: 0;
+            height: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-top: 10px solid #667eea;
+            transition: transform 0.3s ease;
+        }
+        
+        .collapsed .collapse-arrow {
+            transform: rotate(-90deg);
+        }
+        
+        .collapsible-content {
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            max-height: 2000px;
+        }
+        
+        .collapsed .collapsible-content {
+            max-height: 0;
         }
         
         .month-navigation {
@@ -272,6 +308,36 @@
         
         .category-item .count {
             background: #667eea;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+        
+        .networking-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        
+        .networking-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #ff6b6b;
+        }
+        
+        .networking-item .name {
+            font-weight: 500;
+            color: #333;
+        }
+        
+        .networking-item .count {
+            background: #ff6b6b;
             color: white;
             padding: 4px 12px;
             border-radius: 20px;
@@ -455,47 +521,76 @@
                 </div>
             </div>
 
+            <!-- ROI Analysis (Collapsible) -->
             <div class="section">
-                <h2>ROI Analysis</h2>
-                <div class="roi-section">
-                    <div class="roi-card">
-                        <h3>Email Campaign Performance</h3>
-                        <div class="roi-metric">
-                            <span class="label">Emails Sent:</span>
-                            <span class="value" id="roiEmailsSent">-</span>
+                <div class="section-header collapsible" onclick="toggleSection('roi')">
+                    <h2><span class="collapse-arrow"></span> ROI Analysis</h2>
+                </div>
+                <div class="collapsible-content" id="roi-content">
+                    <div class="roi-section">
+                        <div class="roi-card">
+                            <h3>Email Campaign Performance</h3>
+                            <div class="roi-metric">
+                                <span class="label">Emails Sent:</span>
+                                <span class="value" id="roiEmailsSent">-</span>
+                            </div>
+                            <div class="roi-metric">
+                                <span class="label">Conversions:</span>
+                                <span class="value" id="roiConversions">-</span>
+                            </div>
+                            <div class="roi-metric">
+                                <span class="label">Conversion Rate:</span>
+                                <span class="value" id="roiConversionRate">-</span>
+                            </div>
+                            <div class="roi-metric">
+                                <span class="label">Revenue per Email:</span>
+                                <span class="value" id="roiRevenuePerEmail">-</span>
+                            </div>
                         </div>
-                        <div class="roi-metric">
-                            <span class="label">Conversions:</span>
-                            <span class="value" id="roiConversions">-</span>
-                        </div>
-                        <div class="roi-metric">
-                            <span class="label">Conversion Rate:</span>
-                            <span class="value" id="roiConversionRate">-</span>
-                        </div>
-                        <div class="roi-metric">
-                            <span class="label">Revenue per Email:</span>
-                            <span class="value" id="roiRevenuePerEmail">-</span>
+                        
+                        <div class="roi-card">
+                            <h3>Cost Analysis</h3>
+                            <div class="roi-metric">
+                                <span class="label">AI Processing Costs:</span>
+                                <span class="value" id="roiAiCosts">-</span>
+                            </div>
+                            <div class="roi-metric">
+                                <span class="label">Revenue Generated:</span>
+                                <span class="value" id="roiRevenue">-</span>
+                            </div>
+                            <div class="roi-metric">
+                                <span class="label">Net Profit:</span>
+                                <span class="value" id="roiProfit">-</span>
+                            </div>
+                            <div class="roi-metric">
+                                <span class="label">ROI:</span>
+                                <span class="value" id="roiPercentage">-</span>
+                            </div>
                         </div>
                     </div>
-                    
-                    <div class="roi-card">
-                        <h3>Cost Analysis</h3>
-                        <div class="roi-metric">
-                            <span class="label">AI Processing Costs:</span>
-                            <span class="value" id="roiAiCosts">-</span>
-                        </div>
-                        <div class="roi-metric">
-                            <span class="label">Revenue Generated:</span>
-                            <span class="value" id="roiRevenue">-</span>
-                        </div>
-                        <div class="roi-metric">
-                            <span class="label">Net Profit:</span>
-                            <span class="value" id="roiProfit">-</span>
-                        </div>
-                        <div class="roi-metric">
-                            <span class="label">ROI:</span>
-                            <span class="value" id="roiPercentage">-</span>
-                        </div>
+                </div>
+            </div>
+
+            <!-- Category Distribution (Collapsible) -->
+            <div class="section">
+                <div class="section-header collapsible" onclick="toggleSection('category')">
+                    <h2><span class="collapse-arrow"></span> Category Distribution</h2>
+                </div>
+                <div class="collapsible-content" id="category-content">
+                    <div id="categoryLoading" class="loading">Loading category data</div>
+                    <div id="categoryList" class="category-list" style="display: none;">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Festival Networking Goals (New Section) -->
+            <div class="section">
+                <div class="section-header collapsible" onclick="toggleSection('networking')">
+                    <h2><span class="collapse-arrow"></span> Festival Networking Goals</h2>
+                </div>
+                <div class="collapsible-content" id="networking-content">
+                    <div id="networkingLoading" class="loading">Loading networking data</div>
+                    <div id="networkingList" class="networking-list" style="display: none;">
                     </div>
                 </div>
             </div>
@@ -517,66 +612,65 @@
                 </div>
             </div>
 
-            <div class="section">
-                <h2>Category Distribution</h2>
-                <div id="categoryLoading" class="loading">Loading category data</div>
-                <div id="categoryList" class="category-list" style="display: none;">
-                </div>
-            </div>
-
+            <!-- Purchase Activity (Collapsible) -->
             <div class="section data-table">
-                <div class="section-header">
-                    <h2>Purchase Activity</h2>
-                    <div class="month-navigation">
+                <div class="section-header collapsible" onclick="toggleSection('purchase')">
+                    <h2><span class="collapse-arrow"></span> Purchase Activity</h2>
+                    <div class="month-navigation" onclick="event.stopPropagation();">
                         <button id="prevMonth" onclick="navigateMonth('prev')">← Previous</button>
                         <span id="currentMonth">All Time</span>
                         <button id="nextMonth" onclick="navigateMonth('next')">Next →</button>
                     </div>
                 </div>
-                <div id="purchaseLoading" class="loading">Loading purchase data</div>
-                <table id="purchaseTable" style="display: none;">
-                    <thead>
-                        <tr>
-                            <th>Email</th>
-                            <th>Paid Amount</th>
-                            <th>Promo Code</th>
-                            <th>Country</th>
-                            <th>Date & Time (CST)</th>
-                        </tr>
-                    </thead>
-                    <tbody id="purchaseBody">
-                    </tbody>
-                </table>
-                <div id="noPurchases" class="no-data" style="display: none;">
-                    No purchases for this period
+                <div class="collapsible-content" id="purchase-content">
+                    <div id="purchaseLoading" class="loading">Loading purchase data</div>
+                    <table id="purchaseTable" style="display: none;">
+                        <thead>
+                            <tr>
+                                <th>Email</th>
+                                <th>Paid Amount</th>
+                                <th>Promo Code</th>
+                                <th>Country</th>
+                                <th>Date & Time (CST)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="purchaseBody">
+                        </tbody>
+                    </table>
+                    <div id="noPurchases" class="no-data" style="display: none;">
+                        No purchases for this period
+                    </div>
                 </div>
             </div>
 
+            <!-- App Usage (Collapsible) -->
             <div class="section data-table">
-                <div class="section-header">
-                    <h2>App Usage</h2>
-                    <div class="month-navigation">
+                <div class="section-header collapsible" onclick="toggleSection('usage')">
+                    <h2><span class="collapse-arrow"></span> App Usage</h2>
+                    <div class="month-navigation" onclick="event.stopPropagation();">
                         <button id="prevUsageMonth" onclick="navigateUsageMonth('prev')">← Previous</button>
                         <span id="currentUsageMonth">All Time</span>
                         <button id="nextUsageMonth" onclick="navigateUsageMonth('next')">Next →</button>
                     </div>
                 </div>
-                <div id="usageLoading" class="loading">Loading usage data</div>
-                <table id="usageTable" style="display: none;">
-                    <thead>
-                        <tr>
-                            <th>Email</th>
-                            <th>Screenplay Title</th>
-                            <th>Country</th>
-                            <th>Date & Time (CST)</th>
-                            <th>AI Processing Cost</th>
-                        </tr>
-                    </thead>
-                    <tbody id="usageBody">
-                    </tbody>
-                </table>
-                <div id="noUsage" class="no-data" style="display: none;">
-                    No app usage for this period
+                <div class="collapsible-content" id="usage-content">
+                    <div id="usageLoading" class="loading">Loading usage data</div>
+                    <table id="usageTable" style="display: none;">
+                        <thead>
+                            <tr>
+                                <th>Email</th>
+                                <th>Screenplay Title</th>
+                                <th>Country</th>
+                                <th>Date & Time (CST)</th>
+                                <th>AI Processing Cost</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usageBody">
+                        </tbody>
+                    </table>
+                    <div id="noUsage" class="no-data" style="display: none;">
+                        No app usage for this period
+                    </div>
                 </div>
             </div>
 
@@ -596,6 +690,7 @@
         let currentUsageMonth = null;
         let currentUsageYear = null;
         let availableMonths = [];
+        let dashboardData = null; // Store the dashboard data
 
         // Auto-login if password is saved
         if (savedPassword === PASSWORD) {
@@ -629,6 +724,15 @@
         function showDashboard() {
             document.getElementById('loginSection').style.display = 'none';
             document.getElementById('dashboardSection').style.display = 'block';
+        }
+
+        // Toggle collapsible sections
+        function toggleSection(sectionId) {
+            const header = event.currentTarget;
+            const content = document.getElementById(`${sectionId}-content`);
+            
+            header.classList.toggle('collapsed');
+            content.parentElement.classList.toggle('collapsed');
         }
 
         // Convert UTC to Central Time
@@ -755,6 +859,7 @@
                 console.log('Response data:', result);
 
                 if (result.success) {
+                    dashboardData = result.data; // Store the data
                     updateDashboard(result.data);
                 } else {
                     throw new Error(result.error || 'Failed to load data');
@@ -896,6 +1001,30 @@
                 document.getElementById('categoryLoading').textContent = 'No category data yet';
             }
 
+            // Update networking goals (placeholder - needs backend support)
+            const networkingList = document.getElementById('networkingList');
+            networkingList.innerHTML = '';
+            
+            // For now, show placeholder data
+            const networkingGoals = {
+                "Directors": 1,
+                "Producers": 1,
+                "Screenwriters": 1
+            };
+            
+            Object.entries(networkingGoals).forEach(([goal, count]) => {
+                const item = document.createElement('div');
+                item.className = 'networking-item';
+                item.innerHTML = `
+                    <span class="name">${goal}</span>
+                    <span class="count">${count}</span>
+                `;
+                networkingList.appendChild(item);
+            });
+            
+            document.getElementById('networkingLoading').style.display = 'none';
+            networkingList.style.display = 'grid';
+
             // Update last updated time
             const lastUpdated = toCentralTime(data.lastUpdated);
             document.getElementById('lastUpdated').textContent = `Last updated: ${lastUpdated}`;
@@ -916,10 +1045,11 @@
             loadDashboardData();
         }
 
-        // Add export emails function
+        // Add export emails function (with workaround)
         async function exportEmails(listType) {
             try {
-                const response = await fetch(`${API_URL}/export-emails?list=${listType}`, {
+                // For now, we'll extract emails from the dashboard data
+                const response = await fetch(API_URL, {
                     method: 'GET',
                     headers: {
                         'x-admin-password': savedPassword,
@@ -930,11 +1060,55 @@
                 });
 
                 if (!response.ok) {
-                    throw new Error('Failed to export emails');
+                    throw new Error('Failed to fetch data');
                 }
 
-                // Get the CSV content
-                const csvContent = await response.text();
+                const result = await response.json();
+                
+                if (!result.success || !result.data) {
+                    throw new Error('Invalid data format');
+                }
+
+                // Extract emails from app usage data
+                const emails = new Set();
+                
+                // Get emails from app usage
+                if (result.data.appUsage && result.data.appUsage.length > 0) {
+                    result.data.appUsage.forEach(usage => {
+                        if (usage.email) {
+                            emails.add(usage.email);
+                        }
+                    });
+                }
+                
+                // Get emails from purchases if any
+                if (result.data.purchases && result.data.purchases.length > 0) {
+                    result.data.purchases.forEach(purchase => {
+                        if (purchase.customer_email) {
+                            emails.add(purchase.customer_email);
+                        }
+                    });
+                }
+
+                // Convert to CSV format
+                let csvContent = 'email\n';
+                
+                if (listType === 'all') {
+                    // Export all emails
+                    emails.forEach(email => {
+                        csvContent += email + '\n';
+                    });
+                } else {
+                    // For now, export all emails for any list type
+                    // (since we don't have the preference data in the dashboard response)
+                    emails.forEach(email => {
+                        csvContent += email + '\n';
+                    });
+                    
+                    if (listType !== 'all') {
+                        alert(`Note: Currently showing all emails. The ${listType} filter will be available after the edge function update.`);
+                    }
+                }
                 
                 // Create a download link
                 const blob = new Blob([csvContent], { type: 'text/csv' });
@@ -947,7 +1121,7 @@
                 document.body.removeChild(a);
                 window.URL.revokeObjectURL(url);
                 
-                alert(`Email list exported successfully!`);
+                alert(`Exported ${emails.size} email(s) successfully!`);
             } catch (error) {
                 console.error('Export error:', error);
                 alert('Failed to export email list. Please try again.');
