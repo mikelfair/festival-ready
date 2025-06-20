@@ -23,6 +23,7 @@
             align-items: center;
             justify-content: center;
             padding: 20px;
+            padding-bottom: 150px; /* Make room for the banner */
         }
         
         .wizard-container {
@@ -380,7 +381,41 @@
             background: transparent;
         }
         
+        /* Book Banner Styles */
+        .book-banner-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.05);
+            padding: 10px;
+            text-align: center;
+            z-index: 1000;
+        }
+        
+        .book-banner {
+            max-width: 728px;
+            margin: 0 auto;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+        
+        .book-banner:hover {
+            transform: scale(1.02);
+        }
+        
+        .book-banner img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        
         @media (max-width: 768px) {
+            body {
+                padding-bottom: 100px; /* Less padding on mobile */
+            }
+            
             .wizard-container {
                 margin: 10px;
             }
@@ -412,6 +447,10 @@
             
             .checkbox-group {
                 grid-template-columns: 1fr;
+            }
+            
+            .book-banner-container {
+                padding: 5px;
             }
         }
     </style>
@@ -881,6 +920,13 @@ You can also paste your existing synopsis or tagline here if you have one."></te
             <button type="button" class="nav-button primary" id="nextBtn">Next →</button>
         </div>
     </div>
+    
+    <!-- Book Banner - Fixed at Bottom -->
+    <div class="book-banner-container">
+        <a href="https://amzn.to/4naJ4FT" target="_blank" class="book-banner">
+            <img src="images/festival-books-banner.png" alt="Film Festival Submitter's Handbook & Screenplay Judging Guide - Available on Amazon">
+        </a>
+    </div>
 
     <!-- Import Supabase JS Library -->
     <script type="module">
@@ -1099,6 +1145,11 @@ You can also paste your existing synopsis or tagline here if you have one."></te
             const inputs = currentStep.querySelectorAll('input, textarea, select');
             
             inputs.forEach(input => {
+                // SKIP HONEYPOT FIELD - don't save it to form data
+                if (input.id === 'website' || input.name === 'website') {
+                    return; // Skip this iteration
+                }
+                
                 if (input.type === 'checkbox') {
                     if (!formData[input.name]) formData[input.name] = [];
                     if (input.checked && !formData[input.name].includes(input.value)) {
