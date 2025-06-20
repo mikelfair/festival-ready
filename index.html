@@ -6,13 +6,13 @@
     <title>Festival Ready - Optimize Your Film Festival Submission</title>
     <meta name="description" content="AI-powered screenplay optimization tool that analyzes your script and creates compelling taglines, synopses, and festival category recommendations for maximum submission success.">
     <meta name="keywords" content="film festival, screenplay, script optimization, tagline generator, synopsis writing, festival submission">
-    
+
     <!-- Open Graph -->
     <meta property="og:title" content="Festival Ready - Optimize Your Film Festival Submission">
     <meta property="og:description" content="AI-powered tool that creates compelling taglines, synopses, and festival recommendations for your screenplay">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://festival-ready.com">
-    
+
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
     <script>
@@ -21,577 +21,156 @@
         gtag('js', new Date());
         gtag('config', 'GA_MEASUREMENT_ID');
     </script>
-    
+
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        /* ========== Global ========== */
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{
+            font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Roboto','Oxygen','Ubuntu','Cantarell',sans-serif;
+            line-height:1.6;
+            color:#333;
+            overflow-x:hidden;          /* removed bottom padding */
         }
-        
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
-            line-height: 1.6;
-            color: #333;
-            overflow-x: hidden;
-            padding-bottom: 120px; /* Make room for the book banner */
+        .container{max-width:1200px;margin:0 auto;padding:0 20px;}
+
+        /* ========== Header ========== */
+        header{
+            background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);
+            color:#fff;
+            padding:60px 0 80px;
+            text-align:center;
+            position:relative;
+            overflow:hidden;
         }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
+        header::before{
+            content:'';
+            position:absolute;inset:0;
+            background:url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            animation:float 20s ease-in-out infinite;
         }
-        
-        /* Header */
-        header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 60px 0 80px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
+        @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-20px)}}
+        .hero-content{position:relative;z-index:2;}
+        .logo{font-size:3rem;font-weight:800;margin-bottom:10px;text-shadow:2px 2px 4px rgba(0,0,0,.3);}
+        .hero-question{font-size:1.4rem;margin-bottom:20px;opacity:.95;font-weight:400;font-style:italic;}
+        .tagline{font-size:1.3rem;margin-bottom:30px;opacity:.95;font-weight:300;}
+        .hero-description{font-size:1.1rem;max-width:700px;margin:0 auto 40px;opacity:.9;}
+        .cta-button{
+            display:inline-block;background:#ff6b6b;color:#fff;padding:18px 40px;border-radius:50px;
+            font-weight:600;font-size:1.1rem;transition:.3s;text-transform:uppercase;letter-spacing:1px;
+            box-shadow:0 8px 25px rgba(255,107,107,.3);text-decoration:none;
         }
-        
-        header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
-            animation: float 20s ease-in-out infinite;
+        .cta-button:hover{transform:translateY(-3px);box-shadow:0 12px 35px rgba(255,107,107,.4);background:#ff5252;}
+        .beta-badge{background:#ff6b6b;color:#fff;font-size:.6rem;padding:4px 8px;border-radius:10px;margin-left:10px;}
+
+        /* ========== Sections (How It Works / Authority / Feedback / Social) ========== */
+        .how-it-works{padding:80px 0;background:linear-gradient(135deg,#f5f7fa 0%,#c3cfe2 100%);}
+        .section-title{text-align:center;font-size:2.5rem;color:#333;margin-bottom:20px;font-weight:700;}
+        .section-subtitle{text-align:center;font-size:1.2rem;color:#666;margin:0 auto 60px;max-width:600px;}
+        .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:40px;margin-top:60px;}
+        .step{
+            background:#fff;padding:30px;border-radius:15px;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,.1);position:relative;
         }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
+        .step-number{
+            position:absolute;top:-15px;left:50%;transform:translateX(-50%);
+            background:#667eea;color:#fff;width:30px;height:30px;border-radius:50%;
+            display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:.9rem;
         }
-        
-        .hero-content {
-            position: relative;
-            z-index: 2;
+        .step h3{margin:20px 0 15px;color:#333;font-size:1.3rem;}
+        .step p{color:#666;line-height:1.6;}
+
+        .authority{padding:80px 0;background:#fff;}
+        .authority-content{display:flex;align-items:center;gap:40px;max-width:900px;margin:0 auto;}
+        .authority-photo img{width:200px;height:200px;border-radius:50%;object-fit:cover;border:5px solid #667eea;}
+        .authority-text h2{font-size:2.2rem;color:#333;margin-bottom:20px;font-weight:700;}
+        .authority-text p{color:#666;font-size:1.1rem;line-height:1.6;margin-bottom:15px;}
+        .credentials{background:#f8f9fa;padding:20px;border-radius:10px;border-left:4px solid #667eea;margin-top:20px;}
+        .credentials h4{color:#333;margin-bottom:10px;}
+        .credentials ul{list-style:none;padding:0;}
+        .credentials li{color:#666;margin-bottom:8px;padding-left:20px;position:relative;}
+        .credentials li::before{content:'✓';position:absolute;left:0;color:#667eea;font-weight:bold;}
+
+        .feedback{padding:80px 0;background:#fff;text-align:center;}
+        .feedback-box{
+            background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);
+            color:#fff;padding:40px;border-radius:20px;max-width:800px;margin:0 auto;
+            box-shadow:0 15px 35px rgba(102,126,234,.3);
         }
-        
-        .logo {
-            font-size: 3rem;
-            font-weight: 800;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        .feedback-box h3{margin-bottom:15px;font-size:1.8rem;}
+        .feedback-box p{margin-bottom:30px;opacity:.9;font-size:1.1rem;}
+        .star-rating{display:flex;justify-content:center;margin-bottom:30px;gap:5px;}
+        .star{font-size:2rem;color:rgba(255,255,255,.3);cursor:pointer;transition:.3s;}
+        .star:hover,.star.active{color:#ffd700;transform:scale(1.1);}
+        .feedback-forms{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:30px;}
+        .feedback-group{text-align:left;}
+        .feedback-group label{display:block;font-weight:600;margin-bottom:8px;font-size:1rem;}
+        .feedback-group textarea{
+            width:100%;padding:15px;border:2px solid rgba(255,255,255,.3);border-radius:10px;
+            background:rgba(255,255,255,.1);color:#fff;font-size:1rem;resize:vertical;min-height:100px;font-family:inherit;
+        }
+        .feedback-group textarea::placeholder{color:rgba(255,255,255,.7);}
+        .feedback-group textarea:focus{outline:none;border-color:rgba(255,255,255,.6);background:rgba(255,255,255,.15);}
+        .submit-feedback{
+            background:#ff6b6b;color:#fff;padding:15px 30px;border:none;border-radius:25px;
+            font-weight:600;font-size:1rem;cursor:pointer;transition:.3s;text-transform:uppercase;letter-spacing:1px;
+        }
+        .submit-feedback:hover{background:#ff5252;transform:translateY(-2px);box-shadow:0 8px 20px rgba(255,107,107,.4);}
+
+        .social-share{padding:60px 0;background:#f8f9fa;text-align:center;}
+        .social-share h3{color:#333;margin-bottom:20px;font-size:1.5rem;}
+        .social-share p{color:#666;margin-bottom:30px;}
+        .share-buttons{display:flex;justify-content:center;gap:15px;flex-wrap:wrap;}
+        .share-btn{
+            display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:25px;text-decoration:none;
+            font-weight:600;font-size:.9rem;color:#fff;transition:.3s;
+        }
+        .share-btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,.2);color:#fff;text-decoration:none;}
+        .share-btn.twitter{background:#1da1f2;}
+        .share-btn.facebook{background:#1877f2;}
+        .share-btn.linkedin{background:#0077b5;}
+        .share-btn.tiktok{background:#000;}
+        .share-btn.reddit{background:#ff4500;}
+        .share-btn.email{background:#34495e;}
+
+        /* ========== Footer ========== */
+        footer{background:#2c3e50;color:#fff;padding:40px 0;text-align:center;}
+        footer p{margin-bottom:20px;}
+        footer a{color:#667eea;text-decoration:none;margin:0 15px;}
+        footer a:hover{text-decoration:underline;}
+
+        /* ========== Book Banner (static) ========== */
+        .book-banner-container{
+            width:100%;
+            display:flex;justify-content:center;
+            background:#f0f0f0;          /* light backdrop to separate from footer */
+            padding:20px 10px;
+        }
+        .book-banner{max-width:728px;display:block;transition:transform .3s;}
+        .book-banner:hover{transform:scale(1.02);}
+        .book-banner img{
+            width:100%;height:auto;border-radius:8px;
+            box-shadow:0 4px 15px rgba(0,0,0,.2);
         }
 
-        .hero-question {
-            font-size: 1.4rem;
-            margin-bottom: 20px;
-            opacity: 0.95;
-            font-weight: 400;
-            font-style: italic;
-        }
-        
-        .tagline {
-            font-size: 1.3rem;
-            margin-bottom: 30px;
-            opacity: 0.95;
-            font-weight: 300;
-        }
-        
-        .hero-description {
-            font-size: 1.1rem;
-            max-width: 700px;
-            margin: 0 auto 40px;
-            opacity: 0.9;
-        }
-        
-        .cta-button {
-            display: inline-block;
-            background: #ff6b6b;
-            color: white;
-            padding: 18px 40px;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.3);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 35px rgba(255, 107, 107, 0.4);
-            background: #ff5252;
-        }
-        
-        .beta-badge {
-            background: #ff6b6b;
-            color: white;
-            font-size: 0.6rem;
-            padding: 4px 8px;
-            border-radius: 10px;
-            margin-left: 10px;
-        }
-        
-        /* How It Works */
-        .how-it-works {
-            padding: 80px 0;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-        }
+        /* ========== Anim / Scroll reveal ========== */
+        .scroll-reveal{opacity:0;transform:translateY(50px);transition:.6s;}
+        .scroll-reveal.revealed{opacity:1;transform:translateY(0);}
 
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            color: #333;
-            margin-bottom: 20px;
-            font-weight: 700;
-        }
-        
-        .section-subtitle {
-            text-align: center;
-            font-size: 1.2rem;
-            color: #666;
-            margin-bottom: 60px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-        .steps {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            margin-top: 60px;
-        }
-        
-        .step {
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            position: relative;
-        }
-        
-        .step-number {
-            position: absolute;
-            top: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #667eea;
-            color: white;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 0.9rem;
-        }
-        
-        .step h3 {
-            margin: 20px 0 15px;
-            color: #333;
-            font-size: 1.3rem;
-        }
-        
-        .step p {
-            color: #666;
-            line-height: 1.6;
-        }
-        
-        /* Authority Section */
-        .authority {
-            padding: 80px 0;
-            background: white;
-        }
-        
-        .authority-content {
-            display: flex;
-            align-items: center;
-            gap: 40px;
-            max-width: 900px;
-            margin: 0 auto;
-        }
-        
-        .authority-photo {
-            flex-shrink: 0;
-        }
-        
-        .authority-photo img {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 5px solid #667eea;
-            margin-right: 40px;
-        }
-        
-        .authority-text h2 {
-            font-size: 2.2rem;
-            color: #333;
-            margin-bottom: 20px;
-            font-weight: 700;
-        }
-        
-        .authority-text p {
-            color: #666;
-            font-size: 1.1rem;
-            line-height: 1.6;
-            margin-bottom: 15px;
-        }
-        
-        .credentials {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 10px;
-            border-left: 4px solid #667eea;
-            margin-top: 20px;
-        }
-        
-        .credentials h4 {
-            color: #333;
-            margin-bottom: 10px;
-        }
-        
-        .credentials ul {
-            list-style: none;
-            padding: 0;
-        }
-        
-        .credentials li {
-            color: #666;
-            margin-bottom: 8px;
-            padding-left: 20px;
-            position: relative;
-        }
-        
-        .credentials li::before {
-            content: '✓';
-            position: absolute;
-            left: 0;
-            color: #667eea;
-            font-weight: bold;
-        }
-        
-        /* Feedback Section */
-        .feedback {
-            padding: 80px 0;
-            background: white;
-            text-align: center;
-        }
-        
-        .feedback-box {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 40px;
-            border-radius: 20px;
-            max-width: 800px;
-            margin: 0 auto;
-            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.3);
-        }
-        
-        .feedback-box h3 {
-            color: white;
-            margin-bottom: 15px;
-            font-size: 1.8rem;
-        }
-        
-        .feedback-box p {
-            margin-bottom: 30px;
-            opacity: 0.9;
-            font-size: 1.1rem;
-        }
-        
-        .star-rating {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 30px;
-            gap: 5px;
-        }
-        
-        .star {
-            font-size: 2rem;
-            color: rgba(255,255,255,0.3);
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .star:hover,
-        .star.active {
-            color: #ffd700;
-            transform: scale(1.1);
-        }
-        
-        .feedback-forms {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-        
-        .feedback-group {
-            text-align: left;
-        }
-        
-        .feedback-group label {
-            display: block;
-            font-weight: 600;
-            margin-bottom: 8px;
-            font-size: 1rem;
-        }
-        
-        .feedback-group textarea {
-            width: 100%;
-            padding: 15px;
-            border: 2px solid rgba(255,255,255,0.3);
-            border-radius: 10px;
-            background: rgba(255,255,255,0.1);
-            color: white;
-            font-size: 1rem;
-            resize: vertical;
-            min-height: 100px;
-            font-family: inherit;
-        }
-        
-        .feedback-group textarea::placeholder {
-            color: rgba(255,255,255,0.7);
-        }
-        
-        .feedback-group textarea:focus {
-            outline: none;
-            border-color: rgba(255,255,255,0.6);
-            background: rgba(255,255,255,0.15);
-        }
-        
-        .submit-feedback {
-            background: #ff6b6b;
-            color: white;
-            padding: 15px 30px;
-            border: none;
-            border-radius: 25px;
-            font-weight: 600;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        
-        .submit-feedback:hover {
-            background: #ff5252;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(255, 107, 107, 0.4);
-        }
-        
-        /* Social Share Section */
-        .social-share {
-            padding: 60px 0;
-            background: #f8f9fa;
-            text-align: center;
-        }
-        
-        .social-share h3 {
-            color: #333;
-            margin-bottom: 20px;
-            font-size: 1.5rem;
-        }
-        
-        .social-share p {
-            color: #666;
-            margin-bottom: 30px;
-        }
-        
-        .share-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-        
-        .share-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 12px 20px;
-            border-radius: 25px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-            color: white;
-        }
-        
-        .share-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-            text-decoration: none;
-            color: white;
-        }
-        
-        .share-btn.twitter {
-            background: #1da1f2;
-        }
-        
-        .share-btn.facebook {
-            background: #1877f2;
-        }
-        
-        .share-btn.linkedin {
-            background: #0077b5;
-        }
-        
-        .share-btn.tiktok {
-            background: #000000;
-        }
-        
-        .share-btn.reddit {
-            background: #ff4500;
-        }
-        
-        .share-btn.email {
-            background: #34495e;
-        }
-        
-        /* Footer */
-        footer {
-            background: #2c3e50;
-            color: white;
-            padding: 40px 0;
-            text-align: center;
-        }
-        
-        footer p {
-            margin-bottom: 20px;
-        }
-        
-        footer a {
-            color: #667eea;
-            text-decoration: none;
-            margin: 0 15px;
-        }
-        
-        footer a:hover {
-            text-decoration: underline;
-        }
-        
-        /* Book Banner Styles */
-        .book-banner-container {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: rgba(0, 0, 0, 0.05);
-            padding: 10px;
-            text-align: center;
-            z-index: 1000;
-        }
-        
-        .book-banner {
-            max-width: 728px;
-            margin: 0 auto;
-            display: block;
-            transition: transform 0.3s ease;
-        }
-        
-        .book-banner:hover {
-            transform: scale(1.02);
-        }
-        
-        .book-banner img {
-            width: 100%;
-            height: auto;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        }
-        
-        /* Animations */
-        .scroll-reveal {
-            opacity: 0;
-            transform: translateY(50px);
-            transition: all 0.6s ease;
-        }
-        
-        .scroll-reveal.revealed {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        /* Mobile Responsive */
-        @media (max-width: 768px) {
-            body {
-                padding-bottom: 80px; /* Less padding on mobile */
-            }
-            
-            .logo {
-                font-size: 2.5rem;
-            }
-            
-            .hero-question {
-                font-size: 1.2rem;
-            }
-
-            .tagline {
-                font-size: 1.1rem;
-            }
-            
-            .hero-description {
-                font-size: 1rem;
-            }
-            
-            .section-title {
-                font-size: 2rem;
-            }
-            
-            .steps {
-                grid-template-columns: 1fr;
-                gap: 30px;
-            }
-            
-            .authority-content {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            .authority-photo {
-                margin-bottom: 20px;
-            }
-            
-            .authority-photo img {
-                margin-right: 0;
-            }
-            
-            .feedback-box {
-                padding: 25px;
-                margin: 20px 10px;
-            }
-            
-            .feedback-forms {
-                grid-template-columns: 1fr;
-                gap: 15px;
-            }
-            
-            .star-rating {
-                gap: 3px;
-            }
-            
-            .star {
-                font-size: 1.8rem;
-            }
-            
-            .share-buttons {
-                gap: 10px;
-            }
-            
-            .share-btn {
-                padding: 10px 15px;
-                font-size: 0.8rem;
-            }
-            
-            .book-banner-container {
-                padding: 5px;
-            }
+        /* ========== Mobile ========== */
+        @media(max-width:768px){
+            .logo{font-size:2.5rem;}
+            .hero-question{font-size:1.2rem;}
+            .tagline{font-size:1.1rem;}
+            .hero-description{font-size:1rem;}
+            .section-title{font-size:2rem;}
+            .steps{grid-template-columns:1fr;gap:30px;}
+            .authority-content{flex-direction:column;text-align:center;}
+            .authority-photo{margin-bottom:20px;}
+            .feedback-box{padding:25px;margin:20px 10px;}
+            .feedback-forms{grid-template-columns:1fr;gap:15px;}
+            .star{font-size:1.8rem;}
+            .share-buttons{gap:10px;}
+            .share-btn{padding:10px 15px;font-size:.8rem;}
+            .book-banner-container{padding:15px 5px;}
         }
     </style>
 </head>
@@ -600,7 +179,7 @@
     <header>
         <div class="container">
             <div class="hero-content">
-                <h1 class="logo">🎬 Festival Ready <span class="beta-badge">BETA v001</span></h1>
+                <h1 class="logo">🎬 Festival Ready <span class="beta-badge">BETA&nbsp;v001</span></h1>
                 <p class="hero-question">Need help creating a film festival submission form for your screenplay that looks polished and professional?</p>
                 <p class="tagline">Screenplay Submission Form Optimization for Festival Success</p>
                 <p class="hero-description">Complete our comprehensive screenplay questionnaire and get professional submission materials tailored specifically to your story.</p>
@@ -614,24 +193,18 @@
         <div class="container">
             <h2 class="section-title">How It Works</h2>
             <p class="section-subtitle">From script to submission-ready in three simple steps</p>
-            
             <div class="steps">
-                <div class="step">
-                    <div class="step-number">1</div>
+                <div class="step"><div class="step-number">1</div>
                     <h3>Complete Questionnaire</h3>
                     <p>Answer our comprehensive 16-question wizard about your screenplay, story, and goals. Takes just 5-10 minutes to complete.</p>
                 </div>
-                
-                <div class="step">
-                    <div class="step-number">2</div>
+                <div class="step"><div class="step-number">2</div>
                     <h3>AI Processing</h3>
-                    <p>Our AI analyzes your responses and optionally your script to understand your story's themes, tone, characters, and target audience.</p>
+                    <p>Our AI analyzes your responses—and optionally your script—to understand its themes, tone, characters, and audience.</p>
                 </div>
-                
-                <div class="step">
-                    <div class="step-number">3</div>
+                <div class="step"><div class="step-number">3</div>
                     <h3>Get Professional Materials</h3>
-                    <p>Receive customized taglines, compelling synopses, and professional writer's statements tailored specifically to your story and goals.</p>
+                    <p>Receive customized taglines, compelling synopses, and professional writer’s statements tailored to your goals.</p>
                 </div>
             </div>
         </div>
@@ -646,13 +219,12 @@
                 </div>
                 <div class="authority-text">
                     <h2>Created by Festival Industry Professionals</h2>
-                    <p>Festival Ready was developed by Mikel Fair, a veteran film festival director with over a decade of experience programming festivals and reading thousands of submissions.</p>
-                    <p>Having seen both winning and losing submissions, Mikel understands exactly what festival programmers look for and built Festival Ready to give every screenwriter those same advantages.</p>
-                    
+                    <p>Festival Ready was developed by Mikel Fair, a veteran film festival director with over a decade of programming experience.</p>
+                    <p>Mikel has reviewed thousands of submissions and built Festival Ready so every writer can apply those same best practices.</p>
                     <div class="credentials">
                         <h4>Industry Experience:</h4>
                         <ul>
-                            <li>Film Festival Circuit - Festival Directory Platform</li>
+                            <li>Film Festival Circuit — Festival Directory Platform</li>
                             <li>10+ Years Programming Film Festivals</li>
                             <li>Thousands of Screenplay Submissions Reviewed</li>
                             <li>Direct Insight into Festival Selection Process</li>
@@ -668,8 +240,7 @@
         <div class="container">
             <div class="feedback-box">
                 <h3>🎯 Help Us Improve Festival Ready</h3>
-                <p>We'd love your feedback! Your input helps us make Festival Ready as useful as possible for the screenwriting community.</p>
-                
+                <p>We’d love your feedback! Your input helps us make Festival Ready as useful as possible for the screenwriting community.</p>
                 <div class="star-rating" id="starRating">
                     <span class="star" data-rating="1">★</span>
                     <span class="star" data-rating="2">★</span>
@@ -677,18 +248,16 @@
                     <span class="star" data-rating="4">★</span>
                     <span class="star" data-rating="5">★</span>
                 </div>
-                
                 <div class="feedback-forms">
                     <div class="feedback-group">
                         <label for="positiveFeedback">Positive Feedback</label>
                         <textarea id="positiveFeedback" placeholder="What do you love about Festival Ready? What's working well for you?"></textarea>
                     </div>
                     <div class="feedback-group">
-                        <label for="improvements">Suggested Improvements & Features</label>
+                        <label for="improvements">Suggested Improvements &amp; Features</label>
                         <textarea id="improvements" placeholder="What features would you like to see? How can we make this better?"></textarea>
                     </div>
                 </div>
-                
                 <button class="submit-feedback" onclick="submitFeedback()">Submit Feedback</button>
             </div>
         </div>
@@ -699,26 +268,13 @@
         <div class="container">
             <h3>📢 Spread the Word</h3>
             <p>Know other screenwriters who could benefit from Festival Ready? Share the tool with your network!</p>
-            
             <div class="share-buttons">
-                <a href="#" class="share-btn twitter" onclick="shareOnTwitter()">
-                    🐦 Share on X
-                </a>
-                <a href="#" class="share-btn facebook" onclick="shareOnFacebook()">
-                    👥 Share on Facebook
-                </a>
-                <a href="#" class="share-btn linkedin" onclick="shareOnLinkedIn()">
-                    💼 Share on LinkedIn
-                </a>
-                <a href="#" class="share-btn tiktok" onclick="shareOnTikTok()">
-                    🎵 Share on TikTok
-                </a>
-                <a href="#" class="share-btn reddit" onclick="shareOnReddit()">
-                    🔗 Share on Reddit
-                </a>
-                <a href="#" class="share-btn email" onclick="shareViaEmail()">
-                    ✉️ Share via Email
-                </a>
+                <a href="#" class="share-btn twitter"   onclick="shareOnTwitter()">🐦 Share on X</a>
+                <a href="#" class="share-btn facebook"  onclick="shareOnFacebook()">👥 Share on Facebook</a>
+                <a href="#" class="share-btn linkedin"  onclick="shareOnLinkedIn()">💼 Share on LinkedIn</a>
+                <a href="#" class="share-btn tiktok"    onclick="shareOnTikTok()">🎵 Share on TikTok</a>
+                <a href="#" class="share-btn reddit"    onclick="shareOnReddit()">🔗 Share on Reddit</a>
+                <a href="#" class="share-btn email"     onclick="shareViaEmail()">✉️ Share via Email</a>
             </div>
         </div>
     </section>
@@ -731,182 +287,120 @@
                 <a href="https://filmfestivalcircuit.com" target="_blank">Film Festival Circuit</a>
                 <a href="#" onclick="openDonatePage()">💝 Support Development</a>
             </div>
-            <p style="font-size: 0.9rem; opacity: 0.8;">Beta Version • Free Tool • No Credit Card Required</p>
+            <p style="font-size:.9rem;opacity:.8;">Beta Version • Free Tool • No Credit Card Required</p>
         </div>
     </footer>
-    
-    <!-- Book Banner - Fixed at Bottom -->
+
+    <!-- Book Banner (now in normal flow) -->
     <div class="book-banner-container">
         <a href="https://amzn.to/4naJ4FT" target="_blank" class="book-banner">
-            <img src="images/festival-books-banner.png" alt="Film Festival Submitter's Handbook & Screenplay Judging Guide - Available on Amazon">
+            <img src="images/festival-books-banner.png" alt="Film Festival Submitter's Handbook and Screenplay Judging Guide - Available on Amazon">
         </a>
     </div>
 
+    <!-- ========== Scripts ========== -->
     <script>
-        // Scroll reveal animation
-        function revealOnScroll() {
-            const reveals = document.querySelectorAll('.scroll-reveal');
-            
-            reveals.forEach(element => {
-                const elementTop = element.getBoundingClientRect().top;
-                const elementVisible = 150;
-                
-                if (elementTop < window.innerHeight - elementVisible) {
-                    element.classList.add('revealed');
-                }
+        /* --- Scroll reveal --- */
+        function revealOnScroll(){
+            document.querySelectorAll('.scroll-reveal').forEach(el=>{
+                const top=el.getBoundingClientRect().top;
+                if(top < window.innerHeight-150){el.classList.add('revealed');}
             });
         }
-        
-        window.addEventListener('scroll', revealOnScroll);
-        
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
+        window.addEventListener('scroll',revealOnScroll);
+
+        /* --- Smooth anchor scroll --- */
+        document.querySelectorAll('a[href^="#"]').forEach(a=>{
+            a.addEventListener('click',e=>{
                 e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
+                const target=document.querySelector(a.getAttribute('href'));
+                if(target){target.scrollIntoView({behavior:'smooth',block:'start'});}
             });
         });
-        
-        // Button click tracking
-        function trackButtonClick(buttonName) {
-            if (typeof gtag !== 'undefined') {
-                gtag('event', 'click', {
-                    'event_category': 'button',
-                    'event_label': buttonName
-                });
-            }
-        }
-        
-        // Add click tracking to CTA buttons
-        document.querySelectorAll('.cta-button').forEach(button => {
-            button.addEventListener('click', () => trackButtonClick('CTA Button'));
-        });
 
-        // Open donation page
-        function openDonatePage() {
-            window.open('donate.html', '_blank');
-            trackButtonClick('Donation Page Opened');
+        /* --- GA button tracking utility --- */
+        function trackButtonClick(name){
+            if(typeof gtag!=='undefined'){gtag('event','click',{event_category:'button',event_label:name});}
         }
 
-        // Star rating functionality
-        let selectedRating = 0;
-        
-        function initializeStarRating() {
-            const stars = document.querySelectorAll('.star');
-            
-            stars.forEach(star => {
-                star.addEventListener('mouseover', function() {
-                    const rating = parseInt(this.dataset.rating);
-                    highlightStars(rating);
-                });
-                
-                star.addEventListener('mouseout', function() {
-                    highlightStars(selectedRating);
-                });
-                
-                star.addEventListener('click', function() {
-                    selectedRating = parseInt(this.dataset.rating);
-                    highlightStars(selectedRating);
+        /* --- Donate link --- */
+        function openDonatePage(){
+            window.open('donate.html','_blank');trackButtonClick('Donation Page Opened');
+        }
+
+        /* --- Star rating --- */
+        let selectedRating=0;
+        function initializeStarRating(){
+            document.querySelectorAll('.star').forEach(star=>{
+                star.addEventListener('mouseover',()=>highlightStars(+star.dataset.rating));
+                star.addEventListener('mouseout',()=>highlightStars(selectedRating));
+                star.addEventListener('click',()=>{
+                    selectedRating=+star.dataset.rating;highlightStars(selectedRating);
                 });
             });
         }
-        
-        function highlightStars(rating) {
-            const stars = document.querySelectorAll('.star');
-            stars.forEach((star, index) => {
-                if (index < rating) {
-                    star.classList.add('active');
-                } else {
-                    star.classList.remove('active');
-                }
+        function highlightStars(rating){
+            document.querySelectorAll('.star').forEach((star,i)=>{
+                star.classList.toggle('active',i<rating);
             });
         }
 
-        // Feedback submission
-        function submitFeedback() {
-            const positiveFeedback = document.getElementById('positiveFeedback').value;
-            const improvements = document.getElementById('improvements').value;
-            
-            if (selectedRating === 0 && !positiveFeedback && !improvements) {
-                alert('Please provide a rating or some feedback before submitting.');
-                return;
+        /* --- Feedback submission --- */
+        function submitFeedback(){
+            const positive=document.getElementById('positiveFeedback').value.trim();
+            const improv=document.getElementById('improvements').value.trim();
+            if(selectedRating===0 && !positive && !improv){
+                alert('Please provide a rating or some feedback before submitting.');return;
             }
-            
-            // Here you would normally send the feedback to your backend
-            const feedbackData = {
-                rating: selectedRating,
-                positiveFeedback: positiveFeedback,
-                improvements: improvements,
-                timestamp: new Date().toISOString()
-            };
-            
-            console.log('Feedback submitted:', feedbackData);
+            const data={rating:selectedRating,positiveFeedback:positive,improvements:improv,timestamp:new Date().toISOString()};
+            console.log('Feedback submitted:',data);
             alert('Thank you for your feedback! Your input helps us improve Festival Ready.');
-            
-            // Reset form
-            selectedRating = 0;
-            highlightStars(0);
-            document.getElementById('positiveFeedback').value = '';
-            document.getElementById('improvements').value = '';
-            
+            selectedRating=0;highlightStars(0);
+            document.getElementById('positiveFeedback').value='';
+            document.getElementById('improvements').value='';
             trackButtonClick('Feedback Submitted');
         }
 
-        // Social sharing functions
-        function shareOnTwitter() {
-            const url = encodeURIComponent(window.location.href);
-            const text = encodeURIComponent('Check out Festival Ready - AI-powered screenplay optimization for film festival submissions! 🎬');
-            window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`, '_blank');
+        /* --- Social share helpers --- */
+        function shareOnTwitter(){
+            const url=encodeURIComponent(location.href);
+            const text=encodeURIComponent('Check out Festival Ready - AI-powered screenplay optimization for film festival submissions! 🎬');
+            window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`,'_blank');
             trackButtonClick('Shared on Twitter');
         }
-
-        function shareOnFacebook() {
-            const url = encodeURIComponent(window.location.href);
-            window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
+        function shareOnFacebook(){
+            const url=encodeURIComponent(location.href);
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`,'_blank');
             trackButtonClick('Shared on Facebook');
         }
-
-        function shareOnLinkedIn() {
-            const url = encodeURIComponent(window.location.href);
-            const title = encodeURIComponent('Festival Ready - Screenplay Optimization Tool');
-            window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}&title=${title}`, '_blank');
+        function shareOnLinkedIn(){
+            const url=encodeURIComponent(location.href);
+            const title=encodeURIComponent('Festival Ready - Screenplay Optimization Tool');
+            window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}&title=${title}`,'_blank');
             trackButtonClick('Shared on LinkedIn');
         }
-
-        function shareOnTikTok() {
-            const url = encodeURIComponent(window.location.href);
-            const title = encodeURIComponent('Festival Ready - AI screenplay optimization! 🎬🤖');
-            // Note: TikTok doesn't have a direct sharing API, so we'll copy link to clipboard
-            navigator.clipboard.writeText(window.location.href).then(() => {
-                alert('Link copied to clipboard! You can now paste it in your TikTok post.');
+        function shareOnTikTok(){
+            navigator.clipboard.writeText(location.href).then(()=>{
+                alert('Link copied to clipboard! You can now paste it into your TikTok post.');
             });
             trackButtonClick('Shared on TikTok');
         }
-
-        function shareOnReddit() {
-            const url = encodeURIComponent(window.location.href);
-            const title = encodeURIComponent('Festival Ready - AI-powered screenplay optimization for film festivals');
-            window.open(`https://reddit.com/submit?url=${url}&title=${title}`, '_blank');
+        function shareOnReddit(){
+            const url=encodeURIComponent(location.href);
+            const title=encodeURIComponent('Festival Ready - AI-powered screenplay optimization for film festivals');
+            window.open(`https://reddit.com/submit?url=${url}&title=${title}`,'_blank');
             trackButtonClick('Shared on Reddit');
         }
-
-        function shareViaEmail() {
-            const subject = encodeURIComponent('Check out Festival Ready - Screenplay Optimization Tool');
-            const body = encodeURIComponent(`I found this awesome tool for screenplay optimization: ${window.location.href}\n\nFestival Ready helps screenwriters create professional submission materials for film festivals. Thought you might be interested!`);
-            window.location.href = `mailto:?subject=${subject}&body=${body}`;
+        function shareViaEmail(){
+            const subject=encodeURIComponent('Check out Festival Ready - Screenplay Optimization Tool');
+            const body=encodeURIComponent(`I found this awesome tool for screenplay optimization: ${location.href}\n\nFestival Ready helps screenwriters create professional submission materials for film festivals. Thought you might be interested!`);
+            location.href=`mailto:?subject=${subject}&body=${body}`;
             trackButtonClick('Shared via Email');
         }
 
-        // Initialize everything on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            revealOnScroll();
-            initializeStarRating();
+        /* --- Init on load --- */
+        document.addEventListener('DOMContentLoaded',()=>{
+            revealOnScroll();initializeStarRating();
         });
     </script>
 </body>
