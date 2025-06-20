@@ -373,6 +373,28 @@
             color: #e74c3c;
             font-weight: 600;
         }
+        
+        .nav-button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .nav-button.primary {
+            background: #667eea;
+            color: white;
+        }
+        
+        .nav-button.primary:hover {
+            background: #5a6fd8;
+            transform: translateY(-2px);
+        }
     </style>
 </head>
 <body>
@@ -475,6 +497,23 @@
                             <span class="value" id="roiPercentage">-</span>
                         </div>
                     </div>
+                </div>
+            </div>
+
+            <!-- Email List Management Section -->
+            <div class="section">
+                <h2>📧 Email List Management</h2>
+                <p>Export your email lists for marketing campaigns:</p>
+                <div style="display: flex; gap: 15px; margin-top: 20px; flex-wrap: wrap;">
+                    <button class="nav-button primary" onclick="exportEmails('all')">
+                        Export All Emails
+                    </button>
+                    <button class="nav-button primary" onclick="exportEmails('updates')">
+                        Export App Update Subscribers
+                    </button>
+                    <button class="nav-button primary" onclick="exportEmails('discounts')">
+                        Export Marketing Subscribers
+                    </button>
                 </div>
             </div>
 
@@ -875,6 +914,44 @@
 
         function refreshDashboard() {
             loadDashboardData();
+        }
+
+        // Add export emails function
+        async function exportEmails(listType) {
+            try {
+                const response = await fetch(`${API_URL}/export-emails?list=${listType}`, {
+                    method: 'GET',
+                    headers: {
+                        'x-admin-password': savedPassword,
+                        'Content-Type': 'application/json',
+                        'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZtZmh4a2ZwcnJic2h3bmlndWFxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk2ODYxNTcsImV4cCI6MjA2NTI2MjE1N30.k0OdvFzcO1nwZzxsgLPcQBeSITmV6dA_ncXpN0cpAgQ',
+                        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZtZmh4a2ZwcnJic2h3bmlndWFxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk2ODYxNTcsImV4cCI6MjA2NTI2MjE1N30.k0OdvFzcO1nwZzxsgLPcQBeSITmV6dA_ncXpN0cpAgQ'
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to export emails');
+                }
+
+                // Get the CSV content
+                const csvContent = await response.text();
+                
+                // Create a download link
+                const blob = new Blob([csvContent], { type: 'text/csv' });
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `${listType}-emails-${new Date().toISOString().split('T')[0]}.csv`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(url);
+                
+                alert(`Email list exported successfully!`);
+            } catch (error) {
+                console.error('Export error:', error);
+                alert('Failed to export email list. Please try again.');
+            }
         }
 
         // Auto-refresh every 60 seconds
