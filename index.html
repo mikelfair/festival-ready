@@ -34,6 +34,7 @@
             line-height: 1.6;
             color: #333;
             overflow-x: hidden;
+            padding-bottom: 120px; /* Make room for the book banner */
         }
         
         .container {
@@ -475,6 +476,36 @@
             text-decoration: underline;
         }
         
+        /* Book Banner Styles */
+        .book-banner-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.05);
+            padding: 10px;
+            text-align: center;
+            z-index: 1000;
+        }
+        
+        .book-banner {
+            max-width: 728px;
+            margin: 0 auto;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+        
+        .book-banner:hover {
+            transform: scale(1.02);
+        }
+        
+        .book-banner img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        
         /* Animations */
         .scroll-reveal {
             opacity: 0;
@@ -489,6 +520,10 @@
         
         /* Mobile Responsive */
         @media (max-width: 768px) {
+            body {
+                padding-bottom: 80px; /* Less padding on mobile */
+            }
+            
             .logo {
                 font-size: 2.5rem;
             }
@@ -552,6 +587,10 @@
             .share-btn {
                 padding: 10px 15px;
                 font-size: 0.8rem;
+            }
+            
+            .book-banner-container {
+                padding: 5px;
             }
         }
     </style>
@@ -695,6 +734,13 @@
             <p style="font-size: 0.9rem; opacity: 0.8;">Beta Version • Free Tool • No Credit Card Required</p>
         </div>
     </footer>
+    
+    <!-- Book Banner - Fixed at Bottom -->
+    <div class="book-banner-container">
+        <a href="https://amzn.to/4naJ4FT" target="_blank" class="book-banner">
+            <img src="images/festival-books-banner.png" alt="Film Festival Submitter's Handbook & Screenplay Judging Guide - Available on Amazon">
+        </a>
+    </div>
 
     <script>
         // Scroll reveal animation
