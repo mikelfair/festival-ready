@@ -352,6 +352,54 @@
             font-size: 1.2rem;
         }
         
+        /* PDF Processing Status Styles */
+        .pdf-status {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 10px;
+            display: none;
+        }
+        
+        .pdf-status.processing {
+            background: #cfe2ff;
+            border: 1px solid #b6d4fe;
+            color: #084298;
+        }
+        
+        .pdf-status.success {
+            background: #d1e7dd;
+            border: 1px solid #badbcc;
+            color: #0f5132;
+        }
+        
+        .pdf-status.error {
+            background: #f8d7da;
+            border: 1px solid #f5c2c7;
+            color: #842029;
+        }
+        
+        .pdf-progress {
+            background: rgba(0, 0, 0, 0.1);
+            height: 8px;
+            border-radius: 4px;
+            margin: 10px 0;
+            overflow: hidden;
+        }
+        
+        .pdf-progress-bar {
+            background: #0d6efd;
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s ease;
+            border-radius: 4px;
+        }
+        
+        .text-stats {
+            margin-top: 5px;
+            font-size: 0.85rem;
+            color: #666;
+        }
+        
         small {
             display: block;
             margin-top: 5px;
@@ -793,18 +841,27 @@ You can also paste your existing synopsis or tagline here if you have one."></te
                     <div class="file-upload-area" id="uploadArea">
                         <div class="upload-icon">📄</div>
                         <div class="upload-text">Click to upload or drag and drop PDF</div>
-                        <div class="upload-subtext">PDF files only</div>
+                        <div class="upload-subtext">PDF files only (max 10MB)</div>
                     </div>
                     <input type="file" id="scriptFile" class="file-input" accept=".pdf">
                     <div id="uploadedFile" class="uploaded-file" style="display: none;">
                         <div class="file-info" id="fileInfo"></div>
                         <button type="button" class="remove-file" id="removeFile">×</button>
                     </div>
+                    
+                    <!-- PDF Processing Status -->
+                    <div id="pdfStatus" class="pdf-status">
+                        <div id="pdfStatusMessage"></div>
+                        <div class="pdf-progress" id="pdfProgress" style="display: none;">
+                            <div class="pdf-progress-bar" id="pdfProgressBar"></div>
+                        </div>
+                    </div>
                 </div>
                 
                 <div class="form-group" style="margin-top: 30px;">
                     <label for="scriptText">Or paste as much text from your story or screenplay as you'd like:</label>
                     <textarea id="scriptText" name="scriptText" placeholder="Paste your screenplay text here for best results..." style="min-height: 150px;"></textarea>
+                    <div class="text-stats" id="textStats"></div>
                 </div>
                 
                 <div class="form-group">
@@ -928,6 +985,9 @@ You can also paste your existing synopsis or tagline here if you have one."></te
         </a>
     </div>
 
+    <!-- PDF.js Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    
     <!-- Import Supabase JS Library -->
     <script type="module">
         import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.45.4';
@@ -943,9 +1003,14 @@ You can also paste your existing synopsis or tagline here if you have one."></te
     </script>
 
     <script>
+        // Configure PDF.js worker
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+        
         let currentStepNumber = 1;
         const totalSteps = 16;
         const formData = {};
+        let pdfProcessingComplete = false;
+        let pdfHasError = false;
 
         // Navigation elements
         const prevBtn = document.getElementById('prevBtn');
@@ -959,10 +1024,15 @@ You can also paste your existing synopsis or tagline here if you have one."></te
         const uploadedFile = document.getElementById('uploadedFile');
         const fileInfo = document.getElementById('fileInfo');
         const removeFile = document.getElementById('removeFile');
+        const pdfStatus = document.getElementById('pdfStatus');
+        const pdfStatusMessage = document.getElementById('pdfStatusMessage');
+        const pdfProgress = document.getElementById('pdfProgress');
+        const pdfProgressBar = document.getElementById('pdfProgressBar');
 
         // Initialize wizard
         updateStepDisplay();
         setupEventListeners();
+        updateTextStats();
 
         // Clear honeypot field on page load and monitor it
         document.addEventListener('DOMContentLoaded', function() {
@@ -1046,6 +1116,12 @@ You can also paste your existing synopsis or tagline here if you have one."></te
                 scriptFile.addEventListener('change', handleFileSelect);
                 removeFile.addEventListener('click', handleFileRemove);
             }
+            
+            // Text stats update
+            const scriptText = document.getElementById('scriptText');
+            if (scriptText) {
+                scriptText.addEventListener('input', updateTextStats);
+            }
         }
 
         function previousStep() {
@@ -1103,6 +1179,20 @@ You can also paste your existing synopsis or tagline here if you have one."></te
                 if (checkedGenres.length === 0) {
                     alert('Please select at least one genre.');
                     return false;
+                }
+            }
+            
+            // PDF validation on step 14
+            if (currentStepNumber === 14) {
+                if (formData.uploadedFile && !pdfProcessingComplete && !pdfHasError) {
+                    alert('Please wait for the PDF to finish processing before continuing.');
+                    return false;
+                }
+                if (pdfHasError) {
+                    const confirmContinue = confirm('The PDF file could not be processed. Would you like to continue without it? You can still paste screenplay text manually.');
+                    if (!confirmContinue) {
+                        return false;
+                    }
                 }
             }
             
@@ -1165,6 +1255,22 @@ You can also paste your existing synopsis or tagline here if you have one."></te
                     formData[input.name] = input.value;
                 }
             });
+            
+            // If we have extracted PDF text, include it in the script_text field
+            if (formData.pdfExtractedText && currentStepNumber === 14) {
+                const scriptTextField = document.getElementById('scriptText');
+                if (scriptTextField) {
+                    // Combine PDF text with any additional text the user typed
+                    const manualText = scriptTextField.value;
+                    if (manualText && manualText !== formData.pdfExtractedText) {
+                        // User added additional text
+                        formData.scriptText = formData.pdfExtractedText + '\n\n--- Additional Details ---\n\n' + manualText;
+                    } else {
+                        // Just use the PDF text
+                        formData.scriptText = formData.pdfExtractedText || manualText;
+                    }
+                }
+            }
             
             console.log('Form data saved:', formData);
         }
@@ -1324,7 +1430,7 @@ You can also paste your existing synopsis or tagline here if you have one."></te
             }
         }
 
-        function handleFile(file) {
+        async function handleFile(file) {
             const maxSize = 10 * 1024 * 1024; // 10MB
             const allowedTypes = ['.pdf'];
             const fileExtension = '.' + file.name.split('.').pop().toLowerCase();
@@ -1339,19 +1445,146 @@ You can also paste your existing synopsis or tagline here if you have one."></te
                 return;
             }
             
-            // Show uploaded file
+            // Reset processing flags
+            pdfProcessingComplete = false;
+            pdfHasError = false;
+            
+            // Show uploaded file UI
             fileInfo.textContent = `${file.name} (${(file.size / 1024 / 1024).toFixed(2)} MB)`;
             uploadedFile.style.display = 'flex';
             uploadArea.style.display = 'none';
             
+            // Store the file reference
             formData.uploadedFile = file;
+            
+            // Show processing status
+            pdfStatus.style.display = 'block';
+            pdfStatus.className = 'pdf-status processing';
+            pdfStatusMessage.textContent = '🔍 Checking PDF file...';
+            pdfProgress.style.display = 'block';
+            pdfProgressBar.style.width = '0%';
+            
+            try {
+                // Extract text from PDF
+                const text = await extractTextFromPDF(file);
+                
+                // Store the extracted text
+                formData.pdfExtractedText = text;
+                pdfProcessingComplete = true;
+                
+                // Update UI to show success
+                pdfStatus.className = 'pdf-status success';
+                pdfStatusMessage.innerHTML = `✅ PDF processed successfully! Extracted ${text.length.toLocaleString()} characters from ${file.name}`;
+                pdfProgress.style.display = 'none';
+                
+                // Auto-populate the script text field if it's empty
+                const scriptTextField = document.getElementById('scriptText');
+                if (scriptTextField && !scriptTextField.value) {
+                    scriptTextField.value = text;
+                    updateTextStats();
+                }
+                
+                console.log(`Successfully extracted ${text.length} characters from PDF`);
+                
+            } catch (error) {
+                console.error('PDF extraction error:', error);
+                pdfHasError = true;
+                
+                // Update UI to show error
+                pdfStatus.className = 'pdf-status error';
+                pdfStatusMessage.innerHTML = `❌ Failed to process PDF: ${error.message}<br><small>Please paste your screenplay text manually below.</small>`;
+                pdfProgress.style.display = 'none';
+            }
+        }
+
+        async function extractTextFromPDF(file) {
+            try {
+                // Convert file to ArrayBuffer
+                const arrayBuffer = await file.arrayBuffer();
+                
+                // Load the PDF document
+                pdfStatusMessage.textContent = '📄 Loading PDF document...';
+                const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+                
+                let fullText = '';
+                const numPages = pdf.numPages;
+                
+                console.log(`PDF has ${numPages} pages`);
+                
+                // Extract text from each page
+                for (let pageNum = 1; pageNum <= numPages; pageNum++) {
+                    try {
+                        const page = await pdf.getPage(pageNum);
+                        const textContent = await page.getTextContent();
+                        
+                        // Filter out any image-related items and combine text
+                        const pageText = textContent.items
+                            .filter(item => item.str && item.str.trim()) // Only text items
+                            .map(item => item.str)
+                            .join(' ');
+                        
+                        if (pageText.trim()) {
+                            fullText += pageText + '\n\n';
+                        }
+                        
+                        // Update progress
+                        const progress = Math.round((pageNum / numPages) * 100);
+                        pdfProgressBar.style.width = `${progress}%`;
+                        pdfStatusMessage.textContent = `📄 Extracting text from page ${pageNum} of ${numPages}...`;
+                        
+                    } catch (pageError) {
+                        console.warn(`Error processing page ${pageNum}:`, pageError);
+                        // Continue with other pages even if one fails
+                    }
+                }
+                
+                // Clean up the text
+                fullText = fullText
+                    .replace(/\s+/g, ' ')           // Normalize whitespace
+                    .replace(/\n{3,}/g, '\n\n')     // Remove excessive line breaks
+                    .trim();
+                
+                if (!fullText || fullText.length < 100) {
+                    throw new Error('No readable text found in PDF. The file may be image-based or corrupted.');
+                }
+                
+                return fullText;
+                
+            } catch (error) {
+                console.error('PDF processing error:', error);
+                throw new Error(error.message || 'Failed to read PDF file');
+            }
         }
 
         function handleFileRemove() {
             uploadedFile.style.display = 'none';
             uploadArea.style.display = 'block';
             scriptFile.value = '';
+            pdfStatus.style.display = 'none';
+            pdfProcessingComplete = false;
+            pdfHasError = false;
             delete formData.uploadedFile;
+            delete formData.pdfExtractedText;
+            
+            // Clear the text field if it contains the PDF text
+            const scriptTextField = document.getElementById('scriptText');
+            if (scriptTextField && formData.pdfExtractedText && scriptTextField.value === formData.pdfExtractedText) {
+                scriptTextField.value = '';
+                updateTextStats();
+            }
+        }
+
+        function updateTextStats() {
+            const scriptText = document.getElementById('scriptText');
+            const statsDiv = document.getElementById('textStats');
+            
+            if (scriptText && scriptText.value && statsDiv) {
+                const charCount = scriptText.value.length;
+                const wordCount = scriptText.value.split(/\s+/).filter(word => word.length > 0).length;
+                statsDiv.textContent = `${charCount.toLocaleString()} characters, ${wordCount.toLocaleString()} words`;
+            } else if (statsDiv) {
+                statsDiv.textContent = '';
+            }
         }
 
         // Keyboard navigation
