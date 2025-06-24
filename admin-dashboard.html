@@ -3,9 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Screenplay Questionnaire - Festival Ready Beta v002</title>
-    <meta name="description" content="Complete our comprehensive screenplay questionnaire to generate professional submission materials">
-    
+    <title>Festival Ready Admin Dashboard</title>
     <style>
         * {
             margin: 0;
@@ -14,898 +12,672 @@
         }
         
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
-            line-height: 1.6;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #f5f5f5;
             color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
             padding: 20px;
         }
         
-        .main-container {
-            width: 100%;
-            max-width: 700px;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            margin-bottom: 20px;
-        }
-        
-        .wizard-container {
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 25px 60px rgba(0,0,0,0.2);
-            width: 100%;
-            overflow: hidden;
-            position: relative;
-        }
-        
-        .wizard-header {
+        .header {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             padding: 30px;
-            text-align: center;
-            position: relative;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
         
-        .home-button {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            background: rgba(255,255,255,0.2);
-            color: white;
-            border: 2px solid rgba(255,255,255,0.3);
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            font-size: 1.5rem;
-            transition: all 0.3s ease;
-        }
-        
-        .home-button:hover {
-            background: rgba(255,255,255,0.3);
-            border-color: rgba(255,255,255,0.5);
-            transform: scale(1.1);
-            color: white;
-            text-decoration: none;
-        }
-        
-        .wizard-header h1 {
-            font-size: 1.8rem;
+        .header h1 {
+            font-size: 2.5em;
             margin-bottom: 10px;
-            font-weight: 700;
         }
         
-        .wizard-header p {
+        .header p {
             opacity: 0.9;
-            font-size: 1rem;
+            font-size: 1.1em;
         }
         
-        .progress-container {
-            background: rgba(255,255,255,0.2);
-            height: 8px;
-            border-radius: 4px;
-            margin-top: 20px;
-            overflow: hidden;
-        }
-        
-        .progress-bar {
-            background: #ff6b6b;
-            height: 100%;
-            border-radius: 4px;
-            transition: width 0.5s ease;
-            width: 6.25%;
-        }
-        
-        .step-content {
-            padding: 40px;
-            min-height: 400px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-        
-        .step {
-            display: none;
-            animation: fadeIn 0.5s ease;
-        }
-        
-        .step.active {
-            display: block;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateX(30px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-        
-        .step h2 {
-            font-size: 1.5rem;
-            color: #333;
-            margin-bottom: 15px;
-            font-weight: 600;
-        }
-        
-        .step p {
-            color: #666;
-            margin-bottom: 25px;
-            line-height: 1.6;
-        }
-        
-        .form-group {
-            margin-bottom: 25px;
-        }
-        
-        .form-group label {
-            display: block;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 8px;
-            font-size: 1rem;
-        }
-        
-        .form-group input[type="text"],
-        .form-group input[type="email"],
-        .form-group input[type="number"],
-        .form-group textarea,
-        .form-group select {
-            width: 100%;
-            padding: 15px;
-            border: 2px solid #e9ecef;
-            border-radius: 10px;
-            font-size: 1rem;
-            transition: border-color 0.3s ease;
-            font-family: inherit;
-        }
-        
-        .form-group input:focus,
-        .form-group textarea:focus,
-        .form-group select:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-        }
-        
-        .form-group textarea {
-            resize: vertical;
-            min-height: 100px;
-        }
-        
-        .checkbox-group {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-top: 15px;
-        }
-        
-        .checkbox-item {
-            display: flex;
-            align-items: center;
-            padding: 12px;
-            background: #f8f9fa;
-            border-radius: 8px;
-            transition: background-color 0.3s ease;
-        }
-        
-        .checkbox-item:hover {
-            background: #e9ecef;
-        }
-        
-        .checkbox-item input[type="checkbox"] {
-            margin-right: 10px;
-            transform: scale(1.2);
-        }
-        
-        .radio-group {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin-top: 15px;
-        }
-        
-        .radio-item {
-            display: flex;
-            align-items: center;
-            padding: 15px;
-            background: #f8f9fa;
-            border-radius: 10px;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-        
-        .radio-item:hover {
-            background: #e9ecef;
-        }
-        
-        .radio-item input[type="radio"] {
-            margin-right: 12px;
-            transform: scale(1.2);
-        }
-        
-        .radio-item.selected {
-            background: #667eea;
-            color: white;
-        }
-        
-        .wizard-navigation {
-            background: #f8f9fa;
-            padding: 25px 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-top: 1px solid #e9ecef;
-        }
-        
-        .nav-button {
-            padding: 12px 25px;
-            border: none;
-            border-radius: 25px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        
-        .nav-button.primary {
-            background: #667eea;
-            color: white;
-        }
-        
-        .nav-button.primary:hover {
-            background: #5a6fd8;
-            transform: translateY(-2px);
-        }
-        
-        .nav-button.secondary {
-            background: #6c757d;
-            color: white;
-        }
-        
-        .nav-button.secondary:hover {
-            background: #5a6268;
-        }
-        
-        .nav-button:disabled {
-            background: #e9ecef;
-            color: #6c757d;
-            cursor: not-allowed;
-            transform: none;
-        }
-        
-        .step-indicator {
-            text-align: center;
-            color: #666;
-            font-size: 0.9rem;
-        }
-        
-        .file-upload-area {
-            border: 2px dashed #667eea;
-            border-radius: 15px;
-            padding: 40px;
-            text-align: center;
-            background: #f8f9ff;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-        
-        .file-upload-area:hover {
-            background: #f0f3ff;
-            border-color: #5a6fd8;
-        }
-        
-        .file-upload-area.dragover {
-            background: #e8f2ff;
-            border-color: #4dabf7;
-        }
-        
-        .upload-icon {
-            font-size: 3rem;
-            color: #667eea;
-            margin-bottom: 15px;
-        }
-        
-        .upload-text {
-            color: #333;
-            font-size: 1.1rem;
-            margin-bottom: 10px;
-        }
-        
-        .upload-subtext {
-            color: #666;
-            font-size: 0.9rem;
-        }
-        
-        .file-input {
-            display: none;
-        }
-        
-        .uploaded-file {
-            background: #d4edda;
-            border: 1px solid #c3e6cb;
-            padding: 15px;
-            border-radius: 10px;
-            margin-top: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        
-        .file-info {
-            display: flex;
-            align-items: center;
-            color: #155724;
-        }
-        
-        .file-info::before {
-            content: '📄';
-            margin-right: 10px;
-            font-size: 1.2rem;
-        }
-        
-        .remove-file {
-            background: none;
-            border: none;
-            color: #721c24;
-            cursor: pointer;
-            font-size: 1.2rem;
-        }
-        
-        /* PDF Processing Status Styles */
-        .pdf-status {
-            margin-top: 15px;
-            padding: 15px;
-            border-radius: 10px;
-            display: none;
-        }
-        
-        .pdf-status.processing {
-            background: #cfe2ff;
-            border: 1px solid #b6d4fe;
-            color: #084298;
-        }
-        
-        .pdf-status.success {
-            background: #d1e7dd;
-            border: 1px solid #badbcc;
-            color: #0f5132;
-        }
-        
-        .pdf-status.error {
-            background: #f8d7da;
-            border: 1px solid #f5c2c7;
-            color: #842029;
-        }
-        
-        .pdf-progress {
-            background: rgba(0, 0, 0, 0.1);
-            height: 8px;
-            border-radius: 4px;
-            margin: 10px 0;
-            overflow: hidden;
-        }
-        
-        .pdf-progress-bar {
-            background: #0d6efd;
-            height: 100%;
-            width: 0%;
-            transition: width 0.3s ease;
-            border-radius: 4px;
-        }
-        
-        .text-stats {
-            margin-top: 5px;
-            font-size: 0.85rem;
-            color: #666;
-        }
-        
-        small {
-            display: block;
-            margin-top: 5px;
-            font-size: 0.875rem;
-        }
-        
-        /* Honeypot field - visually hidden but accessible to bots */
-        .ohnohoney {
-            opacity: 0;
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 0;
-            width: 0;
-            z-index: -1;
-        }
-        
-        .ohnohoney input {
-            opacity: 0;
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 0;
-            width: 0;
-            z-index: -1;
-            border: none;
-            background: transparent;
-        }
-        
-        /* Book Banner Styles - No longer fixed position */
-        .book-banner-container {
-            width: 100%;
-            max-width: 728px;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 15px;
-            border-radius: 15px;
-            text-align: center;
-        }
-        
-        .book-banner {
-            display: block;
-            transition: transform 0.3s ease;
-        }
-        
-        .book-banner:hover {
-            transform: scale(1.02);
-        }
-        
-        .book-banner img {
-            width: 100%;
-            height: auto;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        /* Admin Dashboard Styles */
-        .admin-container {
-            max-width: 1200px;
-            width: 100%;
+        .login-form {
             background: white;
-            border-radius: 20px;
-            box-shadow: 0 25px 60px rgba(0,0,0,0.2);
-            overflow: hidden;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            margin: 0 auto;
         }
-
-        .admin-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        
+        .login-form input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 2px solid #e0e0e0;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        .login-form button {
+            width: 100%;
+            padding: 12px;
+            background: #667eea;
             color: white;
-            padding: 30px;
-            text-align: center;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
         }
-
-        .admin-content {
-            padding: 30px;
+        
+        .login-form button:hover {
+            background: #5a67d8;
         }
-
+        
+        .dashboard {
+            display: none;
+        }
+        
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 20px;
             margin-bottom: 30px;
         }
-
+        
         .stat-card {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-        }
-
-        .stat-value {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #667eea;
-        }
-
-        .stat-label {
-            color: #666;
-            margin-top: 5px;
-        }
-
-        .submission-table {
-            width: 100%;
             background: white;
+            padding: 25px;
             border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
         }
-
-        .submission-table table {
-            width: 100%;
-            border-collapse: collapse;
+        
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
         }
-
-        .submission-table th {
-            background: #f8f9fa;
-            padding: 15px;
-            text-align: left;
-            font-weight: 600;
-            color: #333;
-            border-bottom: 2px solid #e9ecef;
-        }
-
-        .submission-table td {
-            padding: 15px;
-            border-bottom: 1px solid #e9ecef;
-        }
-
-        .submission-table tr:hover {
-            background: #f8f9fa;
-        }
-
-        .status-badge {
-            display: inline-block;
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-size: 0.875rem;
+        
+        .stat-card h3 {
+            color: #666;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            margin-bottom: 10px;
             font-weight: 500;
         }
-
-        .status-badge.completed {
-            background: #d4edda;
-            color: #155724;
+        
+        .stat-card .value {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #667eea;
+            line-height: 1;
         }
-
-        .status-badge.pending {
-            background: #fff3cd;
-            color: #856404;
+        
+        .stat-card .subtitle {
+            color: #999;
+            font-size: 0.85em;
+            margin-top: 5px;
         }
-
-        .status-badge.failed {
-            background: #f8d7da;
-            color: #721c24;
-        }
-
-        .action-buttons {
-            display: flex;
-            gap: 10px;
-        }
-
-        .action-button {
-            padding: 5px 10px;
-            border: none;
-            border-radius: 5px;
-            font-size: 0.875rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .action-button.edit {
-            background: #667eea;
+        
+        .stat-card.promo {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
             color: white;
         }
-
-        .action-button.edit:hover {
-            background: #5a6fd8;
+        
+        .stat-card.promo h3 {
+            color: rgba(255, 255, 255, 0.9);
         }
-
-        .action-button.resend {
-            background: #28a745;
+        
+        .stat-card.promo .value {
             color: white;
         }
-
-        .action-button.resend:hover {
-            background: #218838;
+        
+        .stat-card.promo .subtitle {
+            color: rgba(255, 255, 255, 0.8);
         }
-
-        .action-button.resend:disabled {
-            background: #6c757d;
-            cursor: not-allowed;
-            opacity: 0.6;
-        }
-
-        .action-button.view {
-            background: #17a2b8;
-            color: white;
-        }
-
-        .action-button.view:hover {
-            background: #138496;
-        }
-
-        .email-edit-input {
-            padding: 5px 10px;
-            border: 2px solid #667eea;
-            border-radius: 5px;
-            font-size: 0.875rem;
-            width: 200px;
-        }
-
-        .email-edit-buttons {
-            display: flex;
-            gap: 5px;
-        }
-
-        .email-edit-button {
-            padding: 5px 10px;
-            border: none;
-            border-radius: 5px;
-            font-size: 0.875rem;
-            cursor: pointer;
-        }
-
-        .email-edit-button.save {
-            background: #28a745;
-            color: white;
-        }
-
-        .email-edit-button.cancel {
-            background: #dc3545;
-            color: white;
-        }
-
-        /* Filter and Search Styles */
-        .admin-controls {
-            display: flex;
-            gap: 20px;
+        
+        .section {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             margin-bottom: 20px;
-            flex-wrap: wrap;
         }
-
-        .search-box {
-            flex: 1;
-            min-width: 200px;
+        
+        .section h2 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 10px;
         }
-
-        .search-box input {
-            width: 100%;
-            padding: 10px 15px;
-            border: 2px solid #e9ecef;
-            border-radius: 10px;
-            font-size: 1rem;
-        }
-
-        .filter-select {
-            padding: 10px 15px;
-            border: 2px solid #e9ecef;
-            border-radius: 10px;
-            font-size: 1rem;
-        }
-
-        .refresh-button {
-            padding: 10px 20px;
-            background: #667eea;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            font-weight: 600;
-        }
-
-        .refresh-button:hover {
-            background: #5a6fd8;
-        }
-
-        /* Submission Details Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.5);
-            overflow-y: auto;
-        }
-
-        .modal-content {
-            background-color: white;
-            margin: 5% auto;
-            padding: 20px;
-            border-radius: 10px;
-            width: 90%;
-            max-width: 800px;
-            max-height: 80vh;
-            overflow-y: auto;
-        }
-
-        .modal-header {
+        
+        .section-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 20px;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 10px;
         }
-
-        .modal-close {
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-            color: #999;
+        
+        .section-header h2 {
+            margin: 0;
+            border: none;
+            padding: 0;
         }
-
-        .modal-close:hover {
-            color: #333;
+        
+        .month-navigation {
+            display: flex;
+            gap: 10px;
+            align-items: center;
         }
-
-        .detail-section {
-            margin-bottom: 20px;
-        }
-
-        .detail-label {
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 5px;
-        }
-
-        .detail-value {
-            background: #f8f9fa;
-            padding: 10px;
+        
+        .month-navigation button {
+            padding: 6px 12px;
+            background: #667eea;
+            color: white;
+            border: none;
             border-radius: 5px;
-            white-space: pre-wrap;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: background 0.3s;
         }
-
+        
+        .month-navigation button:hover:not(:disabled) {
+            background: #5a67d8;
+        }
+        
+        .month-navigation button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        
+        .month-navigation span {
+            font-weight: 600;
+            color: #667eea;
+            min-width: 120px;
+            text-align: center;
+        }
+        
+        .data-table {
+            overflow-x: auto;
+        }
+        
+        .data-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .data-table th {
+            text-align: left;
+            padding: 12px;
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #666;
+            font-size: 0.9em;
+            text-transform: uppercase;
+        }
+        
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .data-table tr:hover {
+            background: #f8f9fa;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 500;
+        }
+        
+        .status-badge.promo {
+            background: #cfe2ff;
+            color: #084298;
+        }
+        
+        .status-badge.completed {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .category-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 15px;
+        }
+        
+        .category-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .category-item .name {
+            font-weight: 500;
+            color: #333;
+        }
+        
+        .category-item .count {
+            background: #667eea;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+        
+        .roi-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .roi-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #28a745;
+        }
+        
+        .roi-card h3 {
+            color: #28a745;
+            margin-bottom: 15px;
+        }
+        
+        .roi-metric {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+        }
+        
+        .roi-metric .label {
+            color: #666;
+        }
+        
+        .roi-metric .value {
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .success {
+            background: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border: 1px solid #c3e6cb;
+        }
+        
         .loading {
             text-align: center;
             padding: 40px;
             color: #666;
         }
-
-        .error-message {
-            background: #f8d7da;
-            color: #721c24;
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 20px;
+        
+        .loading::after {
+            content: '...';
+            animation: dots 1.5s steps(4, end) infinite;
         }
-
-        .success-message {
-            background: #d4edda;
-            color: #155724;
-            padding: 15px;
-            border-radius: 10px;
+        
+        @keyframes dots {
+            0%, 20% { content: ''; }
+            40% { content: '.'; }
+            60% { content: '..'; }
+            80%, 100% { content: '...'; }
+        }
+        
+        .refresh-btn {
+            float: right;
+            padding: 8px 16px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: background 0.3s;
+        }
+        
+        .refresh-btn:hover {
+            background: #5a67d8;
+        }
+        
+        .last-updated {
+            text-align: center;
+            color: #999;
+            font-size: 0.85em;
+            margin-top: 30px;
+        }
+        
+        .no-data {
+            text-align: center;
+            color: #999;
+            padding: 20px;
+            font-style: italic;
+        }
+        
+        .cost-value {
+            color: #e74c3c;
+            font-weight: 600;
+        }
+        
+        /* New styles for edit and resend functionality */
+        .action-button {
+            padding: 4px 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 0.85em;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-left: 5px;
+        }
+        
+        .action-button.edit {
+            background: #667eea;
+            color: white;
+        }
+        
+        .action-button.edit:hover {
+            background: #5a67d8;
+        }
+        
+        .action-button.resend {
+            background: #28a745;
+            color: white;
+        }
+        
+        .action-button.resend:hover {
+            background: #218838;
+        }
+        
+        .action-button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        
+        .email-edit-input {
+            padding: 4px 8px;
+            border: 1px solid #667eea;
+            border-radius: 3px;
+            font-size: 0.9em;
+            width: 200px;
+        }
+        
+        .email-edit-buttons {
+            display: flex;
+            gap: 5px;
+            margin-top: 5px;
+        }
+        
+        .email-edit-button {
+            padding: 4px 10px;
+            border: none;
+            border-radius: 3px;
+            font-size: 0.85em;
+            cursor: pointer;
+        }
+        
+        .email-edit-button.save {
+            background: #28a745;
+            color: white;
+        }
+        
+        .email-edit-button.cancel {
+            background: #dc3545;
+            color: white;
+        }
+        
+        /* Submissions Management Section */
+        .submissions-section {
+            margin-top: 30px;
+        }
+        
+        .search-controls {
+            display: flex;
+            gap: 10px;
             margin-bottom: 20px;
         }
         
-        @media (max-width: 768px) {
-            .main-container {
-                gap: 15px;
-            }
-            
-            .wizard-container {
-                margin: 10px;
-            }
-            
-            .wizard-header {
-                padding: 20px;
-            }
-            
-            .wizard-header h1 {
-                font-size: 1.5rem;
-            }
-            
-            .home-button {
-                width: 40px;
-                height: 40px;
-                font-size: 1.2rem;
-                top: 15px;
-                left: 15px;
-            }
-            
-            .step-content {
-                padding: 25px;
-                min-height: 350px;
-            }
-            
-            .wizard-navigation {
-                padding: 20px 25px;
-            }
-            
-            .checkbox-group {
-                grid-template-columns: 1fr;
-            }
-            
-            .book-banner-container {
-                padding: 10px;
-            }
-
-            .submission-table {
-                overflow-x: auto;
-            }
-
-            .admin-controls {
-                flex-direction: column;
-            }
-
-            .search-box {
-                width: 100%;
-            }
+        .search-input {
+            flex: 1;
+            padding: 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        
+        .filter-select {
+            padding: 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 5px;
+            font-size: 14px;
         }
     </style>
 </head>
 <body>
-    <div class="admin-container">
-        <div class="admin-header">
-            <a href="index.html" class="home-button" title="Return to Homepage">🏠</a>
-            <h1>🎬 Admin Dashboard</h1>
-            <p>Screenplay Submission Management</p>
+    <div class="container">
+        <div class="header">
+            <h1>🎬 Festival Ready Admin Dashboard</h1>
+            <p>Monitor your screenplay processing system performance</p>
         </div>
 
-        <div class="admin-content">
-            <!-- Success/Error Messages -->
-            <div id="messageContainer"></div>
+        <!-- Login Form -->
+        <div id="loginSection" class="login-form">
+            <h2>Admin Login</h2>
+            <p style="margin-bottom: 20px; color: #666;">Enter your admin password to access the dashboard</p>
+            <input type="password" id="passwordInput" placeholder="Enter password" autocomplete="current-password">
+            <button onclick="login()">Access Dashboard</button>
+            <div id="loginError" style="color: #d32f2f; margin-top: 10px; display: none;"></div>
+        </div>
 
-            <!-- Statistics -->
+        <!-- Dashboard -->
+        <div id="dashboardSection" class="dashboard">
+            <button class="refresh-btn" onclick="refreshDashboard()">🔄 Refresh</button>
+            
+            <div id="messageContainer"></div>
+            
             <div class="stats-grid">
                 <div class="stat-card">
-                    <div class="stat-value" id="totalSubmissions">0</div>
-                    <div class="stat-label">Total Submissions</div>
+                    <h3>Total Submissions</h3>
+                    <div class="value" id="totalSubmissions">-</div>
+                    <div class="subtitle" id="recentSubmissions">-</div>
                 </div>
+                
                 <div class="stat-card">
-                    <div class="stat-value" id="completedSubmissions">0</div>
-                    <div class="stat-label">Completed</div>
+                    <h3>Emails Sent</h3>
+                    <div class="value" id="totalEmails">-</div>
+                    <div class="subtitle" id="conversionRate">-</div>
                 </div>
+                
                 <div class="stat-card">
-                    <div class="stat-value" id="pendingSubmissions">0</div>
-                    <div class="stat-label">Pending</div>
+                    <h3>Average Rating</h3>
+                    <div class="value" id="avgRating">-</div>
+                    <div class="subtitle">User satisfaction</div>
                 </div>
+                
                 <div class="stat-card">
-                    <div class="stat-value" id="failedSubmissions">0</div>
-                    <div class="stat-label">Failed</div>
+                    <h3>Total AI Cost</h3>
+                    <div class="value" id="totalCost">-</div>
+                    <div class="subtitle">Gemini API usage</div>
+                </div>
+                
+                <div class="stat-card promo">
+                    <h3>Promo Code Usage</h3>
+                    <div class="value" id="promoUsage">-</div>
+                    <div class="subtitle">festivalready25 only</div>
+                </div>
+                
+                <div class="stat-card">
+                    <h3>Total Revenue</h3>
+                    <div class="value" id="totalRevenue">-</div>
+                    <div class="subtitle" id="revenueGrowth">-</div>
                 </div>
             </div>
 
-            <!-- Controls -->
-            <div class="admin-controls">
-                <div class="search-box">
-                    <input type="text" id="searchInput" placeholder="Search by email, title, or ID...">
+            <div class="section">
+                <h2>ROI Analysis</h2>
+                <div class="roi-section">
+                    <div class="roi-card">
+                        <h3>Email Campaign Performance</h3>
+                        <div class="roi-metric">
+                            <span class="label">Emails Sent:</span>
+                            <span class="value" id="roiEmailsSent">-</span>
+                        </div>
+                        <div class="roi-metric">
+                            <span class="label">Conversions:</span>
+                            <span class="value" id="roiConversions">-</span>
+                        </div>
+                        <div class="roi-metric">
+                            <span class="label">Conversion Rate:</span>
+                            <span class="value" id="roiConversionRate">-</span>
+                        </div>
+                        <div class="roi-metric">
+                            <span class="label">Revenue per Email:</span>
+                            <span class="value" id="roiRevenuePerEmail">-</span>
+                        </div>
+                    </div>
+                    
+                    <div class="roi-card">
+                        <h3>Cost Analysis</h3>
+                        <div class="roi-metric">
+                            <span class="label">AI Processing Costs:</span>
+                            <span class="value" id="roiAiCosts">-</span>
+                        </div>
+                        <div class="roi-metric">
+                            <span class="label">Revenue Generated:</span>
+                            <span class="value" id="roiRevenue">-</span>
+                        </div>
+                        <div class="roi-metric">
+                            <span class="label">Net Profit:</span>
+                            <span class="value" id="roiProfit">-</span>
+                        </div>
+                        <div class="roi-metric">
+                            <span class="label">ROI:</span>
+                            <span class="value" id="roiPercentage">-</span>
+                        </div>
+                    </div>
                 </div>
-                <select class="filter-select" id="statusFilter">
-                    <option value="">All Statuses</option>
-                    <option value="completed">Completed</option>
-                    <option value="pending">Pending</option>
-                    <option value="failed">Failed</option>
-                </select>
-                <select class="filter-select" id="dateFilter">
-                    <option value="">All Time</option>
-                    <option value="today">Today</option>
-                    <option value="week">This Week</option>
-                    <option value="month">This Month</option>
-                </select>
-                <button class="refresh-button" onclick="loadSubmissions()">↻ Refresh</button>
             </div>
 
-            <!-- Submissions Table -->
-            <div class="submission-table">
-                <table>
+            <div class="section">
+                <h2>Category Distribution</h2>
+                <div id="categoryLoading" class="loading">Loading category data</div>
+                <div id="categoryList" class="category-list" style="display: none;">
+                </div>
+            </div>
+
+            <div class="section data-table">
+                <div class="section-header">
+                    <h2>Purchase Activity</h2>
+                    <div class="month-navigation">
+                        <button id="prevMonth" onclick="navigateMonth('prev')">← Previous</button>
+                        <span id="currentMonth">All Time</span>
+                        <button id="nextMonth" onclick="navigateMonth('next')">Next →</button>
+                    </div>
+                </div>
+                <div id="purchaseLoading" class="loading">Loading purchase data</div>
+                <table id="purchaseTable" style="display: none;">
+                    <thead>
+                        <tr>
+                            <th>Email</th>
+                            <th>Paid Amount</th>
+                            <th>Promo Code</th>
+                            <th>Country</th>
+                            <th>Date & Time (CST)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="purchaseBody">
+                    </tbody>
+                </table>
+                <div id="noPurchases" class="no-data" style="display: none;">
+                    No purchases for this period
+                </div>
+            </div>
+
+            <div class="section data-table">
+                <div class="section-header">
+                    <h2>App Usage</h2>
+                    <div class="month-navigation">
+                        <button id="prevUsageMonth" onclick="navigateUsageMonth('prev')">← Previous</button>
+                        <span id="currentUsageMonth">All Time</span>
+                        <button id="nextUsageMonth" onclick="navigateUsageMonth('next')">Next →</button>
+                    </div>
+                </div>
+                <div id="usageLoading" class="loading">Loading usage data</div>
+                <table id="usageTable" style="display: none;">
+                    <thead>
+                        <tr>
+                            <th>Email</th>
+                            <th>Screenplay Title</th>
+                            <th>Country</th>
+                            <th>Date & Time (CST)</th>
+                            <th>AI Processing Cost</th>
+                        </tr>
+                    </thead>
+                    <tbody id="usageBody">
+                    </tbody>
+                </table>
+                <div id="noUsage" class="no-data" style="display: none;">
+                    No app usage for this period
+                </div>
+            </div>
+
+            <!-- New Submissions Management Section -->
+            <div class="section data-table submissions-section">
+                <h2>Submissions Management</h2>
+                <div class="search-controls">
+                    <input type="text" class="search-input" id="submissionSearch" placeholder="Search by email, title, or ID...">
+                    <select class="filter-select" id="statusFilter">
+                        <option value="">All Statuses</option>
+                        <option value="completed">Completed</option>
+                        <option value="pending">Pending</option>
+                        <option value="failed">Failed</option>
+                    </select>
+                    <button class="action-button edit" onclick="loadSubmissions()">Search</button>
+                </div>
+                <div id="submissionsLoading" class="loading">Loading submissions data</div>
+                <table id="submissionsTable" style="display: none;">
                     <thead>
                         <tr>
                             <th>ID</th>
                             <th>Email</th>
                             <th>Title</th>
-                            <th>Country</th>
-                            <th>Date</th>
                             <th>Status</th>
-                            <th>Amount</th>
+                            <th>Date</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
-                    <tbody id="submissionsTableBody">
-                        <tr>
-                            <td colspan="8" class="loading">Loading submissions...</td>
-                        </tr>
+                    <tbody id="submissionsBody">
                     </tbody>
                 </table>
+                <div id="noSubmissions" class="no-data" style="display: none;">
+                    No submissions found
+                </div>
             </div>
-        </div>
-    </div>
 
-    <!-- Submission Details Modal -->
-    <div id="detailsModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Submission Details</h2>
-                <span class="modal-close" onclick="closeModal()">&times;</span>
-            </div>
-            <div id="modalBody">
-                <!-- Details will be loaded here -->
+            <div class="last-updated" id="lastUpdated">
             </div>
         </div>
     </div>
@@ -925,21 +697,60 @@
     </script>
 
     <script>
+        // Configuration
+        const API_URL = 'https://vmfhxkfprrbshwniguaq.supabase.co/functions/v1/admin-dashboard-api';
+        const PASSWORD = 'festivalready2025!';
+        
+        let savedPassword = localStorage.getItem('adminPassword');
+        let currentMonth = null;
+        let currentYear = null;
+        let currentUsageMonth = null;
+        let currentUsageYear = null;
+        let availableMonths = [];
         let allSubmissions = [];
         let currentEditingId = null;
 
-        // Wait for Supabase to be available
-        async function waitForSupabase() {
-            while (!window.supabase) {
-                await new Promise(resolve => setTimeout(resolve, 100));
+        // Auto-login if password is saved
+        if (savedPassword === PASSWORD) {
+            showDashboard();
+            loadDashboardData();
+            loadSubmissions();
+        }
+
+        // Handle Enter key in password field
+        document.getElementById('passwordInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                login();
+            }
+        });
+
+        function login() {
+            const password = document.getElementById('passwordInput').value;
+            const errorDiv = document.getElementById('loginError');
+            
+            if (password === PASSWORD) {
+                localStorage.setItem('adminPassword', password);
+                savedPassword = password;
+                errorDiv.style.display = 'none';
+                showDashboard();
+                loadDashboardData();
+                loadSubmissions();
+            } else {
+                errorDiv.textContent = 'Invalid password. Please try again.';
+                errorDiv.style.display = 'block';
             }
         }
 
-        // Show message
+        function showDashboard() {
+            document.getElementById('loginSection').style.display = 'none';
+            document.getElementById('dashboardSection').style.display = 'block';
+        }
+
+        // Show message function
         function showMessage(message, type = 'error') {
             const container = document.getElementById('messageContainer');
             const div = document.createElement('div');
-            div.className = type === 'success' ? 'success-message' : 'error-message';
+            div.className = type === 'success' ? 'success' : 'error';
             div.textContent = message;
             container.innerHTML = '';
             container.appendChild(div);
@@ -950,102 +761,336 @@
             }, 5000);
         }
 
-        // Load submissions
+        // Convert UTC to Central Time
+        function toCentralTime(utcDateString) {
+            const date = new Date(utcDateString);
+            const options = {
+                timeZone: 'America/Chicago',
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: true
+            };
+            return new Intl.DateTimeFormat('en-US', options).format(date);
+        }
+
+        // Format month display
+        function formatMonthDisplay(month, year) {
+            if (!month || !year) return 'All Time';
+            const date = new Date(year, month - 1, 1);
+            return date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+        }
+
+        // Navigate months for purchases
+        function navigateMonth(direction) {
+            if (direction === 'prev') {
+                if (!currentMonth || !currentYear) {
+                    // If viewing all time, go to current month
+                    const now = new Date();
+                    currentMonth = now.getMonth() + 1;
+                    currentYear = now.getFullYear();
+                } else {
+                    currentMonth--;
+                    if (currentMonth < 1) {
+                        currentMonth = 12;
+                        currentYear--;
+                    }
+                }
+            } else { // next
+                if (!currentMonth || !currentYear) return; // Can't go next from all time
+                
+                currentMonth++;
+                if (currentMonth > 12) {
+                    currentMonth = 1;
+                    currentYear++;
+                }
+                
+                // Don't go beyond current month
+                const now = new Date();
+                if (currentYear > now.getFullYear() || 
+                    (currentYear === now.getFullYear() && currentMonth > now.getMonth() + 1)) {
+                    currentMonth = null;
+                    currentYear = null;
+                }
+            }
+            
+            loadDashboardData();
+        }
+
+        // Navigate months for app usage
+        function navigateUsageMonth(direction) {
+            if (direction === 'prev') {
+                if (!currentUsageMonth || !currentUsageYear) {
+                    const now = new Date();
+                    currentUsageMonth = now.getMonth() + 1;
+                    currentUsageYear = now.getFullYear();
+                } else {
+                    currentUsageMonth--;
+                    if (currentUsageMonth < 1) {
+                        currentUsageMonth = 12;
+                        currentUsageYear--;
+                    }
+                }
+            } else { // next
+                if (!currentUsageMonth || !currentUsageYear) return;
+                
+                currentUsageMonth++;
+                if (currentUsageMonth > 12) {
+                    currentUsageMonth = 1;
+                    currentUsageYear++;
+                }
+                
+                const now = new Date();
+                if (currentUsageYear > now.getFullYear() || 
+                    (currentUsageYear === now.getFullYear() && currentUsageMonth > now.getMonth() + 1)) {
+                    currentUsageMonth = null;
+                    currentUsageYear = null;
+                }
+            }
+            
+            loadDashboardData();
+        }
+
+        async function loadDashboardData() {
+            try {
+                console.log('Fetching dashboard data...');
+                
+                let url = API_URL;
+                const params = new URLSearchParams();
+                
+                if (currentMonth && currentYear) {
+                    params.append('month', currentMonth);
+                    params.append('year', currentYear);
+                }
+                
+                if (params.toString()) {
+                    url += '?' + params.toString();
+                }
+                
+                const response = await fetch(url, {
+                    method: 'GET',
+                    headers: {
+                        'x-admin-password': savedPassword,
+                        'Content-Type': 'application/json',
+                        'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZtZmh4a2ZwcnJic2h3bmlndWFxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk2ODYxNTcsImV4cCI6MjA2NTI2MjE1N30.k0OdvFzcO1nwZzxsgLPcQBeSITmV6dA_ncXpN0cpAgQ',
+                        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZtZmh4a2ZwcnJic2h3bmlndWFxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk2ODYxNTcsImV4cCI6MjA2NTI2MjE1N30.k0OdvFzcO1nwZzxsgLPcQBeSITmV6dA_ncXpN0cpAgQ'
+                    }
+                });
+
+                console.log('Response status:', response.status);
+                
+                const result = await response.json();
+                console.log('Response data:', result);
+
+                if (result.success) {
+                    updateDashboard(result.data);
+                } else {
+                    throw new Error(result.error || 'Failed to load data');
+                }
+            } catch (error) {
+                console.error('Dashboard error:', error);
+                showError('Failed to load dashboard data: ' + error.message);
+            }
+        }
+
+        function updateDashboard(data) {
+            // Update month displays
+            document.getElementById('currentMonth').textContent = formatMonthDisplay(currentMonth, currentYear);
+            document.getElementById('currentUsageMonth').textContent = formatMonthDisplay(currentUsageMonth, currentUsageYear);
+            
+            // Update navigation buttons
+            document.getElementById('nextMonth').disabled = !currentMonth || !currentYear;
+            document.getElementById('nextUsageMonth').disabled = !currentUsageMonth || !currentUsageYear;
+            
+            // Update basic stats
+            document.getElementById('totalSubmissions').textContent = data.stats.totalSubmissions;
+            document.getElementById('recentSubmissions').textContent = 
+                `${data.stats.recentSubmissions} in last 30 days`;
+            document.getElementById('totalEmails').textContent = data.stats.totalEmailsSent;
+            document.getElementById('conversionRate').textContent = 
+                `${data.stats.conversionRate} conversion`;
+            document.getElementById('avgRating').textContent = 
+                data.stats.avgRating === 'N/A' ? 'N/A' : data.stats.avgRating + ' ⭐';
+            document.getElementById('totalCost').textContent = '$' + data.stats.totalCost;
+
+            // Update Stripe stats
+            if (data.stripeStats) {
+                document.getElementById('promoUsage').textContent = data.stripeStats.promoCodeUsage || '0';
+                document.getElementById('totalRevenue').textContent = 
+                    '$' + (data.stripeStats.totalRevenue || '0.00');
+                
+                const growth = data.stripeStats.revenueGrowth || '0%';
+                document.getElementById('revenueGrowth').textContent = growth + ' this month';
+                
+                // Update ROI section
+                document.getElementById('roiEmailsSent').textContent = data.stats.totalEmailsSent;
+                document.getElementById('roiConversions').textContent = data.stripeStats.totalConversions || '0';
+                document.getElementById('roiConversionRate').textContent = 
+                    data.stripeStats.emailConversionRate || '0%';
+                document.getElementById('roiRevenuePerEmail').textContent = 
+                    '$' + (data.stripeStats.revenuePerEmail || '0.00');
+                
+                document.getElementById('roiAiCosts').textContent = '$' + data.stats.totalCost;
+                document.getElementById('roiRevenue').textContent = 
+                    '$' + (data.stripeStats.totalRevenue || '0.00');
+                
+                const profit = (parseFloat(data.stripeStats.totalRevenue || 0) - parseFloat(data.stats.totalCost || 0)).toFixed(2);
+                document.getElementById('roiProfit').textContent = '$' + profit;
+                
+                const roi = data.stats.totalCost > 0 
+                    ? ((profit / parseFloat(data.stats.totalCost)) * 100).toFixed(0) + '%'
+                    : 'N/A';
+                document.getElementById('roiPercentage').textContent = roi;
+            }
+
+            // Update purchases
+            const purchaseBody = document.getElementById('purchaseBody');
+            purchaseBody.innerHTML = '';
+            
+            if (data.purchases && data.purchases.length > 0) {
+                data.purchases.forEach(purchase => {
+                    const row = document.createElement('tr');
+                    const centralTime = toCentralTime(purchase.created_at);
+                    const country = purchase.billing_country || 'Not provided';
+                    
+                    row.innerHTML = `
+                        <td><strong>${purchase.customer_email}</strong></td>
+                        <td>$${purchase.amount.toFixed(2)}</td>
+                        <td><span class="status-badge promo">${purchase.promo_code}</span></td>
+                        <td>${country}</td>
+                        <td>${centralTime}</td>
+                    `;
+                    purchaseBody.appendChild(row);
+                });
+                
+                document.getElementById('purchaseLoading').style.display = 'none';
+                document.getElementById('purchaseTable').style.display = 'table';
+                document.getElementById('noPurchases').style.display = 'none';
+            } else {
+                document.getElementById('purchaseLoading').style.display = 'none';
+                document.getElementById('purchaseTable').style.display = 'none';
+                document.getElementById('noPurchases').style.display = 'block';
+            }
+
+            // Update app usage
+            const usageBody = document.getElementById('usageBody');
+            usageBody.innerHTML = '';
+            
+            if (data.appUsage && data.appUsage.length > 0) {
+                data.appUsage.forEach(usage => {
+                    const row = document.createElement('tr');
+                    const centralTime = toCentralTime(usage.created_at);
+                    
+                    row.innerHTML = `
+                        <td><strong>${usage.email}</strong></td>
+                        <td>${usage.title}</td>
+                        <td>${usage.country}</td>
+                        <td>${centralTime}</td>
+                        <td class="cost-value">$${usage.ai_cost.toFixed(4)}</td>
+                    `;
+                    usageBody.appendChild(row);
+                });
+                
+                document.getElementById('usageLoading').style.display = 'none';
+                document.getElementById('usageTable').style.display = 'table';
+                document.getElementById('noUsage').style.display = 'none';
+            } else {
+                document.getElementById('usageLoading').style.display = 'none';
+                document.getElementById('usageTable').style.display = 'none';
+                document.getElementById('noUsage').style.display = 'block';
+            }
+
+            // Update category distribution
+            const categoryList = document.getElementById('categoryList');
+            categoryList.innerHTML = '';
+            
+            if (data.categoryBreakdown && Object.keys(data.categoryBreakdown).length > 0) {
+                const sortedCategories = Object.entries(data.categoryBreakdown)
+                    .sort((a, b) => b[1] - a[1]);
+                
+                sortedCategories.forEach(([category, count]) => {
+                    const item = document.createElement('div');
+                    item.className = 'category-item';
+                    item.innerHTML = `
+                        <span class="name">${category}</span>
+                        <span class="count">${count}</span>
+                    `;
+                    categoryList.appendChild(item);
+                });
+                
+                document.getElementById('categoryLoading').style.display = 'none';
+                categoryList.style.display = 'grid';
+            } else {
+                document.getElementById('categoryLoading').textContent = 'No category data yet';
+            }
+
+            // Update last updated time
+            const lastUpdated = toCentralTime(data.lastUpdated);
+            document.getElementById('lastUpdated').textContent = `Last updated: ${lastUpdated}`;
+        }
+
+        // Load submissions for management
         async function loadSubmissions() {
-            await waitForSupabase();
+            // Wait for Supabase to be available
+            while (!window.supabase) {
+                await new Promise(resolve => setTimeout(resolve, 100));
+            }
             
             try {
-                const { data, error } = await window.supabase
+                const searchTerm = document.getElementById('submissionSearch').value;
+                const statusFilter = document.getElementById('statusFilter').value;
+                
+                let query = window.supabase
                     .from('submissions')
                     .select('*')
                     .order('created_at', { ascending: false });
-
+                
+                if (statusFilter) {
+                    query = query.eq('status', statusFilter);
+                }
+                
+                const { data, error } = await query;
+                
                 if (error) throw error;
-
+                
                 allSubmissions = data || [];
-                updateStats();
-                renderTable();
+                
+                // Apply search filter
+                let filtered = allSubmissions;
+                if (searchTerm) {
+                    filtered = allSubmissions.filter(s => 
+                        s.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                        s.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                        s.custom_id.toLowerCase().includes(searchTerm.toLowerCase())
+                    );
+                }
+                
+                renderSubmissionsTable(filtered);
+                
             } catch (error) {
                 console.error('Error loading submissions:', error);
                 showMessage('Failed to load submissions: ' + error.message);
             }
         }
 
-        // Update statistics
-        function updateStats() {
-            const total = allSubmissions.length;
-            const completed = allSubmissions.filter(s => s.status === 'completed').length;
-            const pending = allSubmissions.filter(s => s.status === 'pending').length;
-            const failed = allSubmissions.filter(s => s.status === 'failed').length;
-
-            document.getElementById('totalSubmissions').textContent = total;
-            document.getElementById('completedSubmissions').textContent = completed;
-            document.getElementById('pendingSubmissions').textContent = pending;
-            document.getElementById('failedSubmissions').textContent = failed;
-        }
-
-        // Filter submissions
-        function filterSubmissions() {
-            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-            const statusFilter = document.getElementById('statusFilter').value;
-            const dateFilter = document.getElementById('dateFilter').value;
-
-            let filtered = allSubmissions;
-
-            // Search filter
-            if (searchTerm) {
-                filtered = filtered.filter(s => 
-                    s.email.toLowerCase().includes(searchTerm) ||
-                    s.title.toLowerCase().includes(searchTerm) ||
-                    s.custom_id.toLowerCase().includes(searchTerm)
-                );
-            }
-
-            // Status filter
-            if (statusFilter) {
-                filtered = filtered.filter(s => s.status === statusFilter);
-            }
-
-            // Date filter
-            if (dateFilter) {
-                const now = new Date();
-                const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-                
-                filtered = filtered.filter(s => {
-                    const submissionDate = new Date(s.created_at);
-                    
-                    switch(dateFilter) {
-                        case 'today':
-                            return submissionDate >= today;
-                        case 'week':
-                            const weekAgo = new Date(today);
-                            weekAgo.setDate(weekAgo.getDate() - 7);
-                            return submissionDate >= weekAgo;
-                        case 'month':
-                            const monthAgo = new Date(today);
-                            monthAgo.setMonth(monthAgo.getMonth() - 1);
-                            return submissionDate >= monthAgo;
-                        default:
-                            return true;
-                    }
-                });
-            }
-
-            return filtered;
-        }
-
-        // Render table
-        function renderTable() {
-            const tbody = document.getElementById('submissionsTableBody');
-            const filtered = filterSubmissions();
-
-            if (filtered.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="8" style="text-align: center; padding: 20px;">No submissions found</td></tr>';
+        function renderSubmissionsTable(submissions) {
+            const tbody = document.getElementById('submissionsBody');
+            tbody.innerHTML = '';
+            
+            if (submissions.length === 0) {
+                document.getElementById('submissionsLoading').style.display = 'none';
+                document.getElementById('submissionsTable').style.display = 'none';
+                document.getElementById('noSubmissions').style.display = 'block';
                 return;
             }
-
-            tbody.innerHTML = filtered.map(submission => `
-                <tr>
+            
+            submissions.forEach(submission => {
+                const row = document.createElement('tr');
+                const date = new Date(submission.created_at).toLocaleDateString();
+                
+                row.innerHTML = `
                     <td>${submission.custom_id}</td>
                     <td>
                         <div id="email-cell-${submission.id}">
@@ -1060,27 +1105,27 @@
                         </div>
                     </td>
                     <td>${submission.title}</td>
-                    <td>${submission.country || 'N/A'}</td>
-                    <td>${new Date(submission.created_at).toLocaleDateString()}</td>
                     <td><span class="status-badge ${submission.status}">${submission.status}</span></td>
-                    <td>$${submission.payment_amount || '0.00'}</td>
+                    <td>${date}</td>
                     <td>
-                        <div class="action-buttons">
-                            <button class="action-button edit" onclick="editEmail('${submission.id}')">Edit Email</button>
-                            <button class="action-button resend" onclick="resendSubmission('${submission.id}')" ${submission.status !== 'completed' ? 'disabled' : ''}>Resend</button>
-                            <button class="action-button view" onclick="viewDetails('${submission.id}')">View</button>
-                        </div>
+                        <button class="action-button edit" onclick="editEmail('${submission.id}')">Edit Email</button>
+                        <button class="action-button resend" onclick="resendSubmission('${submission.id}')" ${submission.status !== 'completed' ? 'disabled' : ''}>Resend</button>
                     </td>
-                </tr>
-            `).join('');
+                `;
+                tbody.appendChild(row);
+            });
+            
+            document.getElementById('submissionsLoading').style.display = 'none';
+            document.getElementById('submissionsTable').style.display = 'table';
+            document.getElementById('noSubmissions').style.display = 'none';
         }
 
-        // Edit email
+        // Edit email functions
         function editEmail(id) {
             // Hide all other edit forms
             document.querySelectorAll('[id^="email-edit-"]').forEach(el => el.style.display = 'none');
             document.querySelectorAll('[id^="email-text-"]').forEach(el => el.style.display = 'inline');
-
+            
             // Show this edit form
             document.getElementById(`email-text-${id}`).style.display = 'none';
             document.getElementById(`email-edit-${id}`).style.display = 'block';
@@ -1089,14 +1134,12 @@
             currentEditingId = id;
         }
 
-        // Cancel edit email
         function cancelEditEmail(id) {
             document.getElementById(`email-text-${id}`).style.display = 'inline';
             document.getElementById(`email-edit-${id}`).style.display = 'none';
             currentEditingId = null;
         }
 
-        // Save email
         async function saveEmail(id) {
             const newEmail = document.getElementById(`email-input-${id}`).value;
             const submission = allSubmissions.find(s => s.id === id);
@@ -1105,21 +1148,20 @@
                 showMessage('Please enter a valid email address');
                 return;
             }
-
+            
             if (newEmail === submission.email) {
                 cancelEditEmail(id);
                 return;
             }
-
+            
             try {
-                // Update in database
                 const { error } = await window.supabase
                     .from('submissions')
                     .update({ email: newEmail })
                     .eq('id', id);
-
+                
                 if (error) throw error;
-
+                
                 // Update local data
                 submission.email = newEmail;
                 
@@ -1128,13 +1170,14 @@
                 cancelEditEmail(id);
                 
                 showMessage('Email updated successfully', 'success');
+                
             } catch (error) {
                 console.error('Error updating email:', error);
                 showMessage('Failed to update email: ' + error.message);
             }
         }
 
-        // Resend submission - UPDATED TO USE process-screenplay
+        // Resend submission function
         async function resendSubmission(id) {
             const submission = allSubmissions.find(s => s.id === id);
             
@@ -1142,22 +1185,21 @@
                 showMessage('Submission not found');
                 return;
             }
-
+            
             if (submission.status !== 'completed') {
                 showMessage('Can only resend completed submissions');
                 return;
             }
-
+            
             if (!confirm(`Resend results to ${submission.email}?`)) {
                 return;
             }
-
+            
             try {
                 // Disable the button to prevent multiple clicks
-                const resendButton = event.target;
-                resendButton.disabled = true;
-                resendButton.textContent = 'Sending...';
-
+                event.target.disabled = true;
+                event.target.textContent = 'Sending...';
+                
                 // Call the process-screenplay edge function with resend_only flag
                 const { data, error } = await window.supabase.functions.invoke('process-screenplay', {
                     body: {
@@ -1165,115 +1207,23 @@
                         resend_only: true  // This flag tells it to skip AI processing
                     }
                 });
-
+                
                 if (error) throw error;
-
+                
                 showMessage('Email resent successfully', 'success');
                 
                 // Re-enable button
-                resendButton.disabled = false;
-                resendButton.textContent = 'Resend';
+                event.target.disabled = false;
+                event.target.textContent = 'Resend';
                 
             } catch (error) {
                 console.error('Error resending submission:', error);
                 showMessage('Failed to resend email: ' + error.message);
                 
                 // Re-enable button on error
-                const resendButton = event.target;
-                resendButton.disabled = false;
-                resendButton.textContent = 'Resend';
+                event.target.disabled = false;
+                event.target.textContent = 'Resend';
             }
-        }
-
-        // View details - UPDATED to handle generated_content structure
-        function viewDetails(id) {
-            const submission = allSubmissions.find(s => s.id === id);
-            if (!submission) return;
-
-            const modal = document.getElementById('detailsModal');
-            const modalBody = document.getElementById('modalBody');
-
-            // Handle both old and new data structures
-            const tagline = submission.taglines ? submission.taglines[0] : '';
-            const synopsis = submission.synopsis || '';
-            const writerStatement = submission.writer_statement || '';
-            const categories = submission.suggested_categories_array || [];
-
-            modalBody.innerHTML = `
-                <div class="detail-section">
-                    <div class="detail-label">Submission ID:</div>
-                    <div class="detail-value">${submission.custom_id}</div>
-                </div>
-                <div class="detail-section">
-                    <div class="detail-label">Email:</div>
-                    <div class="detail-value">${submission.email}</div>
-                </div>
-                <div class="detail-section">
-                    <div class="detail-label">Title:</div>
-                    <div class="detail-value">${submission.title}</div>
-                </div>
-                <div class="detail-section">
-                    <div class="detail-label">Writers:</div>
-                    <div class="detail-value">${submission.writers}</div>
-                </div>
-                <div class="detail-section">
-                    <div class="detail-label">Page Count:</div>
-                    <div class="detail-value">${submission.page_count || 'N/A'}</div>
-                </div>
-                <div class="detail-section">
-                    <div class="detail-label">Genres:</div>
-                    <div class="detail-value">${Array.isArray(submission.genres) ? submission.genres.join(', ') : submission.genres || 'N/A'}</div>
-                </div>
-                <div class="detail-section">
-                    <div class="detail-label">Status:</div>
-                    <div class="detail-value"><span class="status-badge ${submission.status}">${submission.status}</span></div>
-                </div>
-                <div class="detail-section">
-                    <div class="detail-label">Email Sent:</div>
-                    <div class="detail-value">${submission.email_sent ? 'Yes' : 'No'} ${submission.email_sent_at ? `(${new Date(submission.email_sent_at).toLocaleString()})` : ''}</div>
-                </div>
-                <div class="detail-section">
-                    <div class="detail-label">Created:</div>
-                    <div class="detail-value">${new Date(submission.created_at).toLocaleString()}</div>
-                </div>
-                ${tagline ? `
-                    <div class="detail-section">
-                        <div class="detail-label">Generated Tagline:</div>
-                        <div class="detail-value">${tagline}</div>
-                    </div>
-                ` : ''}
-                ${synopsis ? `
-                    <div class="detail-section">
-                        <div class="detail-label">Generated Synopsis:</div>
-                        <div class="detail-value">${synopsis}</div>
-                    </div>
-                ` : ''}
-                ${writerStatement ? `
-                    <div class="detail-section">
-                        <div class="detail-label">Generated Writer's Statement:</div>
-                        <div class="detail-value">${writerStatement}</div>
-                    </div>
-                ` : ''}
-                ${categories.length > 0 ? `
-                    <div class="detail-section">
-                        <div class="detail-label">Recommended Categories:</div>
-                        <div class="detail-value">${categories.join(', ')}</div>
-                    </div>
-                ` : ''}
-                ${submission.category_analysis_summary ? `
-                    <div class="detail-section">
-                        <div class="detail-label">Category Analysis:</div>
-                        <div class="detail-value">${submission.category_analysis_summary}</div>
-                    </div>
-                ` : ''}
-            `;
-
-            modal.style.display = 'block';
-        }
-
-        // Close modal
-        function closeModal() {
-            document.getElementById('detailsModal').style.display = 'none';
         }
 
         // Email validation
@@ -1282,34 +1232,28 @@
             return emailRegex.test(email);
         }
 
-        // Event listeners
-        document.getElementById('searchInput').addEventListener('input', renderTable);
-        document.getElementById('statusFilter').addEventListener('change', renderTable);
-        document.getElementById('dateFilter').addEventListener('change', renderTable);
-
-        // Close modal when clicking outside
-        window.onclick = function(event) {
-            const modal = document.getElementById('detailsModal');
-            if (event.target === modal) {
-                closeModal();
-            }
+        function showError(message) {
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'error';
+            errorDiv.textContent = message;
+            document.getElementById('dashboardSection').prepend(errorDiv);
+            
+            setTimeout(() => {
+                errorDiv.remove();
+            }, 5000);
         }
 
-        // Keyboard shortcuts
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closeModal();
-                if (currentEditingId) {
-                    cancelEditEmail(currentEditingId);
-                }
+        function refreshDashboard() {
+            loadDashboardData();
+            loadSubmissions();
+        }
+
+        // Auto-refresh every 60 seconds
+        setInterval(() => {
+            if (savedPassword) {
+                loadDashboardData();
             }
-        });
-
-        // Initial load
-        loadSubmissions();
-
-        // Auto-refresh every 30 seconds
-        setInterval(loadSubmissions, 30000);
+        }, 60000);
     </script>
 </body>
 </html>
