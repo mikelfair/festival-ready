@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-F2CSZ9KX52"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-F2CSZ9KX52');
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Screenplay Questionnaire - Festival Ready Beta v002</title>
@@ -985,7 +993,7 @@ You can also paste your existing synopsis or tagline here if you have one."></te
         
         <!-- Book Banner - Now in normal document flow -->
         <div class="book-banner-container">
-            <a href="https://amzn.to/4naJ4FT" target="_blank" class="book-banner">
+            <a href="https://amzn.to/4naJ4FT" target="_blank" class="book-banner" onclick="trackEvent('book_banner_click', 'engagement', 'questionnaire_amazon_link')">
                 <img src="images/festival-books-banner.png" alt="Film Festival Submitter's Handbook & Screenplay Judging Guide - Available on Amazon">
             </a>
         </div>
@@ -1035,10 +1043,24 @@ You can also paste your existing synopsis or tagline here if you have one."></te
         const pdfProgress = document.getElementById('pdfProgress');
         const pdfProgressBar = document.getElementById('pdfProgressBar');
 
+        // Google Analytics event tracking function
+        function trackEvent(eventName, category = 'engagement', label = '') {
+            if (typeof gtag !== 'undefined') {
+                gtag('event', eventName, {
+                    'event_category': category,
+                    'event_label': label,
+                    'value': 1
+                });
+            }
+        }
+
         // Initialize wizard
         updateStepDisplay();
         setupEventListeners();
         updateTextStats();
+
+        // Track questionnaire start
+        trackEvent('questionnaire_started', 'form', 'festival_ready_questionnaire');
 
         // Clear honeypot field on page load and monitor it
         document.addEventListener('DOMContentLoaded', function() {
@@ -1135,6 +1157,9 @@ You can also paste your existing synopsis or tagline here if you have one."></te
                 saveCurrentStepData();
                 currentStepNumber--;
                 updateStepDisplay();
+                
+                // Track step navigation
+                trackEvent('questionnaire_step_back', 'form', `step_${currentStepNumber}`);
             }
         }
 
@@ -1145,6 +1170,18 @@ You can also paste your existing synopsis or tagline here if you have one."></te
                 if (currentStepNumber < totalSteps) {
                     currentStepNumber++;
                     updateStepDisplay();
+                    
+                    // Track step progression
+                    trackEvent('questionnaire_step_forward', 'form', `step_${currentStepNumber}`);
+                    
+                    // Track milestone steps
+                    if (currentStepNumber === 5) {
+                        trackEvent('questionnaire_quarter_complete', 'form', 'milestone');
+                    } else if (currentStepNumber === 8) {
+                        trackEvent('questionnaire_half_complete', 'form', 'milestone');
+                    } else if (currentStepNumber === 12) {
+                        trackEvent('questionnaire_three_quarters_complete', 'form', 'milestone');
+                    }
                 } else {
                     submitForm();
                 }
@@ -1284,13 +1321,18 @@ You can also paste your existing synopsis or tagline here if you have one."></te
         async function submitForm() {
             saveCurrentStepData();
             
+            // Track form submission attempt
+            trackEvent('questionnaire_submit_attempt', 'form', 'festival_ready');
+            
             // HONEYPOT CHECK - Bot Detection
             const honeypot = document.getElementById('website');
             if (honeypot && honeypot.value) {
                 // Bot detected! Honeypot field was filled
                 console.warn('Bot submission detected - honeypot triggered');
                 
-                // Track the bot attempt in database
+                // Track the bot attempt
+                trackEvent('bot_detected', 'security', 'honeypot_triggered');
+                
                 try {
                     const { data, error } = await window.supabase
                         .from('bot_attempts')
@@ -1378,6 +1420,17 @@ You can also paste your existing synopsis or tagline here if you have one."></te
                 
                 console.log('Submission successful:', result);
                 
+                // Track successful submission
+                trackEvent('questionnaire_submitted_successfully', 'form', customId);
+                
+                // Track user preferences
+                if (formData.updateEmails && formData.updateEmails.includes('yes')) {
+                    trackEvent('email_updates_subscribed', 'engagement', 'app_updates');
+                }
+                if (formData.festivalDiscounts && formData.festivalDiscounts.includes('yes')) {
+                    trackEvent('email_discounts_subscribed', 'engagement', 'festival_discounts');
+                }
+                
                 // The webhook will handle AI processing automatically
                 // No need to call the edge function from here anymore
                 
@@ -1385,6 +1438,10 @@ You can also paste your existing synopsis or tagline here if you have one."></te
                 
             } catch (error) {
                 console.error('Submission error:', error);
+                
+                // Track submission error
+                trackEvent('questionnaire_submission_error', 'error', error.message);
+                
                 alert('Something went wrong submitting your questionnaire. Please try again.');
                 nextBtn.textContent = 'Generate Materials →';
                 nextBtn.disabled = false;
@@ -1397,6 +1454,9 @@ You can also paste your existing synopsis or tagline here if you have one."></te
         }
 
         function showSuccessMessage(submissionId) {
+            // Track completion
+            trackEvent('questionnaire_completed', 'form', submissionId);
+            
             // Replace questionnaire with success message
             document.querySelector('.wizard-container').innerHTML = `
                 <div style="text-align: center; padding: 60px 40px;">
@@ -1408,7 +1468,7 @@ You can also paste your existing synopsis or tagline here if you have one."></te
                     </div>
                     <p style="color: #666; font-size: 0.95rem;">You should receive your custom tagline, synopsis, and writer's statement within 15 minutes.</p>
                     <div style="margin-top: 30px;">
-                        <a href="index.html" style="background: #667eea; color: white; padding: 12px 25px; border-radius: 25px; text-decoration: none; font-weight: 600;">← Back to Homepage</a>
+                        <a href="index.html" style="background: #667eea; color: white; padding: 12px 25px; border-radius: 25px; text-decoration: none; font-weight: 600;" onclick="trackEvent('return_to_home', 'navigation', 'questionnaire_success')">← Back to Homepage</a>
                     </div>
                 </div>
             `;
@@ -1451,6 +1511,9 @@ You can also paste your existing synopsis or tagline here if you have one."></te
                 return;
             }
             
+            // Track file upload attempt
+            trackEvent('pdf_upload_attempt', 'file_upload', `${(file.size / 1024 / 1024).toFixed(2)}MB`);
+            
             // Reset processing flags
             pdfProcessingComplete = false;
             pdfHasError = false;
@@ -1478,6 +1541,9 @@ You can also paste your existing synopsis or tagline here if you have one."></te
                 formData.pdfExtractedText = text;
                 pdfProcessingComplete = true;
                 
+                // Track successful extraction
+                trackEvent('pdf_extraction_success', 'file_upload', `${text.length}_characters`);
+                
                 // Update UI to show success
                 pdfStatus.className = 'pdf-status success';
                 pdfStatusMessage.innerHTML = `✅ PDF processed successfully! Extracted ${text.length.toLocaleString()} characters from ${file.name}`;
@@ -1495,6 +1561,9 @@ You can also paste your existing synopsis or tagline here if you have one."></te
             } catch (error) {
                 console.error('PDF extraction error:', error);
                 pdfHasError = true;
+                
+                // Track extraction error
+                trackEvent('pdf_extraction_error', 'error', error.message);
                 
                 // Update UI to show error
                 pdfStatus.className = 'pdf-status error';
@@ -1563,6 +1632,9 @@ You can also paste your existing synopsis or tagline here if you have one."></te
         }
 
         function handleFileRemove() {
+            // Track file removal
+            trackEvent('pdf_file_removed', 'file_upload', 'user_action');
+            
             uploadedFile.style.display = 'none';
             uploadArea.style.display = 'block';
             scriptFile.value = '';
@@ -1588,6 +1660,16 @@ You can also paste your existing synopsis or tagline here if you have one."></te
                 const charCount = scriptText.value.length;
                 const wordCount = scriptText.value.split(/\s+/).filter(word => word.length > 0).length;
                 statsDiv.textContent = `${charCount.toLocaleString()} characters, ${wordCount.toLocaleString()} words`;
+                
+                // Track significant text input milestones
+                if (charCount > 1000 && !window.textMilestone1000) {
+                    trackEvent('text_input_1000_chars', 'engagement', 'manual_text_entry');
+                    window.textMilestone1000 = true;
+                }
+                if (charCount > 5000 && !window.textMilestone5000) {
+                    trackEvent('text_input_5000_chars', 'engagement', 'manual_text_entry');
+                    window.textMilestone5000 = true;
+                }
             } else if (statsDiv) {
                 statsDiv.textContent = '';
             }
