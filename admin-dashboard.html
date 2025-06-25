@@ -1,1259 +1,392 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Festival Ready Admin Dashboard</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: #f5f5f5;
-            color: #333;
-        }
-        
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        
-        .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 30px;
-            border-radius: 10px;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        
-        .header h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-        }
-        
-        .header p {
-            opacity: 0.9;
-            font-size: 1.1em;
-        }
-        
-        .login-form {
-            background: white;
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            max-width: 400px;
-            margin: 0 auto;
-        }
-        
-        .login-form input {
-            width: 100%;
-            padding: 12px;
-            margin: 10px 0;
-            border: 2px solid #e0e0e0;
-            border-radius: 5px;
-            font-size: 16px;
-        }
-        
-        .login-form button {
-            width: 100%;
-            padding: 12px;
-            background: #667eea;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-        
-        .login-form button:hover {
-            background: #5a67d8;
-        }
-        
-        .dashboard {
-            display: none;
-        }
-        
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-        
-        .stat-card {
-            background: white;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-        
-        .stat-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-        }
-        
-        .stat-card h3 {
-            color: #666;
-            font-size: 0.9em;
-            text-transform: uppercase;
-            margin-bottom: 10px;
-            font-weight: 500;
-        }
-        
-        .stat-card .value {
-            font-size: 2.5em;
-            font-weight: bold;
-            color: #667eea;
-            line-height: 1;
-        }
-        
-        .stat-card .subtitle {
-            color: #999;
-            font-size: 0.85em;
-            margin-top: 5px;
-        }
-        
-        .stat-card.promo {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            color: white;
-        }
-        
-        .stat-card.promo h3 {
-            color: rgba(255, 255, 255, 0.9);
-        }
-        
-        .stat-card.promo .value {
-            color: white;
-        }
-        
-        .stat-card.promo .subtitle {
-            color: rgba(255, 255, 255, 0.8);
-        }
-        
-        .section {
-            background: white;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
-        }
-        
-        .section h2 {
-            color: #333;
-            margin-bottom: 20px;
-            font-size: 1.5em;
-            border-bottom: 2px solid #f0f0f0;
-            padding-bottom: 10px;
-        }
-        
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            border-bottom: 2px solid #f0f0f0;
-            padding-bottom: 10px;
-        }
-        
-        .section-header h2 {
-            margin: 0;
-            border: none;
-            padding: 0;
-        }
-        
-        .month-navigation {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-        }
-        
-        .month-navigation button {
-            padding: 6px 12px;
-            background: #667eea;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 0.9em;
-            transition: background 0.3s;
-        }
-        
-        .month-navigation button:hover:not(:disabled) {
-            background: #5a67d8;
-        }
-        
-        .month-navigation button:disabled {
-            background: #ccc;
-            cursor: not-allowed;
-        }
-        
-        .month-navigation span {
-            font-weight: 600;
-            color: #667eea;
-            min-width: 120px;
-            text-align: center;
-        }
-        
-        .data-table {
-            overflow-x: auto;
-        }
-        
-        .data-table table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        
-        .data-table th {
-            text-align: left;
-            padding: 12px;
-            background: #f8f9fa;
-            font-weight: 600;
-            color: #666;
-            font-size: 0.9em;
-            text-transform: uppercase;
-        }
-        
-        .data-table td {
-            padding: 12px;
-            border-bottom: 1px solid #f0f0f0;
-        }
-        
-        .data-table tr:hover {
-            background: #f8f9fa;
-        }
-        
-        .status-badge {
-            display: inline-block;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.85em;
-            font-weight: 500;
-        }
-        
-        .status-badge.promo {
-            background: #cfe2ff;
-            color: #084298;
-        }
-        
-        .status-badge.completed {
-            background: #d4edda;
-            color: #155724;
-        }
-        
-        .category-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 15px;
-        }
-        
-        .category-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px;
-            background: #f8f9fa;
-            border-radius: 8px;
-            border-left: 4px solid #667eea;
-        }
-        
-        .category-item .name {
-            font-weight: 500;
-            color: #333;
-        }
-        
-        .category-item .count {
-            background: #667eea;
-            color: white;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.9em;
-            font-weight: bold;
-        }
-        
-        .roi-section {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-        
-        .roi-card {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 8px;
-            border-left: 4px solid #28a745;
-        }
-        
-        .roi-card h3 {
-            color: #28a745;
-            margin-bottom: 15px;
-        }
-        
-        .roi-metric {
-            display: flex;
-            justify-content: space-between;
-            margin: 10px 0;
-        }
-        
-        .roi-metric .label {
-            color: #666;
-        }
-        
-        .roi-metric .value {
-            font-weight: bold;
-            color: #333;
-        }
-        
-        .error {
-            background: #f8d7da;
-            color: #721c24;
-            padding: 15px;
-            border-radius: 5px;
-            margin: 20px 0;
-            border: 1px solid #f5c6cb;
-        }
-        
-        .success {
-            background: #d4edda;
-            color: #155724;
-            padding: 15px;
-            border-radius: 5px;
-            margin: 20px 0;
-            border: 1px solid #c3e6cb;
-        }
-        
-        .loading {
-            text-align: center;
-            padding: 40px;
-            color: #666;
-        }
-        
-        .loading::after {
-            content: '...';
-            animation: dots 1.5s steps(4, end) infinite;
-        }
-        
-        @keyframes dots {
-            0%, 20% { content: ''; }
-            40% { content: '.'; }
-            60% { content: '..'; }
-            80%, 100% { content: '...'; }
-        }
-        
-        .refresh-btn {
-            float: right;
-            padding: 8px 16px;
-            background: #667eea;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 0.9em;
-            transition: background 0.3s;
-        }
-        
-        .refresh-btn:hover {
-            background: #5a67d8;
-        }
-        
-        .last-updated {
-            text-align: center;
-            color: #999;
-            font-size: 0.85em;
-            margin-top: 30px;
-        }
-        
-        .no-data {
-            text-align: center;
-            color: #999;
-            padding: 20px;
-            font-style: italic;
-        }
-        
-        .cost-value {
-            color: #e74c3c;
-            font-weight: 600;
-        }
-        
-        /* New styles for edit and resend functionality */
-        .action-button {
-            padding: 4px 10px;
-            border: none;
-            border-radius: 5px;
-            font-size: 0.85em;
-            cursor: pointer;
-            transition: all 0.3s;
-            margin-left: 5px;
-        }
-        
-        .action-button.edit {
-            background: #667eea;
-            color: white;
-        }
-        
-        .action-button.edit:hover {
-            background: #5a67d8;
-        }
-        
-        .action-button.resend {
-            background: #28a745;
-            color: white;
-        }
-        
-        .action-button.resend:hover {
-            background: #218838;
-        }
-        
-        .action-button:disabled {
-            background: #ccc;
-            cursor: not-allowed;
-        }
-        
-        .email-edit-input {
-            padding: 4px 8px;
-            border: 1px solid #667eea;
-            border-radius: 3px;
-            font-size: 0.9em;
-            width: 200px;
-        }
-        
-        .email-edit-buttons {
-            display: flex;
-            gap: 5px;
-            margin-top: 5px;
-        }
-        
-        .email-edit-button {
-            padding: 4px 10px;
-            border: none;
-            border-radius: 3px;
-            font-size: 0.85em;
-            cursor: pointer;
-        }
-        
-        .email-edit-button.save {
-            background: #28a745;
-            color: white;
-        }
-        
-        .email-edit-button.cancel {
-            background: #dc3545;
-            color: white;
-        }
-        
-        /* Submissions Management Section */
-        .submissions-section {
-            margin-top: 30px;
-        }
-        
-        .search-controls {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-        
-        .search-input {
-            flex: 1;
-            padding: 10px;
-            border: 2px solid #e0e0e0;
-            border-radius: 5px;
-            font-size: 14px;
-        }
-        
-        .filter-select {
-            padding: 10px;
-            border: 2px solid #e0e0e0;
-            border-radius: 5px;
-            font-size: 14px;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="header">
-            <h1>🎬 Festival Ready Admin Dashboard</h1>
-            <p>Monitor your screenplay processing system performance</p>
-        </div>
+Plan for Festival Ready App Updates
+1. Questionnaire Step Reordering & Updates
+Current Structure → New Structure:
 
-        <!-- Login Form -->
-        <div id="loginSection" class="login-form">
-            <h2>Admin Login</h2>
-            <p style="margin-bottom: 20px; color: #666;">Enter your admin password to access the dashboard</p>
-            <input type="password" id="passwordInput" placeholder="Enter password" autocomplete="current-password">
-            <button onclick="login()">Access Dashboard</button>
-            <div id="loginError" style="color: #d32f2f; margin-top: 10px; display: none;"></div>
-        </div>
+Step 1: Title → Step 1: Country (moved from Step 15)
+Step 2: Writers → Step 2: Title (was Step 1)
+Step 3: Genre → Step 3: Writers (was Step 2)
+... (all other steps shift by 1)
+Step 14: Email → Step 14: Email (same position)
+Step 15: Country → Step 15: Combined Marketing Opt-in (simplified)
 
-        <!-- Dashboard -->
-        <div id="dashboardSection" class="dashboard">
-            <button class="refresh-btn" onclick="refreshDashboard()">🔄 Refresh</button>
-            
-            <div id="messageContainer"></div>
-            
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <h3>Total Submissions</h3>
-                    <div class="value" id="totalSubmissions">-</div>
-                    <div class="subtitle" id="recentSubmissions">-</div>
-                </div>
-                
-                <div class="stat-card">
-                    <h3>Emails Sent</h3>
-                    <div class="value" id="totalEmails">-</div>
-                    <div class="subtitle" id="conversionRate">-</div>
-                </div>
-                
-                <div class="stat-card">
-                    <h3>Average Rating</h3>
-                    <div class="value" id="avgRating">-</div>
-                    <div class="subtitle">User satisfaction</div>
-                </div>
-                
-                <div class="stat-card">
-                    <h3>Total AI Cost</h3>
-                    <div class="value" id="totalCost">-</div>
-                    <div class="subtitle">Gemini API usage</div>
-                </div>
-                
-                <div class="stat-card promo">
-                    <h3>Promo Code Usage</h3>
-                    <div class="value" id="promoUsage">-</div>
-                    <div class="subtitle">festivalready25 only</div>
-                </div>
-                
-                <div class="stat-card">
-                    <h3>Total Revenue</h3>
-                    <div class="value" id="totalRevenue">-</div>
-                    <div class="subtitle" id="revenueGrowth">-</div>
-                </div>
-            </div>
+Step 15 Changes (Email Preferences):
 
-            <div class="section">
-                <h2>ROI Analysis</h2>
-                <div class="roi-section">
-                    <div class="roi-card">
-                        <h3>Email Campaign Performance</h3>
-                        <div class="roi-metric">
-                            <span class="label">Emails Sent:</span>
-                            <span class="value" id="roiEmailsSent">-</span>
-                        </div>
-                        <div class="roi-metric">
-                            <span class="label">Conversions:</span>
-                            <span class="value" id="roiConversions">-</span>
-                        </div>
-                        <div class="roi-metric">
-                            <span class="label">Conversion Rate:</span>
-                            <span class="value" id="roiConversionRate">-</span>
-                        </div>
-                        <div class="roi-metric">
-                            <span class="label">Revenue per Email:</span>
-                            <span class="value" id="roiRevenuePerEmail">-</span>
-                        </div>
-                    </div>
-                    
-                    <div class="roi-card">
-                        <h3>Cost Analysis</h3>
-                        <div class="roi-metric">
-                            <span class="label">AI Processing Costs:</span>
-                            <span class="value" id="roiAiCosts">-</span>
-                        </div>
-                        <div class="roi-metric">
-                            <span class="label">Revenue Generated:</span>
-                            <span class="value" id="roiRevenue">-</span>
-                        </div>
-                        <div class="roi-metric">
-                            <span class="label">Net Profit:</span>
-                            <span class="value" id="roiProfit">-</span>
-                        </div>
-                        <div class="roi-metric">
-                            <span class="label">ROI:</span>
-                            <span class="value" id="roiPercentage">-</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+Remove checkbox #1 (app updates)
+Update checkbox #2 to combine both purposes
+New single checkbox text: "I'd like to receive monthly emails about Festival Ready app updates and film festival submission discounts for our twelve festivals in Portland, Austin, and Georgia."
 
-            <div class="section">
-                <h2>Category Distribution</h2>
-                <div id="categoryLoading" class="loading">Loading category data</div>
-                <div id="categoryList" class="category-list" style="display: none;">
-                </div>
-            </div>
+2. Admin Dashboard Updates
+New Stats Box:
 
-            <div class="section data-table">
-                <div class="section-header">
-                    <h2>Purchase Activity</h2>
-                    <div class="month-navigation">
-                        <button id="prevMonth" onclick="navigateMonth('prev')">← Previous</button>
-                        <span id="currentMonth">All Time</span>
-                        <button id="nextMonth" onclick="navigateMonth('next')">Next →</button>
-                    </div>
-                </div>
-                <div id="purchaseLoading" class="loading">Loading purchase data</div>
-                <table id="purchaseTable" style="display: none;">
-                    <thead>
-                        <tr>
-                            <th>Email</th>
-                            <th>Paid Amount</th>
-                            <th>Promo Code</th>
-                            <th>Country</th>
-                            <th>Date & Time (CST)</th>
-                        </tr>
-                    </thead>
-                    <tbody id="purchaseBody">
-                    </tbody>
-                </table>
-                <div id="noPurchases" class="no-data" style="display: none;">
-                    No purchases for this period
-                </div>
-            </div>
+Add 7th box: "Total Email Opt-ins"
+Count unique email addresses that have ever opted in
+Must check both old checkboxes (update_emails OR festival_discounts = true)
 
-            <div class="section data-table">
-                <div class="section-header">
-                    <h2>App Usage</h2>
-                    <div class="month-navigation">
-                        <button id="prevUsageMonth" onclick="navigateUsageMonth('prev')">← Previous</button>
-                        <span id="currentUsageMonth">All Time</span>
-                        <button id="nextUsageMonth" onclick="navigateUsageMonth('next')">Next →</button>
-                    </div>
-                </div>
-                <div id="usageLoading" class="loading">Loading usage data</div>
-                <table id="usageTable" style="display: none;">
-                    <thead>
-                        <tr>
-                            <th>Email</th>
-                            <th>Screenplay Title</th>
-                            <th>Country</th>
-                            <th>Date & Time (CST)</th>
-                            <th>AI Processing Cost</th>
-                        </tr>
-                    </thead>
-                    <tbody id="usageBody">
-                    </tbody>
-                </table>
-                <div id="noUsage" class="no-data" style="display: none;">
-                    No app usage for this period
-                </div>
-            </div>
+Remove App Usage Section:
 
-            <!-- New Submissions Management Section -->
-            <div class="section data-table submissions-section">
-                <h2>Submissions Management</h2>
-                <div class="search-controls">
-                    <input type="text" class="search-input" id="submissionSearch" placeholder="Search by email, title, or ID...">
-                    <select class="filter-select" id="statusFilter">
-                        <option value="">All Statuses</option>
-                        <option value="completed">Completed</option>
-                        <option value="pending">Pending</option>
-                        <option value="failed">Failed</option>
-                    </select>
-                    <button class="action-button edit" onclick="loadSubmissions()">Search</button>
-                </div>
-                <div id="submissionsLoading" class="loading">Loading submissions data</div>
-                <table id="submissionsTable" style="display: none;">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Email</th>
-                            <th>Title</th>
-                            <th>Status</th>
-                            <th>Date</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="submissionsBody">
-                    </tbody>
-                </table>
-                <div id="noSubmissions" class="no-data" style="display: none;">
-                    No submissions found
-                </div>
-            </div>
+Delete entire "App Usage" table and section
 
-            <div class="last-updated" id="lastUpdated">
-            </div>
-        </div>
-    </div>
+Update Submissions Management Columns:
 
-    <!-- Import Supabase JS Library -->
-    <script type="module">
-        import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.45.4';
-        
-        // Initialize Supabase client
-        const SUPABASE_URL = 'https://vmfhxkfprrbshwniguaq.supabase.co';
-        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZtZmh4a2ZwcnJic2h3bmlndWFxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk2ODYxNTcsImV4cCI6MjA2NTI2MjE1N30.k0OdvFzcO1nwZzxsgLPcQBeSITmV6dA_ncXpN0cpAgQ';
-        
-        const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-        
-        // Make supabase available globally
-        window.supabase = supabase;
-    </script>
+Current columns: ID | Email | Title | Status | Date | Actions
+New columns: ID | Email | Title | AI Cost | Country | Actions
+Pull AI cost from processing_analytics table
+Display country from submissions table
 
-    <script>
-        // Configuration
-        const API_URL = 'https://vmfhxkfprrbshwniguaq.supabase.co/functions/v1/admin-dashboard-api';
-        const PASSWORD = 'festivalready2025!';
-        
-        let savedPassword = localStorage.getItem('adminPassword');
-        let currentMonth = null;
-        let currentYear = null;
-        let currentUsageMonth = null;
-        let currentUsageYear = null;
-        let availableMonths = [];
-        let allSubmissions = [];
-        let currentEditingId = null;
+Test Data Filtering:
 
-        // Auto-login if password is saved
-        if (savedPassword === PASSWORD) {
-            showDashboard();
-            loadDashboardData();
-            loadSubmissions();
-        }
+Hide these emails from ALL displays and calculations:
 
-        // Handle Enter key in password field
-        document.getElementById('passwordInput').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                login();
-            }
-        });
+mikel.fair@filmfestivalcircuit.com
+chambersdavid@live.co.uk
+mikelfair@gmail.com
 
-        function login() {
-            const password = document.getElementById('passwordInput').value;
-            const errorDiv = document.getElementById('loginError');
-            
-            if (password === PASSWORD) {
-                localStorage.setItem('adminPassword', password);
-                savedPassword = password;
-                errorDiv.style.display = 'none';
-                showDashboard();
-                loadDashboardData();
-                loadSubmissions();
-            } else {
-                errorDiv.textContent = 'Invalid password. Please try again.';
-                errorDiv.style.display = 'block';
-            }
-        }
 
-        function showDashboard() {
-            document.getElementById('loginSection').style.display = 'none';
-            document.getElementById('dashboardSection').style.display = 'block';
-        }
+Only hide EXISTING submissions (not future ones)
+Affects: stats boxes, purchase history, submissions list, category breakdown
 
-        // Show message function
-        function showMessage(message, type = 'error') {
-            const container = document.getElementById('messageContainer');
-            const div = document.createElement('div');
-            div.className = type === 'success' ? 'success' : 'error';
-            div.textContent = message;
-            container.innerHTML = '';
-            container.appendChild(div);
-            
-            // Auto-hide after 5 seconds
-            setTimeout(() => {
-                div.remove();
-            }, 5000);
-        }
+3. Backend Updates Required
+admin-dashboard-api:
 
-        // Convert UTC to Central Time
-        function toCentralTime(utcDateString) {
-            const date = new Date(utcDateString);
-            const options = {
-                timeZone: 'America/Chicago',
-                year: 'numeric',
-                month: '2-digit',
-                day: '2-digit',
-                hour: '2-digit',
-                minute: '2-digit',
-                hour12: true
-            };
-            return new Intl.DateTimeFormat('en-US', options).format(date);
-        }
+Add logic to filter out test emails
+Calculate unique email opt-ins
+Remove app usage query
+Join processing_analytics for AI cost in submissions
 
-        // Format month display
-        function formatMonthDisplay(month, year) {
-            if (!month || !year) return 'All Time';
-            const date = new Date(year, month - 1, 1);
-            return date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
-        }
+process-screenplay.txt:
 
-        // Navigate months for purchases
-        function navigateMonth(direction) {
-            if (direction === 'prev') {
-                if (!currentMonth || !currentYear) {
-                    // If viewing all time, go to current month
-                    const now = new Date();
-                    currentMonth = now.getMonth() + 1;
-                    currentYear = now.getFullYear();
-                } else {
-                    currentMonth--;
-                    if (currentMonth < 1) {
-                        currentMonth = 12;
-                        currentYear--;
-                    }
-                }
-            } else { // next
-                if (!currentMonth || !currentYear) return; // Can't go next from all time
-                
-                currentMonth++;
-                if (currentMonth > 12) {
-                    currentMonth = 1;
-                    currentYear++;
-                }
-                
-                // Don't go beyond current month
-                const now = new Date();
-                if (currentYear > now.getFullYear() || 
-                    (currentYear === now.getFullYear() && currentMonth > now.getMonth() + 1)) {
-                    currentMonth = null;
-                    currentYear = null;
-                }
-            }
-            
-            loadDashboardData();
-        }
+Update to handle single marketing checkbox
+Map single checkbox to both update_emails and festival_discounts fields
 
-        // Navigate months for app usage
-        function navigateUsageMonth(direction) {
-            if (direction === 'prev') {
-                if (!currentUsageMonth || !currentUsageYear) {
-                    const now = new Date();
-                    currentUsageMonth = now.getMonth() + 1;
-                    currentUsageYear = now.getFullYear();
-                } else {
-                    currentUsageMonth--;
-                    if (currentUsageMonth < 1) {
-                        currentUsageMonth = 12;
-                        currentUsageYear--;
-                    }
-                }
-            } else { // next
-                if (!currentUsageMonth || !currentUsageYear) return;
-                
-                currentUsageMonth++;
-                if (currentUsageMonth > 12) {
-                    currentUsageMonth = 1;
-                    currentUsageYear++;
-                }
-                
-                const now = new Date();
-                if (currentUsageYear > now.getFullYear() || 
-                    (currentUsageYear === now.getFullYear() && currentUsageMonth > now.getMonth() + 1)) {
-                    currentUsageMonth = null;
-                    currentUsageYear = null;
-                }
-            }
-            
-            loadDashboardData();
-        }
+4. Database Considerations
+Existing Data:
 
-        async function loadDashboardData() {
-            try {
-                console.log('Fetching dashboard data...');
-                
-                let url = API_URL;
-                const params = new URLSearchParams();
-                
-                if (currentMonth && currentYear) {
-                    params.append('month', currentMonth);
-                    params.append('year', currentYear);
-                }
-                
-                if (params.toString()) {
-                    url += '?' + params.toString();
-                }
-                
-                const response = await fetch(url, {
-                    method: 'GET',
-                    headers: {
-                        'x-admin-password': savedPassword,
-                        'Content-Type': 'application/json',
-                        'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZtZmh4a2ZwcnJic2h3bmlndWFxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk2ODYxNTcsImV4cCI6MjA2NTI2MjE1N30.k0OdvFzcO1nwZzxsgLPcQBeSITmV6dA_ncXpN0cpAgQ',
-                        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZtZmh4a2ZwcnJic2h3bmlndWFxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk2ODYxNTcsImV4cCI6MjA2NTI2MjE1N30.k0OdvFzcO1nwZzxsgLPcQBeSITmV6dA_ncXpN0cpAgQ'
-                    }
-                });
+Need to mark existing test submissions
+Could add a test_data boolean field to submissions table
+Or filter by email + created_at date
 
-                console.log('Response status:', response.status);
-                
-                const result = await response.json();
-                console.log('Response data:', result);
+Migration Strategy:
 
-                if (result.success) {
-                    updateDashboard(result.data);
-                } else {
-                    throw new Error(result.error || 'Failed to load data');
-                }
-            } catch (error) {
-                console.error('Dashboard error:', error);
-                showError('Failed to load dashboard data: ' + error.message);
-            }
-        }
+Users who checked either checkbox previously should still be counted as opted-in
+New submissions will only have one checkbox but should update both fields
 
-        function updateDashboard(data) {
-            // Update month displays
-            document.getElementById('currentMonth').textContent = formatMonthDisplay(currentMonth, currentYear);
-            document.getElementById('currentUsageMonth').textContent = formatMonthDisplay(currentUsageMonth, currentUsageYear);
-            
-            // Update navigation buttons
-            document.getElementById('nextMonth').disabled = !currentMonth || !currentYear;
-            document.getElementById('nextUsageMonth').disabled = !currentUsageMonth || !currentUsageYear;
-            
-            // Update basic stats
-            document.getElementById('totalSubmissions').textContent = data.stats.totalSubmissions;
-            document.getElementById('recentSubmissions').textContent = 
-                `${data.stats.recentSubmissions} in last 30 days`;
-            document.getElementById('totalEmails').textContent = data.stats.totalEmailsSent;
-            document.getElementById('conversionRate').textContent = 
-                `${data.stats.conversionRate} conversion`;
-            document.getElementById('avgRating').textContent = 
-                data.stats.avgRating === 'N/A' ? 'N/A' : data.stats.avgRating + ' ⭐';
-            document.getElementById('totalCost').textContent = '$' + data.stats.totalCost;
+Implementation Order:
 
-            // Update Stripe stats
-            if (data.stripeStats) {
-                document.getElementById('promoUsage').textContent = data.stripeStats.promoCodeUsage || '0';
-                document.getElementById('totalRevenue').textContent = 
-                    '$' + (data.stripeStats.totalRevenue || '0.00');
-                
-                const growth = data.stripeStats.revenueGrowth || '0%';
-                document.getElementById('revenueGrowth').textContent = growth + ' this month';
-                
-                // Update ROI section
-                document.getElementById('roiEmailsSent').textContent = data.stats.totalEmailsSent;
-                document.getElementById('roiConversions').textContent = data.stripeStats.totalConversions || '0';
-                document.getElementById('roiConversionRate').textContent = 
-                    data.stripeStats.emailConversionRate || '0%';
-                document.getElementById('roiRevenuePerEmail').textContent = 
-                    '$' + (data.stripeStats.revenuePerEmail || '0.00');
-                
-                document.getElementById('roiAiCosts').textContent = '$' + data.stats.totalCost;
-                document.getElementById('roiRevenue').textContent = 
-                    '$' + (data.stripeStats.totalRevenue || '0.00');
-                
-                const profit = (parseFloat(data.stripeStats.totalRevenue || 0) - parseFloat(data.stats.totalCost || 0)).toFixed(2);
-                document.getElementById('roiProfit').textContent = '$' + profit;
-                
-                const roi = data.stats.totalCost > 0 
-                    ? ((profit / parseFloat(data.stats.totalCost)) * 100).toFixed(0) + '%'
-                    : 'N/A';
-                document.getElementById('roiPercentage').textContent = roi;
-            }
+Update Questionnaire HTML (move country to step 1, update email preferences)
+Update Backend API (add test data filtering, email opt-in counting)
+Update Admin Dashboard HTML (new stats box, remove app usage, update columns)
+Update process-screenplay (handle single checkbox)
+Test everything with non-test email
 
-            // Update purchases
-            const purchaseBody = document.getElementById('purchaseBody');
-            purchaseBody.innerHTML = '';
-            
-            if (data.purchases && data.purchases.length > 0) {
-                data.purchases.forEach(purchase => {
-                    const row = document.createElement('tr');
-                    const centralTime = toCentralTime(purchase.created_at);
-                    const country = purchase.billing_country || 'Not provided';
-                    
-                    row.innerHTML = `
-                        <td><strong>${purchase.customer_email}</strong></td>
-                        <td>$${purchase.amount.toFixed(2)}</td>
-                        <td><span class="status-badge promo">${purchase.promo_code}</span></td>
-                        <td>${country}</td>
-                        <td>${centralTime}</td>
-                    `;
-                    purchaseBody.appendChild(row);
-                });
-                
-                document.getElementById('purchaseLoading').style.display = 'none';
-                document.getElementById('purchaseTable').style.display = 'table';
-                document.getElementById('noPurchases').style.display = 'none';
-            } else {
-                document.getElementById('purchaseLoading').style.display = 'none';
-                document.getElementById('purchaseTable').style.display = 'none';
-                document.getElementById('noPurchases').style.display = 'block';
-            }
+Questions Before Implementation:
 
-            // Update app usage
-            const usageBody = document.getElementById('usageBody');
-            usageBody.innerHTML = '';
-            
-            if (data.appUsage && data.appUsage.length > 0) {
-                data.appUsage.forEach(usage => {
-                    const row = document.createElement('tr');
-                    const centralTime = toCentralTime(usage.created_at);
-                    
-                    row.innerHTML = `
-                        <td><strong>${usage.email}</strong></td>
-                        <td>${usage.title}</td>
-                        <td>${usage.country}</td>
-                        <td>${centralTime}</td>
-                        <td class="cost-value">$${usage.ai_cost.toFixed(4)}</td>
-                    `;
-                    usageBody.appendChild(row);
-                });
-                
-                document.getElementById('usageLoading').style.display = 'none';
-                document.getElementById('usageTable').style.display = 'table';
-                document.getElementById('noUsage').style.display = 'none';
-            } else {
-                document.getElementById('usageLoading').style.display = 'none';
-                document.getElementById('usageTable').style.display = 'none';
-                document.getElementById('noUsage').style.display = 'block';
-            }
+Test Data Cutoff Date: Should we hide ALL historical submissions from these test emails, or only those before a certain date?
+Email Opt-in Display: For the new "Total Email Opt-ins" box, should it show:
 
-            // Update category distribution
-            const categoryList = document.getElementById('categoryList');
-            categoryList.innerHTML = '';
-            
-            if (data.categoryBreakdown && Object.keys(data.categoryBreakdown).length > 0) {
-                const sortedCategories = Object.entries(data.categoryBreakdown)
-                    .sort((a, b) => b[1] - a[1]);
-                
-                sortedCategories.forEach(([category, count]) => {
-                    const item = document.createElement('div');
-                    item.className = 'category-item';
-                    item.innerHTML = `
-                        <span class="name">${category}</span>
-                        <span class="count">${count}</span>
-                    `;
-                    categoryList.appendChild(item);
-                });
-                
-                document.getElementById('categoryLoading').style.display = 'none';
-                categoryList.style.display = 'grid';
-            } else {
-                document.getElementById('categoryLoading').textContent = 'No category data yet';
-            }
+Just the number (e.g., "245")
+Number with percentage (e.g., "245 (18.5%)")
 
-            // Update last updated time
-            const lastUpdated = toCentralTime(data.lastUpdated);
-            document.getElementById('lastUpdated').textContent = `Last updated: ${lastUpdated}`;
-        }
 
-        // Load submissions for management
-        async function loadSubmissions() {
-            // Wait for Supabase to be available
-            while (!window.supabase) {
-                await new Promise(resolve => setTimeout(resolve, 100));
-            }
-            
-            try {
-                const searchTerm = document.getElementById('submissionSearch').value;
-                const statusFilter = document.getElementById('statusFilter').value;
-                
-                let query = window.supabase
-                    .from('submissions')
-                    .select('*')
-                    .order('created_at', { ascending: false });
-                
-                if (statusFilter) {
-                    query = query.eq('status', statusFilter);
-                }
-                
-                const { data, error } = await query;
-                
-                if (error) throw error;
-                
-                allSubmissions = data || [];
-                
-                // Apply search filter
-                let filtered = allSubmissions;
-                if (searchTerm) {
-                    filtered = allSubmissions.filter(s => 
-                        s.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                        s.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                        s.custom_id.toLowerCase().includes(searchTerm.toLowerCase())
-                    );
-                }
-                
-                renderSubmissionsTable(filtered);
-                
-            } catch (error) {
-                console.error('Error loading submissions:', error);
-                showMessage('Failed to load submissions: ' + error.message);
-            }
-        }
+AI Cost Display: How should we format the AI cost in the table?
 
-        function renderSubmissionsTable(submissions) {
-            const tbody = document.getElementById('submissionsBody');
-            tbody.innerHTML = '';
-            
-            if (submissions.length === 0) {
-                document.getElementById('submissionsLoading').style.display = 'none';
-                document.getElementById('submissionsTable').style.display = 'none';
-                document.getElementById('noSubmissions').style.display = 'block';
-                return;
-            }
-            
-            submissions.forEach(submission => {
-                const row = document.createElement('tr');
-                const date = new Date(submission.created_at).toLocaleDateString();
-                
-                row.innerHTML = `
-                    <td>${submission.custom_id}</td>
-                    <td>
-                        <div id="email-cell-${submission.id}">
-                            <span id="email-text-${submission.id}">${submission.email}</span>
-                            <div id="email-edit-${submission.id}" style="display: none;">
-                                <input type="email" id="email-input-${submission.id}" class="email-edit-input" value="${submission.email}">
-                                <div class="email-edit-buttons">
-                                    <button class="email-edit-button save" onclick="saveEmail('${submission.id}')">✓</button>
-                                    <button class="email-edit-button cancel" onclick="cancelEditEmail('${submission.id}')">✗</button>
-                                </div>
-                            </div>
-                        </div>
-                    </td>
-                    <td>${submission.title}</td>
-                    <td><span class="status-badge ${submission.status}">${submission.status}</span></td>
-                    <td>${date}</td>
-                    <td>
-                        <button class="action-button edit" onclick="editEmail('${submission.id}')">Edit Email</button>
-                        <button class="action-button resend" onclick="resendSubmission('${submission.id}')" ${submission.status !== 'completed' ? 'disabled' : ''}>Resend</button>
-                    </td>
-                `;
-                tbody.appendChild(row);
-            });
-            
-            document.getElementById('submissionsLoading').style.display = 'none';
-            document.getElementById('submissionsTable').style.display = 'table';
-            document.getElementById('noSubmissions').style.display = 'none';
-        }
+Show full precision (e.g., "$0.0234")
+Round to cents (e.g., "$0.02")
+Show in a different format?
 
-        // Edit email functions
-        function editEmail(id) {
-            // Hide all other edit forms
-            document.querySelectorAll('[id^="email-edit-"]').forEach(el => el.style.display = 'none');
-            document.querySelectorAll('[id^="email-text-"]').forEach(el => el.style.display = 'inline');
-            
-            // Show this edit form
-            document.getElementById(`email-text-${id}`).style.display = 'none';
-            document.getElementById(`email-edit-${id}`).style.display = 'block';
-            document.getElementById(`email-input-${id}`).focus();
-            
-            currentEditingId = id;
-        }
 
-        function cancelEditEmail(id) {
-            document.getElementById(`email-text-${id}`).style.display = 'inline';
-            document.getElementById(`email-edit-${id}`).style.display = 'none';
-            currentEditingId = null;
-        }
 
-        async function saveEmail(id) {
-            const newEmail = document.getElementById(`email-input-${id}`).value;
-            const submission = allSubmissions.find(s => s.id === id);
-            
-            if (!newEmail || !isValidEmail(newEmail)) {
-                showMessage('Please enter a valid email address');
-                return;
-            }
-            
-            if (newEmail === submission.email) {
-                cancelEditEmail(id);
-                return;
-            }
-            
-            try {
-                const { error } = await window.supabase
-                    .from('submissions')
-                    .update({ email: newEmail })
-                    .eq('id', id);
-                
-                if (error) throw error;
-                
-                // Update local data
-                submission.email = newEmail;
-                
-                // Update UI
-                document.getElementById(`email-text-${id}`).textContent = newEmail;
-                cancelEditEmail(id);
-                
-                showMessage('Email updated successfully', 'success');
-                
-            } catch (error) {
-                console.error('Error updating email:', error);
-                showMessage('Failed to update email: ' + error.message);
-            }
-        }
+Would you like me to proceed with this plan? Any adjustments needed?RetryMFLets make this sentence event shorter "New single checkbox text: "I'd like to receive monthly emails about Festival Ready app updates and film festival submission discounts for our twelve festivals in Portland, Austin, and Georgia." Change it to "New single checkbox text: "I'd like to receive monthly emails about Festival Ready app updates and film festival submission discounts." Remove all historical submissions before 6-25-25. email opt-ins please show the number and percentage. Please round the cents for AI cost to $0.02EditStrategized email checkbox, submission, and cost optimization tactics.2sThe user wants to:
 
-        // Resend submission function
-        async function resendSubmission(id) {
-            const submission = allSubmissions.find(s => s.id === id);
-            
-            if (!submission) {
-                showMessage('Submission not found');
-                return;
-            }
-            
-            if (submission.status !== 'completed') {
-                showMessage('Can only resend completed submissions');
-                return;
-            }
-            
-            if (!confirm(`Resend results to ${submission.email}?`)) {
-                return;
-            }
-            
-            try {
-                // Disable the button to prevent multiple clicks
-                event.target.disabled = true;
-                event.target.textContent = 'Sending...';
-                
-                // Call the process-screenplay edge function with resend_only flag
-                const { data, error } = await window.supabase.functions.invoke('process-screenplay', {
-                    body: {
-                        submission_id: submission.id,
-                        resend_only: true  // This flag tells it to skip AI processing
-                    }
-                });
-                
-                if (error) throw error;
-                
-                showMessage('Email resent successfully', 'success');
-                
-                // Re-enable button
-                event.target.disabled = false;
-                event.target.textContent = 'Resend';
-                
-            } catch (error) {
-                console.error('Error resending submission:', error);
-                showMessage('Failed to resend email: ' + error.message);
-                
-                // Re-enable button on error
-                event.target.disabled = false;
-                event.target.textContent = 'Resend';
-            }
-        }
+Shorten the checkbox text to: "I'd like to receive monthly emails about Festival Ready app updates and film festival submission discounts."
+Remove all historical submissions before 6-25-25 (June 25, 2025) for the test emails
+Show email opt-ins as both number and percentage (e.g., "245 (18.5%)")
+Round AI cost to cents (e.g., "$0.02")
 
-        // Email validation
-        function isValidEmail(email) {
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            return emailRegex.test(email);
-        }
+Let me update the plan with these specifications.Updated Plan for Festival Ready App Updates
+1. Questionnaire Step Reordering & Updates
+Current Structure → New Structure:
 
-        function showError(message) {
-            const errorDiv = document.createElement('div');
-            errorDiv.className = 'error';
-            errorDiv.textContent = message;
-            document.getElementById('dashboardSection').prepend(errorDiv);
-            
-            setTimeout(() => {
-                errorDiv.remove();
-            }, 5000);
-        }
+Step 1: Title → Step 1: Country (moved from Step 15)
+Step 2: Writers → Step 2: Title (was Step 1)
+Step 3: Genre → Step 3: Writers (was Step 2)
+... (all other steps shift by 1)
+Step 14: Email → Step 14: Email (same position)
+Step 15: Country → Step 15: Combined Marketing Opt-in (simplified)
 
-        function refreshDashboard() {
-            loadDashboardData();
-            loadSubmissions();
-        }
+Step 15 Changes (Email Preferences):
 
-        // Auto-refresh every 60 seconds
-        setInterval(() => {
-            if (savedPassword) {
-                loadDashboardData();
-            }
-        }, 60000);
-    </script>
-</body>
-</html>
+Remove checkbox #1 (app updates)
+Update checkbox #2 to combine both purposes
+New single checkbox text: "I'd like to receive monthly emails about Festival Ready app updates and film festival submission discounts."
+
+2. Admin Dashboard Updates
+New Stats Box:
+
+Add 7th box: "Total Email Opt-ins"
+Display format: "245 (18.5%)" (number and percentage of total submissions)
+Count unique email addresses that have ever opted in
+Must check both old checkboxes (update_emails OR festival_discounts = true)
+
+Remove App Usage Section:
+
+Delete entire "App Usage" table and section
+
+Update Submissions Management Columns:
+
+Current columns: ID | Email | Title | Status | Date | Actions
+New columns: ID | Email | Title | AI Cost | Country | Actions
+AI cost rounded to cents: $0.02 format
+Display country from submissions table
+
+Test Data Filtering:
+
+Hide these emails from ALL displays and calculations:
+
+mikel.fair@filmfestivalcircuit.com
+chambersdavid@live.co.uk
+mikelfair@gmail.com
+
+
+Only hide submissions created before June 25, 2025
+Future submissions from these emails will show normally
+Affects: stats boxes, purchase history, submissions list, category breakdown
+
+3. Backend Updates Required
+admin-dashboard-api:
+
+Add filter: created_at < '2025-06-25' for test emails
+Calculate unique email opt-ins with percentage
+Remove app usage query entirely
+Join processing_analytics for AI cost (rounded to 2 decimals)
+
+process-screenplay.txt:
+
+Update to handle single marketing checkbox
+Map single checkbox to BOTH update_emails AND festival_discounts fields
+
+4. Database Considerations
+Test Data Filter Logic:
+sqlWHERE NOT (
+  email IN ('mikel.fair@filmfestivalcircuit.com', 'chambersdavid@live.co.uk', 'mikelfair@gmail.com')
+  AND created_at < '2025-06-25'
+)
+Implementation Order:
+
+Update Questionnaire HTML (move country to step 1, update email preferences)
+Update Backend API (add test data filtering, email opt-in counting)
+Update Admin Dashboard HTML (new stats box, remove app usage, update columns)
+Update process-screenplay (handle single checkbox)
+Test everything with non-test email
+
+Ready to proceed with implementation? We'll start with the questionnaire updates first.RetryMFyes. I'm ready to implement. Let's do them 1 at a time. rewrite the entire code for each section that we are working on .EditStrategized questionnaire restructuring with systematic step modifications.2sThe user wants to implement the changes one at a time, starting with the questionnaire updates. I need to:
+
+Move Country from Step 15 to Step 1
+Shift all other steps by 1
+Update Step 15 to have only one checkbox for marketing emails with the new shorter text
+Remove the first checkbox about app updates
+
+I'll need to rewrite the entire questionnaire.html file with these changes.Perfect! Let's start with the questionnaire updates. I'll provide the complete updated questionnaire.html file.
+Step 1: Update questionnaire.html
+Here's the complete updated file with:
+
+Country moved to Step 1
+All other steps shifted by 1
+Single marketing checkbox in Step 15 with shorter text
+Updated questionnaire.htmlInteractive artifact ∙ Version 3 Strategized questionnaire updates and backend modifications for app.7sThe user has received the updated questionnaire.html file with:
+
+Country moved to Step 1
+All other steps shifted by 1
+Single marketing checkbox with shorter text
+Removed the app updates checkbox
+
+The main changes include:
+
+Step 1 is now Country (was Step 15)
+All other steps are shifted by 1
+Step 15 now has only one checkbox for marketing emails with the text "I'd like to receive monthly emails about Festival Ready app updates and film festival submission discounts."
+The single checkbox maps to both update_emails and festival_discounts fields in the database
+
+Next, they'll need to update the backend API to handle the test data filtering and add the email opt-in counting.Implementation Instructions for questionnaire.html
+Perfect! Here's what was changed in the questionnaire:
+Changes Made:
+
+Country moved to Step 1 - Now the first question users see
+All other steps shifted by 1 - Title is now Step 2, Writers is Step 3, etc.
+Email preferences simplified - Single checkbox with text: "I'd like to receive monthly emails about Festival Ready app updates and film festival submission discounts."
+Backend compatibility - The single checkbox will set BOTH update_emails and festival_discounts to true/false
+
+How to Deploy:
+
+Copy the entire updated questionnaire.html from above
+Replace your current questionnaire.html file
+Test the form to ensure:
+
+Country appears as Step 1
+All steps flow correctly
+The single marketing checkbox appears in Step 15
+
+
+
+Important Notes:
+
+The single checkbox (marketingEmails) will automatically map to both database fields
+This maintains backward compatibility with existing users who checked either box
+The form validation has been updated for the new step numbers
+
+Once you've deployed and tested the questionnaire, let me know and we'll move on to updating the backend API to handle test data filtering and email opt-in counting!RetryMFquestionnaire.html has been updated and it looks like its working.EditStrategized backend API updates for questionnaire processing.4sGreat! The questionnaire is updated and working. Now I need to move to the backend API updates. According to the plan, I need to:
+
+Add logic to filter out test emails (only for submissions before June 25, 2025)
+Calculate unique email opt-ins with percentage
+Remove app usage query entirely
+Join processing_analytics for AI cost (rounded to 2 decimals)
+
+Let me prepare the updated admin-dashboard-api.txt file.Excellent! Now let's update the backend API to handle the test data filtering and add the email opt-in counting.
+Step 2: Update admin-dashboard-api.txt
+Here's the complete updated backend API with:
+
+Test data filtering (submissions before June 25, 2025)
+New email opt-in calculation with percentage
+App usage section removed
+AI cost data joined and rounded to 2 decimals
+Updated admin-dashboard-api.txtText import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.45.4';
+Deno.serve(async (req)=>{
+  const headers = new Headers();
+  headers.set('content-type', 'application/json');
+  headers.set('access-control-allow-origin', '*');
+  headers.setRefined API dashboard with updated filtering and opt-in stats.4sThe admin-dashboard-api has been updated with:
+
+Test data filtering logic that excludes the three email addresses for submissions before June 25, 2025
+Email opt-in calculation that counts unique emails who have opted in to either update_emails OR festival_discounts
+Removed app usage query entirely
+Added totalOptIns to the stats with percentage format
+
+Now I need to provide deployment instructions.Implementation Instructions for admin-dashboard-api
+Here's what was changed in the backend API:
+Changes Made:
+
+Test Data Filtering - Excludes these emails for submissions before June 25, 2025:
+
+mikel.fair@filmfestivalcircuit.com
+chambersdavid@live.co.uk
+mikelfair@gmail.com
+
+
+Email Opt-ins Calculation:
+
+Counts unique email addresses that opted in (either checkbox)
+Returns format: "245 (18.5%)"
+Stored in stats.totalOptIns
+
+
+Removed App Usage:
+
+Completely removed the app usage query and data
+
+
+All calculations exclude test data:
+
+Total submissions
+Recent submissions
+Email sent count
+Total AI cost
+Category breakdown
+Revenue calculations
+
+
+
+How to Deploy:
+
+Copy the entire updated admin-dashboard-api.txt from above
+Replace your current admin-dashboard-api edge function
+Deploy to Supabase:
+bashsupabase functions deploy admin-dashboard-api
+
+
+Testing:
+After deployment, check that:
+
+Test emails no longer appear in any stats
+The API returns totalOptIns with percentage
+No app usage data is returned
+
+Let me know once this is deployed and working, then we'll move on to updating the admin dashboard HTML to display the new stats and remove the app usage section!RetryMFI got an error when updated admin-dashboard-apiEditDiagnosed API deployment error and refined filtering logic.5sThe user is getting an error when deploying the admin-dashboard-api. The error message shown in the screenshot indicates that the edge function failed to create the graph. The specific error appears to be related to parsing or syntax issues in the code.
+Looking at the error, it seems to be a syntax error in the code. Let me review the admin-dashboard-api code I provided to find any issues.
+Looking at the code, I see a potential issue in the filter logic. The way I'm constructing the SQL queries for filtering test data might be causing issues. Specifically, the .or() method usage might be incorrect.
+Let me fix the code with a simpler approach to filtering test data.I see the error. There's a syntax issue with how I'm filtering the test data. Let me fix the admin-dashboard-api with a cleaner approach:Updated admin-dashboard-api.txtText ∙ Version 2 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.45.4';
+Deno.serve(async (req)=>{
+  const headers = new Headers();
+  headers.set('content-type', 'application/json');
+  headers.set('access-control-allow-origin', '*');
+  headers.setRefactored API to resolve syntax errors by manual filtering4sI've rewritten the admin-dashboard-api to fix the syntax errors. The main changes:
+
+Removed the complex .or() queries that were causing syntax errors
+Instead, I'm fetching all data and filtering it manually in JavaScript
+This is cleaner and avoids the SQL syntax issues
+The filtering logic remains the same - exclude test emails before June 25, 2025
+
+This approach is slightly less efficient (fetching all data then filtering) but for an admin dashboard with reasonable data volumes, it should work fine.Fixed admin-dashboard-api
+I've fixed the syntax errors. The main issue was with the complex SQL filtering. I've simplified it by:
+
+Fetching all data first, then filtering in JavaScript
+Cleaner code that's easier to maintain
+Same filtering logic: excludes test emails before June 25, 2025
+
+Key Changes:
+
+Removed complex .or() queries that were causing syntax errors
+Manual filtering of test data after fetching
+All test email filtering is consistent throughout
+
+Deploy Instructions:
+
+Copy the entire fixed code above
+Replace your admin-dashboard-api.txt
+Deploy again:
+bashsupabase functions deploy admin-dashboard-api
+
+
+This approach is simpler and should deploy without errors. The performance impact of filtering in JavaScript rather than SQL should be minimal for an admin dashboard.
+Let me know once this deploys successfully!RetryMFstill getting an errorEditDiagnosed deployment error and strategized code refinement.3sThe user is still getting an error with the deployment. Looking at the error message in the image, it seems to be related to the edge function deployment. The error message shows it's having trouble with the module parsing or syntax.
+Let me look at the code more carefully. The issue might be with how I'm handling the Supabase client or some other syntax issue. Let me provide a more basic, cleaner version that should definitely work.I see the issue. Let me provide a cleaner, more straightforward version of the admin-dashboard-api that should deploy without errors:Updated admin-dashboard-api.txtText ∙ Version 3 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.45.4';
+
+Deno.serve(async (req) => {
+  const corsHeaders = {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, contenRevamped API structure to resolve deployment complications.3sI've rewritten the admin-dashboard-api with a cleaner structure that should avoid the deployment error. The main changes:
+
+Simplified the CORS headers handling
+Used more straightforward async/await patterns
+Removed complex query builders in favor of simpler queries + JavaScript filtering
+Made the code more linear and easier to follow
+Fixed potential issues with header handling
+
+This should deploy successfully.Simplified admin-dashboard-api
+I've completely rewritten the API to be cleaner and simpler. Key improvements:
+
+Cleaner structure - More straightforward code flow
+Simpler CORS handling - Fixed potential header issues
+Better error handling - Wrapped everything in try/catch
+No complex SQL queries - Simple queries + JavaScript filtering
+
+Deploy Instructions:
+
+Copy the entire new code above
+Replace your admin-dashboard-api.txt
+Deploy:
+bashsupabase functions deploy admin-dashboard-api
+
+
+This simplified version should deploy without any syntax or parsing errors. Let me know if you still encounter issues!RetryMFOK. It (admin-dashboard-api) deployed without errors.EditStrategized comprehensive updates for admin dashboard interface.4sGreat! The admin-dashboard-api is now deployed successfully. Now I need to update the admin dashboard HTML to:
+
+Add the 7th stats box for "Total Email Opt-ins"
+Remove the entire App Usage section
+Update the Submissions Management table columns (remove Status and Date, add AI Cost and Country)
+Make sure the JavaScript code handles the new data structure from the API
+
+I'll need to rewrite the entire admin-dashboard.html file to make these changes.Excellent! Now let's update the admin dashboard HTML to display the new email opt-ins stat and remove the app usage section.
+Step 3: Update admin-dashboard.html
+Here's the complete updated admin dashboard with:
+
+New 7th box for "Total Email Opt-ins"
+App Usage section completely removed
+Submissions Management updated with AI Cost and Country columns
