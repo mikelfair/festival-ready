@@ -396,7 +396,6 @@
             font-weight: 600;
         }
         
-        /* New styles for edit and resend functionality */
         .action-button {
             padding: 4px 10px;
             border: none;
@@ -462,7 +461,6 @@
             color: white;
         }
         
-        /* Submissions Management Section */
         .submissions-section {
             margin-top: 30px;
         }
@@ -496,7 +494,6 @@
             <p>Monitor your screenplay processing system performance</p>
         </div>
 
-        <!-- Login Form -->
         <div id="loginSection" class="login-form">
             <h2>Admin Login</h2>
             <p style="margin-bottom: 20px; color: #666;">Enter your admin password to access the dashboard</p>
@@ -505,7 +502,6 @@
             <div id="loginError" style="color: #d32f2f; margin-top: 10px; display: none;"></div>
         </div>
 
-        <!-- Dashboard -->
         <div id="dashboardSection" class="dashboard">
             <button class="refresh-btn" onclick="refreshDashboard()">🔄 Refresh</button>
             
@@ -603,8 +599,7 @@
             <div class="section">
                 <h2>Category Distribution</h2>
                 <div id="categoryLoading" class="loading">Loading category data</div>
-                <div id="categoryList" class="category-list" style="display: none;">
-                </div>
+                <div id="categoryList" class="category-list" style="display: none;"></div>
             </div>
 
             <div class="section data-table">
@@ -627,15 +622,13 @@
                             <th>Date & Time (CST)</th>
                         </tr>
                     </thead>
-                    <tbody id="purchaseBody">
-                    </tbody>
+                    <tbody id="purchaseBody"></tbody>
                 </table>
                 <div id="noPurchases" class="no-data" style="display: none;">
                     No purchases for this period
                 </div>
             </div>
 
-            <!-- New Submissions Management Section -->
             <div class="section data-table submissions-section">
                 <h2>Submissions Management</h2>
                 <div class="search-controls">
@@ -654,35 +647,28 @@
                             <th>Actions</th>
                         </tr>
                     </thead>
-                    <tbody id="submissionsBody">
-                    </tbody>
+                    <tbody id="submissionsBody"></tbody>
                 </table>
                 <div id="noSubmissions" class="no-data" style="display: none;">
                     No submissions found
                 </div>
             </div>
 
-            <div class="last-updated" id="lastUpdated">
-            </div>
+            <div class="last-updated" id="lastUpdated"></div>
         </div>
     </div>
 
-    <!-- Import Supabase JS Library -->
     <script type="module">
         import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.45.4';
         
-        // Initialize Supabase client
         const SUPABASE_URL = 'https://vmfhxkfprrbshwniguaq.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZtZmh4a2ZwcnJic2h3bmlndWFxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk2ODYxNTcsImV4cCI6MjA2NTI2MjE1N30.k0OdvFzcO1nwZzxsgLPcQBeSITmV6dA_ncXpN0cpAgQ';
         
         const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-        
-        // Make supabase available globally
         window.supabase = supabase;
     </script>
 
     <script>
-        // Configuration
         const API_URL = 'https://vmfhxkfprrbshwniguaq.supabase.co/functions/v1/admin-dashboard-api';
         const PASSWORD = 'festivalready2025!';
         
@@ -693,14 +679,12 @@
         let allSubmissions = [];
         let currentEditingId = null;
 
-        // Auto-login if password is saved
         if (savedPassword === PASSWORD) {
             showDashboard();
             loadDashboardData();
             loadSubmissions();
         }
 
-        // Handle Enter key in password field
         document.getElementById('passwordInput').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
                 login();
@@ -729,7 +713,6 @@
             document.getElementById('dashboardSection').style.display = 'block';
         }
 
-        // Show message function
         function showMessage(message, type = 'error') {
             const container = document.getElementById('messageContainer');
             const div = document.createElement('div');
@@ -738,13 +721,11 @@
             container.innerHTML = '';
             container.appendChild(div);
             
-            // Auto-hide after 5 seconds
             setTimeout(() => {
                 div.remove();
             }, 5000);
         }
 
-        // Convert UTC to Central Time
         function toCentralTime(utcDateString) {
             const date = new Date(utcDateString);
             const options = {
@@ -759,18 +740,15 @@
             return new Intl.DateTimeFormat('en-US', options).format(date);
         }
 
-        // Format month display
         function formatMonthDisplay(month, year) {
             if (!month || !year) return 'All Time';
             const date = new Date(year, month - 1, 1);
             return date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
         }
 
-        // Navigate months for purchases
         function navigateMonth(direction) {
             if (direction === 'prev') {
                 if (!currentMonth || !currentYear) {
-                    // If viewing all time, go to current month
                     const now = new Date();
                     currentMonth = now.getMonth() + 1;
                     currentYear = now.getFullYear();
@@ -781,8 +759,8 @@
                         currentYear--;
                     }
                 }
-            } else { // next
-                if (!currentMonth || !currentYear) return; // Can't go next from all time
+            } else {
+                if (!currentMonth || !currentYear) return;
                 
                 currentMonth++;
                 if (currentMonth > 12) {
@@ -790,7 +768,6 @@
                     currentYear++;
                 }
                 
-                // Don't go beyond current month
                 const now = new Date();
                 if (currentYear > now.getFullYear() || 
                     (currentYear === now.getFullYear() && currentMonth > now.getMonth() + 1)) {
@@ -845,13 +822,9 @@
         }
 
         function updateDashboard(data) {
-            // Update month displays
             document.getElementById('currentMonth').textContent = formatMonthDisplay(currentMonth, currentYear);
-            
-            // Update navigation buttons
             document.getElementById('nextMonth').disabled = !currentMonth || !currentYear;
             
-            // Update basic stats
             document.getElementById('totalSubmissions').textContent = data.stats.totalSubmissions;
             document.getElementById('recentSubmissions').textContent = 
                 `${data.stats.recentSubmissions} in last 30 days`;
@@ -862,10 +835,8 @@
                 data.stats.avgRating === 'N/A' ? 'N/A' : data.stats.avgRating + ' ⭐';
             document.getElementById('totalCost').textContent = '$' + data.stats.totalCost;
             
-            // Update Email Opt-ins (NEW)
             document.getElementById('totalOptIns').textContent = data.stats.totalOptIns || '0 (0%)';
 
-            // Update Stripe stats
             if (data.stripeStats) {
                 document.getElementById('promoUsage').textContent = data.stripeStats.promoCodeUsage || '0';
                 document.getElementById('totalRevenue').textContent = 
@@ -874,7 +845,6 @@
                 const growth = data.stripeStats.revenueGrowth || '0%';
                 document.getElementById('revenueGrowth').textContent = growth + ' this month';
                 
-                // Update ROI section
                 document.getElementById('roiEmailsSent').textContent = data.stats.totalEmailsSent;
                 document.getElementById('roiConversions').textContent = data.stripeStats.totalConversions || '0';
                 document.getElementById('roiConversionRate').textContent = 
@@ -895,7 +865,6 @@
                 document.getElementById('roiPercentage').textContent = roi;
             }
 
-            // Update purchases
             const purchaseBody = document.getElementById('purchaseBody');
             purchaseBody.innerHTML = '';
             
@@ -924,7 +893,6 @@
                 document.getElementById('noPurchases').style.display = 'block';
             }
 
-            // Update category distribution
             const categoryList = document.getElementById('categoryList');
             categoryList.innerHTML = '';
             
@@ -948,14 +916,11 @@
                 document.getElementById('categoryLoading').textContent = 'No category data yet';
             }
 
-            // Update last updated time
             const lastUpdated = toCentralTime(data.lastUpdated);
             document.getElementById('lastUpdated').textContent = `Last updated: ${lastUpdated}`;
         }
 
-        // Load submissions for management
         async function loadSubmissions() {
-            // Wait for Supabase to be available
             while (!window.supabase) {
                 await new Promise(resolve => setTimeout(resolve, 100));
             }
@@ -963,7 +928,6 @@
             try {
                 const searchTerm = document.getElementById('submissionSearch').value;
                 
-                // Fetch submissions with processing_analytics join
                 let query = window.supabase
                     .from('submissions')
                     .select(`
@@ -976,7 +940,6 @@
                 
                 if (error) throw error;
                 
-                // Filter out test data
                 const testEmails = ['mikel.fair@filmfestivalcircuit.com', 'chambersdavid@live.co.uk', 'mikelfair@gmail.com'];
                 const testCutoffDate = new Date('2025-06-25');
                 
@@ -985,11 +948,9 @@
                     const isTestEmail = testEmails.includes(submission.email);
                     const isBeforeCutoff = submissionDate < testCutoffDate;
                     
-                    // Exclude if it's a test email AND before cutoff date
                     return !(isTestEmail && isBeforeCutoff);
                 });
                 
-                // Apply search filter
                 let filtered = allSubmissions;
                 if (searchTerm) {
                     filtered = allSubmissions.filter(s => 
@@ -1021,11 +982,9 @@
             submissions.forEach(submission => {
                 const row = document.createElement('tr');
                 
-                // Get AI cost from processing_analytics join
                 const aiCost = submission.processing_analytics?.[0]?.estimated_cost || 0;
                 const formattedCost = '$' + aiCost.toFixed(2);
                 
-                // Get country
                 const country = submission.country || 'N/A';
                 
                 row.innerHTML = `
@@ -1058,13 +1017,10 @@
             document.getElementById('noSubmissions').style.display = 'none';
         }
 
-        // Edit email functions
         function editEmail(id) {
-            // Hide all other edit forms
             document.querySelectorAll('[id^="email-edit-"]').forEach(el => el.style.display = 'none');
             document.querySelectorAll('[id^="email-text-"]').forEach(el => el.style.display = 'inline');
             
-            // Show this edit form
             document.getElementById(`email-text-${id}`).style.display = 'none';
             document.getElementById(`email-edit-${id}`).style.display = 'block';
             document.getElementById(`email-input-${id}`).focus();
@@ -1100,10 +1056,8 @@
                 
                 if (error) throw error;
                 
-                // Update local data
                 submission.email = newEmail;
                 
-                // Update UI
                 document.getElementById(`email-text-${id}`).textContent = newEmail;
                 cancelEditEmail(id);
                 
@@ -1115,7 +1069,6 @@
             }
         }
 
-        // Resend submission function
         async function resendSubmission(id) {
             const submission = allSubmissions.find(s => s.id === id);
             
@@ -1134,15 +1087,13 @@
             }
             
             try {
-                // Disable the button to prevent multiple clicks
                 event.target.disabled = true;
                 event.target.textContent = 'Sending...';
                 
-                // Call the process-screenplay edge function with resend_only flag
                 const { data, error } = await window.supabase.functions.invoke('process-screenplay', {
                     body: {
                         submission_id: submission.id,
-                        resend_only: true  // This flag tells it to skip AI processing
+                        resend_only: true
                     }
                 });
                 
@@ -1150,7 +1101,6 @@
                 
                 showMessage('Email resent successfully', 'success');
                 
-                // Re-enable button
                 event.target.disabled = false;
                 event.target.textContent = 'Resend';
                 
@@ -1158,13 +1108,11 @@
                 console.error('Error resending submission:', error);
                 showMessage('Failed to resend email: ' + error.message);
                 
-                // Re-enable button on error
                 event.target.disabled = false;
                 event.target.textContent = 'Resend';
             }
         }
 
-        // Email validation
         function isValidEmail(email) {
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             return emailRegex.test(email);
@@ -1186,7 +1134,6 @@
             loadSubmissions();
         }
 
-        // Auto-refresh every 60 seconds
         setInterval(() => {
             if (savedPassword) {
                 loadDashboardData();
