@@ -528,7 +528,7 @@
             </div>
             
             <div class="step-content">
-                <!-- Step 1: Title (REQUIRED) -->
+                <!-- Step 1: Country (MOVED FROM STEP 15) -->
                 <div class="step active" id="step1">
                     <!-- Honeypot Field - DO NOT REMOVE -->
                     <div class="ohnohoney" aria-hidden="true">
@@ -536,274 +536,6 @@
                         <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
                     </div>
                     
-                    <h2>What's the title of your screenplay? *</h2>
-                    <p>This will be the main title used in all your submission materials.</p>
-                    <div class="form-group">
-                        <label for="title">Screenplay Title <span style="color: #e74c3c;">*</span></label>
-                        <input type="text" id="title" name="title" placeholder="Enter your screenplay title" required>
-                    </div>
-                </div>
-                
-                <!-- Step 2: Writers (REQUIRED) -->
-                <div class="step" id="step2">
-                    <h2>Who are the primary writers and story contributors? *</h2>
-                    <p>Include all writers, co-writers, and anyone who contributed significantly to the story.</p>
-                    <div class="form-group">
-                        <label for="writers">Writers & Contributors <span style="color: #e74c3c;">*</span></label>
-                        <textarea id="writers" name="writers" placeholder="List all writers and contributors..." required></textarea>
-                    </div>
-                </div>
-                
-                <!-- Step 3: Genre (UPDATED - Removed 3 genres, single column) -->
-                <div class="step" id="step3">
-                    <h2>What genre(s) best describe your story?</h2>
-                    <p>Select all that apply. This helps with festival category recommendations.</p>
-                    <div class="form-group">
-                        <label>Select Genre(s)</label>
-                        <div class="checkbox-group">
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="action-thriller" name="genres" value="action-thriller">
-                                <label for="action-thriller">Action or Suspense Thriller</label>
-                            </div>
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="animation" name="genres" value="animation">
-                                <label for="animation">Animation</label>
-                            </div>
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="comedy" name="genres" value="comedy">
-                                <label for="comedy">Comedy</label>
-                            </div>
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="drama" name="genres" value="drama">
-                                <label for="drama">Drama</label>
-                            </div>
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="experimental" name="genres" value="experimental">
-                                <label for="experimental">Experimental</label>
-                            </div>
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="fantasy" name="genres" value="fantasy">
-                                <label for="fantasy">Fantasy</label>
-                            </div>
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="horror" name="genres" value="horror">
-                                <label for="horror">Horror</label>
-                            </div>
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="music-video" name="genres" value="music-video">
-                                <label for="music-video">Music Video</label>
-                            </div>
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="scifi" name="genres" value="scifi">
-                                <label for="scifi">Sci-Fi</label>
-                            </div>
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="other-genre" name="genres" value="other">
-                                <label for="other-genre">Other</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Step 4: Page Count (REQUIRED) -->
-                <div class="step" id="step4">
-                    <h2>How many pages is this version of the screenplay? *</h2>
-                    <p>This helps determine the appropriate festival categories and submission guidelines.</p>
-                    <div class="form-group">
-                        <label for="pageCount">Number of Pages <span style="color: #e74c3c;">*</span></label>
-                        <input type="number" id="pageCount" name="pageCount" placeholder="e.g., 90" min="1" max="300" required>
-                    </div>
-                </div>
-                
-                <!-- Step 5: Standalone vs Series (REQUIRED) -->
-                <div class="step" id="step5">
-                    <h2>Is this screenplay a standalone film or part of an ongoing series? *</h2>
-                    <p>This affects how we position your story in submission materials.</p>
-                    <div class="form-group">
-                        <div class="radio-group">
-                            <div class="radio-item">
-                                <input type="radio" id="standalone" name="storyType" value="standalone" required>
-                                <label for="standalone">Standalone film</label>
-                            </div>
-                            <div class="radio-item">
-                                <input type="radio" id="series" name="storyType" value="series" required>
-                                <label for="series">An episode in an ongoing series. (Teleplay)</label>
-                            </div>
-                            <div class="radio-item">
-                                <input type="radio" id="undecided" name="storyType" value="undecided" required>
-                                <label for="undecided">Undecided</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Step 6: Mature Content (MOVED UP FROM STEP 10) -->
-                <div class="step" id="step6">
-                    <h2>Does your story contain mature content inappropriate for children? *</h2>
-                    <p>This affects festival category selection and content warnings. Detailed descriptions of violence, sexual situations and drug use are examples of mature content that is intended for adults.</p>
-                    <div class="form-group">
-                        <div class="radio-group">
-                            <div class="radio-item">
-                                <input type="radio" id="mature-yes" name="matureContent" value="yes" required>
-                                <label for="mature-yes">Yes, contains mature content</label>
-                            </div>
-                            <div class="radio-item">
-                                <input type="radio" id="mature-no" name="matureContent" value="no" required>
-                                <label for="mature-no">No, appropriate for all audiences</label>
-                            </div>
-                            <div class="radio-item">
-                                <input type="radio" id="mature-unsure" name="matureContent" value="unsure" required>
-                                <label for="mature-unsure">I'm not sure</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Step 7: Main Characters (was step 6) -->
-                <div class="step" id="step7">
-                    <h2>Who are the main character(s)?</h2>
-                    <p>List the primary characters that drive your story forward.</p>
-                    <div class="form-group">
-                        <label for="mainCharacters">Describe Your Main Characters</label>
-                        <textarea id="mainCharacters" name="mainCharacters" placeholder="Example: Robert is the father and he interacts with his 9 year old daughter Rebecca the most in this story."></textarea>
-                    </div>
-                </div>
-                
-                <!-- Step 8: Main Challenge (was step 7) -->
-                <div class="step" id="step8">
-                    <h2>What is the main challenge or stakes that your protagonist faces?</h2>
-                    <p>Describe the central conflict without revealing the ending. If you already have a synopsis or tagline, you can include them here as well.</p>
-                    <div class="form-group">
-                        <label for="mainChallenge">Main Challenge/Stakes (and optional existing synopsis/tagline)</label>
-                        <textarea id="mainChallenge" name="mainChallenge" placeholder="Example: Robert and Rebecca struggle for survival in a snow covered wasteland.
-
-You can also paste your existing synopsis or tagline here if you have one."></textarea>
-                    </div>
-                </div>
-                
-                <!-- Step 9: Similar Films (was step 8) -->
-                <div class="step" id="step9">
-                    <h2>Are there films or series with a similar style or genre?</h2>
-                    <p>Think "If you liked [Movie/Show], you'll love this story." This helps with marketing comparisons.</p>
-                    <div class="form-group">
-                        <label for="similarWorks">Similar Films/Series</label>
-                        <textarea id="similarWorks" name="similarWorks" placeholder="List films or series that share similar style, tone, or audience..."></textarea>
-                    </div>
-                </div>
-                
-                <!-- Step 10: Influences (was step 9) -->
-                <div class="step" id="step10">
-                    <h2>What influences did you have while writing this story?</h2>
-                    <p>Include writing style, character, or story influences that shaped your screenplay.</p>
-                    <div class="form-group">
-                        <label for="influences">Writing Influences</label>
-                        <textarea id="influences" name="influences" placeholder="Example: Author Stephen King, the Bladerunner movies, etc..."></textarea>
-                    </div>
-                </div>
-                
-                <!-- Step 11: Reader Memory (was step 11, no change) -->
-                <div class="step" id="step11">
-                    <h2>What do you hope readers will remember most about your story?</h2>
-                    <p>This helps us craft taglines and synopses that highlight your story's most memorable elements.</p>
-                    <div class="form-group">
-                        <label for="readerMemory">Most Memorable Aspect</label>
-                        <textarea id="readerMemory" name="readerMemory" placeholder="What should stick with readers after they experience your story..."></textarea>
-                    </div>
-                </div>
-                
-                <!-- Step 12: Personal Motivation (was step 12, no change) -->
-                <div class="step" id="step12">
-                    <h2>Why did you decide to write this particular story? *</h2>
-                    <p>This helps us create your writer's statement - a key part of festival submissions that helps judges connect with your story on a personal level.</p>
-                    <div class="form-group">
-                        <label for="personalMotivation">Personal Motivation <span style="color: #e74c3c;">*</span></label>
-                        <textarea id="personalMotivation" name="personalMotivation" placeholder="What drove you to write this story..." required></textarea>
-                    </div>
-                </div>
-                
-                <!-- REMOVED: Festival Networking (was step 13) -->
-                
-                <!-- Step 13: Optional Script Upload (was step 14) -->
-                <div class="step" id="step13">
-                    <h2>Optional: Upload or share some text from your screenplay</h2>
-                    <p>For the best results, you can upload a PDF of your script or paste the text directly.</p>
-                    
-                    <!-- Privacy Disclaimer -->
-                    <div style="background: #e8f4fd; border: 1px solid #bee5eb; border-radius: 10px; padding: 20px; margin-bottom: 25px;">
-                        <h4 style="color: #0c5460; margin-bottom: 10px; font-size: 1rem;">🔒 Privacy & Copyright Protection</h4>
-                        <p style="color: #0c5460; font-size: 0.9rem; line-height: 1.5; margin: 0;">
-                            The information from your script and story are not distributed to others or made public. This information is for your private use and does not affect copyright or give legal use to your script to a third party. Your creative ideas and work will not be used for AI training purposes.
-                        </p>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Upload Script PDF (Optional)</label>
-                        <div class="file-upload-area" id="uploadArea">
-                            <div class="upload-icon">📄</div>
-                            <div class="upload-text">Click to upload or drag and drop PDF</div>
-                            <div class="upload-subtext">PDF files only (max 10MB)</div>
-                        </div>
-                        <input type="file" id="scriptFile" class="file-input" accept=".pdf">
-                        <div id="uploadedFile" class="uploaded-file" style="display: none;">
-                            <div class="file-info" id="fileInfo"></div>
-                            <button type="button" class="remove-file" id="removeFile">×</button>
-                        </div>
-                        
-                        <!-- PDF Processing Status -->
-                        <div id="pdfStatus" class="pdf-status">
-                            <div id="pdfStatusMessage"></div>
-                            <div class="pdf-progress" id="pdfProgress" style="display: none;">
-                                <div class="pdf-progress-bar" id="pdfProgressBar"></div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group" style="margin-top: 30px;">
-                        <label for="scriptText">Or paste as much text from your story or screenplay as you'd like:</label>
-                        <textarea id="scriptText" name="scriptText" placeholder="Paste your screenplay text here for best results..." style="min-height: 150px;"></textarea>
-                        <div class="text-stats" id="textStats"></div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="additionalDetails">Additional story details:</label>
-                        <textarea id="additionalDetails" name="additionalDetails" placeholder="Any additional details about your story that would help create better submission materials..."></textarea>
-                    </div>
-                </div>
-                
-                <!-- Step 14: Email Address (was step 15) -->
-                <div class="step" id="step14">
-                    <h2>What's your email address?</h2>
-                    <p>Please allow 15 minutes for us to send your custom tagline, synopsis, and writer's statement to this email address.</p>
-                    <div class="form-group">
-                        <label for="email">Email Address</label>
-                        <input type="email" id="email" name="email" placeholder="Enter your email address" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="emailConfirm">Confirm Email Address</label>
-                        <input type="email" id="emailConfirm" name="emailConfirm" placeholder="Re-enter your email address" required>
-                        <small style="color: #e74c3c; display: none;" id="emailMismatch">Email addresses don't match</small>
-                    </div>
-                    <div style="background: #e8f4fd; border: 1px solid #bee5eb; border-radius: 10px; padding: 15px; margin-top: 15px;">
-                        <p style="color: #0c5460; font-size: 0.9rem; margin: 0;">
-                            🔒 <strong>Privacy:</strong> Your email is only used to send you your results. We don't share your information with any third parties or marketing without your consent.
-                        </p>
-                    </div>
-                    
-                    <!-- Email Preferences -->
-                    <div class="form-group" style="margin-top: 20px;">
-                        <div class="checkbox-item" style="margin-bottom: 15px;">
-                            <input type="checkbox" id="updateEmails" name="updateEmails" value="yes">
-                            <label for="updateEmails">Please check this box if you'd like us to email you when this app is updated.</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="festivalDiscounts" name="festivalDiscounts" value="yes">
-                            <label for="festivalDiscounts">Optionally, please check this box if you'd like us to email you a list of discounts and promo codes for the twelve film festivals that we operate in Portland, Austin and Georgia. We welcome your direct screenplay submissions. <a href="https://filmfestivalcircuit.com/submissions" target="_blank" style="color: #667eea; text-decoration: underline;">https://filmfestivalcircuit.com/submissions</a></label>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Step 15: Country (was step 16) -->
-                <div class="step" id="step15">
                     <h2>What country are you from?</h2>
                     <p>This helps us better understand our user base and tailor festival recommendations.</p>
                     <div class="form-group">
@@ -867,6 +599,268 @@ You can also paste your existing synopsis or tagline here if you have one."></te
                         </select>
                     </div>
                 </div>
+                
+                <!-- Step 2: Title (REQUIRED) (was step 1) -->
+                <div class="step" id="step2">
+                    <h2>What's the title of your screenplay? *</h2>
+                    <p>This will be the main title used in all your submission materials.</p>
+                    <div class="form-group">
+                        <label for="title">Screenplay Title <span style="color: #e74c3c;">*</span></label>
+                        <input type="text" id="title" name="title" placeholder="Enter your screenplay title" required>
+                    </div>
+                </div>
+                
+                <!-- Step 3: Writers (REQUIRED) (was step 2) -->
+                <div class="step" id="step3">
+                    <h2>Who are the primary writers and story contributors? *</h2>
+                    <p>Include all writers, co-writers, and anyone who contributed significantly to the story.</p>
+                    <div class="form-group">
+                        <label for="writers">Writers & Contributors <span style="color: #e74c3c;">*</span></label>
+                        <textarea id="writers" name="writers" placeholder="List all writers and contributors..." required></textarea>
+                    </div>
+                </div>
+                
+                <!-- Step 4: Genre (was step 3) -->
+                <div class="step" id="step4">
+                    <h2>What genre(s) best describe your story?</h2>
+                    <p>Select all that apply. This helps with festival category recommendations.</p>
+                    <div class="form-group">
+                        <label>Select Genre(s)</label>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="action-thriller" name="genres" value="action-thriller">
+                                <label for="action-thriller">Action or Suspense Thriller</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="animation" name="genres" value="animation">
+                                <label for="animation">Animation</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="comedy" name="genres" value="comedy">
+                                <label for="comedy">Comedy</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="drama" name="genres" value="drama">
+                                <label for="drama">Drama</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="experimental" name="genres" value="experimental">
+                                <label for="experimental">Experimental</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="fantasy" name="genres" value="fantasy">
+                                <label for="fantasy">Fantasy</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="horror" name="genres" value="horror">
+                                <label for="horror">Horror</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="music-video" name="genres" value="music-video">
+                                <label for="music-video">Music Video</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="scifi" name="genres" value="scifi">
+                                <label for="scifi">Sci-Fi</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="other-genre" name="genres" value="other">
+                                <label for="other-genre">Other</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Step 5: Page Count (REQUIRED) (was step 4) -->
+                <div class="step" id="step5">
+                    <h2>How many pages is this version of the screenplay? *</h2>
+                    <p>This helps determine the appropriate festival categories and submission guidelines.</p>
+                    <div class="form-group">
+                        <label for="pageCount">Number of Pages <span style="color: #e74c3c;">*</span></label>
+                        <input type="number" id="pageCount" name="pageCount" placeholder="e.g., 90" min="1" max="300" required>
+                    </div>
+                </div>
+                
+                <!-- Step 6: Standalone vs Series (REQUIRED) (was step 5) -->
+                <div class="step" id="step6">
+                    <h2>Is this screenplay a standalone film or part of an ongoing series? *</h2>
+                    <p>This affects how we position your story in submission materials.</p>
+                    <div class="form-group">
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" id="standalone" name="storyType" value="standalone" required>
+                                <label for="standalone">Standalone film</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="series" name="storyType" value="series" required>
+                                <label for="series">An episode in an ongoing series. (Teleplay)</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="undecided" name="storyType" value="undecided" required>
+                                <label for="undecided">Undecided</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Step 7: Mature Content (was step 6) -->
+                <div class="step" id="step7">
+                    <h2>Does your story contain mature content inappropriate for children? *</h2>
+                    <p>This affects festival category selection and content warnings. Detailed descriptions of violence, sexual situations and drug use are examples of mature content that is intended for adults.</p>
+                    <div class="form-group">
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" id="mature-yes" name="matureContent" value="yes" required>
+                                <label for="mature-yes">Yes, contains mature content</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="mature-no" name="matureContent" value="no" required>
+                                <label for="mature-no">No, appropriate for all audiences</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="mature-unsure" name="matureContent" value="unsure" required>
+                                <label for="mature-unsure">I'm not sure</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Step 8: Main Characters (was step 7) -->
+                <div class="step" id="step8">
+                    <h2>Who are the main character(s)?</h2>
+                    <p>List the primary characters that drive your story forward.</p>
+                    <div class="form-group">
+                        <label for="mainCharacters">Describe Your Main Characters</label>
+                        <textarea id="mainCharacters" name="mainCharacters" placeholder="Example: Robert is the father and he interacts with his 9 year old daughter Rebecca the most in this story."></textarea>
+                    </div>
+                </div>
+                
+                <!-- Step 9: Main Challenge (was step 8) -->
+                <div class="step" id="step9">
+                    <h2>What is the main challenge or stakes that your protagonist faces?</h2>
+                    <p>Describe the central conflict without revealing the ending. If you already have a synopsis or tagline, you can include them here as well.</p>
+                    <div class="form-group">
+                        <label for="mainChallenge">Main Challenge/Stakes (and optional existing synopsis/tagline)</label>
+                        <textarea id="mainChallenge" name="mainChallenge" placeholder="Example: Robert and Rebecca struggle for survival in a snow covered wasteland.
+
+You can also paste your existing synopsis or tagline here if you have one."></textarea>
+                    </div>
+                </div>
+                
+                <!-- Step 10: Similar Films (was step 9) -->
+                <div class="step" id="step10">
+                    <h2>Are there films or series with a similar style or genre?</h2>
+                    <p>Think "If you liked [Movie/Show], you'll love this story." This helps with marketing comparisons.</p>
+                    <div class="form-group">
+                        <label for="similarWorks">Similar Films/Series</label>
+                        <textarea id="similarWorks" name="similarWorks" placeholder="List films or series that share similar style, tone, or audience..."></textarea>
+                    </div>
+                </div>
+                
+                <!-- Step 11: Influences (was step 10) -->
+                <div class="step" id="step11">
+                    <h2>What influences did you have while writing this story?</h2>
+                    <p>Include writing style, character, or story influences that shaped your screenplay.</p>
+                    <div class="form-group">
+                        <label for="influences">Writing Influences</label>
+                        <textarea id="influences" name="influences" placeholder="Example: Author Stephen King, the Bladerunner movies, etc..."></textarea>
+                    </div>
+                </div>
+                
+                <!-- Step 12: Reader Memory (was step 11) -->
+                <div class="step" id="step12">
+                    <h2>What do you hope readers will remember most about your story?</h2>
+                    <p>This helps us craft taglines and synopses that highlight your story's most memorable elements.</p>
+                    <div class="form-group">
+                        <label for="readerMemory">Most Memorable Aspect</label>
+                        <textarea id="readerMemory" name="readerMemory" placeholder="What should stick with readers after they experience your story..."></textarea>
+                    </div>
+                </div>
+                
+                <!-- Step 13: Personal Motivation (was step 12) -->
+                <div class="step" id="step13">
+                    <h2>Why did you decide to write this particular story? *</h2>
+                    <p>This helps us create your writer's statement - a key part of festival submissions that helps judges connect with your story on a personal level.</p>
+                    <div class="form-group">
+                        <label for="personalMotivation">Personal Motivation <span style="color: #e74c3c;">*</span></label>
+                        <textarea id="personalMotivation" name="personalMotivation" placeholder="What drove you to write this story..." required></textarea>
+                    </div>
+                </div>
+                
+                <!-- Step 14: Optional Script Upload (was step 13) -->
+                <div class="step" id="step14">
+                    <h2>Optional: Upload or share some text from your screenplay</h2>
+                    <p>For the best results, you can upload a PDF of your script or paste the text directly.</p>
+                    
+                    <!-- Privacy Disclaimer -->
+                    <div style="background: #e8f4fd; border: 1px solid #bee5eb; border-radius: 10px; padding: 20px; margin-bottom: 25px;">
+                        <h4 style="color: #0c5460; margin-bottom: 10px; font-size: 1rem;">🔒 Privacy & Copyright Protection</h4>
+                        <p style="color: #0c5460; font-size: 0.9rem; line-height: 1.5; margin: 0;">
+                            The information from your script and story are not distributed to others or made public. This information is for your private use and does not affect copyright or give legal use to your script to a third party. Your creative ideas and work will not be used for AI training purposes.
+                        </p>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Upload Script PDF (Optional)</label>
+                        <div class="file-upload-area" id="uploadArea">
+                            <div class="upload-icon">📄</div>
+                            <div class="upload-text">Click to upload or drag and drop PDF</div>
+                            <div class="upload-subtext">PDF files only (max 10MB)</div>
+                        </div>
+                        <input type="file" id="scriptFile" class="file-input" accept=".pdf">
+                        <div id="uploadedFile" class="uploaded-file" style="display: none;">
+                            <div class="file-info" id="fileInfo"></div>
+                            <button type="button" class="remove-file" id="removeFile">×</button>
+                        </div>
+                        
+                        <!-- PDF Processing Status -->
+                        <div id="pdfStatus" class="pdf-status">
+                            <div id="pdfStatusMessage"></div>
+                            <div class="pdf-progress" id="pdfProgress" style="display: none;">
+                                <div class="pdf-progress-bar" id="pdfProgressBar"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group" style="margin-top: 30px;">
+                        <label for="scriptText">Or paste as much text from your story or screenplay as you'd like:</label>
+                        <textarea id="scriptText" name="scriptText" placeholder="Paste your screenplay text here for best results..." style="min-height: 150px;"></textarea>
+                        <div class="text-stats" id="textStats"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="additionalDetails">Additional story details:</label>
+                        <textarea id="additionalDetails" name="additionalDetails" placeholder="Any additional details about your story that would help create better submission materials..."></textarea>
+                    </div>
+                </div>
+                
+                <!-- Step 15: Email Address (was step 14) -->
+                <div class="step" id="step15">
+                    <h2>What's your email address?</h2>
+                    <p>Please allow 15 minutes for us to send your custom tagline, synopsis, and writer's statement to this email address.</p>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="emailConfirm">Confirm Email Address</label>
+                        <input type="email" id="emailConfirm" name="emailConfirm" placeholder="Re-enter your email address" required>
+                        <small style="color: #e74c3c; display: none;" id="emailMismatch">Email addresses don't match</small>
+                    </div>
+                    <div style="background: #e8f4fd; border: 1px solid #bee5eb; border-radius: 10px; padding: 15px; margin-top: 15px;">
+                        <p style="color: #0c5460; font-size: 0.9rem; margin: 0;">
+                            🔒 <strong>Privacy:</strong> Your email is only used to send you your results. We don't share your information with any third parties or marketing without your consent.
+                        </p>
+                    </div>
+                    
+                    <!-- Email Preferences - UPDATED TO SINGLE CHECKBOX -->
+                    <div class="form-group" style="margin-top: 20px;">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="marketingEmails" name="marketingEmails" value="yes">
+                            <label for="marketingEmails">I'd like to receive monthly emails about Festival Ready app updates and film festival submission discounts.</label>
+                        </div>
+                    </div>
+                </div>
             </div>
             
             <div class="wizard-navigation">
@@ -908,7 +902,7 @@ You can also paste your existing synopsis or tagline here if you have one."></te
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
         
         let currentStepNumber = 1;
-        const totalSteps = 15; // UPDATED from 16 to 15
+        const totalSteps = 15;
         const formData = {};
         let pdfProcessingComplete = false;
         let pdfHasError = false;
@@ -1063,8 +1057,8 @@ You can also paste your existing synopsis or tagline here if you have one."></te
         function validateCurrentStep() {
             const currentStep = document.getElementById(`step${currentStepNumber}`);
             
-            // Required fields validation for specific steps
-            const requiredSteps = [1, 2, 4, 5, 6, 12]; // UPDATED: Added 6 (mature content), removed old numbers
+            // Required fields validation for specific steps - UPDATED numbers
+            const requiredSteps = [1, 2, 3, 5, 6, 7, 13]; // Country, Title, Writers, Page Count, Story Type, Mature Content, Personal Motivation
             
             if (requiredSteps.includes(currentStepNumber)) {
                 const requiredFields = currentStep.querySelectorAll('input[required], textarea[required], select[required]');
@@ -1077,8 +1071,8 @@ You can also paste your existing synopsis or tagline here if you have one."></te
                     }
                 }
                 
-                // Special validation for radio buttons (steps 5 and 6)
-                if (currentStepNumber === 5 || currentStepNumber === 6) {
+                // Special validation for radio buttons (steps 6 and 7)
+                if (currentStepNumber === 6 || currentStepNumber === 7) {
                     const radioGroup = currentStep.querySelector('.radio-group');
                     const checkedRadio = radioGroup.querySelector('input[type="radio"]:checked');
                     if (!checkedRadio) {
@@ -1089,7 +1083,7 @@ You can also paste your existing synopsis or tagline here if you have one."></te
             }
             
             // Special validation for checkboxes and radios
-            if (currentStepNumber === 3) { // Genre step
+            if (currentStepNumber === 4) { // Genre step
                 const checkedGenres = currentStep.querySelectorAll('input[name="genres"]:checked');
                 if (checkedGenres.length === 0) {
                     alert('Please select at least one genre.');
@@ -1097,8 +1091,8 @@ You can also paste your existing synopsis or tagline here if you have one."></te
                 }
             }
             
-            // PDF validation on step 13 (was 14)
-            if (currentStepNumber === 13) {
+            // PDF validation on step 14
+            if (currentStepNumber === 14) {
                 if (formData.uploadedFile && !pdfProcessingComplete && !pdfHasError) {
                     alert('Please wait for the PDF to finish processing before continuing.');
                     return false;
@@ -1111,8 +1105,8 @@ You can also paste your existing synopsis or tagline here if you have one."></te
                 }
             }
             
-            // Email validation with confirmation (step 14, was 15)
-            if (currentStepNumber === 14) {
+            // Email validation with confirmation (step 15)
+            if (currentStepNumber === 15) {
                 const emailField = document.getElementById('email');
                 const emailConfirmField = document.getElementById('emailConfirm');
                 const mismatchMsg = document.getElementById('emailMismatch');
@@ -1132,8 +1126,8 @@ You can also paste your existing synopsis or tagline here if you have one."></te
                 mismatchMsg.style.display = 'none';
             }
             
-            // Country validation (step 15, was 16)
-            if (currentStepNumber === 15) {
+            // Country validation (step 1)
+            if (currentStepNumber === 1) {
                 const countryField = document.getElementById('country');
                 if (!countryField.value) {
                     countryField.focus();
@@ -1172,7 +1166,7 @@ You can also paste your existing synopsis or tagline here if you have one."></te
             });
             
             // If we have extracted PDF text, include it in the script_text field
-            if (formData.pdfExtractedText && currentStepNumber === 13) { // Updated from 14
+            if (formData.pdfExtractedText && currentStepNumber === 14) {
                 const scriptTextField = document.getElementById('scriptText');
                 if (scriptTextField) {
                     // Combine PDF text with any additional text the user typed
@@ -1253,28 +1247,31 @@ You can also paste your existing synopsis or tagline here if you have one."></te
             const randomNum = String(Math.floor(Math.random() * 9999) + 1).padStart(4, '0');
             const customId = `${month}-${day}-${year}-${randomNum}`;
             
+            // Handle the new single marketing checkbox
+            const marketingOptIn = formData.marketingEmails && formData.marketingEmails.includes('yes');
+            
             // Prepare submission data for Supabase
             const submissionData = {
                 custom_id: customId,
                 email: formData.email,
+                country: formData.country || '',
                 title: formData.title || '',
                 writers: formData.writers || '',
                 genres: formData.genres || [],
                 page_count: formData.pageCount ? parseInt(formData.pageCount) : null,
                 story_type: formData.storyType || '',
-                main_characters: formData.mainCharacters || '',  // Plural to match database
+                main_characters: formData.mainCharacters || '',
                 main_challenge: formData.mainChallenge || '',
                 similar_works: formData.similarWorks || '',
                 influences: formData.influences || '',
                 mature_content: formData.matureContent || '',
                 reader_memory: formData.readerMemory || '',
                 personal_motivation: formData.personalMotivation || '',
-                // REMOVED networking fields
                 script_text: formData.scriptText || '',
                 additional_details: formData.additionalDetails || '',
-                update_emails: formData.updateEmails && formData.updateEmails.includes('yes'),
-                festival_discounts: formData.festivalDiscounts && formData.festivalDiscounts.includes('yes'),
-                country: formData.country || '',
+                // Map single checkbox to both fields
+                update_emails: marketingOptIn,
+                festival_discounts: marketingOptIn,
                 status: 'pending'
             };
             
@@ -1294,12 +1291,9 @@ You can also paste your existing synopsis or tagline here if you have one."></te
                 // Track successful submission
                 trackEvent('questionnaire_submitted_successfully', 'form', customId);
                 
-                // Track user preferences
-                if (formData.updateEmails && formData.updateEmails.includes('yes')) {
-                    trackEvent('email_updates_subscribed', 'engagement', 'app_updates');
-                }
-                if (formData.festivalDiscounts && formData.festivalDiscounts.includes('yes')) {
-                    trackEvent('email_discounts_subscribed', 'engagement', 'festival_discounts');
+                // Track marketing opt-in
+                if (marketingOptIn) {
+                    trackEvent('email_marketing_subscribed', 'engagement', 'combined_opt_in');
                 }
                 
                 // The webhook will handle AI processing automatically
