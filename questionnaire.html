@@ -1168,10 +1168,10 @@ You can also paste your existing synopsis or tagline here if you have one."></te
                 if (step12Title) step12Title.textContent = `What do you hope viewers will remember most about your ${contentType}?`;
                 if (step12Desc) step12Desc.textContent = `This helps us craft taglines and synopses that highlight your story's most memorable elements.`;
                 
-                // Update step 12 placeholder text for films
-                const step12Textarea = document.querySelector('#step12 textarea[name="readerMemory"]');
+                // Update step 12 placeholder text for films (influences step)
+                const step12Textarea = document.querySelector('#step12 textarea[name="influences"]');
                 if (step12Textarea) {
-                    step12Textarea.placeholder = "Example: The moment James is arrested in front of his crying family.";
+                    step12Textarea.placeholder = "Example: The cinematography of Blade Runner, the tension building in No Country for Old Men...";
                 }
                 
                 // Update step 13 (motivation + statement type)
