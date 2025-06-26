@@ -935,6 +935,22 @@
                 const searchTerm = document.getElementById('submissionSearch').value;
                 
                 console.log('Loading submissions via direct database access with admin headers...');
+                console.log('Supabase client headers:', window.supabase.supabaseKey);
+                
+                // Test if we can access the table with a simple count first
+                console.log('Testing table access with count query...');
+                const { count, error: countError } = await window.supabase
+                    .from('submissions')
+                    .select('*', { count: 'exact', head: true });
+                console.log('Count result:', count, 'Count error:', countError);
+                
+                // Try a basic query without joins first
+                console.log('Testing basic select without joins...');
+                const { data: basicData, error: basicError } = await window.supabase
+                    .from('submissions')
+                    .select('id, email, title, created_at')
+                    .limit(5);
+                console.log('Basic query result:', basicData, 'Basic error:', basicError);
                 
                 let query = window.supabase
                     .from('submissions')
@@ -946,7 +962,10 @@
                 
                 const { data, error } = await query;
                 
-                if (error) throw error;
+                if (error) {
+                    console.error('Query error details:', error);
+                    throw error;
+                }
                 
                 console.log('Raw submissions data:', data);
                 console.log('Number of raw submissions:', data ? data.length : 0);
