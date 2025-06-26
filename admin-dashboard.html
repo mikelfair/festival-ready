@@ -943,6 +943,16 @@
                 console.log('Raw submissions data:', data);
                 console.log('Number of raw submissions:', data ? data.length : 0);
                 
+                // Additional debugging - check if we can access the table at all
+                console.log('Supabase client:', window.supabase);
+                console.log('Query error (if any):', error);
+                
+                // Try a simple count query to see if we can access the table
+                const { count, error: countError } = await window.supabase
+                    .from('submissions')
+                    .select('*', { count: 'exact', head: true });
+                console.log('Table count:', count, 'Count error:', countError);
+                
                 const testEmails = ['mikel.fair@filmfestivalcircuit.com', 'chambersdavid@live.co.uk', 'mikelfair@gmail.com'];
                 const testCutoffDate = new Date('2024-12-01'); // Keep test data cutoff for old tests
                 const currentDate = new Date();
