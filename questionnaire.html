@@ -1131,7 +1131,7 @@ You can also paste your existing synopsis or tagline here if you have one."></te
             const currentStep = document.getElementById(`step${currentStepNumber}`);
             
             // Required fields validation for specific steps - UPDATED numbers
-            const requiredSteps = [1, 2, 3, 5, 6, 7, 13]; // Country, Title, Writers, Page Count, Story Type, Mature Content, Personal Motivation
+            const requiredSteps = [1, 2, 3, 5, 6, 7, 13]; // Submission Type, Country, Title, Page Count, Story Type, Mature Content, Personal Motivation
             
             if (requiredSteps.includes(currentStepNumber)) {
                 const requiredFields = currentStep.querySelectorAll('input[required], textarea[required], select[required]');
@@ -1144,8 +1144,8 @@ You can also paste your existing synopsis or tagline here if you have one."></te
                     }
                 }
                 
-                // Special validation for radio buttons (steps 6 and 7)
-                if (currentStepNumber === 6 || currentStepNumber === 7) {
+                // Special validation for radio buttons (steps 1, 6 and 7)
+                if (currentStepNumber === 1 || currentStepNumber === 6 || currentStepNumber === 7) {
                     const radioGroup = currentStep.querySelector('.radio-group');
                     const checkedRadio = radioGroup.querySelector('input[type="radio"]:checked');
                     if (!checkedRadio) {
@@ -1197,16 +1197,6 @@ You can also paste your existing synopsis or tagline here if you have one."></te
                     return false;
                 }
                 mismatchMsg.style.display = 'none';
-            }
-            
-            // Country validation (step 1)
-            if (currentStepNumber === 1) {
-                const countryField = document.getElementById('country');
-                if (!countryField.value) {
-                    countryField.focus();
-                    alert('Please select your country.');
-                    return false;
-                }
             }
             
             return true;
