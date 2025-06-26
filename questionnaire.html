@@ -1148,8 +1148,14 @@ You can also paste your existing synopsis or tagline here if you have one."></te
             if (submissionType === 'film') {
                 // Update step 4 (directors for films)
                 if (step4Title) step4Title.textContent = "Who are the directors of this film? *";
-                if (step4Desc) step4Desc.textContent = "Include all directors and anyone who contributed significantly to directing.";
-                if (step4Label) step4Label.innerHTML = 'Directors & Contributors <span style="color: #e74c3c;">*</span>';
+                if (step4Desc) step4Desc.textContent = "Include all directors and co-directors for this film.";
+                if (step4Label) step4Label.innerHTML = 'Directors and Co-Directors <span style="color: #e74c3c;">*</span>';
+                
+                // Update placeholder text for directors
+                const step4Textarea = document.querySelector('#step4 textarea[name="writers"]');
+                if (step4Textarea) {
+                    step4Textarea.placeholder = "List all directors and co-directors...";
+                }
                 
                 // Update step 6 (runtime)
                 if (step6PageTitle) step6PageTitle.textContent = "What is the runtime of your film? *";
@@ -1192,6 +1198,13 @@ You can also paste your existing synopsis or tagline here if you have one."></te
                 if (step4Title) step4Title.textContent = "Who are the primary writers and story contributors? *";
                 if (step4Desc) step4Desc.textContent = "Include all writers and anyone who contributed significantly to the story.";
                 if (step4Label) step4Label.innerHTML = 'Writers & Contributors <span style="color: #e74c3c;">*</span>';
+                
+                // Reset placeholder text for writers
+                const step4Textarea = document.querySelector('#step4 textarea[name="writers"]');
+                if (step4Textarea) {
+                    step4Textarea.placeholder = "List all writers and contributors...";
+                }
+                
                 if (step6PageTitle) step6PageTitle.textContent = "How many pages is this version of the screenplay? *";
                 if (step11Title) step11Title.textContent = "What influences did you have while writing this story?";
                 if (step11Desc) step11Desc.textContent = "Include writing style, character, or story influences that shaped your screenplay.";
@@ -1239,8 +1252,8 @@ You can also paste your existing synopsis or tagline here if you have one."></te
                     }
                 }
                 
-                // Special validation for radio buttons (steps 1, 6, 7, and 13 for films)
-                if (currentStepNumber === 1 || currentStepNumber === 6 || currentStepNumber === 7) {
+                // Special validation for radio buttons (steps 1, 7, 8, and 13 for films)
+                if (currentStepNumber === 1 || currentStepNumber === 7 || currentStepNumber === 8) {
                     const radioGroup = currentStep.querySelector('.radio-group');
                     const checkedRadio = radioGroup.querySelector('input[type="radio"]:checked');
                     if (!checkedRadio) {
