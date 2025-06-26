@@ -542,7 +542,7 @@
                             <div class="radio-item">
                                 <input type="radio" id="submission-screenplay" name="submissionType" value="screenplay" required>
                                 <label for="submission-screenplay">📝 <strong>Screenplay</strong><br>
-                                <small style="color: #666; margin-left: 20px;">Written scripts for films, TV episodes, or web series</small></label>
+                                <small style="color: #666; margin-left: 20px;">Written scripts for films or series episodes</small></label>
                             </div>
                         </div>
                     </div>
@@ -1168,6 +1168,12 @@ You can also paste your existing synopsis or tagline here if you have one."></te
                 if (step12Title) step12Title.textContent = `What do you hope viewers will remember most about your ${contentType}?`;
                 if (step12Desc) step12Desc.textContent = `This helps us craft taglines and synopses that highlight your story's most memorable elements.`;
                 
+                // Update step 12 placeholder text for films
+                const step12Textarea = document.querySelector('#step12 textarea[name="readerMemory"]');
+                if (step12Textarea) {
+                    step12Textarea.placeholder = "Example: The moment James is arrested in front of his crying family.";
+                }
+                
                 // Update step 13 (motivation + statement type)
                 if (step13Title) step13Title.textContent = `Why did you decide to participate in the production of this ${contentType}? *`;
                 if (step13Desc) step13Desc.textContent = `This helps us create your statement - a key part of festival submissions that helps judges connect with your story on a personal level.`;
@@ -1210,6 +1216,12 @@ You can also paste your existing synopsis or tagline here if you have one."></te
                 if (step11Desc) step11Desc.textContent = "Include writing style, character, or story influences that shaped your screenplay.";
                 if (step12Title) step12Title.textContent = "What do you hope readers will remember most about your story?";
                 if (step12Desc) step12Desc.textContent = "This helps us craft taglines and synopses that highlight your story's most memorable elements.";
+                
+                // Reset step 12 placeholder text for screenplays
+                const step12Textarea = document.querySelector('#step12 textarea[name="readerMemory"]');
+                if (step12Textarea) {
+                    step12Textarea.placeholder = "What should stick with readers after they experience your story...";
+                }
                 if (step13Title) step13Title.textContent = "Why did you decide to write this particular story? *";
                 if (step13Desc) step13Desc.textContent = "This helps us create your writer's statement - a key part of festival submissions that helps judges connect with your story on a personal level.";
                 if (step14Title) step14Title.textContent = "Optional: Upload or share some text from your screenplay";
