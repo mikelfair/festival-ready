@@ -940,6 +940,9 @@
                 
                 if (error) throw error;
                 
+                console.log('Raw submissions data:', data);
+                console.log('Number of raw submissions:', data ? data.length : 0);
+                
                 const testEmails = ['mikel.fair@filmfestivalcircuit.com', 'chambersdavid@live.co.uk', 'mikelfair@gmail.com'];
                 const testCutoffDate = new Date('2024-12-01'); // Keep test data cutoff for old tests
                 const currentDate = new Date();
@@ -951,9 +954,24 @@
                     const isBeforeCutoff = submissionDate < testCutoffDate;
                     const isRecent = submissionDate >= recentCutoffDate;
                     
+                    const shouldKeep = isRecent || (!isTestEmail) || (isTestEmail && !isBeforeCutoff);
+                    
+                    console.log(`Submission ${submission.id}:`, {
+                        email: submission.email,
+                        created_at: submission.created_at,
+                        submissionDate: submissionDate.toISOString(),
+                        isTestEmail,
+                        isBeforeCutoff,
+                        isRecent,
+                        shouldKeep
+                    });
+                    
                     // Show all submissions from the last 30 days, or non-test emails, or test emails after cutoff
-                    return isRecent || (!isTestEmail) || (isTestEmail && !isBeforeCutoff);
+                    return shouldKeep;
                 });
+                
+                console.log('Number of submissions after filtering:', allSubmissions.length);
+                console.log('Filtered submissions:', allSubmissions);
                 
                 let filtered = allSubmissions;
                 if (searchTerm) {
