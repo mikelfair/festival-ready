@@ -630,8 +630,8 @@
                     </div>
                 </div>
                 
-                <!-- Step 3: Writers (REQUIRED) (was step 2) -->
-                <div class="step" id="step3">
+                <!-- Step 4: Writers (REQUIRED) (was step 2) -->
+                <div class="step" id="step4">
                     <h2>Who are the primary writers and story contributors? *</h2>
                     <p>Include all writers, co-writers, and anyone who contributed significantly to the story.</p>
                     <div class="form-group">
@@ -703,7 +703,7 @@
                 
                 <!-- Step 6: Standalone vs Series (REQUIRED) (was step 5) -->
                 <div class="step" id="step6">
-                    <h2>Is this screenplay a standalone film or part of an ongoing series? *</h2>
+                    <h2>Is this a standalone film or part of an ongoing series? *</h2>
                     <p>This affects how we position your story in submission materials.</p>
                     <div class="form-group">
                         <div class="radio-group">
@@ -713,7 +713,11 @@
                             </div>
                             <div class="radio-item">
                                 <input type="radio" id="series" name="storyType" value="series" required>
-                                <label for="series">An episode in an ongoing series. (Teleplay)</label>
+                                <label for="series">An episode in an ongoing series</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="music-video" name="storyType" value="music-video" required>
+                                <label for="music-video">Music Video</label>
                             </div>
                             <div class="radio-item">
                                 <input type="radio" id="undecided" name="storyType" value="undecided" required>
@@ -779,31 +783,55 @@ You can also paste your existing synopsis or tagline here if you have one."></te
                 
                 <!-- Step 11: Influences (was step 10) -->
                 <div class="step" id="step11">
-                    <h2>What influences did you have while writing this story?</h2>
-                    <p>Include writing style, character, or story influences that shaped your screenplay.</p>
+                    <h2>What influences did you have while creating this film?</h2>
+                    <p>Include writing style, acting performances, cinematography or story influences that shaped your vision for this film.</p>
                     <div class="form-group">
-                        <label for="influences">Writing Influences</label>
+                        <label for="influences">Creative Influences</label>
                         <textarea id="influences" name="influences" placeholder="Example: Author Stephen King, the Bladerunner movies, etc..."></textarea>
                     </div>
                 </div>
                 
                 <!-- Step 12: Reader Memory (was step 11) -->
                 <div class="step" id="step12">
-                    <h2>What do you hope readers will remember most about your story?</h2>
+                    <h2>What do you hope viewers will remember most about your film?</h2>
                     <p>This helps us craft taglines and synopses that highlight your story's most memorable elements.</p>
                     <div class="form-group">
                         <label for="readerMemory">Most Memorable Aspect</label>
-                        <textarea id="readerMemory" name="readerMemory" placeholder="What should stick with readers after they experience your story..."></textarea>
+                        <textarea id="readerMemory" name="readerMemory" placeholder="What should stick with viewers after they experience your film..."></textarea>
                     </div>
                 </div>
                 
-                <!-- Step 13: Personal Motivation (was step 12) -->
+                <!-- Step 13: Personal Motivation + Statement Type Selection -->
                 <div class="step" id="step13">
-                    <h2>Why did you decide to write this particular story? *</h2>
-                    <p>This helps us create your writer's statement - a key part of festival submissions that helps judges connect with your story on a personal level.</p>
+                    <h2>Why did you decide to participate in the production of this film? *</h2>
+                    <p>This helps us create your statement - a key part of festival submissions that helps judges connect with your story on a personal level.</p>
                     <div class="form-group">
                         <label for="personalMotivation">Personal Motivation <span style="color: #e74c3c;">*</span></label>
-                        <textarea id="personalMotivation" name="personalMotivation" placeholder="What drove you to write this story..." required></textarea>
+                        <textarea id="personalMotivation" name="personalMotivation" placeholder="What drove you to participate in this production..." required></textarea>
+                    </div>
+                    
+                    <!-- Statement Type Selection - Only for Films -->
+                    <div class="form-group" id="statementTypeGroup" style="display: none;">
+                        <label>What type of statement would you like to generate? *</label>
+                        <p style="font-size: 0.9rem; color: #666;">Select the role that best represents your primary contribution to this project.</p>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" id="statement-writer" name="statementType" value="writer" required>
+                                <label for="statement-writer">Writer's Statement</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="statement-director" name="statementType" value="director" required>
+                                <label for="statement-director">Director's Statement</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="statement-producer" name="statementType" value="producer" required>
+                                <label for="statement-producer">Producer's Statement</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="statement-actor" name="statementType" value="actor" required>
+                                <label for="statement-actor">Actor's Statement</label>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
@@ -1009,7 +1037,7 @@ You can also paste your existing synopsis or tagline here if you have one."></te
             prevBtn.addEventListener('click', previousStep);
             nextBtn.addEventListener('click', nextStep);
 
-            // Radio button styling
+            // Radio button styling and dynamic updates
             document.querySelectorAll('input[type="radio"]').forEach(radio => {
                 radio.addEventListener('change', function() {
                     // Remove selected class from all radio items in this group
@@ -1019,6 +1047,14 @@ You can also paste your existing synopsis or tagline here if you have one."></te
                     });
                     // Add selected class to current item
                     this.closest('.radio-item').classList.add('selected');
+                    
+                    // Trigger immediate updates for submission type and story type changes
+                    if (this.name === 'submissionType' || this.name === 'storyType') {
+                        // Save current data first
+                        saveCurrentStepData();
+                        // Update text immediately
+                        updateStepTitles(formData.submissionType);
+                    }
                 });
             });
 
@@ -1094,10 +1130,54 @@ You can also paste your existing synopsis or tagline here if you have one."></te
         function updateStepTitles(submissionType) {
             const step3Title = document.querySelector('#step3 h2');
             const step5PageTitle = document.querySelector('#step5 h2');
+            const step11Title = document.querySelector('#step11 h2');
+            const step11Desc = document.querySelector('#step11 p');
+            const step12Title = document.querySelector('#step12 h2');
+            const step12Desc = document.querySelector('#step12 p');
+            const step13Title = document.querySelector('#step13 h2');
+            const step13Desc = document.querySelector('#step13 p');
+            const step14Title = document.querySelector('#step14 h2');
+            const statementTypeGroup = document.getElementById('statementTypeGroup');
+            
+            // Get story type to determine specific format (film, series episode, music video)
+            const storyType = formData.storyType || 'standalone';
+            let contentType = 'film'; // default
+            
+            if (storyType === 'series') {
+                contentType = 'series episode';
+            } else if (storyType === 'music-video') {
+                contentType = 'music video';
+            }
             
             if (submissionType === 'film') {
+                // Update step 3 (writers)
                 if (step3Title) step3Title.textContent = "Who are the primary writers and contributors to your film?";
+                
+                // Update step 5 (runtime)
                 if (step5PageTitle) step5PageTitle.textContent = "What is the runtime of your film? *";
+                
+                // Update step 11 (influences)
+                if (step11Title) step11Title.textContent = `What influences did you have while creating this ${contentType}?`;
+                if (step11Desc) step11Desc.textContent = `Include writing style, acting performances, cinematography or story influences that shaped your vision for this ${contentType}.`;
+                
+                // Update step 12 (memory)
+                if (step12Title) step12Title.textContent = `What do you hope viewers will remember most about your ${contentType}?`;
+                if (step12Desc) step12Desc.textContent = `This helps us craft taglines and synopses that highlight your story's most memorable elements.`;
+                
+                // Update step 13 (motivation + statement type)
+                if (step13Title) step13Title.textContent = `Why did you decide to participate in the production of this ${contentType}? *`;
+                if (step13Desc) step13Desc.textContent = `This helps us create your statement - a key part of festival submissions that helps judges connect with your story on a personal level.`;
+                
+                // Update step 14 (upload)
+                if (step14Title) step14Title.textContent = "Optional: Upload or share some text from your screenplay or shooting script.";
+                
+                // Show statement type selection for films
+                if (statementTypeGroup) {
+                    statementTypeGroup.style.display = 'block';
+                    // Make statement type required for films
+                    const statementRadios = statementTypeGroup.querySelectorAll('input[type="radio"]');
+                    statementRadios.forEach(radio => radio.setAttribute('required', 'true'));
+                }
                 
                 // Update placeholder and label for runtime
                 const pageInput = document.getElementById('pageCount');
@@ -1113,6 +1193,21 @@ You can also paste your existing synopsis or tagline here if you have one."></te
                 // Keep original screenplay titles
                 if (step3Title) step3Title.textContent = "Who are the primary writers and story contributors? *";
                 if (step5PageTitle) step5PageTitle.textContent = "How many pages is this version of the screenplay? *";
+                if (step11Title) step11Title.textContent = "What influences did you have while writing this story?";
+                if (step11Desc) step11Desc.textContent = "Include writing style, character, or story influences that shaped your screenplay.";
+                if (step12Title) step12Title.textContent = "What do you hope readers will remember most about your story?";
+                if (step12Desc) step12Desc.textContent = "This helps us craft taglines and synopses that highlight your story's most memorable elements.";
+                if (step13Title) step13Title.textContent = "Why did you decide to write this particular story? *";
+                if (step13Desc) step13Desc.textContent = "This helps us create your writer's statement - a key part of festival submissions that helps judges connect with your story on a personal level.";
+                if (step14Title) step14Title.textContent = "Optional: Upload or share some text from your screenplay";
+                
+                // Hide statement type selection for screenplays
+                if (statementTypeGroup) {
+                    statementTypeGroup.style.display = 'none';
+                    // Remove required attribute for screenplays
+                    const statementRadios = statementTypeGroup.querySelectorAll('input[type="radio"]');
+                    statementRadios.forEach(radio => radio.removeAttribute('required'));
+                }
                 
                 // Reset to page count
                 const pageInput = document.getElementById('pageCount');
@@ -1144,13 +1239,25 @@ You can also paste your existing synopsis or tagline here if you have one."></te
                     }
                 }
                 
-                // Special validation for radio buttons (steps 1, 6 and 7)
+                // Special validation for radio buttons (steps 1, 6, 7, and 13 for films)
                 if (currentStepNumber === 1 || currentStepNumber === 6 || currentStepNumber === 7) {
                     const radioGroup = currentStep.querySelector('.radio-group');
                     const checkedRadio = radioGroup.querySelector('input[type="radio"]:checked');
                     if (!checkedRadio) {
                         alert('Please select an option before continuing.');
                         return false;
+                    }
+                }
+                
+                // Special validation for step 13 statement type (films only)
+                if (currentStepNumber === 13 && formData.submissionType === 'film') {
+                    const statementTypeGroup = document.getElementById('statementTypeGroup');
+                    if (statementTypeGroup && statementTypeGroup.style.display !== 'none') {
+                        const checkedStatement = statementTypeGroup.querySelector('input[type="radio"]:checked');
+                        if (!checkedStatement) {
+                            alert('Please select the type of statement you would like to generate.');
+                            return false;
+                        }
                     }
                 }
             }
@@ -1613,15 +1720,8 @@ You can also paste your existing synopsis or tagline here if you have one."></te
         // Helper functions for v2.0 film support
         function determineStatementType(formData) {
             if (formData.submissionType === 'film') {
-                // For films, use the selected creator roles to determine statement type
-                const roles = formData.creatorRoles || [];
-                if (roles.length === 1) {
-                    return roles[0] + '_statement'; // e.g., 'director_statement'
-                } else if (roles.length > 1) {
-                    return 'combined_statement';
-                } else {
-                    return 'writer_statement'; // Default fallback
-                }
+                // For films, use the selected statement type from step 13
+                return formData.statementType ? formData.statementType + '_statement' : 'writer_statement';
             } else {
                 // For screenplays, always writer's statement
                 return 'writer_statement';
