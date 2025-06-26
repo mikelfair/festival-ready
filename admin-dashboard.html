@@ -941,7 +941,7 @@
                 if (error) throw error;
                 
                 const testEmails = ['mikel.fair@filmfestivalcircuit.com', 'chambersdavid@live.co.uk', 'mikelfair@gmail.com'];
-                const testCutoffDate = new Date('2025-06-25');
+                const testCutoffDate = new Date('2024-12-01'); // Changed to December 1, 2024
                 
                 allSubmissions = (data || []).filter(submission => {
                     const submissionDate = new Date(submission.created_at);
