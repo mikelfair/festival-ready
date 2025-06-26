@@ -664,7 +664,13 @@
         const SUPABASE_URL = 'https://vmfhxkfprrbshwniguaq.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZtZmh4a2ZwcnJic2h3bmlndWFxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk2ODYxNTcsImV4cCI6MjA2NTI2MjE1N30.k0OdvFzcO1nwZzxsgLPcQBeSITmV6dA_ncXpN0cpAgQ';
         
-        const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+            global: {
+                headers: {
+                    'x-admin-password': 'festivalready2025!'
+                }
+            }
+        });
         window.supabase = supabase;
     </script>
 
@@ -921,34 +927,29 @@
         }
 
         async function loadSubmissions() {
+            while (!window.supabase) {
+                await new Promise(resolve => setTimeout(resolve, 100));
+            }
+            
             try {
                 const searchTerm = document.getElementById('submissionSearch').value;
                 
-                console.log('Loading submissions via admin API...');
+                console.log('Loading submissions via direct database access with admin headers...');
                 
-                // Use the admin API instead of direct database access to bypass RLS
-                const response = await fetch(API_URL + '/submissions', {
-                    method: 'GET',
-                    headers: {
-                        'x-admin-password': savedPassword,
-                        'Content-Type': 'application/json',
-                        'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZtZmh4a2ZwcnJic2h3bmlndWFxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk2ODYxNTcsImV4cCI6MjA2NTI2MjE1N30.k0OdvFzcO1nwZzxsgLPcQBeSITmV6dA_ncXpN0cpAgQ',
-                        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZtZmh4a2ZwcnJic2h3bmlndWFxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk2ODYxNTcsImV4cCI6MjA2NTI2MjE1N30.k0OdvFzcO1nwZzxsgLPcQBeSITmV6dA_ncXpN0cpAgQ'
-                    }
-                });
+                let query = window.supabase
+                    .from('submissions')
+                    .select(`
+                        *,
+                        processing_analytics!left(estimated_cost)
+                    `)
+                    .order('created_at', { ascending: false });
                 
-                console.log('Submissions API response status:', response.status);
+                const { data, error } = await query;
                 
-                const result = await response.json();
-                console.log('Submissions API result:', result);
+                if (error) throw error;
                 
-                if (!result.success) {
-                    throw new Error(result.error || 'Failed to load submissions');
-                }
-                
-                const data = result.data || [];
-                console.log('Raw submissions data from API:', data);
-                console.log('Number of raw submissions:', data.length);
+                console.log('Raw submissions data:', data);
+                console.log('Number of raw submissions:', data ? data.length : 0);
                 
                 const testEmails = ['mikel.fair@filmfestivalcircuit.com', 'chambersdavid@live.co.uk', 'mikelfair@gmail.com'];
                 const testCutoffDate = new Date('2024-12-01'); // Keep test data cutoff for old tests
