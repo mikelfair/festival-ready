@@ -1055,6 +1055,10 @@ You can also paste your existing synopsis or tagline here if you have one."></te
                 
                 if (currentStepNumber < totalSteps) {
                     currentStepNumber++;
+                    
+                    // Handle branching logic for film vs screenplay
+                    handleBranchingLogic();
+                    
                     updateStepDisplay();
                     
                     // Track step progression
@@ -1070,6 +1074,55 @@ You can also paste your existing synopsis or tagline here if you have one."></te
                     }
                 } else {
                     submitForm();
+                }
+            }
+        }
+        
+        function handleBranchingLogic() {
+            const submissionType = formData.submissionType;
+            
+            // Step 5 branching: Page count for screenplays, skip for films
+            if (currentStepNumber === 5 && submissionType === 'film') {
+                // Skip page count for films
+                currentStepNumber++;
+            }
+            
+            // Update step titles based on submission type
+            updateStepTitles(submissionType);
+        }
+        
+        function updateStepTitles(submissionType) {
+            const step3Title = document.querySelector('#step3 h2');
+            const step5PageTitle = document.querySelector('#step5 h2');
+            
+            if (submissionType === 'film') {
+                if (step3Title) step3Title.textContent = "Who are the primary writers and contributors to your film?";
+                if (step5PageTitle) step5PageTitle.textContent = "What is the runtime of your film? *";
+                
+                // Update placeholder and label for runtime
+                const pageInput = document.getElementById('pageCount');
+                const pageLabel = document.querySelector('label[for="pageCount"]');
+                if (pageInput) {
+                    pageInput.placeholder = "e.g., 90 minutes";
+                    pageInput.setAttribute('max', '180');
+                }
+                if (pageLabel) {
+                    pageLabel.innerHTML = 'Runtime (minutes) <span style="color: #e74c3c;">*</span>';
+                }
+            } else {
+                // Keep original screenplay titles
+                if (step3Title) step3Title.textContent = "Who are the primary writers and story contributors? *";
+                if (step5PageTitle) step5PageTitle.textContent = "How many pages is this version of the screenplay? *";
+                
+                // Reset to page count
+                const pageInput = document.getElementById('pageCount');
+                const pageLabel = document.querySelector('label[for="pageCount"]');
+                if (pageInput) {
+                    pageInput.placeholder = "e.g., 90";
+                    pageInput.setAttribute('max', '300');
+                }
+                if (pageLabel) {
+                    pageLabel.innerHTML = 'Number of Pages <span style="color: #e74c3c;">*</span>';
                 }
             }
         }
@@ -1292,7 +1345,14 @@ You can also paste your existing synopsis or tagline here if you have one."></te
                 // Map single checkbox to both fields
                 update_emails: marketingOptIn,
                 festival_discounts: marketingOptIn,
-                status: 'pending'
+                status: 'pending',
+                // NEW FIELDS FOR v2.0 - Film support
+                submission_type: formData.submissionType || 'screenplay',
+                film_category: formData.filmCategory || null,
+                runtime_minutes: formData.runtime ? parseInt(formData.runtime) : null,
+                creator_roles: formData.creatorRoles || null,
+                statement_type: determineStatementType(formData),
+                audience_type: determineAudienceType(formData)
             };
             
             try {
@@ -1557,6 +1617,35 @@ You can also paste your existing synopsis or tagline here if you have one."></te
                 }
             } else if (statsDiv) {
                 statsDiv.textContent = '';
+            }
+        }
+
+        // Helper functions for v2.0 film support
+        function determineStatementType(formData) {
+            if (formData.submissionType === 'film') {
+                // For films, use the selected creator roles to determine statement type
+                const roles = formData.creatorRoles || [];
+                if (roles.length === 1) {
+                    return roles[0] + '_statement'; // e.g., 'director_statement'
+                } else if (roles.length > 1) {
+                    return 'combined_statement';
+                } else {
+                    return 'writer_statement'; // Default fallback
+                }
+            } else {
+                // For screenplays, always writer's statement
+                return 'writer_statement';
+            }
+        }
+        
+        function determineAudienceType(formData) {
+            // Determine if content is for general or mature audiences
+            const matureContent = formData.matureContent;
+            
+            if (matureContent === 'yes') {
+                return 'mature';
+            } else {
+                return 'general';
             }
         }
 
