@@ -11,8 +11,8 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Screenplay Questionnaire - Festival Ready Beta v002</title>
-    <meta name="description" content="Complete our comprehensive screenplay questionnaire to generate professional submission materials">
+    <title>Festival Ready Questionnaire - Films & Screenplays v002</title>
+    <meta name="description" content="Complete our comprehensive questionnaire to generate professional submission materials for films and screenplays">
     
     <style>
         * {
@@ -520,16 +520,36 @@
         <div class="wizard-container">
             <div class="wizard-header">
                 <a href="index.html" class="home-button" title="Return to Homepage">🏠</a>
-                <h1>🎬 Screenplay Questionnaire</h1>
-                <p>Help us create the perfect submission materials for your screenplay</p>
+                <h1>🎬 Festival Ready Questionnaire</h1>
+                <p>Help us create the perfect submission materials for your creative work</p>
                 <div class="progress-container">
                     <div class="progress-bar" id="progressBar"></div>
                 </div>
             </div>
             
             <div class="step-content">
-                <!-- Step 1: Country (MOVED FROM STEP 15) -->
+                <!-- Step 1: NEW - Submission Type Selection (Film vs Screenplay) -->
                 <div class="step active" id="step1">
+                    <h2>What type of creative work are you submitting to festivals? *</h2>
+                    <p>This helps us tailor the questionnaire and recommendations specifically for your submission type.</p>
+                    <div class="form-group">
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" id="submission-film" name="submissionType" value="film" required>
+                                <label for="submission-film">🎬 <strong>Film or Video</strong><br>
+                                <small style="color: #666; margin-left: 20px;">Feature films, short films, documentaries, music videos, series episodes</small></label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="submission-screenplay" name="submissionType" value="screenplay" required>
+                                <label for="submission-screenplay">📝 <strong>Screenplay</strong><br>
+                                <small style="color: #666; margin-left: 20px;">Written scripts for films, TV episodes, or web series</small></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Step 2: Country (MOVED FROM STEP 15) -->
+                <div class="step" id="step2">
                     <!-- Honeypot Field - DO NOT REMOVE -->
                     <div class="ohnohoney" aria-hidden="true">
                         <label for="website">Website</label>
@@ -600,13 +620,13 @@
                     </div>
                 </div>
                 
-                <!-- Step 2: Title (REQUIRED) (was step 1) -->
-                <div class="step" id="step2">
-                    <h2>What's the title of your screenplay? *</h2>
+                <!-- Step 3: Title (REQUIRED) (was step 1) -->
+                <div class="step" id="step3">
+                    <h2>What's the title of your creative work? *</h2>
                     <p>This will be the main title used in all your submission materials.</p>
                     <div class="form-group">
-                        <label for="title">Screenplay Title <span style="color: #e74c3c;">*</span></label>
-                        <input type="text" id="title" name="title" placeholder="Enter your screenplay title" required>
+                        <label for="title">Title <span style="color: #e74c3c;">*</span></label>
+                        <input type="text" id="title" name="title" placeholder="Enter your title" required>
                     </div>
                 </div>
                 
