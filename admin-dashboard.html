@@ -941,14 +941,18 @@
                 if (error) throw error;
                 
                 const testEmails = ['mikel.fair@filmfestivalcircuit.com', 'chambersdavid@live.co.uk', 'mikelfair@gmail.com'];
-                const testCutoffDate = new Date('2024-12-01'); // Changed to December 1, 2024
+                const testCutoffDate = new Date('2024-12-01'); // Keep test data cutoff for old tests
+                const currentDate = new Date();
+                const recentCutoffDate = new Date(currentDate.getTime() - (30 * 24 * 60 * 60 * 1000)); // Last 30 days
                 
                 allSubmissions = (data || []).filter(submission => {
                     const submissionDate = new Date(submission.created_at);
                     const isTestEmail = testEmails.includes(submission.email);
                     const isBeforeCutoff = submissionDate < testCutoffDate;
+                    const isRecent = submissionDate >= recentCutoffDate;
                     
-                    return !(isTestEmail && isBeforeCutoff);
+                    // Show all submissions from the last 30 days, or non-test emails, or test emails after cutoff
+                    return isRecent || (!isTestEmail) || (isTestEmail && !isBeforeCutoff);
                 });
                 
                 let filtered = allSubmissions;
