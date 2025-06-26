@@ -630,18 +630,18 @@
                     </div>
                 </div>
                 
-                <!-- Step 4: Writers (REQUIRED) (was step 2) -->
+                <!-- Step 4: Directors/Writers (REQUIRED) (was step 2) -->
                 <div class="step" id="step4">
                     <h2>Who are the primary writers and story contributors? *</h2>
-                    <p>Include all writers, co-writers, and anyone who contributed significantly to the story.</p>
+                    <p>Include all writers and anyone who contributed significantly to the story.</p>
                     <div class="form-group">
                         <label for="writers">Writers & Contributors <span style="color: #e74c3c;">*</span></label>
                         <textarea id="writers" name="writers" placeholder="List all writers and contributors..." required></textarea>
                     </div>
                 </div>
                 
-                <!-- Step 4: Genre (was step 3) -->
-                <div class="step" id="step4">
+                <!-- Step 5: Genre (was step 3) -->
+                <div class="step" id="step5">
                     <h2>What genre(s) best describe your story?</h2>
                     <p>Select all that apply. This helps with festival category recommendations.</p>
                     <div class="form-group">
@@ -691,8 +691,8 @@
                     </div>
                 </div>
                 
-                <!-- Step 5: Page Count (REQUIRED) (was step 4) -->
-                <div class="step" id="step5">
+                <!-- Step 6: Page Count (REQUIRED) (was step 4) -->
+                <div class="step" id="step6">
                     <h2>How many pages is this version of the screenplay? *</h2>
                     <p>This helps determine the appropriate festival categories and submission guidelines.</p>
                     <div class="form-group">
@@ -701,8 +701,8 @@
                     </div>
                 </div>
                 
-                <!-- Step 6: Standalone vs Series (REQUIRED) (was step 5) -->
-                <div class="step" id="step6">
+                <!-- Step 7: Standalone vs Series (REQUIRED) (was step 5) -->
+                <div class="step" id="step7">
                     <h2>Is this a standalone film or part of an ongoing series? *</h2>
                     <p>This affects how we position your story in submission materials.</p>
                     <div class="form-group">
@@ -727,8 +727,8 @@
                     </div>
                 </div>
                 
-                <!-- Step 7: Mature Content (was step 6) -->
-                <div class="step" id="step7">
+                <!-- Step 8: Mature Content (was step 6) -->
+                <div class="step" id="step8">
                     <h2>Does your story contain mature content inappropriate for children? *</h2>
                     <p>This affects festival category selection and content warnings. Detailed descriptions of violence, sexual situations and drug use are examples of mature content that is intended for adults.</p>
                     <div class="form-group">
@@ -749,8 +749,8 @@
                     </div>
                 </div>
                 
-                <!-- Step 8: Main Characters (was step 7) -->
-                <div class="step" id="step8">
+                <!-- Step 9: Main Characters (was step 7) -->
+                <div class="step" id="step9">
                     <h2>Who are the main character(s)?</h2>
                     <p>List the primary characters that drive your story forward.</p>
                     <div class="form-group">
@@ -759,8 +759,8 @@
                     </div>
                 </div>
                 
-                <!-- Step 9: Main Challenge (was step 8) -->
-                <div class="step" id="step9">
+                <!-- Step 10: Main Challenge (was step 8) -->
+                <div class="step" id="step10">
                     <h2>What is the main challenge or stakes that your protagonist faces?</h2>
                     <p>Describe the central conflict without revealing the ending. If you already have a synopsis or tagline, you can include them here as well.</p>
                     <div class="form-group">
@@ -771,8 +771,8 @@ You can also paste your existing synopsis or tagline here if you have one."></te
                     </div>
                 </div>
                 
-                <!-- Step 10: Similar Films (was step 9) -->
-                <div class="step" id="step10">
+                <!-- Step 11: Similar Films (was step 9) -->
+                <div class="step" id="step11">
                     <h2>Are there films or series with a similar style or genre?</h2>
                     <p>Think "If you liked [Movie/Show], you'll love this story." This helps with marketing comparisons.</p>
                     <div class="form-group">
@@ -781,23 +781,13 @@ You can also paste your existing synopsis or tagline here if you have one."></te
                     </div>
                 </div>
                 
-                <!-- Step 11: Influences (was step 10) -->
-                <div class="step" id="step11">
+                <!-- Step 12: Influences (was step 10) -->
+                <div class="step" id="step12">
                     <h2>What influences did you have while creating this film?</h2>
                     <p>Include writing style, acting performances, cinematography or story influences that shaped your vision for this film.</p>
                     <div class="form-group">
                         <label for="influences">Creative Influences</label>
                         <textarea id="influences" name="influences" placeholder="Example: Author Stephen King, the Bladerunner movies, etc..."></textarea>
-                    </div>
-                </div>
-                
-                <!-- Step 12: Reader Memory (was step 11) -->
-                <div class="step" id="step12">
-                    <h2>What do you hope viewers will remember most about your film?</h2>
-                    <p>This helps us craft taglines and synopses that highlight your story's most memorable elements.</p>
-                    <div class="form-group">
-                        <label for="readerMemory">Most Memorable Aspect</label>
-                        <textarea id="readerMemory" name="readerMemory" placeholder="What should stick with viewers after they experience your film..."></textarea>
                     </div>
                 </div>
                 
@@ -1030,6 +1020,11 @@ You can also paste your existing synopsis or tagline here if you have one."></te
             } else {
                 nextBtn.textContent = 'Next →';
             }
+            
+            // Update step titles based on current submission type
+            if (formData.submissionType) {
+                updateStepTitles(formData.submissionType);
+            }
         }
 
         function setupEventListeners() {
@@ -1117,10 +1112,9 @@ You can also paste your existing synopsis or tagline here if you have one."></te
         function handleBranchingLogic() {
             const submissionType = formData.submissionType;
             
-            // Step 5 branching: Page count for screenplays, skip for films
-            if (currentStepNumber === 5 && submissionType === 'film') {
-                // Skip page count for films
-                currentStepNumber++;
+            // Step 6 branching: Page count for screenplays, runtime for films
+            if (currentStepNumber === 6 && submissionType === 'film') {
+                // Films use runtime instead of page count - no need to skip, just update the content
             }
             
             // Update step titles based on submission type
@@ -1128,8 +1122,10 @@ You can also paste your existing synopsis or tagline here if you have one."></te
         }
         
         function updateStepTitles(submissionType) {
-            const step3Title = document.querySelector('#step3 h2');
-            const step5PageTitle = document.querySelector('#step5 h2');
+            const step4Title = document.querySelector('#step4 h2');
+            const step4Desc = document.querySelector('#step4 p');
+            const step4Label = document.querySelector('#step4 label[for="writers"]');
+            const step6PageTitle = document.querySelector('#step6 h2');
             const step11Title = document.querySelector('#step11 h2');
             const step11Desc = document.querySelector('#step11 p');
             const step12Title = document.querySelector('#step12 h2');
@@ -1150,11 +1146,13 @@ You can also paste your existing synopsis or tagline here if you have one."></te
             }
             
             if (submissionType === 'film') {
-                // Update step 3 (writers)
-                if (step3Title) step3Title.textContent = "Who are the primary writers and contributors to your film?";
+                // Update step 4 (directors for films)
+                if (step4Title) step4Title.textContent = "Who are the directors of this film? *";
+                if (step4Desc) step4Desc.textContent = "Include all directors and anyone who contributed significantly to directing.";
+                if (step4Label) step4Label.innerHTML = 'Directors & Contributors <span style="color: #e74c3c;">*</span>';
                 
-                // Update step 5 (runtime)
-                if (step5PageTitle) step5PageTitle.textContent = "What is the runtime of your film? *";
+                // Update step 6 (runtime)
+                if (step6PageTitle) step6PageTitle.textContent = "What is the runtime of your film? *";
                 
                 // Update step 11 (influences)
                 if (step11Title) step11Title.textContent = `What influences did you have while creating this ${contentType}?`;
@@ -1191,8 +1189,10 @@ You can also paste your existing synopsis or tagline here if you have one."></te
                 }
             } else {
                 // Keep original screenplay titles
-                if (step3Title) step3Title.textContent = "Who are the primary writers and story contributors? *";
-                if (step5PageTitle) step5PageTitle.textContent = "How many pages is this version of the screenplay? *";
+                if (step4Title) step4Title.textContent = "Who are the primary writers and story contributors? *";
+                if (step4Desc) step4Desc.textContent = "Include all writers and anyone who contributed significantly to the story.";
+                if (step4Label) step4Label.innerHTML = 'Writers & Contributors <span style="color: #e74c3c;">*</span>';
+                if (step6PageTitle) step6PageTitle.textContent = "How many pages is this version of the screenplay? *";
                 if (step11Title) step11Title.textContent = "What influences did you have while writing this story?";
                 if (step11Desc) step11Desc.textContent = "Include writing style, character, or story influences that shaped your screenplay.";
                 if (step12Title) step12Title.textContent = "What do you hope readers will remember most about your story?";
@@ -1226,7 +1226,7 @@ You can also paste your existing synopsis or tagline here if you have one."></te
             const currentStep = document.getElementById(`step${currentStepNumber}`);
             
             // Required fields validation for specific steps - UPDATED numbers
-            const requiredSteps = [1, 2, 3, 5, 6, 7, 13]; // Submission Type, Country, Title, Page Count, Story Type, Mature Content, Personal Motivation
+            const requiredSteps = [1, 2, 3, 4, 6, 7, 8, 13]; // Submission Type, Country, Title, Writers/Directors, Page Count, Story Type, Mature Content, Personal Motivation
             
             if (requiredSteps.includes(currentStepNumber)) {
                 const requiredFields = currentStep.querySelectorAll('input[required], textarea[required], select[required]');
@@ -1263,7 +1263,7 @@ You can also paste your existing synopsis or tagline here if you have one."></te
             }
             
             // Special validation for checkboxes and radios
-            if (currentStepNumber === 4) { // Genre step
+            if (currentStepNumber === 5) { // Genre step
                 const checkedGenres = currentStep.querySelectorAll('input[name="genres"]:checked');
                 if (checkedGenres.length === 0) {
                     alert('Please select at least one genre.');
