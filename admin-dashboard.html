@@ -937,35 +937,52 @@
                 console.log('Loading submissions via direct database access with admin headers...');
                 console.log('Supabase client headers:', window.supabase.supabaseKey);
                 
-                // Test if we can access the table with a simple count first
-                console.log('Testing table access with count query...');
-                const { count, error: countError } = await window.supabase
-                    .from('submissions')
-                    .select('*', { count: 'exact', head: true });
-                console.log('Count result:', count, 'Count error:', countError);
+                console.log('Loading submissions...');
                 
-                // Try a basic query without joins first
-                console.log('Testing basic select without joins...');
-                const { data: basicData, error: basicError } = await window.supabase
+                // First, get all submissions
+                const { data: submissions, error: submissionsError } = await window.supabase
                     .from('submissions')
-                    .select('id, email, title, created_at')
-                    .limit(5);
-                console.log('Basic query result:', basicData, 'Basic error:', basicError);
-                
-                let query = window.supabase
-                    .from('submissions')
-                    .select(`
-                        *,
-                        processing_analytics(estimated_cost)
-                    `)
+                    .select('*')
                     .order('created_at', { ascending: false });
                 
-                const { data, error } = await query;
-                
-                if (error) {
-                    console.error('Query error details:', error);
-                    throw error;
+                if (submissionsError) {
+                    console.error('Submissions query error:', submissionsError);
+                    throw submissionsError;
                 }
+                
+                console.log('Raw submissions data:', submissions);
+                console.log('Number of raw submissions:', submissions ? submissions.length : 0);
+                
+                // Then, get all processing analytics data
+                const { data: analytics, error: analyticsError } = await window.supabase
+                    .from('processing_analytics')
+                    .select('submission_id, estimated_cost');
+                
+                if (analyticsError) {
+                    console.error('Analytics query error:', analyticsError);
+                    // Don't throw error here, just log it and continue without cost data
+                    console.log('Continuing without cost data...');
+                }
+                
+                console.log('Processing analytics data:', analytics);
+                
+                // Create a map of submission_id to cost for quick lookup
+                const costMap = {};
+                if (analytics) {
+                    analytics.forEach(analytic => {
+                        costMap[analytic.submission_id] = analytic.estimated_cost;
+                    });
+                }
+                
+                console.log('Cost map:', costMap);
+                
+                // Merge the data manually
+                const data = submissions.map(submission => ({
+                    ...submission,
+                    estimated_cost: costMap[submission.id] || 0
+                }));
+                
+                console.log('Final merged data:', data);
                 
                 console.log('Raw submissions data:', data);
                 console.log('Number of raw submissions:', data ? data.length : 0);
@@ -1031,7 +1048,7 @@
             submissions.forEach(submission => {
                 const row = document.createElement('tr');
                 
-                const aiCost = submission.processing_analytics?.[0]?.estimated_cost || 0;
+                const aiCost = submission.estimated_cost || 0;
                 const formattedCost = '$' + aiCost.toFixed(2);
                 
                 const country = submission.country || 'N/A';
