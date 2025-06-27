@@ -956,7 +956,7 @@
                     .from('submissions')
                     .select(`
                         *,
-                        processing_analytics!left(estimated_cost)
+                        processing_analytics(estimated_cost)
                     `)
                     .order('created_at', { ascending: false });
                 
