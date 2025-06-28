@@ -1182,6 +1182,10 @@ You can also paste your existing synopsis or tagline here if you have one."></te
                 if (step12Title) step12Title.textContent = `What are the key takeaways for viewers of your ${contentType}?`;
                 if (step12Desc) step12Desc.textContent = `This helps us craft a tagline and synopsis that hint at your story's most memorable moment.`;
                 
+                // Update step 12 label for films
+                const step12Label = document.querySelector('#step12 label[for="influences"]');
+                if (step12Label) step12Label.textContent = "Key Takeaways for the viewer";
+                
                 // Update step 12 placeholder text for films (key takeaways step)
                 const step12Textarea = document.querySelector('#step12 textarea[name="influences"]');
                 if (step12Textarea) {
@@ -1236,13 +1240,23 @@ You can also paste your existing synopsis or tagline here if you have one."></te
                 const seriesLabel = document.querySelector('label[for="series"]');
                 const musicVideoOption = document.querySelector('.radio-item:has(input[value="music-video"])');
                 if (standaloneLabel) standaloneLabel.textContent = "Standalone screenplay";
-                if (seriesLabel) seriesLabel.textContent = "A teleplay in an ongoing series";
+                if (seriesLabel) seriesLabel.textContent = "A series episode or teleplay";
                 if (musicVideoOption) musicVideoOption.style.display = 'none';
                 
                 if (step11Title) step11Title.textContent = "What creative influences shaped your screenplay?";
                 if (step11Desc) step11Desc.textContent = "Include writing style, character, or story influences that shaped your screenplay.";
+                
+                // Update step 11 placeholder for screenplays
+                const step11Textarea = document.querySelector('#step11 textarea[name="similarWorks"]');
+                if (step11Textarea) {
+                    step11Textarea.placeholder = "Example: The writing style of Aaron Sorkin, the character development in Breaking Bad";
+                }
                 if (step12Title) step12Title.textContent = "What are the key takeaways for readers of your screenplay?";
                 if (step12Desc) step12Desc.textContent = "This helps us craft a tagline and synopsis that hint at your story's most memorable moment.";
+                
+                // Update step 12 label for screenplays
+                const step12Label = document.querySelector('#step12 label[for="influences"]');
+                if (step12Label) step12Label.textContent = "Key Takeaways for the reader";
                 
                 // Reset step 12 placeholder text for screenplays
                 const step12Textarea = document.querySelector('#step12 textarea[name="readerMemory"]');
