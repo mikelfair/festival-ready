@@ -970,19 +970,25 @@
                 const costMap = {};
                 if (analytics) {
                     analytics.forEach(analytic => {
+                        console.log('Mapping:', analytic.submission_id, '→', analytic.estimated_cost);
                         costMap[analytic.submission_id] = analytic.estimated_cost;
                     });
                 }
                 
                 console.log('Cost map:', costMap);
+                console.log('Number of entries in cost map:', Object.keys(costMap).length);
                 
                 // Merge the data manually
-                const data = submissions.map(submission => ({
-                    ...submission,
-                    estimated_cost: costMap[submission.id] || 0
-                }));
+                const data = submissions.map(submission => {
+                    const cost = costMap[submission.id] || 0;
+                    console.log(`Submission ${submission.id} (${submission.title}) → cost: ${cost}`);
+                    return {
+                        ...submission,
+                        estimated_cost: cost
+                    };
+                });
                 
-                console.log('Final merged data:', data);
+                console.log('Final merged data sample:', data.slice(0, 3));
                 
                 console.log('Raw submissions data:', data);
                 console.log('Number of raw submissions:', data ? data.length : 0);
