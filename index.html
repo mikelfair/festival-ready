@@ -11,15 +11,30 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Festival Ready - Optimize Your Film and Screenplay Submissions</title>
-    <meta name="description" content="AI-powered tool that creates compelling taglines, synopses, and submission statements for filmmakers and screenwriters seeking festival success.">
-    <meta name="keywords" content="film festival, screenplay, film submission, script optimization, tagline generator, synopsis writing, festival submission, director statement, producer statement">
+    <title>Festival Ready - AI Director Statement & Film Festival Submission Tool</title>
+    <meta name="description" content="Create professional director statements, producer statements, writer statements, and director biographies for film festival submissions. Used by Austin Comedy Film Festival and 12 other festivals.">
+    <meta name="keywords" content="director statement, director biography, how to write a directors statement, film festival submission, screenplay submission, producer statement, writer statement, film festival circuit, austin comedy film festival">
 
-    <!-- Open Graph -->
-    <meta property="og:title" content="Festival Ready - Optimize Your Film Festival Submission">
-    <meta property="og:description" content="AI-powered tool that creates compelling taglines, synopses, and festival recommendations for your screenplay">
+    <!-- Open Graph for rich social sharing -->
+    <meta property="og:title" content="Festival Ready - Professional Film Festival Submission Materials">
+    <meta property="og:description" content="AI-powered tool that creates compelling director statements, writer statements, and submission materials for filmmakers and screenwriters seeking festival success.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://festival-ready.com">
+    <meta property="og:image" content="https://festival-ready.com/images/austin-comedy-hero.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:site_name" content="Festival Ready">
+
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Festival Ready - Professional Film Festival Submissions">
+    <meta name="twitter:description" content="Create professional director statements and submission materials for film festivals. Trusted by festival programmers.">
+    <meta name="twitter:image" content="https://festival-ready.com/images/austin-comedy-hero.png">
+
+    <!-- Additional SEO -->
+    <link rel="canonical" href="https://festival-ready.com">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="Mikel Fair, Film Festival Circuit">
 
     <style>
         /* ========== Global ========== */
@@ -28,18 +43,22 @@
             font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Roboto','Oxygen','Ubuntu','Cantarell',sans-serif;
             line-height:1.6;
             color:#333;
-            overflow-x:hidden;          /* removed bottom padding */
+            overflow-x:hidden;
         }
         .container{max-width:1200px;margin:0 auto;padding:0 20px;}
 
-        /* ========== Header ========== */
+        /* ========== Header with Hero Image ========== */
         header{
-            background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);
+            background: linear-gradient(135deg, rgba(102,126,234,0.9) 0%, rgba(118,75,162,0.9) 100%), 
+                        url('images/austin-comedy-hero.png') center/cover no-repeat;
             color:#fff;
-            padding:60px 0 80px;
+            padding:80px 0 100px;
             text-align:center;
             position:relative;
             overflow:hidden;
+            min-height:600px;
+            display:flex;
+            align-items:center;
         }
         header::before{
             content:'';
@@ -48,8 +67,8 @@
             animation:float 20s ease-in-out infinite;
         }
         @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-20px)}}
-        .hero-content{position:relative;z-index:2;}
-        .logo{font-size:3rem;font-weight:800;margin-bottom:10px;text-shadow:2px 2px 4px rgba(0,0,0,.3);}
+        .hero-content{position:relative;z-index:2;width:100%;}
+        .logo{font-size:3rem;font-weight:800;margin-bottom:10px;text-shadow:2px 2px 4px rgba(0,0,0,.5);}
         .hero-question{font-size:1.4rem;margin-bottom:20px;opacity:.95;font-weight:400;font-style:italic;}
         .tagline{font-size:1.3rem;margin-bottom:30px;opacity:.95;font-weight:300;}
         .hero-description{font-size:1.1rem;max-width:700px;margin:0 auto 40px;opacity:.9;}
@@ -60,8 +79,31 @@
         }
         .cta-button:hover{transform:translateY(-3px);box-shadow:0 12px 35px rgba(255,107,107,.4);background:#ff5252;}
         .beta-badge{background:#ff6b6b;color:#fff;font-size:.6rem;padding:4px 8px;border-radius:10px;margin-left:10px;}
+        .festival-credit{
+            margin-top:30px;font-size:0.9rem;opacity:0.8;font-style:italic;
+            background:rgba(255,255,255,0.1);padding:10px 20px;border-radius:20px;display:inline-block;
+        }
 
-        /* ========== Sections (How It Works / Authority / Feedback / Social) ========== */
+        /* ========== New: Problem/Solution Section ========== */
+        .problem-solution{padding:80px 0;background:#fff;}
+        .problem-solution h2{text-align:center;font-size:2.5rem;color:#333;margin-bottom:60px;font-weight:700;}
+        .problems-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:40px;margin-bottom:60px;}
+        .problem-card{
+            background:#f8f9fa;padding:30px;border-radius:15px;text-align:center;
+            border-left:4px solid #ff6b6b;transition:transform 0.3s;
+        }
+        .problem-card:hover{transform:translateY(-5px);}
+        .problem-card h3{color:#ff6b6b;margin-bottom:15px;font-size:1.3rem;}
+        .problem-card p{color:#666;line-height:1.6;}
+        .solution-highlight{
+            background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);
+            color:#fff;padding:40px;border-radius:20px;text-align:center;
+            box-shadow:0 15px 35px rgba(102,126,234,.3);
+        }
+        .solution-highlight h3{margin-bottom:20px;font-size:1.8rem;}
+        .solution-highlight p{font-size:1.1rem;opacity:0.9;}
+
+        /* ========== How It Works ========== */
         .how-it-works{padding:80px 0;background:linear-gradient(135deg,#f5f7fa 0%,#c3cfe2 100%);}
         .section-title{text-align:center;font-size:2.5rem;color:#333;margin-bottom:20px;font-weight:700;}
         .section-subtitle{text-align:center;font-size:1.2rem;color:#666;margin:0 auto 60px;max-width:600px;}
@@ -77,6 +119,35 @@
         .step h3{margin:20px 0 15px;color:#333;font-size:1.3rem;}
         .step p{color:#666;line-height:1.6;}
 
+        /* ========== FAQ Section ========== */
+        .faq{padding:80px 0;background:#fff;}
+        .faq-container{max-width:800px;margin:0 auto;}
+        .faq-item{margin-bottom:20px;border:1px solid #e0e0e0;border-radius:10px;overflow:hidden;}
+        .faq-question{
+            background:#f8f9fa;padding:20px;cursor:pointer;font-weight:600;
+            display:flex;justify-content:space-between;align-items:center;
+        }
+        .faq-question:hover{background:#f0f0f0;}
+        .faq-answer{
+            padding:20px;display:none;line-height:1.6;color:#666;
+        }
+        .faq-answer.show{display:block;}
+        .faq-toggle{font-size:1.2rem;transition:transform 0.3s;}
+        .faq-toggle.rotated{transform:rotate(45deg);}
+
+        /* ========== What You Get Section ========== */
+        .what-you-get{padding:80px 0;background:linear-gradient(135deg,#f5f7fa 0%,#c3cfe2 100%);}
+        .features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:30px;margin-top:60px;}
+        .feature-card{
+            background:#fff;padding:30px;border-radius:15px;text-align:center;
+            box-shadow:0 10px 30px rgba(0,0,0,.1);transition:transform 0.3s;
+        }
+        .feature-card:hover{transform:translateY(-5px);}
+        .feature-icon{font-size:3rem;margin-bottom:20px;}
+        .feature-card h3{color:#333;margin-bottom:15px;font-size:1.3rem;}
+        .feature-card p{color:#666;line-height:1.6;}
+
+        /* ========== Authority ========== */
         .authority{padding:80px 0;background:#fff;}
         .authority-content{display:flex;align-items:center;gap:40px;max-width:900px;margin:0 auto;}
         .authority-photo img{width:200px;height:200px;border-radius:50%;object-fit:cover;border:5px solid #667eea;}
@@ -88,6 +159,7 @@
         .credentials li{color:#666;margin-bottom:8px;padding-left:20px;position:relative;}
         .credentials li::before{content:'✓';position:absolute;left:0;color:#667eea;font-weight:bold;}
 
+        /* ========== Feedback Section ========== */
         .feedback{padding:80px 0;background:#fff;text-align:center;}
         .feedback-box{
             background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);
@@ -114,6 +186,7 @@
         }
         .submit-feedback:hover{background:#ff5252;transform:translateY(-2px);box-shadow:0 8px 20px rgba(255,107,107,.4);}
 
+        /* ========== Social Share ========== */
         .social-share{padding:60px 0;background:#f8f9fa;text-align:center;}
         .social-share h3{color:#333;margin-bottom:20px;font-size:1.5rem;}
         .social-share p{color:#666;margin-bottom:30px;}
@@ -136,11 +209,11 @@
         footer a{color:#667eea;text-decoration:none;margin:0 15px;}
         footer a:hover{text-decoration:underline;}
 
-        /* ========== Book Banner (static) ========== */
+        /* ========== Book Banner ========== */
         .book-banner-container{
             width:100%;
             display:flex;justify-content:center;
-            background:#f0f0f0;          /* light backdrop to separate from footer */
+            background:#f0f0f0;
             padding:20px 10px;
         }
         .book-banner{max-width:728px;display:block;transition:transform .3s;}
@@ -150,10 +223,6 @@
             box-shadow:0 4px 15px rgba(0,0,0,.2);
         }
 
-        /* ========== Anim / Scroll reveal ========== */
-        .scroll-reveal{opacity:0;transform:translateY(50px);transition:.6s;}
-        .scroll-reveal.revealed{opacity:1;transform:translateY(0);}
-
         /* ========== Mobile ========== */
         @media(max-width:768px){
             .logo{font-size:2.5rem;}
@@ -162,6 +231,8 @@
             .hero-description{font-size:1rem;}
             .section-title{font-size:2rem;}
             .steps{grid-template-columns:1fr;gap:30px;}
+            .problems-grid{grid-template-columns:1fr;}
+            .features-grid{grid-template-columns:1fr;}
             .authority-content{flex-direction:column;text-align:center;}
             .authority-photo{margin-bottom:20px;}
             .feedback-box{padding:25px;margin:20px 10px;}
@@ -170,25 +241,92 @@
             .share-buttons{gap:10px;}
             .share-btn{padding:10px 15px;font-size:.8rem;}
             .book-banner-container{padding:15px 5px;}
+            header{min-height:500px;padding:60px 0 80px;}
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
+    <!-- Header with Austin Comedy Film Festival Hero Image -->
     <header>
         <div class="container">
             <div class="hero-content">
                 <h1 class="logo">🎬 Festival Ready <span class="beta-badge">BETA&nbsp;v002</span></h1>
-                <p class="hero-question">Need help creating polished film festival submission materials for your film or screenplay?</p>
+                <p class="hero-question">Need professional director statements and submission materials for your film or screenplay?</p>
                 <p class="tagline">Professional Submission Materials for Filmmakers & Screenwriters</p>
-                <p class="hero-description">Complete our comprehensive questionnaire and get professional taglines, synopses, and statements tailored specifically to your creative work.</p>
+                <p class="hero-description">Complete our comprehensive questionnaire and get professional director statements, writer statements, producer statements, and submission materials tailored specifically to your creative work.</p>
                 <a href="questionnaire.html" class="cta-button">Start Questionnaire →</a>
+                <div class="festival-credit">Trusted by Austin Comedy Film Festival & Film Festival Circuit's 12 festivals</div>
             </div>
         </div>
     </header>
 
+    <!-- Problem/Solution Section -->
+    <section class="problem-solution">
+        <div class="container">
+            <h2>Stop Struggling with Film Festival Submissions</h2>
+            <div class="problems-grid">
+                <div class="problem-card">
+                    <h3>Director Statement Struggles</h3>
+                    <p>Staring at a blank page wondering how to write a compelling director's statement that captures your vision and connects with festival programmers?</p>
+                </div>
+                <div class="problem-card">
+                    <h3>Generic Submission Materials</h3>
+                    <p>Using the same tagline and synopsis for every festival submission, missing opportunities to tailor your materials for maximum impact?</p>
+                </div>
+                <div class="problem-card">
+                    <h3>No Industry Insight</h3>
+                    <p>Unsure what festival programmers actually want to see in director statements, writer statements, and submission materials?</p>
+                </div>
+            </div>
+            <div class="solution-highlight">
+                <h3>Festival Ready Solves All of This</h3>
+                <p>Created by festival industry professionals who review thousands of submissions. Get AI-powered, professionally crafted director statements, writer statements, and submission materials that actually get noticed.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- What You Get Section -->
+    <section class="what-you-get">
+        <div class="container">
+            <h2 class="section-title">Professional Materials for Every Role</h2>
+            <p class="section-subtitle">Whether you're a director, writer, producer, or actor - get the perfect statement for your festival submissions</p>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🎬</div>
+                    <h3>Director Statements</h3>
+                    <p>Compelling director statements that communicate your artistic vision, creative process, and the story behind your film to festival programmers.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">✍️</div>
+                    <h3>Writer Statements</h3>
+                    <p>Professional writer statements that showcase your inspiration, writing process, and the deeper meaning behind your screenplay.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎭</div>
+                    <h3>Producer & Actor Statements</h3>
+                    <p>Role-specific statements for producers and actors that highlight your contribution and passion for the project.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📝</div>
+                    <h3>Director Biographies</h3>
+                    <p>Professional director biographies that highlight your experience, achievements, and credentials for festival submissions.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🏷️</div>
+                    <h3>Compelling Taglines</h3>
+                    <p>Multiple professional tagline options that capture your story's essence and grab attention in crowded festival lineups.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📋</div>
+                    <h3>Professional Synopses</h3>
+                    <p>Well-structured synopses that clearly communicate your story while maintaining intrigue and professional formatting.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- How It Works -->
-    <section class="how-it-works scroll-reveal">
+    <section class="how-it-works">
         <div class="container">
             <h2 class="section-title">How It Works</h2>
             <p class="section-subtitle">From creative work to submission-ready in three simple steps</p>
@@ -209,8 +347,66 @@
         </div>
     </section>
 
+    <!-- FAQ Section -->
+    <section class="faq">
+        <div class="container">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>How do I write a compelling director's statement?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>A compelling director's statement should communicate your artistic vision, explain why you wanted to make this film, and give insight into your creative process. Festival Ready analyzes your project and creates a professional director's statement that captures your unique voice while following industry best practices used by successful festival submissions.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>What should I include in my director biography?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Your director biography should highlight your relevant experience, achievements, education, and previous work. Festival Ready helps create a professional director biography that presents your credentials in the most compelling way for festival programmers, whether you're an emerging or established filmmaker.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>How long should a director's statement be?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Most film festivals prefer director statements between 150-300 words. Festival Ready creates statements that are concise yet comprehensive, ensuring you communicate your vision effectively while respecting festival submission guidelines and programmer reading time.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>What's the difference between a director statement and director biography?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>A director statement focuses on your specific project - your vision, inspiration, and creative process for this particular film. A director biography covers your background, experience, and credentials as a filmmaker. Festival Ready creates both, ensuring you have complete submission materials for any festival requirement.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>Do you create statements for producers and actors too?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes! Festival Ready creates role-specific statements for directors, writers, producers, and actors. Each statement is tailored to highlight your specific contribution and passion for the project, using industry-appropriate language and formatting for your role.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Authority Section -->
-    <section class="authority scroll-reveal">
+    <section class="authority">
         <div class="container">
             <div class="authority-content">
                 <div class="authority-photo">
@@ -219,13 +415,14 @@
                 <div class="authority-text">
                     <h2>Created by Festival Industry Professionals</h2>
                     <p>Festival Ready was developed by Mikel Fair, a veteran film festival director with over a decade of programming experience.</p>
-                    <p>Mikel has reviewed thousands of submissions and built Festival Ready so every writer can apply those same best practices.</p>
+                    <p>Mikel has reviewed thousands of submissions and built Festival Ready so every filmmaker can apply those same best practices.</p>
                     <div class="credentials">
                         <h4>Industry Experience:</h4>
                         <ul>
-                            <li>Film Festival Circuit — Festival Directory Platform</li>
+                            <li>Film Festival Circuit — Managing 12 Film Festivals Since 2008</li>
+                            <li>Austin Comedy Film Festival — Festival Director</li>
                             <li>10+ Years Programming Film Festivals</li>
-                            <li>Thousands of Screenplay Submissions Reviewed</li>
+                            <li>Thousands of Screenplay & Film Submissions Reviewed</li>
                             <li>Direct Insight into Festival Selection Process</li>
                         </ul>
                     </div>
@@ -235,11 +432,11 @@
     </section>
 
     <!-- Feedback Section -->
-    <section class="feedback scroll-reveal">
+    <section class="feedback">
         <div class="container">
             <div class="feedback-box">
                 <h3>🎯 Help Us Improve Festival Ready</h3>
-                <p>We'd love your feedback! Your input helps us make Festival Ready as useful as possible for the screenwriting community.</p>
+                <p>We'd love your feedback! Your input helps us make Festival Ready as useful as possible for the filmmaking community.</p>
                 <div class="star-rating" id="starRating">
                     <span class="star" data-rating="1">★</span>
                     <span class="star" data-rating="2">★</span>
@@ -263,10 +460,10 @@
     </section>
 
     <!-- Social Share Section -->
-    <section class="social-share scroll-reveal">
+    <section class="social-share">
         <div class="container">
             <h3>📢 Spread the Word</h3>
-            <p>Know other screenwriters who could benefit from Festival Ready? Share the tool with your network!</p>
+            <p>Know other filmmakers who could benefit from Festival Ready? Share the tool with your network!</p>
             <div class="share-buttons">
                 <a href="#" class="share-btn twitter"   onclick="shareOnTwitter()">🐦 Share on X</a>
                 <a href="#" class="share-btn facebook"  onclick="shareOnFacebook()">👥 Share on Facebook</a>
@@ -281,7 +478,7 @@
     <!-- Footer -->
     <footer>
         <div class="container">
-            <p>&copy; 2025 Festival Ready • Created by Mikel Fair</p>
+            <p>&copy; 2025 Festival Ready • Created by Mikel Fair • Film Festival Circuit, Inc.</p>
             <div>
                 <a href="https://filmfestivalcircuit.com" target="_blank">Film Festival Circuit</a>
                 <a href="#" onclick="openDonatePage()">💝 Support Development</a>
@@ -290,7 +487,7 @@
         </div>
     </footer>
 
-    <!-- Book Banner (now in normal flow) -->
+    <!-- Book Banner -->
     <div class="book-banner-container">
         <a href="https://amzn.to/4naJ4FT" target="_blank" class="book-banner" onclick="trackEvent('book_banner_click', 'engagement', 'homepage_amazon_link'); trackBannerClickInDatabase();">
             <img src="images/festival-books-banner.png" alt="Film Festival Submitter's Handbook and Screenplay Judging Guide - Available on Amazon">
@@ -309,23 +506,29 @@
     </script>
 
     <script>
-        /* --- Scroll reveal --- */
-        function revealOnScroll(){
-            document.querySelectorAll('.scroll-reveal').forEach(el=>{
-                const top=el.getBoundingClientRect().top;
-                if(top < window.innerHeight-150){el.classList.add('revealed');}
-            });
+        /* --- FAQ Toggle --- */
+        function toggleFAQ(element) {
+            const answer = element.nextElementSibling;
+            const toggle = element.querySelector('.faq-toggle');
+            
+            if (answer.classList.contains('show')) {
+                answer.classList.remove('show');
+                toggle.textContent = '+';
+                toggle.classList.remove('rotated');
+            } else {
+                // Close all other FAQs
+                document.querySelectorAll('.faq-answer').forEach(ans => ans.classList.remove('show'));
+                document.querySelectorAll('.faq-toggle').forEach(tog => {
+                    tog.textContent = '+';
+                    tog.classList.remove('rotated');
+                });
+                
+                // Open this FAQ
+                answer.classList.add('show');
+                toggle.textContent = '×';
+                toggle.classList.add('rotated');
+            }
         }
-        window.addEventListener('scroll',revealOnScroll);
-
-        /* --- Smooth anchor scroll --- */
-        document.querySelectorAll('a[href^="#"]').forEach(a=>{
-            a.addEventListener('click',e=>{
-                e.preventDefault();
-                const target=document.querySelector(a.getAttribute('href'));
-                if(target){target.scrollIntoView({behavior:'smooth',block:'start'});}
-            });
-        });
 
         /* --- GA button tracking utility --- */
         function trackButtonClick(name){
@@ -423,7 +626,7 @@
         /* --- Social share helpers --- */
         function shareOnTwitter(){
             const url=encodeURIComponent(location.href);
-            const text=encodeURIComponent('Check out Festival Ready - AI-powered screenplay optimization for film festival submissions! 🎬');
+            const text=encodeURIComponent('Check out Festival Ready - AI-powered director statement and film festival submission tool! 🎬');
             window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`,'_blank');
             trackButtonClick('Shared on Twitter');
         }
@@ -434,7 +637,7 @@
         }
         function shareOnLinkedIn(){
             const url=encodeURIComponent(location.href);
-            const title=encodeURIComponent('Festival Ready - Screenplay Optimization Tool');
+            const title=encodeURIComponent('Festival Ready - Director Statement & Film Festival Submission Tool');
             window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}&title=${title}`,'_blank');
             trackButtonClick('Shared on LinkedIn');
         }
@@ -446,20 +649,20 @@
         }
         function shareOnReddit(){
             const url=encodeURIComponent(location.href);
-            const title=encodeURIComponent('Festival Ready - AI-powered screenplay optimization for film festivals');
+            const title=encodeURIComponent('Festival Ready - AI-powered director statement tool for film festivals');
             window.open(`https://reddit.com/submit?url=${url}&title=${title}`,'_blank');
             trackButtonClick('Shared on Reddit');
         }
         function shareViaEmail(){
-            const subject=encodeURIComponent('Check out Festival Ready - Screenplay Optimization Tool');
-            const body=encodeURIComponent(`I found this awesome tool for screenplay optimization: ${location.href}\\n\\nFestival Ready helps screenwriters create professional submission materials for film festivals. Thought you might be interested!`);
+            const subject=encodeURIComponent('Check out Festival Ready - Director Statement Tool');
+            const body=encodeURIComponent(`I found this awesome tool for creating director statements and film festival submission materials: ${location.href}\\n\\nFestival Ready helps filmmakers create professional submission materials. Thought you might be interested!`);
             location.href=`mailto:?subject=${subject}&body=${body}`;
             trackButtonClick('Shared via Email');
         }
 
         /* --- Init on load --- */
         document.addEventListener('DOMContentLoaded',()=>{
-            revealOnScroll();initializeStarRating();
+            initializeStarRating();
         });
     </script>
 </body>
