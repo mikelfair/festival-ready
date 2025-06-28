@@ -47,10 +47,10 @@
         }
         .container{max-width:1200px;margin:0 auto;padding:0 20px;}
 
-        /* ========== Header with Hero Image ========== */
+        /* ========== Header with Crowd Hero Image ========== */
         header{
             background: linear-gradient(135deg, rgba(102,126,234,0.9) 0%, rgba(118,75,162,0.9) 100%), 
-                        url('images/austin-comedy-hero.png') center/cover no-repeat;
+                        url('images/austin-comedy-crowd.png') center/cover no-repeat;
             color:#fff;
             padding:80px 0 100px;
             text-align:center;
@@ -84,12 +84,27 @@
             background:rgba(255,255,255,0.1);padding:10px 20px;border-radius:20px;display:inline-block;
         }
 
+        /* ========== Festival Success Showcase ========== */
+        .festival-showcase{padding:80px 0;background:#fff;}
+        .showcase-content{display:flex;align-items:center;gap:50px;max-width:1000px;margin:0 auto;}
+        .showcase-image{flex:1;}
+        .showcase-image img{width:100%;height:auto;border-radius:15px;box-shadow:0 15px 35px rgba(0,0,0,.2);}
+        .showcase-text{flex:1;}
+        .showcase-text h2{font-size:2.2rem;color:#333;margin-bottom:20px;font-weight:700;}
+        .showcase-text p{color:#666;font-size:1.1rem;line-height:1.6;margin-bottom:20px;}
+        .success-stats{background:#f8f9fa;padding:20px;border-radius:10px;margin-top:20px;}
+        .success-stats h4{color:#667eea;margin-bottom:15px;}
+        .stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px;}
+        .stat-item{text-align:center;}
+        .stat-number{font-size:1.5rem;font-weight:bold;color:#333;}
+        .stat-label{font-size:0.9rem;color:#666;}
+
         /* ========== New: Problem/Solution Section ========== */
-        .problem-solution{padding:80px 0;background:#fff;}
+        .problem-solution{padding:80px 0;background:linear-gradient(135deg,#f5f7fa 0%,#c3cfe2 100%);}
         .problem-solution h2{text-align:center;font-size:2.5rem;color:#333;margin-bottom:60px;font-weight:700;}
         .problems-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:40px;margin-bottom:60px;}
         .problem-card{
-            background:#f8f9fa;padding:30px;border-radius:15px;text-align:center;
+            background:#fff;padding:30px;border-radius:15px;text-align:center;
             border-left:4px solid #ff6b6b;transition:transform 0.3s;
         }
         .problem-card:hover{transform:translateY(-5px);}
@@ -102,6 +117,38 @@
         }
         .solution-highlight h3{margin-bottom:20px;font-size:1.8rem;}
         .solution-highlight p{font-size:1.1rem;opacity:0.9;}
+
+        /* ========== What You Get Section ========== */
+        .what-you-get{padding:80px 0;background:#fff;}
+        .features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:30px;margin-top:60px;}
+        .feature-card{
+            background:#fff;padding:30px;border-radius:15px;text-align:center;
+            box-shadow:0 10px 30px rgba(0,0,0,.1);transition:transform 0.3s;
+            border:2px solid transparent;
+        }
+        .feature-card:hover{transform:translateY(-5px);}
+        .feature-card.in-development{
+            border-color:#ffa726;background:#fff8f0;
+        }
+        .feature-icon{font-size:3rem;margin-bottom:20px;}
+        .feature-card h3{color:#333;margin-bottom:15px;font-size:1.3rem;}
+        .feature-card p{color:#666;line-height:1.6;}
+        .in-development-badge{
+            background:#ffa726;color:#fff;font-size:0.8rem;
+            padding:4px 12px;border-radius:15px;margin-bottom:15px;
+            display:inline-block;font-weight:600;
+        }
+        .notify-form{margin-top:15px;}
+        .notify-input{
+            width:100%;padding:10px;border:2px solid #ffa726;
+            border-radius:5px;margin-bottom:10px;font-size:0.9rem;
+        }
+        .notify-button{
+            background:#ffa726;color:#fff;border:none;
+            padding:8px 16px;border-radius:5px;font-size:0.9rem;
+            cursor:pointer;transition:background 0.3s;
+        }
+        .notify-button:hover{background:#ff9800;}
 
         /* ========== How It Works ========== */
         .how-it-works{padding:80px 0;background:linear-gradient(135deg,#f5f7fa 0%,#c3cfe2 100%);}
@@ -135,59 +182,20 @@
         .faq-toggle{font-size:1.2rem;transition:transform 0.3s;}
         .faq-toggle.rotated{transform:rotate(45deg);}
 
-        /* ========== What You Get Section ========== */
-        .what-you-get{padding:80px 0;background:linear-gradient(135deg,#f5f7fa 0%,#c3cfe2 100%);}
-        .features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:30px;margin-top:60px;}
-        .feature-card{
-            background:#fff;padding:30px;border-radius:15px;text-align:center;
-            box-shadow:0 10px 30px rgba(0,0,0,.1);transition:transform 0.3s;
-        }
-        .feature-card:hover{transform:translateY(-5px);}
-        .feature-icon{font-size:3rem;margin-bottom:20px;}
-        .feature-card h3{color:#333;margin-bottom:15px;font-size:1.3rem;}
-        .feature-card p{color:#666;line-height:1.6;}
-
         /* ========== Authority ========== */
-        .authority{padding:80px 0;background:#fff;}
+        .authority{padding:80px 0;background:linear-gradient(135deg,#f5f7fa 0%,#c3cfe2 100%);}
         .authority-content{display:flex;align-items:center;gap:40px;max-width:900px;margin:0 auto;}
         .authority-photo img{width:200px;height:200px;border-radius:50%;object-fit:cover;border:5px solid #667eea;}
         .authority-text h2{font-size:2.2rem;color:#333;margin-bottom:20px;font-weight:700;}
         .authority-text p{color:#666;font-size:1.1rem;line-height:1.6;margin-bottom:15px;}
-        .credentials{background:#f8f9fa;padding:20px;border-radius:10px;border-left:4px solid #667eea;margin-top:20px;}
+        .credentials{background:#fff;padding:20px;border-radius:10px;border-left:4px solid #667eea;margin-top:20px;}
         .credentials h4{color:#333;margin-bottom:10px;}
         .credentials ul{list-style:none;padding:0;}
         .credentials li{color:#666;margin-bottom:8px;padding-left:20px;position:relative;}
         .credentials li::before{content:'✓';position:absolute;left:0;color:#667eea;font-weight:bold;}
 
-        /* ========== Feedback Section ========== */
-        .feedback{padding:80px 0;background:#fff;text-align:center;}
-        .feedback-box{
-            background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);
-            color:#fff;padding:40px;border-radius:20px;max-width:800px;margin:0 auto;
-            box-shadow:0 15px 35px rgba(102,126,234,.3);
-        }
-        .feedback-box h3{margin-bottom:15px;font-size:1.8rem;}
-        .feedback-box p{margin-bottom:30px;opacity:.9;font-size:1.1rem;}
-        .star-rating{display:flex;justify-content:center;margin-bottom:30px;gap:5px;}
-        .star{font-size:2rem;color:rgba(255,255,255,.3);cursor:pointer;transition:.3s;}
-        .star:hover,.star.active{color:#ffd700;transform:scale(1.1);}
-        .feedback-forms{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:30px;}
-        .feedback-group{text-align:left;}
-        .feedback-group label{display:block;font-weight:600;margin-bottom:8px;font-size:1rem;}
-        .feedback-group textarea{
-            width:100%;padding:15px;border:2px solid rgba(255,255,255,.3);border-radius:10px;
-            background:rgba(255,255,255,.1);color:#fff;font-size:1rem;resize:vertical;min-height:100px;font-family:inherit;
-        }
-        .feedback-group textarea::placeholder{color:rgba(255,255,255,.7);}
-        .feedback-group textarea:focus{outline:none;border-color:rgba(255,255,255,.6);background:rgba(255,255,255,.15);}
-        .submit-feedback{
-            background:#ff6b6b;color:#fff;padding:15px 30px;border:none;border-radius:25px;
-            font-weight:600;font-size:1rem;cursor:pointer;transition:.3s;text-transform:uppercase;letter-spacing:1px;
-        }
-        .submit-feedback:hover{background:#ff5252;transform:translateY(-2px);box-shadow:0 8px 20px rgba(255,107,107,.4);}
-
         /* ========== Social Share ========== */
-        .social-share{padding:60px 0;background:#f8f9fa;text-align:center;}
+        .social-share{padding:60px 0;background:#fff;text-align:center;}
         .social-share h3{color:#333;margin-bottom:20px;font-size:1.5rem;}
         .social-share p{color:#666;margin-bottom:30px;}
         .share-buttons{display:flex;justify-content:center;gap:15px;flex-wrap:wrap;}
@@ -233,32 +241,69 @@
             .steps{grid-template-columns:1fr;gap:30px;}
             .problems-grid{grid-template-columns:1fr;}
             .features-grid{grid-template-columns:1fr;}
+            .showcase-content{flex-direction:column;text-align:center;}
+            .showcase-image{margin-bottom:30px;}
             .authority-content{flex-direction:column;text-align:center;}
             .authority-photo{margin-bottom:20px;}
-            .feedback-box{padding:25px;margin:20px 10px;}
-            .feedback-forms{grid-template-columns:1fr;gap:15px;}
-            .star{font-size:1.8rem;}
             .share-buttons{gap:10px;}
             .share-btn{padding:10px 15px;font-size:.8rem;}
             .book-banner-container{padding:15px 5px;}
             header{min-height:500px;padding:60px 0 80px;}
+            .stats-grid{grid-template-columns:1fr;}
         }
     </style>
 </head>
 <body>
-    <!-- Header with Austin Comedy Film Festival Hero Image -->
+    <!-- Header with Austin Comedy Film Festival Crowd Hero Image -->
     <header>
         <div class="container">
             <div class="hero-content">
                 <h1 class="logo">🎬 Festival Ready <span class="beta-badge">BETA&nbsp;v002</span></h1>
                 <p class="hero-question">Need professional director statements and submission materials for your film or screenplay?</p>
                 <p class="tagline">Professional Submission Materials for Filmmakers & Screenwriters</p>
-                <p class="hero-description">Complete our comprehensive questionnaire and get professional director statements, writer statements, producer statements, and submission materials tailored specifically to your creative work.</p>
+                <p class="hero-description">Complete our comprehensive questionnaire and get a professional director statement, writer statement, producer statement, and submission materials tailored specifically to your creative work.</p>
                 <a href="questionnaire.html" class="cta-button">Start Questionnaire →</a>
                 <div class="festival-credit">Trusted by Austin Comedy Film Festival & Film Festival Circuit's 12 festivals</div>
             </div>
         </div>
     </header>
+
+    <!-- Festival Success Showcase -->
+    <section class="festival-showcase">
+        <div class="container">
+            <div class="showcase-content">
+                <div class="showcase-text">
+                    <h2>Real Festival Success Stories</h2>
+                    <p>Festival Ready was created by the team behind Austin Comedy Film Festival and Film Festival Circuit - the same professionals who review thousands of submissions every year.</p>
+                    <p>We know what works because we're on the other side of the submission process, helping filmmakers create the exact materials that get noticed and selected.</p>
+                    <div class="success-stats">
+                        <h4>Industry Experience</h4>
+                        <div class="stats-grid">
+                            <div class="stat-item">
+                                <div class="stat-number">12</div>
+                                <div class="stat-label">Film Festivals</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">2008</div>
+                                <div class="stat-label">Since</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">1000s</div>
+                                <div class="stat-label">Submissions Reviewed</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">10+</div>
+                                <div class="stat-label">Years Experience</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="showcase-image">
+                    <img src="images/austin-comedy-hero.png" alt="Austin Comedy Film Festival winners receiving awards">
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Problem/Solution Section -->
     <section class="problem-solution">
@@ -294,32 +339,37 @@
                 <div class="feature-card">
                     <div class="feature-icon">🎬</div>
                     <h3>Director Statements</h3>
-                    <p>Compelling director statements that communicate your artistic vision, creative process, and the story behind your film to festival programmers.</p>
+                    <p>Compelling director statement that communicates your artistic vision, creative process, and the story behind your film to festival programmers.</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">✍️</div>
                     <h3>Writer Statements</h3>
-                    <p>Professional writer statements that showcase your inspiration, writing process, and the deeper meaning behind your screenplay.</p>
+                    <p>Professional writer statement that showcases your inspiration, writing process, and the deeper meaning behind your screenplay.</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">🎭</div>
                     <h3>Producer & Actor Statements</h3>
                     <p>Role-specific statements for producers and actors that highlight your contribution and passion for the project.</p>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card in-development">
+                    <div class="in-development-badge">In Development</div>
                     <div class="feature-icon">📝</div>
-                    <h3>Director Biographies</h3>
-                    <p>Professional director biographies that highlight your experience, achievements, and credentials for festival submissions.</p>
+                    <h3>Director Biography</h3>
+                    <p>Professional director biography that highlights your experience, achievements, and credentials for festival submissions.</p>
+                    <div class="notify-form">
+                        <input type="email" class="notify-input" placeholder="Enter email for updates">
+                        <button class="notify-button" onclick="notifyWhenReady('director-bio')">Notify Me</button>
+                    </div>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">🏷️</div>
-                    <h3>Compelling Taglines</h3>
-                    <p>Multiple professional tagline options that capture your story's essence and grab attention in crowded festival lineups.</p>
+                    <h3>Compelling Tagline</h3>
+                    <p>Professional tagline that captures your story's essence and grabs attention in crowded festival lineups.</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">📋</div>
-                    <h3>Professional Synopses</h3>
-                    <p>Well-structured synopses that clearly communicate your story while maintaining intrigue and professional formatting.</p>
+                    <h3>Professional Synopsis</h3>
+                    <p>Well-structured synopsis that clearly communicates your story while maintaining intrigue and professional formatting.</p>
                 </div>
             </div>
         </div>
@@ -341,7 +391,7 @@
                 </div>
                 <div class="step"><div class="step-number">3</div>
                     <h3>Get Professional Materials</h3>
-                    <p>Receive customized taglines, compelling synopses, and professional statements (writer's, director's, producer's, or actor's) tailored to your role and goals.</p>
+                    <p>Receive a customized tagline, compelling synopsis, and professional statement (writer's, director's, producer's, or actor's) tailored to your role and goals.</p>
                 </div>
             </div>
         </div>
@@ -368,7 +418,7 @@
                         <span class="faq-toggle">+</span>
                     </div>
                     <div class="faq-answer">
-                        <p>Your director biography should highlight your relevant experience, achievements, education, and previous work. Festival Ready helps create a professional director biography that presents your credentials in the most compelling way for festival programmers, whether you're an emerging or established filmmaker.</p>
+                        <p>Your director biography should highlight your relevant experience, achievements, education, and previous work. Our director biography feature (coming soon) will help create a professional biography that presents your credentials in the most compelling way for festival programmers, whether you're an emerging or established filmmaker.</p>
                     </div>
                 </div>
                 
@@ -388,7 +438,7 @@
                         <span class="faq-toggle">+</span>
                     </div>
                     <div class="faq-answer">
-                        <p>A director statement focuses on your specific project - your vision, inspiration, and creative process for this particular film. A director biography covers your background, experience, and credentials as a filmmaker. Festival Ready creates both, ensuring you have complete submission materials for any festival requirement.</p>
+                        <p>A director statement focuses on your specific project - your vision, inspiration, and creative process for this particular film. A director biography covers your background, experience, and credentials as a filmmaker. Festival Ready creates statements now, with biographies coming soon.</p>
                     </div>
                 </div>
                 
@@ -427,34 +477,6 @@
                         </ul>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Feedback Section -->
-    <section class="feedback">
-        <div class="container">
-            <div class="feedback-box">
-                <h3>🎯 Help Us Improve Festival Ready</h3>
-                <p>We'd love your feedback! Your input helps us make Festival Ready as useful as possible for the filmmaking community.</p>
-                <div class="star-rating" id="starRating">
-                    <span class="star" data-rating="1">★</span>
-                    <span class="star" data-rating="2">★</span>
-                    <span class="star" data-rating="3">★</span>
-                    <span class="star" data-rating="4">★</span>
-                    <span class="star" data-rating="5">★</span>
-                </div>
-                <div class="feedback-forms">
-                    <div class="feedback-group">
-                        <label for="positiveFeedback">Positive Feedback</label>
-                        <textarea id="positiveFeedback" placeholder="What do you love about Festival Ready? What's working well for you?"></textarea>
-                    </div>
-                    <div class="feedback-group">
-                        <label for="improvements">Suggested Improvements &amp; Features</label>
-                        <textarea id="improvements" placeholder="What features would you like to see? How can we make this better?"></textarea>
-                    </div>
-                </div>
-                <button class="submit-feedback" onclick="submitFeedback()">Submit Feedback</button>
             </div>
         </div>
     </section>
@@ -530,6 +552,27 @@
             }
         }
 
+        /* --- Notify when ready functionality --- */
+        function notifyWhenReady(feature) {
+            const input = event.target.previousElementSibling;
+            const email = input.value.trim();
+            
+            if (!email || !isValidEmail(email)) {
+                alert('Please enter a valid email address.');
+                return;
+            }
+            
+            // Here you would typically save to your database
+            console.log(`Notification signup for ${feature}:`, email);
+            alert('Thanks! We\'ll notify you when the director biography feature is ready.');
+            input.value = '';
+        }
+
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
         /* --- GA button tracking utility --- */
         function trackButtonClick(name){
             if(typeof gtag!=='undefined'){gtag('event','click',{event_category:'button',event_label:name});}
@@ -590,39 +633,6 @@
             window.open('donate.html','_blank');trackButtonClick('Donation Page Opened');
         }
 
-        /* --- Star rating --- */
-        let selectedRating=0;
-        function initializeStarRating(){
-            document.querySelectorAll('.star').forEach(star=>{
-                star.addEventListener('mouseover',()=>highlightStars(+star.dataset.rating));
-                star.addEventListener('mouseout',()=>highlightStars(selectedRating));
-                star.addEventListener('click',()=>{
-                    selectedRating=+star.dataset.rating;highlightStars(selectedRating);
-                });
-            });
-        }
-        function highlightStars(rating){
-            document.querySelectorAll('.star').forEach((star,i)=>{
-                star.classList.toggle('active',i<rating);
-            });
-        }
-
-        /* --- Feedback submission --- */
-        function submitFeedback(){
-            const positive=document.getElementById('positiveFeedback').value.trim();
-            const improv=document.getElementById('improvements').value.trim();
-            if(selectedRating===0 && !positive && !improv){
-                alert('Please provide a rating or some feedback before submitting.');return;
-            }
-            const data={rating:selectedRating,positiveFeedback:positive,improvements:improv,timestamp:new Date().toISOString()};
-            console.log('Feedback submitted:',data);
-            alert('Thank you for your feedback! Your input helps us improve Festival Ready.');
-            selectedRating=0;highlightStars(0);
-            document.getElementById('positiveFeedback').value='';
-            document.getElementById('improvements').value='';
-            trackButtonClick('Feedback Submitted');
-        }
-
         /* --- Social share helpers --- */
         function shareOnTwitter(){
             const url=encodeURIComponent(location.href);
@@ -662,7 +672,7 @@
 
         /* --- Init on load --- */
         document.addEventListener('DOMContentLoaded',()=>{
-            initializeStarRating();
+            // Page is ready
         });
     </script>
 </body>
