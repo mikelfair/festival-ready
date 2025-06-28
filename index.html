@@ -292,12 +292,22 @@
 
     <!-- Book Banner (now in normal flow) -->
     <div class="book-banner-container">
-        <a href="https://amzn.to/4naJ4FT" target="_blank" class="book-banner">
+        <a href="https://amzn.to/4naJ4FT" target="_blank" class="book-banner" onclick="trackEvent('book_banner_click', 'engagement', 'homepage_amazon_link'); trackBannerClickInDatabase();">
             <img src="images/festival-books-banner.png" alt="Film Festival Submitter's Handbook and Screenplay Judging Guide - Available on Amazon">
         </a>
     </div>
 
     <!-- ========== Scripts ========== -->
+    <script type="module">
+        import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.45.4';
+        
+        const SUPABASE_URL = 'https://vmfhxkfprrbshwniguaq.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZtZmh4a2ZwcnJic2h3bmlndWFxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk2ODYxNTcsImV4cCI6MjA2NTI2MjE1N30.k0OdvFzcO1nwZzxsgLPcQBeSITmV6dA_ncXpN0cpAgQ';
+        
+        const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        window.supabase = supabase;
+    </script>
+
     <script>
         /* --- Scroll reveal --- */
         function revealOnScroll(){
@@ -320,6 +330,56 @@
         /* --- GA button tracking utility --- */
         function trackButtonClick(name){
             if(typeof gtag!=='undefined'){gtag('event','click',{event_category:'button',event_label:name});}
+        }
+
+        /* --- Banner click tracking for Google Analytics --- */
+        function trackEvent(eventName, category, label) {
+            if (typeof gtag !== 'undefined') {
+                gtag('event', eventName, {
+                    event_category: category,
+                    event_label: label
+                });
+            }
+            console.log('GA Event tracked:', eventName, category, label);
+        }
+
+        /* --- Banner click tracking for database --- */
+        async function trackBannerClickInDatabase() {
+            try {
+                // Generate or retrieve session ID
+                let sessionId = sessionStorage.getItem('banner_session_id');
+                if (!sessionId) {
+                    sessionId = 'session_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+                    sessionStorage.setItem('banner_session_id', sessionId);
+                }
+
+                // Wait for supabase to be available
+                while (!window.supabase) {
+                    await new Promise(resolve => setTimeout(resolve, 100));
+                }
+
+                const clickData = {
+                    user_session: sessionId,
+                    page_url: window.location.pathname,
+                    banner_type: 'book_banner',
+                    referrer: document.referrer || null,
+                    country: null // No form data available on homepage
+                };
+
+                console.log('Tracking banner click:', clickData);
+
+                const { data, error } = await window.supabase
+                    .from('banner_clicks')
+                    .insert([clickData]);
+
+                if (error) {
+                    console.error('Error tracking banner click:', error);
+                } else {
+                    console.log('Banner click tracked successfully:', data);
+                }
+            } catch (error) {
+                console.error('Error in trackBannerClickInDatabase:', error);
+            }
         }
 
         /* --- Donate link --- */
@@ -392,7 +452,7 @@
         }
         function shareViaEmail(){
             const subject=encodeURIComponent('Check out Festival Ready - Screenplay Optimization Tool');
-            const body=encodeURIComponent(`I found this awesome tool for screenplay optimization: ${location.href}\n\nFestival Ready helps screenwriters create professional submission materials for film festivals. Thought you might be interested!`);
+            const body=encodeURIComponent(`I found this awesome tool for screenplay optimization: ${location.href}\\n\\nFestival Ready helps screenwriters create professional submission materials for film festivals. Thought you might be interested!`);
             location.href=`mailto:?subject=${subject}&body=${body}`;
             trackButtonClick('Shared via Email');
         }
