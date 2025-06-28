@@ -151,6 +151,23 @@
         .stat-card.opt-in .value {
             color: white;
         }
+
+        .stat-card.banner-clicks {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            color: white;
+        }
+        
+        .stat-card.banner-clicks h3 {
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .stat-card.banner-clicks .value {
+            color: white;
+        }
+
+        .stat-card.banner-clicks .subtitle {
+            color: rgba(255, 255, 255, 0.8);
+        }
         
         .section {
             background: white;
@@ -549,6 +566,12 @@
                     <div class="value" id="totalOptIns">-</div>
                     <div class="subtitle">Marketing subscribers</div>
                 </div>
+
+                <div class="stat-card banner-clicks">
+                    <h3>Banner Clicks</h3>
+                    <div class="value" id="totalBannerClicks">-</div>
+                    <div class="subtitle" id="bannerClicksSubtitle">Book banner engagement</div>
+                </div>
             </div>
 
             <div class="section">
@@ -593,6 +616,44 @@
                             <span class="value" id="roiPercentage">-</span>
                         </div>
                     </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Banner Clicks Analysis</h2>
+                <div id="bannerClicksLoading" class="loading">Loading banner clicks data</div>
+                <div id="bannerClicksContent" style="display: none;">
+                    <div class="roi-section">
+                        <div class="roi-card">
+                            <h3>Click Summary</h3>
+                            <div class="roi-metric">
+                                <span class="label">Total Clicks:</span>
+                                <span class="value" id="bannerTotalClicks">-</span>
+                            </div>
+                            <div class="roi-metric">
+                                <span class="label">Unique Sessions:</span>
+                                <span class="value" id="bannerUniqueSessions">-</span>
+                            </div>
+                            <div class="roi-metric">
+                                <span class="label">Today:</span>
+                                <span class="value" id="bannerClicksToday">-</span>
+                            </div>
+                            <div class="roi-metric">
+                                <span class="label">This Week:</span>
+                                <span class="value" id="bannerClicksWeek">-</span>
+                            </div>
+                        </div>
+                        
+                        <div class="roi-card">
+                            <h3>Top Countries</h3>
+                            <div id="bannerTopCountries">
+                                <!-- Will be populated by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="noBannerClicks" class="no-data" style="display: none;">
+                    No banner clicks recorded yet
                 </div>
             </div>
 
@@ -689,6 +750,7 @@
             showDashboard();
             loadDashboardData();
             loadSubmissions();
+            loadBannerClicksData();
         }
 
         document.getElementById('passwordInput').addEventListener('keypress', function(e) {
@@ -708,6 +770,7 @@
                 showDashboard();
                 loadDashboardData();
                 loadSubmissions();
+                loadBannerClicksData();
             } else {
                 errorDiv.textContent = 'Invalid password. Please try again.';
                 errorDiv.style.display = 'block';
@@ -783,6 +846,95 @@
             }
             
             loadDashboardData();
+        }
+
+        async function loadBannerClicksData() {
+            try {
+                console.log('Loading banner clicks data...');
+                
+                const { data: bannerClicks, error } = await window.supabase
+                    .from('banner_clicks')
+                    .select('*')
+                    .order('clicked_at', { ascending: false });
+                
+                if (error) {
+                    console.error('Error loading banner clicks:', error);
+                    throw error;
+                }
+                
+                console.log('Banner clicks data:', bannerClicks);
+                
+                if (!bannerClicks || bannerClicks.length === 0) {
+                    document.getElementById('bannerClicksLoading').style.display = 'none';
+                    document.getElementById('noBannerClicks').style.display = 'block';
+                    document.getElementById('totalBannerClicks').textContent = '0';
+                    document.getElementById('bannerClicksSubtitle').textContent = 'No clicks yet';
+                    return;
+                }
+                
+                // Calculate statistics
+                const totalClicks = bannerClicks.length;
+                const uniqueSessions = new Set(bannerClicks.map(click => click.user_session)).size;
+                
+                // Calculate today's clicks
+                const today = new Date();
+                const todayStart = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+                const clicksToday = bannerClicks.filter(click => 
+                    new Date(click.clicked_at) >= todayStart
+                ).length;
+                
+                // Calculate this week's clicks
+                const weekStart = new Date(today);
+                weekStart.setDate(today.getDate() - today.getDay());
+                weekStart.setHours(0, 0, 0, 0);
+                const clicksThisWeek = bannerClicks.filter(click => 
+                    new Date(click.clicked_at) >= weekStart
+                ).length;
+                
+                // Count by country
+                const countryCount = {};
+                bannerClicks.forEach(click => {
+                    const country = click.country || 'Unknown';
+                    countryCount[country] = (countryCount[country] || 0) + 1;
+                });
+                
+                const topCountries = Object.entries(countryCount)
+                    .sort((a, b) => b[1] - a[1])
+                    .slice(0, 5);
+                
+                // Update main stats card
+                document.getElementById('totalBannerClicks').textContent = totalClicks;
+                document.getElementById('bannerClicksSubtitle').textContent = `${clicksToday} today`;
+                
+                // Update detailed stats
+                document.getElementById('bannerTotalClicks').textContent = totalClicks;
+                document.getElementById('bannerUniqueSessions').textContent = uniqueSessions;
+                document.getElementById('bannerClicksToday').textContent = clicksToday;
+                document.getElementById('bannerClicksWeek').textContent = clicksThisWeek;
+                
+                // Update top countries
+                const topCountriesDiv = document.getElementById('bannerTopCountries');
+                topCountriesDiv.innerHTML = '';
+                topCountries.forEach(([country, count]) => {
+                    const metric = document.createElement('div');
+                    metric.className = 'roi-metric';
+                    metric.innerHTML = `
+                        <span class="label">${country}:</span>
+                        <span class="value">${count}</span>
+                    `;
+                    topCountriesDiv.appendChild(metric);
+                });
+                
+                document.getElementById('bannerClicksLoading').style.display = 'none';
+                document.getElementById('bannerClicksContent').style.display = 'block';
+                
+            } catch (error) {
+                console.error('Error loading banner clicks:', error);
+                document.getElementById('bannerClicksLoading').style.display = 'none';
+                document.getElementById('noBannerClicks').style.display = 'block';
+                document.getElementById('totalBannerClicks').textContent = '0';
+                document.getElementById('bannerClicksSubtitle').textContent = 'Error loading';
+            }
         }
 
         async function loadDashboardData() {
@@ -1239,11 +1391,13 @@
         function refreshDashboard() {
             loadDashboardData();
             loadSubmissions();
+            loadBannerClicksData();
         }
 
         setInterval(() => {
             if (savedPassword) {
                 loadDashboardData();
+                loadBannerClicksData();
             }
         }, 60000);
     </script>
