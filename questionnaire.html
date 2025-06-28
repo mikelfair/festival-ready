@@ -236,6 +236,11 @@
         .radio-item input[type="radio"] {
             margin-right: 12px;
             transform: scale(1.2);
+            flex-shrink: 0;
+        }
+        
+        .radio-item label {
+            flex: 1;
         }
         
         .radio-item.selected {
@@ -806,8 +811,8 @@ You can also paste your existing synopsis or tagline here if you have one."></te
                         <p style="font-size: 0.9rem; color: #666;">Select the role that best represents your primary contribution to this project.</p>
                         <div class="radio-group">
                             <div class="radio-item">
-                                <input type="radio" id="statement-writer" name="statementType" value="writer" required>
-                                <label for="statement-writer">Writer's Statement</label>
+                                <input type="radio" id="statement-actor" name="statementType" value="actor" required>
+                                <label for="statement-actor">Actor's Statement</label>
                             </div>
                             <div class="radio-item">
                                 <input type="radio" id="statement-director" name="statementType" value="director" required>
@@ -818,8 +823,8 @@ You can also paste your existing synopsis or tagline here if you have one."></te
                                 <label for="statement-producer">Producer's Statement</label>
                             </div>
                             <div class="radio-item">
-                                <input type="radio" id="statement-actor" name="statementType" value="actor" required>
-                                <label for="statement-actor">Actor's Statement</label>
+                                <input type="radio" id="statement-writer" name="statementType" value="writer" required>
+                                <label for="statement-writer">Writer's Statement</label>
                             </div>
                         </div>
                     </div>
@@ -1169,7 +1174,8 @@ You can also paste your existing synopsis or tagline here if you have one."></te
                 // Update step 7 radio button labels for films
                 const standaloneLabel = document.querySelector('label[for="standalone"]');
                 const seriesLabel = document.querySelector('label[for="series"]');
-                const musicVideoOption = document.querySelector('.radio-item:has(input[value="music-video"])');
+                const musicVideoRadio = document.querySelector('input[value="music-video"]');
+                const musicVideoOption = musicVideoRadio ? musicVideoRadio.closest('.radio-item') : null;
                 if (standaloneLabel) standaloneLabel.textContent = "Standalone film";
                 if (seriesLabel) seriesLabel.textContent = "An episode in an ongoing series";
                 if (musicVideoOption) musicVideoOption.style.display = 'block';
@@ -1238,7 +1244,8 @@ You can also paste your existing synopsis or tagline here if you have one."></te
                 // Update step 7 radio button labels for screenplays
                 const standaloneLabel = document.querySelector('label[for="standalone"]');
                 const seriesLabel = document.querySelector('label[for="series"]');
-                const musicVideoOption = document.querySelector('.radio-item:has(input[value="music-video"])');
+                const musicVideoRadio = document.querySelector('input[value="music-video"]');
+                const musicVideoOption = musicVideoRadio ? musicVideoRadio.closest('.radio-item') : null;
                 if (standaloneLabel) standaloneLabel.textContent = "Standalone screenplay";
                 if (seriesLabel) seriesLabel.textContent = "A series episode or teleplay";
                 if (musicVideoOption) musicVideoOption.style.display = 'none';
@@ -1264,8 +1271,14 @@ You can also paste your existing synopsis or tagline here if you have one."></te
                     step12Textarea.placeholder = "What should stick with readers after they experience your story...";
                 }
                 if (step13Title) step13Title.textContent = "Why did you decide to write this particular story? *";
-                if (step13Desc) step13Desc.textContent = "This helps us create your writer's statement - a key part of festival submissions that helps judges connect with your story on a personal level.";
+                if (step13Desc) step13Desc.textContent = "This helps us create your writer's statement, a key part of festival submissions that helps judges connect with your story on a personal level.";
                 if (step14Title) step14Title.textContent = "Optional: Upload or share some text from your screenplay";
+                
+                // Update step 13 placeholder for screenplays
+                const step13Textarea = document.querySelector('#step13 textarea[name="personalMotivation"]');
+                if (step13Textarea) {
+                    step13Textarea.placeholder = "I tried selling my car on craigslist and met three of the strangest people ever...";
+                }
                 
                 // Hide statement type selection for screenplays
                 if (statementTypeGroup) {
