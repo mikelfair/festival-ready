@@ -939,6 +939,13 @@
                 
                 console.log('Loading submissions...');
                 
+                // Test if we can access processing_analytics table
+                console.log('Testing processing_analytics table access...');
+                const { count: analyticsCount, error: countError } = await window.supabase
+                    .from('processing_analytics')
+                    .select('*', { count: 'exact', head: true });
+                console.log('Processing analytics count:', analyticsCount, 'Error:', countError);
+                
                 // First, get all submissions
                 const { data: submissions, error: submissionsError } = await window.supabase
                     .from('submissions')
@@ -953,34 +960,62 @@
                 console.log('Raw submissions data:', submissions);
                 console.log('Number of raw submissions:', submissions ? submissions.length : 0);
                 
-                // Then, get all processing analytics data
+                // Then, get all processing analytics data with a simple query
                 const { data: analytics, error: analyticsError } = await window.supabase
                     .from('processing_analytics')
-                    .select('submission_id, estimated_cost');
+                    .select('*');
                 
                 if (analyticsError) {
                     console.error('Analytics query error:', analyticsError);
-                    // Don't throw error here, just log it and continue without cost data
-                    console.log('Continuing without cost data...');
+                    console.log('Continuing without cost data from processing_analytics...');
                 }
                 
                 console.log('Processing analytics data:', analytics);
+                console.log('Number of analytics records:', analytics ? analytics.length : 0);
                 
                 // Create a map of submission_id to cost for quick lookup
                 const costMap = {};
-                if (analytics) {
+                if (analytics && analytics.length > 0) {
                     analytics.forEach(analytic => {
-                        console.log('Mapping:', analytic.submission_id, '→', analytic.estimated_cost);
-                        costMap[analytic.submission_id] = analytic.estimated_cost;
+                        // Convert estimated_cost to number and ensure it's valid
+                        const cost = parseFloat(analytic.estimated_cost) || 0;
+                        console.log('Mapping:', analytic.submission_id, '→', cost, '(raw:', analytic.estimated_cost, ')');
+                        costMap[analytic.submission_id] = cost;
                     });
                 }
                 
                 console.log('Cost map:', costMap);
                 console.log('Number of entries in cost map:', Object.keys(costMap).length);
+                console.log('Sample cost map entries:', Object.entries(costMap).slice(0, 5));
+                
+                // Function to calculate estimated cost based on tokens (fallback)
+                function calculateEstimatedCost(submission) {
+                    // GPT-4 pricing: $0.03 per 1K tokens (input) + $0.06 per 1K tokens (output)
+                    // Using average of $0.045 per 1K tokens
+                    const pricePerThousandTokens = 0.045;
+                    
+                    // If we have token data in the submission
+                    if (submission.total_tokens) {
+                        return (submission.total_tokens / 1000) * pricePerThousandTokens;
+                    }
+                    
+                    // Otherwise estimate based on content length
+                    const contentLength = (submission.title?.length || 0) + 
+                                        (submission.synopsis?.length || 0) + 
+                                        (submission.tagline?.length || 0);
+                    const estimatedTokens = contentLength / 4; // Rough estimate: 1 token ≈ 4 characters
+                    return (estimatedTokens / 1000) * pricePerThousandTokens;
+                }
                 
                 // Merge the data manually
                 const data = submissions.map(submission => {
-                    const cost = costMap[submission.id] || 0;
+                    let cost = costMap[submission.id] || 0;
+                    
+                    // If no cost found, try to calculate it
+                    if (cost === 0) {
+                        cost = calculateEstimatedCost(submission);
+                    }
+                    
                     console.log(`Submission ${submission.id} (${submission.title}) → cost: ${cost}`);
                     return {
                         ...submission,
