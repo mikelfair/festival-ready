@@ -44,7 +44,7 @@
         header::before{
             content:'';
             position:absolute;inset:0;
-            background:url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            background:url('https://images.unsplash.com/photo-1506157786151-b8491531f063?w=1920&h=1080&fit=crop&crop=center&sat=-100&brightness=-50') center/cover,linear-gradient(135deg,rgba(102,126,234,.9) 0%,rgba(118,75,162,.9) 100%);
             animation:float 20s ease-in-out infinite;
         }
         @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-20px)}}
@@ -68,9 +68,12 @@
         }
         .tool-button{
             background:rgba(255,255,255,.15);color:#fff;border:2px solid rgba(255,255,255,.3);
-            padding:15px 20px;border-radius:12px;font-size:1rem;font-weight:600;
+            padding:20px 15px;border-radius:12px;font-size:1rem;font-weight:600;
             cursor:pointer;transition:.3s;backdrop-filter:blur(10px);
-            text-align:center;
+            text-align:center;line-height:1.3;
+        }
+        .tool-button small{
+            font-size:0.8rem;opacity:0.8;font-weight:400;
         }
         .tool-button:hover{
             background:rgba(255,255,255,.25);border-color:rgba(255,255,255,.5);
@@ -242,8 +245,9 @@
             .biography-coming-soon{padding:25px;margin:20px 10px;}
             .email-capture-form{flex-direction:column;gap:15px;}
             .email-capture-form input{min-width:auto;width:100%;}
-            .tools-grid{grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;}
-            .tool-button{padding:12px 15px;font-size:.9rem;}
+            .tools-grid{grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;}
+            .tool-button{padding:15px 10px;font-size:.85rem;}
+            .tool-button small{font-size:.7rem;}
         }
     </style>
 </head>
@@ -252,25 +256,29 @@
     <header>
         <div class="container">
             <div class="hero-content">
-                <h1 class="logo">🎬 Festival Ready <span class="beta-badge">BETA&nbsp;v3</span></h1>
+                <h1 class="logo">Festival Ready <span class="beta-badge">BETA&nbsp;v3</span></h1>
                 <p class="hero-question">Need an industry standard tagline, synopsis, statement, and biography for your film festival submissions?</p>
-                <p class="tagline">The following tools will be live soon. Create any of the following:</p>
+                <p class="tagline">Create professional submission materials that festival programmers expect:</p>
                 
                 <div class="tools-grid">
-                    <button class="tool-button" onclick="comingSoon('Writer\'s Statement')">📝 Writer's Statement</button>
-                    <button class="tool-button" onclick="comingSoon('Director\'s Statement')">🎬 Director's Statement</button>
-                    <button class="tool-button" onclick="comingSoon('Producer\'s Statement')">🎭 Producer's Statement</button>
-                    <button class="tool-button" onclick="comingSoon('Actor\'s Statement')">🎪 Actor's Statement</button>
-                    <button class="tool-button" onclick="comingSoon('Writer\'s Biography')">📚 Writer's Biography</button>
-                    <button class="tool-button" onclick="comingSoon('Director\'s Biography')">🎥 Director's Biography</button>
-                    <button class="tool-button" onclick="comingSoon('Actor\'s Biography')">🌟 Actor's Biography</button>
-                    <button class="tool-button" onclick="comingSoon('Producer\'s Biography')">🎯 Producer's Biography</button>
-                    <button class="tool-button" onclick="comingSoon('Film Synopsis')">🎞️ Film Synopsis</button>
-                    <button class="tool-button" onclick="comingSoon('Screenplay Synopsis')">📖 Screenplay Synopsis</button>
-                    <button class="tool-button" onclick="comingSoon('Tagline')">🏷️ Tagline</button>
+                    <button class="tool-button" onclick="comingSoon('Writer\'s Statement')">Writer's Statement<br><small>Personal Project Motivation</small></button>
+                    <button class="tool-button" onclick="comingSoon('Director\'s Statement')">Director's Statement<br><small>Artistic Vision & Approach</small></button>
+                    <button class="tool-button" onclick="comingSoon('Producer\'s Statement')">Producer's Statement<br><small>Project Development & Goals</small></button>
+                    <button class="tool-button" onclick="comingSoon('Actor\'s Statement')">Actor's Statement<br><small>Character & Performance Insights</small></button>
+                    <button class="tool-button" onclick="comingSoon('Writer\'s Biography')">Writer's Biography<br><small>Professional Background & Credits</small></button>
+                    <button class="tool-button" onclick="comingSoon('Director\'s Biography')">Director's Biography<br><small>Filmmaking Experience & Style</small></button>
+                    <button class="tool-button" onclick="comingSoon('Actor\'s Biography')">Actor's Biography<br><small>Performance History & Training</small></button>
+                    <button class="tool-button" onclick="comingSoon('Producer\'s Biography')">Producer's Biography<br><small>Industry Experience & Achievements</small></button>
+                    <button class="tool-button" onclick="comingSoon('Film Synopsis')">Film Synopsis<br><small>Completed Project Summary</small></button>
+                    <button class="tool-button" onclick="comingSoon('Screenplay Synopsis')">Screenplay Synopsis<br><small>Script Story Summary</small></button>
+                    <button class="tool-button" onclick="comingSoon('Series Synopsis')">Series Synopsis<br><small>TV/Web Series Overview</small></button>
+                    <button class="tool-button" onclick="comingSoon('Tagline')">Tagline</button>
                 </div>
                 
-                <p style="margin-top: 30px; font-size: 1rem; opacity: 0.8;">Current complex system being rebuilt into simple, dedicated tools</p>
+                <div style="margin-top: 40px; background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px; backdrop-filter: blur(10px);">
+                    <p style="margin: 0 0 10px 0; font-size: 1rem; font-weight: 600;">Trusted by Festival Programmers</p>
+                    <p style="margin: 0; font-size: 0.9rem; opacity: 0.9;">These tools are being developed in partnership with the Austin Comedy Film Festival and other industry professionals to ensure submissions meet current festival standards.</p>
+                </div>
             </div>
         </div>
     </header>
