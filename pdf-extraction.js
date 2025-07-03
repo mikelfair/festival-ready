@@ -1,231 +1,119 @@
-// Festival Ready v3.0 - Shared PDF Extraction Utility
-// Used across all 12 tools for script/document upload
-
-// Configure PDF.js worker
-pdfjsLib.GlobalWorkerOptions.workerSrc = 
-  'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-
-/**
- * Extract text content from a PDF file
- * @param {File} file - The PDF file to extract text from
- * @returns {Promise<string>} - Extracted text content
- */
-async function extractTextFromPDF(file) {
-  try {
-    const arrayBuffer = await file.arrayBuffer();
-    const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
-    
-    let fullText = '';
-    
-    // Extract text from all pages
-    for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
-      const page = await pdf.getPage(pageNum);
-      const textContent = await page.getTextContent();
-      
-      // Combine text items with proper spacing
-      const pageText = textContent.items
-        .map(item => item.str)
-        .join(' ')
-        .replace(/\s+/g, ' ') // Normalize whitespace
-        .trim();
-      
-      if (pageText) {
-        fullText += pageText + '\n\n';
-      }
-    }
-    
-    return fullText.trim();
-  } catch (error) {
-    console.error('PDF extraction error:', error);
-    throw new Error('Failed to extract text from PDF. Please ensure the file is a valid PDF document.');
-  }
+// PDF.js library - load from CDN
+if (!window.pdfjsLib) {
+    const script = document.createElement('script');
+    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.12.313/pdf.min.js';
+    script.onload = function() {
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.12.313/pdf.worker.min.js';
+    };
+    document.head.appendChild(script);
 }
 
-/**
- * Initialize PDF upload functionality for a form
- * @param {string} fileInputId - ID of the file input element
- * @param {string} textAreaId - ID of the textarea to populate with extracted text
- * @param {number} maxLength - Maximum character length (optional)
- */
-function initializePDFUpload(fileInputId, textAreaId, maxLength = null) {
-  const fileInput = document.getElementById(fileInputId);
-  const textArea = document.getElementById(textAreaId);
-  const dropZone = fileInput.closest('.file-upload-area') || fileInput.parentElement;
-  
-  if (!fileInput || !textArea) {
-    console.error('PDF upload initialization failed: elements not found');
-    return;
-  }
+// Global variable to store extracted text
+window.extractedPDFText = null;
 
-  // File input change handler
-  fileInput.addEventListener('change', handleFileSelect);
-  
-  // Drag and drop handlers
-  if (dropZone) {
-    dropZone.addEventListener('dragover', handleDragOver);
-    dropZone.addEventListener('dragleave', handleDragLeave);
-    dropZone.addEventListener('drop', handleDrop);
-  }
-
-  function handleFileSelect(event) {
-    const file = event.target.files[0];
-    if (file) {
-      processFile(file);
-    }
-  }
-
-  function handleDragOver(event) {
-    event.preventDefault();
-    event.stopPropagation();
-    dropZone.classList.add('drag-over');
-  }
-
-  function handleDragLeave(event) {
-    event.preventDefault();
-    event.stopPropagation();
-    dropZone.classList.remove('drag-over');
-  }
-
-  function handleDrop(event) {
-    event.preventDefault();
-    event.stopPropagation();
-    dropZone.classList.remove('drag-over');
-    
-    const files = event.dataTransfer.files;
-    if (files.length > 0) {
-      const file = files[0];
-      fileInput.files = files; // Update the file input
-      processFile(file);
-    }
-  }
-
-  async function processFile(file) {
-    // Validate file type
-    if (file.type !== 'application/pdf') {
-      showError('Please select a PDF file.');
-      return;
-    }
-
-    // Validate file size (max 10MB)
-    if (file.size > 10 * 1024 * 1024) {
-      showError('File size must be less than 10MB.');
-      return;
-    }
-
-    // Show loading state
-    const originalPlaceholder = textArea.placeholder;
-    textArea.placeholder = 'Extracting text from PDF...';
-    textArea.disabled = true;
-
-    try {
-      const extractedText = await extractTextFromPDF(file);
-      
-      if (!extractedText.trim()) {
-        showError('No text could be extracted from this PDF. Please ensure it contains readable text.');
+// Setup PDF upload functionality
+function setupPDFUpload(uploadArea, fileInput, fileInfo) {
+    // This function is called from the HTML pages to set up the upload area
+    if (!uploadArea || !fileInput || !fileInfo) {
+        console.warn('PDF upload elements not found');
         return;
-      }
+    }
+    
+    // File input change handler is set up in the HTML
+    console.log('PDF upload functionality initialized');
+}
 
-      // Truncate if necessary
-      let finalText = extractedText;
-      if (maxLength && extractedText.length > maxLength) {
-        finalText = extractedText.substring(0, maxLength);
-        showInfo(`Text was truncated to ${maxLength} characters. Original length: ${extractedText.length} characters.`);
-      }
-
-      // Populate textarea
-      textArea.value = finalText;
-      textArea.placeholder = originalPlaceholder;
-      
-      // Trigger any character count updates
-      textArea.dispatchEvent(new Event('input'));
-      
-      showSuccess(`Successfully extracted ${finalText.length} characters from PDF.`);
-      
+// Extract text from PDF file
+async function extractTextFromPDF(file, fileInfoElement) {
+    if (!file || file.type !== 'application/pdf') {
+        alert('Please select a valid PDF file.');
+        return;
+    }
+    
+    try {
+        // Show file info
+        if (fileInfoElement) {
+            fileInfoElement.style.display = 'block';
+            fileInfoElement.innerHTML = `
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <div style="width: 20px; height: 20px; border: 2px solid #667eea; border-top: 2px solid transparent; border-radius: 50%; animation: spin 1s linear infinite;"></div>
+                    <span>Extracting text from ${file.name}...</span>
+                </div>
+                <style>
+                    @keyframes spin {
+                        0% { transform: rotate(0deg); }
+                        100% { transform: rotate(360deg); }
+                    }
+                </style>
+            `;
+        }
+        
+        // Wait for PDF.js to load if needed
+        let attempts = 0;
+        while (!window.pdfjsLib && attempts < 50) {
+            await new Promise(resolve => setTimeout(resolve, 100));
+            attempts++;
+        }
+        
+        if (!window.pdfjsLib) {
+            throw new Error('PDF.js library failed to load');
+        }
+        
+        // Read file as array buffer
+        const arrayBuffer = await file.arrayBuffer();
+        
+        // Load PDF document
+        const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+        
+        let fullText = '';
+        
+        // Extract text from each page
+        for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+            const page = await pdf.getPage(pageNum);
+            const textContent = await page.getTextContent();
+            
+            const pageText = textContent.items.map(item => item.str).join(' ');
+            fullText += pageText + '\n';
+        }
+        
+        // Clean up the text
+        fullText = fullText.trim().replace(/\s+/g, ' ');
+        
+        if (fullText.length === 0) {
+            throw new Error('No text found in PDF');
+        }
+        
+        // Store extracted text globally
+        window.extractedPDFText = fullText;
+        
+        // Show success info
+        if (fileInfoElement) {
+            const wordCount = fullText.split(/\s+/).length;
+            const charCount = fullText.length;
+            
+            fileInfoElement.innerHTML = `
+                <div style="color: #28a745;">
+                    <strong>✓ PDF processed successfully</strong><br>
+                    <small>${file.name} - ${wordCount} words, ${charCount} characters</small>
+                </div>
+            `;
+        }
+        
+        console.log('PDF text extracted successfully:', fullText.substring(0, 200) + '...');
+        
     } catch (error) {
-      showError(error.message);
-    } finally {
-      textArea.disabled = false;
-      textArea.placeholder = originalPlaceholder;
+        console.error('PDF extraction error:', error);
+        
+        if (fileInfoElement) {
+            fileInfoElement.innerHTML = `
+                <div style="color: #e74c3c;">
+                    <strong>⚠ Error processing PDF</strong><br>
+                    <small>${error.message}</small>
+                </div>
+            `;
+        }
+        
+        // Clear any stored text
+        window.extractedPDFText = null;
     }
-  }
-
-  function showError(message) {
-    showMessage(message, 'error');
-  }
-
-  function showSuccess(message) {
-    showMessage(message, 'success');
-  }
-
-  function showInfo(message) {
-    showMessage(message, 'info');
-  }
-
-  function showMessage(message, type) {
-    // Remove existing messages
-    const existingMessages = document.querySelectorAll('.pdf-message');
-    existingMessages.forEach(msg => msg.remove());
-
-    // Create message element
-    const messageDiv = document.createElement('div');
-    messageDiv.className = `pdf-message pdf-message-${type}`;
-    messageDiv.textContent = message;
-    
-    // Insert after file input
-    fileInput.parentNode.insertBefore(messageDiv, fileInput.nextSibling);
-    
-    // Auto-remove after 5 seconds for success/info messages
-    if (type !== 'error') {
-      setTimeout(() => {
-        messageDiv.remove();
-      }, 5000);
-    }
-  }
-}
-
-/**
- * Character counter for textareas with PDF support
- * @param {string} textAreaId - ID of the textarea
- * @param {number} maxLength - Maximum character length
- * @param {string} counterId - ID of the counter display element
- */
-function initializeCharacterCounter(textAreaId, maxLength, counterId) {
-  const textArea = document.getElementById(textAreaId);
-  const counter = document.getElementById(counterId);
-  
-  if (!textArea || !counter) {
-    console.error('Character counter initialization failed: elements not found');
-    return;
-  }
-
-  function updateCounter() {
-    const currentLength = textArea.value.length;
-    const remaining = maxLength - currentLength;
-    
-    counter.textContent = `${currentLength}/${maxLength}`;
-    
-    // Add warning classes
-    counter.classList.remove('warning', 'error');
-    if (remaining < 100) {
-      counter.classList.add('warning');
-    }
-    if (remaining < 0) {
-      counter.classList.add('error');
-    }
-  }
-
-  // Update on input
-  textArea.addEventListener('input', updateCounter);
-  
-  // Initial update
-  updateCounter();
-}
-
-// Export functions for use in other scripts
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = {
-    extractTextFromPDF,
-    initializePDFUpload,
-    initializeCharacterCounter
-  };
 }
