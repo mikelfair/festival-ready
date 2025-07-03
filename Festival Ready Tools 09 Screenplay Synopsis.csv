@@ -1,0 +1,80 @@
+Database,Screenplay Synopsis
+Audience,Not Used
+Characters,"Tell us about the main characters in this submission. Example: Martha 34 year old teacher, James 12 year old student"
+Community,Not Used
+Country,Not Used
+Duration,What is the page length of your script including the cover page?
+Email,Please enter your email address. (the user must enter it twice to ensure accuracy. Can you disable copy/paste?)
+First Name,Please enter your first name.
+Genre,"What is the genre to of your project? Click on all that apply. Action, Comedy, Drama, Experimental, Fantasy, Horror, Music Video, Sci-Fi, Suspense Thriller"
+Goals,Not Used
+Inspirations Creative,Not Used
+Inspirations People,Not Used
+Last Name,Please enter your last name.
+Learning,Not Used
+Location,Not Used
+Marketing,Would you like to receive 1 email per month about updates to this app and about our latest film festival submission discounts?
+Music,Not Used
+Non Film Industry Experience,Not Used
+Plot,"Highlight the plot, stakes or challenges faced by the main characters?"
+Project Location,Where does the story take place?
+Project Title,What is the title of this project?
+Project Type,Is this project a standalone work or is it an episode in an ongoing series?
+Relevant Work Experience,Not Used
+Role,Not Used
+Screenings / Awards,Not Used
+Script Text,"Please upload your script or use the box below to tell us what the story is about. (character arcs, events, beginning, climax, time perieod, ending, etc ...)  "
+Standard AI Prompt Screenplay Synopsis,"SCREENPLAY SYNOPSIS GENERATOR
+STANDARD AI Screenplay Synopsis Generator
+Create a screenplay synopsis following this exact structure:
+Step-by-Step Instructions:
+
+Start with: ""In [genre], [main character] must [central goal] when [inciting incident]...""
+Paragraph 2: Introduce the main obstacle and antagonist (if applicable)
+Paragraph 3: Describe the escalating conflict and major turning point
+Final sentence: Hint at the climax without revealing the resolution
+
+Requirements:
+
+Length: 200-250 words total
+Format: 3-4 short paragraphs
+Reading level: 9th grade (clear, concise sentences)
+Include: Logline essence, protagonist's arc, central conflict
+Exclude: Ending, subplots, fields marked ""Not Used""
+
+Checklist Before Submitting:
+✓ Genre clearly identified
+✓ Protagonist's goal stated
+✓ Antagonist/obstacle defined
+✓ Stakes are clear
+✓ Story structure evident
+✓ Under 250 words
+✓ Professional tone"
+Premium AI Prompt Screenplay Synopsis,"PREMIUM AI Screenplay Synopsis Generator
+Craft a compelling screenplay synopsis that demonstrates both story mastery and market potential.
+Strategic Approach:
+Transform the screenplay elements into a synopsis that serves multiple purposes: showcasing the story's unique voice, demonstrating clear three-act structure, highlighting commercial appeal, and revealing character transformation without giving away the ending.
+Sophisticated Requirements:
+
+Opening Impact: Establish the story world and protagonist's status quo with economy and intrigue
+Conflict Architecture: Layer external and internal conflicts to show depth
+Character Journey: Track the protagonist's evolution through escalating challenges
+Thematic Resonance: Weave in universal themes without being heavy-handed
+Market Positioning: Subtly indicate comparable films through tone and structure
+
+Industry Considerations:
+
+Write for readers who see hundreds of scripts
+Balance originality with proven story structures
+Demonstrate visual storytelling potential
+Show awareness of production feasibility
+Create ""elevator pitch"" moments within the synopsis
+
+Technical Parameters:
+
+Target 225 words with flexibility (200-250) for narrative coherence
+Maintain professional industry tone while showcasing voice
+Structure reveals without spoiling
+Every sentence must earn its place
+
+Note: Protect confidential elements and exclude ""Not Used"" fields."

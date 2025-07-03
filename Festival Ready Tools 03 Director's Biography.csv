@@ -1,0 +1,79 @@
+Database,Director's Biography
+Audience,Not Used
+Characters,Not Used
+Community,"In your own words, creatively do you feel like you career is focused on serving a particular audience? Autism Awareness, Latin community, LGBTQ community, Black Community, Religious Community, Family Programming, Environmental awareness? A political community? no preference?"
+Country,What country are you in?
+Duration,Not Used
+Email,Please enter your email address. (the user must enter it twice to ensure accuracy. Can you disable copy/paste?)
+First Name,Please enter your first name.
+Genre,"Do you have any personal favorite genres? Click on all that apply. Action, Comedy, Drama, Experimental, Fantasy, Horror, Music Video, Sci-Fi, Suspense Thriller"
+Goals,"In the future, what are you working towards, any goals? Example: Direct a big budget theatrical films or streaming programs. Join the Director's Guild,  etc .."
+Inspirations Creative,"Name at least two creative works that inspired you to become a director? Example: Indiana Jones, Shrek, Game of Thrones, Ghostbusters, Animal Kingdom, etc ... "
+Inspirations People,"Name at least two creative people that inspired you to become a director? Example: Guillermo Del Toro, Amanda Tapping, Spike Lee, Greta Gerwig ... "
+Last Name,Please enter your last name.
+Learning,Not Used
+Location,What city or state are you in?
+Marketing,Would you like to receive 1 email per month about updates to this app and about our latest film festival submission discounts?
+Music,Not Used
+Non Film Industry Experience,"What are some of the non film/tv industry jobs or experiences that you've had, that helped shape your creative vision?"
+Plot,Not Used
+Project Location,Not Used
+Project Title,Not Used
+Project Type,Not Used
+Relevant Work Experience,"What are some of the film/tv industry projects that you've worked on, that you're very proud of. "
+Role,Not Used
+Screenings / Awards,"List any film festival selections, award nominations or award winners in your career that you are proud of."
+Script Text,Not Used
+Standard AI Prompt Director's Biography,"STANDARD AI Director's Biography Generator
+Create a professional director biography following this structure:
+Step-by-Step Instructions:
+
+Opening: ""[First Name] [Last Name] is a director from [Location] whose work...""
+Include their directorial inspirations
+Highlight key projects and achievements
+Close with vision and future aspirations
+
+Required Elements:
+
+Name and location
+Creative influences (people and films)
+Proudest directorial work
+Festival selections or awards
+Future directing goals
+Genre preferences
+
+Requirements:
+
+Length: 150-200 words exactly
+Style: Third person, professional
+Tone: Visionary yet grounded
+Exclude: Fields marked ""Not Used""
+
+Biography Template:
+[Name] is a director... [influences]... [notable work]... [recognition]... [future vision]...  "
+Premium AI Prompt Director's Biography,"PREMIUM AI Director's Biography Generator
+Craft a director biography that reveals both artistic vision and professional trajectory.
+Cinematic Narrative:
+Build a biography that mirrors great storytelling—establishing character, revealing influences, showcasing growth through conflict (challenges), and pointing toward future resolution (goals).
+Sophisticated Elements:
+
+Visual Voice: Convey their directorial style through biography prose
+Influence Integration: Show how inspirations transformed into unique perspective
+Career Highlights: Position achievements as artistic evolution
+Cross-Pollination: Reveal how non-film experiences enhance their directing
+Visionary Future: Frame goals as natural extension of their journey
+
+Directorial Presence:
+
+Project confidence without arrogance
+Show collaborative spirit alongside singular vision
+Balance commercial awareness with artistic integrity
+Connect technical skill to emotional intelligence
+Build credibility through specific achievements
+
+Technical Parameters:
+
+Target 175 words (150-200 range)
+Maintain director's perspective in third person
+Structure mirrors their directorial approach
+Each element reinforces their unique brand"

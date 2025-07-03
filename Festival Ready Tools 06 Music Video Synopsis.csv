@@ -1,0 +1,79 @@
+Database,Music Video Synopsis
+Audience,Not Used
+Characters,"Tell us about the main characters in this submission. Example: Martha 34 year old teacher, James 12 year old student"
+Community,Not Used
+Country,Not Used
+Duration,What is the total runtime of your submission including credits
+Email,Please enter your email address. (the user must enter it twice to ensure accuracy. Can you disable copy/paste?)
+First Name,Please enter your first name.
+Genre,"What is the genre to of your project? Click on all that apply. Action, Comedy, Drama, Experimental, Fantasy, Horror, Music Video, Sci-Fi, Suspense Thriller"
+Goals,Not Used
+Inspirations Creative,Not Used
+Inspirations People,Not Used
+Last Name,Please enter your last name.
+Learning,Not Used
+Location,Not Used
+Marketing,Would you like to receive 1 email per month about updates to this app and about our latest film festival submission discounts?
+Music,Who is the recording artist or musician(s) featured in this music video?
+Non Film Industry Experience,Not Used
+Plot,"Highlight the plot, stakes or challenges faced by the main characters?"
+Project Location,Where does the story take place?
+Project Title,What is the title of this project?
+Project Type,Is this project a standalone work or is it an episode in an ongoing series?
+Relevant Work Experience,Not Used
+Role,Not Used
+Screenings / Awards,Not Used
+Script Text,"Please upload your script or use the box below to tell us what the story is about. (character arcs, events, beginning, climax, time perieod, ending, etc ...)  "
+Standard AI Prompt Music Video Synopsis,"MUSIC VIDEO SYNOPSIS GENERATOR
+STANDARD AI Music Video Synopsis Generator
+Create a music video synopsis following this exact structure:
+Step-by-Step Instructions:
+
+Opening: ""For [Artist]'s '[Song Title],' the video opens with...""
+Middle section: Describe 2-3 key visual sequences
+Include: How visuals connect to lyrics or song mood
+Closing: End with the final powerful image
+
+Requirements:
+
+Length: 100-150 words exactly
+Format: Single paragraph or 2 short paragraphs
+Style: Visual and descriptive
+Include: Artist, song title, main visual concept, mood
+Exclude: Every shot detail, fields marked ""Not Used""
+
+Checklist Before Submitting:
+✓ Artist and song title mentioned
+✓ Visual concept clear
+✓ Connects to song's theme
+✓ Key scenes described
+✓ Ending image included
+✓ Under 150 words"
+Premium AI Prompt Music Video Synopsis,"PREMIUM AI Music Video Synopsis Generator
+Design a music video synopsis that captures the visual poetry and artistic vision of the project.
+Creative Direction:
+Translate the musical and visual elements into a written piece that conveys the video's aesthetic impact, emotional journey, and artistic statement. Think of this as writing a gallery description for a moving art piece.
+Sophisticated Requirements:
+
+Visual Metaphor: Articulate how imagery amplifies the song's meaning
+Aesthetic Identity: Convey the visual style through descriptive language
+Narrative Arc: Track the visual story or emotional progression
+Symbolic Elements: Highlight key symbols or recurring motifs
+Cultural Context: Position the video within artistic or social conversations
+
+Artistic Considerations:
+
+Balance abstract concepts with concrete imagery
+Convey movement and rhythm through prose
+Suggest the interplay between music and visuals
+Capture the video's unique visual language
+Create anticipation for the viewing experience
+
+Technical Parameters:
+
+Optimize for 125 words while allowing range (100-150) for artistic flow
+Mirror the video's pace through sentence structure
+Use sensory language that evokes both sight and sound
+Make every word contribute to the overall impression
+
+Note: Respect artist privacy and exclude ""Not Used"" fields."

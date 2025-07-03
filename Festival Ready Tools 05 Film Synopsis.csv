@@ -1,0 +1,72 @@
+Database,Film Synopsis
+Audience,Not Used
+Characters,"Tell us about the main characters in this submission. Example: Martha 34 year old teacher, James 12 year old student"
+Community,Not Used
+Country,Not Used
+Duration,What is the total runtime of your submission including credits
+Email,Please enter your email address. (the user must enter it twice to ensure accuracy. Can you disable copy/paste?)
+First Name,Please enter your first name.
+Genre,"What is the genre to of your project? Click on all that apply. Action, Comedy, Drama, Experimental, Fantasy, Horror, Music Video, Sci-Fi, Suspense Thriller"
+Goals,Not Used
+Inspirations Creative,Not Used
+Inspirations People,Not Used
+Last Name,Please enter your last name.
+Learning,Not Used
+Location,Not Used
+Marketing,Would you like to receive 1 email per month about updates to this app and about our latest film festival submission discounts?
+Music,Not Used
+Non Film Industry Experience,Not Used
+Plot,"Highlight the plot, stakes or challenges faced by the main characters?"
+Project Location,Where does the story take place?
+Project Title,What is the title of this project?
+Project Type,Is this project a standalone work or is it an episode in an ongoing series?
+Relevant Work Experience,Not Used
+Role,Not Used
+Screenings / Awards,Not Used
+Script Text,"Please upload your script or use the box below to tell us what the story is about. (character arcs, events, beginning, climax, time perieod, ending, etc ...)  "
+Standard AI Prompt Film Synopsis,"STANDARD AI Film Synopsis Generator
+Create a film synopsis following this exact structure:
+Step-by-Step Instructions:
+
+Start with: ""[Film Title] follows [main character name], a [character description]...""
+In sentence 2-3: Establish the genre and setting
+In sentence 4-6: Describe the main conflict and what's at stake
+Final sentence: End with ""Will [character] be able to [goal]?"" or similar question
+
+Requirements:
+
+Length: 150-200 words exactly
+Reading level: 9th grade (short sentences, common words)
+Include: Character name, genre, conflict, stakes
+Exclude: Ending, spoilers, fields marked ""Not Used""
+Format: Single paragraph
+
+Checklist Before Submitting:
+✓ Film title in first sentence
+✓ Genre is clear
+✓ Main character introduced
+✓ Conflict explained
+✓ Ends with a question
+✓ Under 200 words"
+Premium AI Prompt Film Synopsis,"PREMIUM AI Film Synopsis Generator
+Craft a cinematic synopsis that captures the essence of the film while building irresistible intrigue.
+Creative Direction:
+Transform the provided information into a synopsis that functions as a written movie trailer—balancing revelation with mystery, establishing tone through language choices, and creating emotional investment in the character's journey.
+Sophisticated Requirements:
+
+Opening Hook: Weave the title organically into an opening that immediately establishes stakes
+Genre Immersion: Convey genre through atmosphere and word choice rather than explicit labels
+Character Depth: Present protagonists as complex individuals facing impossible choices
+Escalating Tension: Build momentum through increasingly dire consequences
+Psychological Hook: Conclude with a question that taps into universal human fears or desires
+
+Technical Parameters:
+
+Optimize for 200 words while allowing flexibility (175-225) for narrative flow
+Maintain 9th-grade readability without sacrificing sophistication
+Balance accessibility with cinematic language
+Create subtext that rewards careful readers
+
+Marketing Psychology:
+Consider how each sentence contributes to the viewer's decision to watch. What emotional buttons are you pressing? What universal themes are you invoking? How does the rhythm of your prose mirror the film's pacing?
+Note: Exclude ""Not Used"" fields and protect user privacy throughout."

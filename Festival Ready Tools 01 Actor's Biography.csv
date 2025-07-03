@@ -1,0 +1,79 @@
+Database,Actor's Biography
+Audience,Not Used
+Characters,Not Used
+Community,"In your own words, creatively do you feel like you career is focused on serving a particular audience? Autism Awareness, Latin community, LGBTQ community, Black Community, Religious Community, Family Programming, Environmental awareness? A political community? no preference?"
+Country,What country are you in?
+Duration,Not Used
+Email,Please enter your email address. (the user must enter it twice to ensure accuracy. Can you disable copy/paste?)
+First Name,Please enter your first name.
+Genre,"Do you have any personal favorite genres? Click on all that apply. Action, Comedy, Drama, Experimental, Fantasy, Horror, Music Video, Sci-Fi, Suspense Thriller"
+Goals,"In the future, what are you working towards, any goals? Example: Act in major feature films or major streaming programs, Join the Screen Actors Guild,  etc .."
+Inspirations Creative,"Name at least two creative works that inspired you to become an actor? Example: Indiana Jones, Shrek, Game of Thrones, Ghostbusters, Animal Kingdom, etc ... "
+Inspirations People,"Name at least two creative people that inspired you to become an actor? Example: Jennifer Lopez, Tom Hanks, Julia Roberts, Denzel Washington ... "
+Last Name,Please enter your last name.
+Learning,Not Used
+Location,What city or state are you in?
+Marketing,Would you like to receive 1 email per month about updates to this app and about our latest film festival submission discounts?
+Music,Not Used
+Non Film Industry Experience,"What are some of the non film/tv industry jobs or experiences that you've had, that helped shape your creative vision"
+Plot,Not Used
+Project Location,Not Used
+Project Title,Not Used
+Project Type,Not Used
+Relevant Work Experience,"What are some of the film/tv industry projects that you've worked on, that you're very proud of. "
+Role,Not Used
+Screenings / Awards,"List any film festival selections, award nominations or award winners in your career that you are proud of."
+Script Text,Not Used
+Standard AI Prompt Actor's Biography,"STANDARD AI Actor's Biography Generator
+Create a professional actor biography following this structure:
+Step-by-Step Instructions:
+
+Opening: ""[First Name] [Last Name] is an actor based in [Location] who...""
+Include their creative inspirations and influences
+Mention relevant work experience and achievements
+Close with future goals and community focus
+
+Required Elements:
+
+Name and location
+Key inspirations (people and works)
+Notable projects they're proud of
+Awards or festival selections
+Future career aspirations
+Community they serve (if applicable)
+
+Requirements:
+
+Length: 150-200 words exactly
+Style: Third person, professional
+Tone: Confident but not boastful
+Exclude: Fields marked ""Not Used""
+
+Biography Template:
+[Name] is an actor... [inspirations]... [experience]... [achievements]... [future goals]..."
+Premium AI Prompt Actor's Biography,"PREMIUM AI Actor's Biography Generator
+Craft a compelling actor biography that captures both professional accomplishments and artistic soul.
+Narrative Architecture:
+Create a biography that reads like a journey—from initial inspiration through current achievements to future aspirations. Weave together the threads of influence, experience, and purpose to reveal an artist in motion.
+Sophisticated Elements:
+
+Origin Story: Elegantly incorporate what drew them to acting
+Career Arc: Show progression through experiences (both industry and life)
+Artistic Identity: Reveal their unique perspective shaped by diverse influences
+Community Connection: Naturally integrate their commitment to specific audiences
+Forward Momentum: Position current achievements as stepping stones to bigger dreams
+
+Crafting Considerations:
+
+Balance humility with earned confidence
+Use specific details to create memorability
+Show range through variety of experiences
+Connect non-industry background to creative strengths
+Build toward future without dismissing present
+
+Technical Parameters:
+
+Target 175 words (150-200 range)
+Third person throughout
+Every sentence advances the narrative
+Create a complete picture in limited space"

@@ -1,0 +1,81 @@
+Database,Writer's Biography
+Audience,Not Used
+Characters,Not Used
+Community,"In your own words, creatively do you feel like you career is focused on serving a particular audience? Autism Awareness, Latin community, LGBTQ community, Black Community, Religious Community, Family Programming, Environmental awareness? A political community? no preference?"
+Country,What country are you in?
+Duration,Not Used
+Email,Please enter your email address. (the user must enter it twice to ensure accuracy. Can you disable copy/paste?)
+First Name,Please enter your first name.
+Genre,"Do you have any personal favorite genres? Click on all that apply. Action, Comedy, Drama, Experimental, Fantasy, Horror, Music Video, Sci-Fi, Suspense Thriller"
+Goals,"In the future, what are you working towards, any goals? Example: Join a major studio writers room, write a novel, Join the Writer's Guild,  etc .."
+Inspirations Creative,"Name at least two creative works that inspired you to become a writer? Example: Indiana Jones, Shrek, Game of Thrones, Ghostbusters, Animal Kingdom, etc ... "
+Inspirations People,"Name at least two creative people that inspired you to become a writer? Example: Suzanne Collins, George RR Martin, Melissa Rosenberg, Jordan Peele ... "
+Last Name,Please enter your last name.
+Learning,Not Used
+Location,What city or state are you in?
+Marketing,Would you like to receive 1 email per month about updates to this app and about our latest film festival submission discounts?
+Music,Not Used
+Non Film Industry Experience,"What are some of the non film/tv industry jobs or experiences that you've had, that helped shape your creative vision"
+Plot,Not Used
+Project Location,Not Used
+Project Title,Not Used
+Project Type,Not Used
+Relevant Work Experience,"What are some of the film/tv industry projects that you've worked on, that you're very proud of. "
+Role,Not Used
+Screenings / Awards,"List any film festival selections, award nominations or award winners in your career that you are proud of."
+Script Text,Not Used
+Standard AI Prompt Writer's Biography,"STANDARD AI Writer's Biography Generator
+Create a professional writer biography following this structure:
+Step-by-Step Instructions:
+
+Opening: ""[First Name] [Last Name] is a writer from [Location] who...""
+Include their writing inspirations
+Mention significant writing credits
+Close with future writing aspirations
+
+Required Elements:
+
+Name and location
+Literary/screen influences (people and works)
+Notable writing projects
+Recognitions or awards
+Future writing goals
+Genre specialties
+
+Requirements:
+
+Length: 150-200 words exactly
+Style: Third person, professional
+Tone: Literary yet accessible
+Exclude: Fields marked ""Not Used""
+
+Biography Template:
+[Name] is a writer... [influences]... [credits]... [recognition]... [aspirations]...
+
+"
+Premium AI Prompt Writer's Biography,"PREMIUM AI Writer's Biography Generator
+Craft a writer biography that captures both voice and vision.
+Story of a Storyteller:
+Create a biography that demonstrates mastery of language while revealing the unique perspective this writer brings to their work. The biography itself should showcase their writing ability.
+Sophisticated Elements:
+
+Voice Emergence: Show how influences merged into original style
+Thematic Threads: Reveal consistent interests across works
+Experience Alchemy: Transform life experiences into creative fuel
+Genre Fluency: Demonstrate range or deep expertise
+Future Chapters: Frame goals as natural story progression
+
+Writer's Craft:
+
+Let prose style reflect their writing approach
+Balance intellectual depth with accessibility
+Show both discipline and imagination
+Connect diverse experiences to storytelling power
+Build anticipation for future works
+
+Technical Parameters:
+
+Target 175 words (150-200 range)
+Third person with writer's flair
+Every word chosen deliberately
+Structure creates satisfying narrative arc"
