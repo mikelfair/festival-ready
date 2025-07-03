@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Director's Biography - Festival Ready v3.0</title>
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-F2CSZ9KX52"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-F2CSZ9KX52');
+    </script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .header p {
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+        
+        .form-container {
+            padding: 40px;
+        }
+        
+        .form-group {
+            margin-bottom: 30px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+            font-size: 1.1rem;
+        }
+        
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e1e5e9;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+            font-family: inherit;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        
+        .char-count {
+            text-align: right;
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .char-count.warning {
+            color: #e74c3c;
+        }
+        
+        .required {
+            color: #e74c3c;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            width: 100%;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+        
+        .checkbox-group input[type="checkbox"] {
+            width: auto;
+            margin-top: 3px;
+        }
+        
+        .checkbox-group label {
+            margin-bottom: 0;
+            font-weight: 400;
+            flex: 1;
+        }
+        
+        .upload-area {
+            border: 2px dashed #667eea;
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            background: rgba(102, 126, 234, 0.05);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .upload-area:hover {
+            background: rgba(102, 126, 234, 0.1);
+        }
+        
+        .upload-area.dragover {
+            background: rgba(102, 126, 234, 0.15);
+            border-color: #764ba2;
+        }
+        
+        .upload-text {
+            color: #667eea;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .upload-subtext {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .file-info {
+            background: rgba(102, 126, 234, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+        
+        .honeypot {
+            position: absolute;
+            left: -9999px;
+            opacity: 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="book-banner-container"></div>
+    
+    <div class="container">
+        <div class="header">
+            <h1>🎬 Director's Biography</h1>
+            <p>Create a professional director's biography for film festival submissions</p>
+        </div>
+        
+        <div class="form-container">
+            <form id="directorsForm">
+                <!-- Honeypot field -->
+                <input type="text" name="website" class="honeypot" tabindex="-1" autocomplete="off">
+                
+                <div class="form-group">
+                    <label for="directorName">Director's Full Name <span class="required">*</span></label>
+                    <input type="text" id="directorName" name="directorName" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="filmTitle">Current Film/Project Title <span class="required">*</span></label>
+                    <input type="text" id="filmTitle" name="filmTitle" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email Address <span class="required">*</span></label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="yearsExperience">Years of Directing Experience</label>
+                    <select id="yearsExperience" name="yearsExperience">
+                        <option value="">Select experience level</option>
+                        <option value="0-1">0-1 years (First-time director)</option>
+                        <option value="2-5">2-5 years</option>
+                        <option value="6-10">6-10 years</option>
+                        <option value="11-15">11-15 years</option>
+                        <option value="16+">16+ years</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="education">Film Education/Training Background</label>
+                    <textarea id="education" name="education" placeholder="Film schools, workshops, mentorships, self-taught experience, etc."></textarea>
+                    <div class="char-count" id="educationCount">0 characters</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="previousWorks">Previous Directing Credits</label>
+                    <textarea id="previousWorks" name="previousWorks" placeholder="List your previous films, shorts, music videos, commercials, etc. Include titles, years, and any notable achievements or screenings."></textarea>
+                    <div class="char-count" id="previousWorksCount">0 characters</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="awards">Awards and Recognition</label>
+                    <textarea id="awards" name="awards" placeholder="Film festival awards, industry recognition, grants, residencies, etc."></textarea>
+                    <div class="char-count" id="awardsCount">0 characters</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="directingStyle">Directing Style and Influences</label>
+                    <textarea id="directingStyle" name="directingStyle" placeholder="Describe your visual style, thematic interests, directorial influences, and what makes your approach unique."></textarea>
+                    <div class="char-count" id="directingStyleCount">0 characters</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="currentProjects">Current and Upcoming Projects</label>
+                    <textarea id="currentProjects" name="currentProjects" placeholder="What you're working on now or planning next. Include development stage, production status, etc."></textarea>
+                    <div class="char-count" id="currentProjectsCount">0 characters</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="personalBackground">Personal Background (Optional)</label>
+                    <textarea id="personalBackground" name="personalBackground" placeholder="Hometown, other career backgrounds, interests outside of film that inform your work, etc."></textarea>
+                    <div class="char-count" id="personalBackgroundCount">0 characters</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="existingBio">Upload Existing Biography (Optional)</label>
+                    <div class="upload-area" onclick="document.getElementById('bioUpload').click()">
+                        <div class="upload-text">📄 Click to upload or drag & drop</div>
+                        <div class="upload-subtext">PDF files only</div>
+                    </div>
+                    <input type="file" id="bioUpload" name="bioUpload" accept=".pdf" style="display: none;">
+                    <div id="fileInfo" class="file-info" style="display: none;"></div>
+                </div>
+                
+                <div class="checkbox-group">
+                    <input type="checkbox" id="marketingOptIn" name="marketingOptIn">
+                    <label for="marketingOptIn">
+                        I'd like to receive updates about Festival Ready features, film industry news, and submission opportunities. You can unsubscribe anytime.
+                    </label>
+                </div>
+                
+                <button type="submit" class="submit-btn" id="submitBtn">
+                    Generate Professional Director's Biography
+                </button>
+            </form>
+        </div>
+    </div>
+    
+    <script src="pdf-extraction.js"></script>
+    <script src="book-banner.js"></script>
+    <script>
+        // Initialize book banner
+        createBookBanner('book-banner-container', 'directors-biography');
+        
+        // Character counting
+        const textareas = ['education', 'previousWorks', 'awards', 'directingStyle', 'currentProjects', 'personalBackground'];
+        
+        textareas.forEach(id => {
+            const textarea = document.getElementById(id);
+            const counter = document.getElementById(id + 'Count');
+            
+            textarea.addEventListener('input', function() {
+                const count = this.value.length;
+                counter.textContent = `${count} characters`;
+                
+                if (count > 2000) {
+                    counter.classList.add('warning');
+                } else {
+                    counter.classList.remove('warning');
+                }
+            });
+        });
+        
+        // PDF upload handling
+        const uploadArea = document.querySelector('.upload-area');
+        const fileInput = document.getElementById('bioUpload');
+        const fileInfo = document.getElementById('fileInfo');
+        
+        setupPDFUpload(uploadArea, fileInput, fileInfo);
+        
+        // Form submission
+        document.getElementById('directorsForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Check honeypot
+            if (document.querySelector('input[name="website"]').value) {
+                return;
+            }
+            
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Processing...';
+            
+            // Collect form data
+            const formData = new FormData(this);
+            const submissionData = Object.fromEntries(formData.entries());
+            
+            // Add extracted PDF text if available
+            if (window.extractedPDFText) {
+                submissionData.existingBioText = window.extractedPDFText;
+            }
+            
+            try {
+                // Google Analytics tracking
+                gtag('event', 'form_submit', {
+                    'event_category': 'Tool_Usage',
+                    'event_label': 'directors-biography',
+                    'value': 1
+                });
+                
+                // Store data for processing selection
+                sessionStorage.setItem('directorsbiographyData', JSON.stringify(submissionData));
+                
+                // Redirect to processing selection
+                window.location.href = 'processing-selection.html?tool=directors-biography';
+                
+            } catch (error) {
+                console.error('Submission error:', error);
+                alert('There was an error processing your submission. Please try again.');
+                
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Generate Professional Director\'s Biography';
+            }
+        });
+        
+        // Drag and drop functionality
+        uploadArea.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            this.classList.add('dragover');
+        });
+        
+        uploadArea.addEventListener('dragleave', function(e) {
+            e.preventDefault();
+            this.classList.remove('dragover');
+        });
+        
+        uploadArea.addEventListener('drop', function(e) {
+            e.preventDefault();
+            this.classList.remove('dragover');
+            
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                fileInput.files = files;
+                handleFileUpload(files[0]);
+            }
+        });
+        
+        function handleFileUpload(file) {
+            if (file && file.type === 'application/pdf') {
+                extractTextFromPDF(file, fileInfo);
+            }
+        }
+        
+        fileInput.addEventListener('change', function(e) {
+            if (e.target.files.length > 0) {
+                handleFileUpload(e.target.files[0]);
+            }
+        });
+    </script>
+</body>
+</html>
