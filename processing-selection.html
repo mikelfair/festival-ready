@@ -502,7 +502,14 @@
                 });
                 
                 if (!response.ok) {
-                    throw new Error(`HTTP ${response.status}: ${await response.text()}`);
+                    const errorText = await response.text();
+                    console.error('Supabase API Error:', {
+                        status: response.status,
+                        statusText: response.statusText,
+                        body: errorText,
+                        submissionData: submissionData
+                    });
+                    throw new Error(`HTTP ${response.status}: ${errorText}`);
                 }
                 
                 const submission = await response.json();
@@ -543,6 +550,8 @@
                 
             } catch (error) {
                 console.error('Submission error:', error);
+                console.error('Tool data:', toolData);
+                console.error('Tool type:', toolType);
                 
                 // Track error
                 gtag('event', 'submission_error', {
@@ -551,8 +560,8 @@
                     'error': error.message
                 });
                 
-                // Show error and restore form
-                alert('There was an error processing your submission. Please try again or contact support.');
+                // Show detailed error for debugging
+                alert(`There was an error processing your submission: ${error.message}\n\nPlease check the browser console for more details or contact support.`);
                 
                 document.getElementById('loadingContainer').style.display = 'none';
                 document.getElementById('optionsContainer').style.display = 'grid';
