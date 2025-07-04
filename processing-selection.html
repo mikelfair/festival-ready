@@ -461,7 +461,7 @@
                     selectedTier = 'standard';
                 }
                 
-                // Prepare submission data - map form fields to database columns using v3.0 30 approved fields
+                // Prepare submission data - map form fields to actual database columns in submissions_v3
                 const submissionData = {
                     // Personal Information
                     first_name: toolData.first_name,
@@ -472,26 +472,20 @@
                     // Project Information
                     project_title: toolData.project_title,
                     project_type: toolData.project_type,
-                    project_duration: toolData.project_duration,
                     story_location: toolData.story_location,
                     
-                    // Content Fields
-                    main_characters: toolData.main_characters,
-                    main_challenge: toolData.main_challenge,
+                    // Content Fields (map to actual database column names)
+                    characters: toolData.main_characters,
+                    plot: toolData.main_challenge,
                     script_text: toolData.script_text,
-                    script_upload_text: toolData.script_upload_text,
+                    uploaded_script_text: toolData.script_upload_text,
                     
                     // Arrays and Lists
                     genres: Array.isArray(toolData.genres) ? toolData.genres : [toolData.genres],
                     
                     // Meta Information
                     country: toolData.country,
-                    update_emails: toolData.marketing === 'on',
-                    
-                    // Processing settings
-                    use_new_ai: true,
-                    submission_type: getSubmissionType(toolType),
-                    status: 'pending'
+                    marketing: toolData.marketing === 'on'
                 };
                 
                 // Submit to Supabase
