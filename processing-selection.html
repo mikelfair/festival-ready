@@ -464,11 +464,9 @@
                 // Prepare submission data
                 const submissionData = {
                     ...toolData,
-                    tool_type: toolType,
-                    processing_tier: selectedTier,
                     use_new_ai: true,
                     submission_type: getSubmissionType(toolType),
-                    created_at: new Date().toISOString()
+                    status: 'pending'
                 };
                 
                 // Submit to Supabase
