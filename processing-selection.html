@@ -461,36 +461,44 @@
                     selectedTier = 'standard';
                 }
                 
-                // Prepare submission data - map form fields to database columns
+                // Prepare submission data - map form fields to database columns using v3.0 30 approved fields
                 const submissionData = {
-                    // Basic info
+                    // Personal Information
+                    first_name: toolData.first_name,
+                    last_name: toolData.last_name,
                     email: toolData.email,
-                    title: toolData.projectTitle,
-                    country: toolData.country,
+                    person_location: toolData.person_location,
                     
-                    // Form-specific mappings
-                    main_characters: toolData.characters,
-                    main_challenge: toolData.plot,
-                    script_text: toolData.scriptText,
-                    additional_details: toolData.scriptUploadText,
-                    genres: Array.isArray(toolData.genre) ? toolData.genre : [toolData.genre],
+                    // Project Information
+                    project_title: toolData.project_title,
+                    project_type: toolData.project_type,
+                    project_duration: toolData.project_duration,
+                    story_location: toolData.story_location,
+                    
+                    // Content Fields
+                    main_characters: toolData.main_characters,
+                    main_challenge: toolData.main_challenge,
+                    script_text: toolData.script_text,
+                    script_upload_text: toolData.script_upload_text,
+                    
+                    // Arrays and Lists
+                    genres: Array.isArray(toolData.genres) ? toolData.genres : [toolData.genres],
+                    
+                    // Meta Information
+                    country: toolData.country,
+                    update_emails: toolData.marketing === 'on',
                     
                     // Processing settings
                     use_new_ai: true,
                     submission_type: getSubmissionType(toolType),
-                    status: 'pending',
-                    update_emails: toolData.marketing === 'on',
-                    
-                    // Add other fields based on tool type
-                    ...(toolData.music && { additional_details: `Recording Artist: ${toolData.music}\n${toolData.scriptText || ''}` }),
-                    ...(toolData.duration && { additional_details: `Duration: ${toolData.duration}\n${toolData.additional_details || toolData.scriptText || ''}` })
+                    status: 'pending'
                 };
                 
                 // Submit to Supabase
                 const supabaseUrl = 'https://vmfhxkfprrbshwniguaq.supabase.co';
                 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZtZmh4a2ZwcnJic2h3bmlndWFxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk2ODYxNTcsImV4cCI6MjA2NTI2MjE1N30.k0OdvFzcO1nwZzxsgLPcQBeSITmV6dA_ncXpN0cpAgQ';
                 
-                const response = await fetch(`${supabaseUrl}/rest/v1/submissions`, {
+                const response = await fetch(`${supabaseUrl}/rest/v1/submissions_v3`, {
                     method: 'POST',
                     headers: {
                         'Authorization': `Bearer ${supabaseKey}`,
@@ -520,7 +528,7 @@
                 }
                 
                 // Trigger processing
-                const processResponse = await fetch(`${supabaseUrl}/functions/v1/process-screenplay`, {
+                const processResponse = await fetch(`${supabaseUrl}/functions/v1/v3-process-submission`, {
                     method: 'POST',
                     headers: {
                         'Authorization': `Bearer ${supabaseKey}`,
