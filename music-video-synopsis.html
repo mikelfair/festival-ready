@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Screenplay Synopsis Generator - Festival Ready v3.0</title>
+    <title>Music Video Synopsis Generator - Festival Ready v3.0</title>
     
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-F2CSZ9KX52"></script>
@@ -181,14 +181,14 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>📝 Screenplay Synopsis Generator</h1>
-            <p>Generate an industry-standard synopsis for your screenplay submission</p>
+            <h1>🎵 Music Video Synopsis Generator</h1>
+            <p>Craft a compelling synopsis for your music video project</p>
         </div>
         
         <div class="content">
             <a href="index.html" class="back-link">← Back to Festival Ready</a>
             
-            <form id="screenplaySynopsisForm">
+            <form id="musicVideoSynopsisForm">
                 <div class="form-section">
                     <h3>Personal Information</h3>
                     <div class="form-row">
@@ -215,46 +215,52 @@
                 </div>
                 
                 <div class="form-section">
-                    <h3>Screenplay Details</h3>
-                    <div class="form-group">
-                        <label for="title">Screenplay Title *</label>
-                        <input type="text" id="title" name="title" required>
+                    <h3>Music Video Details</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="title">Video/Song Title *</label>
+                            <input type="text" id="title" name="title" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="music">Recording Artist</label>
+                            <input type="text" id="music" name="music" placeholder="Artist or band name">
+                        </div>
                     </div>
                     
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="characters">Main Characters</label>
-                            <input type="text" id="characters" name="characters" placeholder="e.g., Sarah (protagonist), Mike (antagonist)">
+                            <label for="characters">Characters/Performers</label>
+                            <input type="text" id="characters" name="characters" placeholder="e.g., Lead vocalist, supporting dancers">
                         </div>
                         <div class="form-group">
-                            <label for="duration">Script Page Length (including cover page)</label>
-                            <input type="number" id="duration" name="duration" placeholder="120">
+                            <label for="duration">Duration (runtime in minutes)</label>
+                            <input type="number" id="duration" name="duration" placeholder="4" step="0.1">
                         </div>
                     </div>
                     
                     <div class="form-group">
-                        <label for="plot">Plot Summary</label>
-                        <textarea id="plot" name="plot" placeholder="Brief description of your screenplay's main storyline and conflict"></textarea>
+                        <label for="plot">Visual Concept/Storyline</label>
+                        <textarea id="plot" name="plot" placeholder="Describe the visual concept, storyline, or artistic vision of your music video"></textarea>
                     </div>
                     
                     <div class="form-group">
-                        <label for="projectLocation">Setting/Location</label>
-                        <input type="text" id="projectLocation" name="projectLocation" placeholder="Where does your story take place?">
+                        <label for="projectLocation">Filming Location</label>
+                        <input type="text" id="projectLocation" name="projectLocation" placeholder="Where was the video filmed?">
                     </div>
                     
                     <div class="form-group">
-                        <label for="scriptText">Additional Script/Story Details</label>
-                        <textarea id="scriptText" name="scriptText" placeholder="Any additional context about your story that would help create a compelling synopsis"></textarea>
+                        <label for="scriptText">Creative Details</label>
+                        <textarea id="scriptText" name="scriptText" placeholder="Additional creative elements, artistic choices, or visual style details"></textarea>
                     </div>
                     
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="writers">Writer(s)</label>
-                            <input type="text" id="writers" name="writers" placeholder="Name(s) of writer(s)">
+                            <label for="directors">Director(s)</label>
+                            <input type="text" id="directors" name="directors" placeholder="Name(s) of director(s)">
                         </div>
                         <div class="form-group">
-                            <label for="genres">Genre(s)</label>
-                            <input type="text" id="genres" name="genres" placeholder="Drama, Comedy, Thriller, etc.">
+                            <label for="genres">Music Genre</label>
+                            <input type="text" id="genres" name="genres" placeholder="Pop, Rock, Hip-Hop, etc.">
                         </div>
                     </div>
                     
@@ -271,7 +277,7 @@
     
     <script>
         // Form validation and submission
-        const form = document.getElementById('screenplaySynopsisForm');
+        const form = document.getElementById('musicVideoSynopsisForm');
         const email = document.getElementById('email');
         const emailConfirm = document.getElementById('emailConfirm');
         const emailError = document.getElementById('emailError');
@@ -314,22 +320,22 @@
             }
             
             // Store data in sessionStorage
-            sessionStorage.setItem('screenplaysynopsisData', JSON.stringify(data));
+            sessionStorage.setItem('musicvideosynopsisData', JSON.stringify(data));
             
             // Track form submission
             gtag('event', 'form_submit', {
-                'event_category': 'Screenplay_Synopsis',
+                'event_category': 'Music_Video_Synopsis',
                 'event_label': 'form_completed',
                 'value': 1
             });
             
             // Redirect to processing selection
-            window.location.href = 'processing-selection.html?tool=screenplay-synopsis';
+            window.location.href = 'processing-selection.html?tool=music-video-synopsis';
         });
         
         // Track page view
         gtag('event', 'page_view', {
-            'event_category': 'Screenplay_Synopsis',
+            'event_category': 'Music_Video_Synopsis',
             'event_label': 'form_loaded',
             'value': 1
         });
