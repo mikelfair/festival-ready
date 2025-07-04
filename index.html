@@ -19,7 +19,7 @@
     <meta property="og:title" content="Festival Ready - Optimize Your Film Festival Submission">
     <meta property="og:description" content="AI-powered tool that creates compelling taglines, synopses, and festival recommendations for your screenplay">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://apps.filmfestivalcircuit.com/">
+    <meta property="og:url" content="https://festival-ready.com">
 
     <style>
         /* ========== Global ========== */
@@ -59,7 +59,7 @@
             box-shadow:0 8px 25px rgba(255,107,107,.3);text-decoration:none;
         }
         .cta-button:hover{transform:translateY(-3px);box-shadow:0 12px 35px rgba(255,107,107,.4);background:#ff5252;}
-        .beta-badge{background:#28a745;color:#fff;font-size:.6rem;padding:4px 8px;border-radius:10px;margin-left:10px;}
+        .beta-badge{background:#ff6b6b;color:#fff;font-size:.6rem;padding:4px 8px;border-radius:10px;margin-left:10px;}
         
         /* ========== Tools Grid ========== */
         .tools-grid{
@@ -70,14 +70,14 @@
             background:rgba(255,255,255,.15);color:#fff;border:2px solid rgba(255,255,255,.3);
             padding:20px 15px;border-radius:12px;font-size:1rem;font-weight:600;
             cursor:pointer;transition:.3s;backdrop-filter:blur(10px);
-            text-align:center;line-height:1.3;text-decoration:none;display:block;
+            text-align:center;line-height:1.3;
         }
         .tool-button small{
             font-size:0.8rem;opacity:0.8;font-weight:400;
         }
         .tool-button:hover{
             background:rgba(255,255,255,.25);border-color:rgba(255,255,255,.5);
-            transform:translateY(-2px);box-shadow:0 8px 25px rgba(0,0,0,.2);color:#fff;
+            transform:translateY(-2px);box-shadow:0 8px 25px rgba(0,0,0,.2);
         }
 
         /* ========== Sections (How It Works / Authority / Feedback / Social) ========== */
@@ -155,6 +155,8 @@
         }
         .submit-feedback:hover{background:#ff5252;transform:translateY(-2px);box-shadow:0 8px 20px rgba(255,107,107,.4);}
 
+
+
         /* ========== Book Banner (static) ========== */
         .book-banner-container{
             width:100%;
@@ -186,6 +188,8 @@
             .feedback-box{padding:25px;margin:20px 10px;}
             .feedback-forms{grid-template-columns:1fr;gap:15px;}
             .star{font-size:1.8rem;}
+            .share-buttons{gap:10px;}
+            .share-btn{padding:10px 15px;font-size:.8rem;}
             .book-banner-container{padding:15px 5px;}
             .problems-grid{grid-template-columns:1fr;gap:20px;}
             .faq-grid{grid-template-columns:1fr;gap:20px;}
@@ -200,26 +204,26 @@
     <header>
         <div class="container">
             <div class="hero-content">
-                <h1 class="logo">Festival Ready <span class="beta-badge">LIVE&nbsp;v3.0</span></h1>
+                <h1 class="logo">Festival Ready <span class="beta-badge">BETA&nbsp;v3.0</span></h1>
                 <p class="hero-question">Need an industry standard tagline, synopsis, statement, and biography for your film festival submissions?</p>
                 <p class="tagline">Create professional submission materials that festival programmers expect:</p>
                 
                 <div class="tools-grid">
-                    <a class="tool-button" href="tagline-generator.html">✨ Tagline Generator</a>
-                    <a class="tool-button" href="short-synopsis.html">📝 Short Synopsis<br><small>50-100 words</small></a>
-                    <a class="tool-button" href="medium-synopsis.html">📄 Medium Synopsis<br><small>100-200 words</small></a>
-                    <a class="tool-button" href="long-synopsis.html">📋 Long Synopsis<br><small>200-400 words</small></a>
-                    <a class="tool-button" href="actors-biography.html">🎭 Actor's Biography</a>
-                    <a class="tool-button" href="directors-biography.html">🎬 Director's Biography</a>
-                    <a class="tool-button" href="producers-biography.html">💼 Producer's Biography</a>
-                    <a class="tool-button" href="writers-biography.html">✍️ Writer's Biography</a>
-                    <a class="tool-button" href="actors-statement.html">🎭 Actor's Statement</a>
-                    <a class="tool-button" href="directors-statement.html">🎬 Director's Statement</a>
-                    <a class="tool-button" href="producers-statement.html">💼 Producer's Statement</a>
-                    <a class="tool-button" href="writers-statement.html">✍️ Writer's Statement</a>
+                    <button class="tool-button" onclick="openTool('tagline-generator.html')">Tagline</button>
+                    <button class="tool-button" onclick="openTool('film-synopsis.html')">Film Synopsis</button>
+                    <button class="tool-button" onclick="openTool('screenplay-synopsis.html')">Screenplay Synopsis</button>
+                    <button class="tool-button" onclick="openTool('music-video-synopsis.html')">Music Video Synopsis</button>
+                    <button class="tool-button" onclick="openTool('actors-biography.html')">Actor's Biography</button>
+                    <button class="tool-button" onclick="openTool('directors-biography.html')">Director's Biography</button>
+                    <button class="tool-button" onclick="openTool('producers-biography.html')">Producer's Biography</button>
+                    <button class="tool-button" onclick="openTool('writers-biography.html')">Writer's Biography</button>
+                    <button class="tool-button" onclick="openTool('actors-statement.html')">Actor's Statement</button>
+                    <button class="tool-button" onclick="openTool('directors-statement.html')">Director's Statement</button>
+                    <button class="tool-button" onclick="openTool('producers-statement.html')">Producer's Statement</button>
+                    <button class="tool-button" onclick="openTool('writers-statement.html')">Writer's Statement</button>
                 </div>
                 
-                <p style="margin-top: 15px; font-size: 1rem; opacity: 0.9;">Click on any tool above to create professional festival submission materials</p>
+                <p style="margin-top: 15px; font-size: 1rem; opacity: 0.9;">Click on any of these buttons to generate materials for your film festival submission</p>
                 
                 <div style="margin-top: 40px; background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px; backdrop-filter: blur(10px);">
                     <img src="./images/austin-comedy-hero.png" alt="Trusted by Festival Programmers" style="max-width: 300px; margin-bottom: 10px;">
@@ -234,19 +238,19 @@
     <section class="how-it-works scroll-reveal">
         <div class="container">
             <h2 class="section-title">How It Works</h2>
-            <p class="section-subtitle">From creative work to submission-ready in three simple steps. Choose free standard processing or premium $4.99 processing with advanced AI.</p>
+            <p class="section-subtitle">From creative work to submission-ready in three simple steps. This is a free service. No credit card or account required.</p>
             <div class="steps">
                 <div class="step"><div class="step-number">1</div>
                     <h3>📝 Complete Questionnaire</h3>
-                    <p>Take 5-10 minutes to answer detailed questions about your project, background, and creative vision.</p>
+                    <p>Please take 5 minutes to answer a few questions about your festival submission.</p>
                 </div>
                 <div class="step"><div class="step-number">2</div>
                     <h3>🤖 AI Processing</h3>
-                    <p>Choose standard (free) or premium ($4.99) processing. Our specialized AI prompts convert your answers into professional, festival-ready materials.</p>
+                    <p>Festival Director Mikel Fair has written a detailed AI prompt that will convert your answers into refined film industry standard materials.</p>
                 </div>
                 <div class="step"><div class="step-number">3</div>
                     <h3>📧 Fast Email Response</h3>
-                    <p>Receive your polished tagline, synopsis, statement or biography via email, ready to use for film festival submissions.</p>
+                    <p>Check your email inbox for a fresh new tagline, synopsis, statement or biography that you can use for your film festival submissions.</p>
                 </div>
             </div>
         </div>
@@ -346,7 +350,7 @@
                         <textarea id="positiveFeedback" placeholder="What do you love about Festival Ready? What's working well for you?"></textarea>
                     </div>
                     <div class="feedback-group">
-                        <label for="improvements">Suggested Improvements & Features</label>
+                        <label for="improvements">Suggested Improvements &amp; Features</label>
                         <textarea id="improvements" placeholder="What features would you like to see? How can we make this better?"></textarea>
                     </div>
                 </div>
@@ -354,6 +358,8 @@
             </div>
         </div>
     </section>
+
+
 
     <!-- Book Banner (now in normal flow) -->
     <div class="book-banner-container">
@@ -387,6 +393,11 @@
             if(typeof gtag!=='undefined'){gtag('event','click',{event_category:'button',event_label:name});}
         }
 
+        /* --- Donate link --- */
+        function openDonatePage(){
+            window.open('donate.html','_blank');trackButtonClick('Donation Page Opened');
+        }
+
         /* --- Star rating --- */
         let selectedRating=0;
         function initializeStarRating(){
@@ -418,6 +429,14 @@
             document.getElementById('positiveFeedback').value='';
             document.getElementById('improvements').value='';
             trackButtonClick('Feedback Submitted');
+        }
+
+
+
+        /* --- Open Tool Function --- */
+        function openTool(toolUrl) {
+            trackButtonClick(`Tool: ${toolUrl}`);
+            window.location.href = toolUrl;
         }
 
         /* --- Init on load --- */
