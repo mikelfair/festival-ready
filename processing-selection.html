@@ -29,7 +29,7 @@
         }
         
         .container {
-            max-width: 900px;
+            max-width: 800px;
             margin: 0 auto;
             background: white;
             border-radius: 20px;
@@ -55,140 +55,190 @@
             font-size: 1.1rem;
         }
         
-        .tiers-container {
+        .content {
             padding: 40px;
         }
         
-        .tiers {
+        .processing-options {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 30px;
             margin-bottom: 30px;
         }
         
-        .tier {
+        .option-card {
             border: 2px solid #e1e5e9;
             border-radius: 15px;
             padding: 30px;
             text-align: center;
-            cursor: pointer;
             transition: all 0.3s ease;
+            cursor: pointer;
             position: relative;
         }
         
-        .tier:hover {
+        .option-card:hover {
             border-color: #667eea;
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.2);
         }
         
-        .tier.selected {
+        .option-card.selected {
             border-color: #667eea;
-            background: rgba(102, 126, 234, 0.05);
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
         }
         
-        .tier-badge {
-            position: absolute;
-            top: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #28a745;
+        .option-badge {
+            background: #667eea;
             color: white;
-            padding: 5px 15px;
-            border-radius: 15px;
+            padding: 5px 12px;
+            border-radius: 20px;
             font-size: 0.8rem;
             font-weight: 600;
-        }
-        
-        .tier-badge.premium {
-            background: #ff6b6b;
-        }
-        
-        .tier h3 {
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-            color: #333;
-        }
-        
-        .tier .price {
-            font-size: 2rem;
-            font-weight: 700;
-            color: #667eea;
             margin-bottom: 15px;
         }
         
-        .tier .price .currency {
-            font-size: 1.2rem;
+        .option-price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
         }
         
-        .tier .description {
+        .option-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 15px;
+        }
+        
+        .option-description {
             color: #666;
+            line-height: 1.6;
             margin-bottom: 20px;
-            line-height: 1.5;
         }
         
-        .tier .features {
+        .option-features {
             list-style: none;
-            text-align: left;
+            padding: 0;
+            margin-bottom: 20px;
         }
         
-        .tier .features li {
-            padding: 8px 0;
-            color: #555;
+        .option-features li {
+            color: #666;
+            margin-bottom: 8px;
+            padding-left: 20px;
             position: relative;
-            padding-left: 25px;
         }
         
-        .tier .features li::before {
+        .option-features li::before {
             content: '✓';
             position: absolute;
             left: 0;
-            color: #28a745;
+            color: #667eea;
             font-weight: bold;
         }
         
-        .promo {
-            background: #fff3cd;
-            border: 1px solid #ffeaa7;
-            border-radius: 8px;
+        .premium-badge {
+            background: #ff6b6b;
+        }
+        
+        .premium-features li::before {
+            color: #ff6b6b;
+        }
+        
+        .promo-code {
+            background: rgba(255, 107, 107, 0.1);
+            border: 2px dashed #ff6b6b;
+            border-radius: 10px;
             padding: 15px;
             margin: 20px 0;
             text-align: center;
         }
         
-        .promo-code {
-            font-weight: 700;
-            color: #856404;
+        .promo-code-text {
+            color: #ff6b6b;
+            font-weight: 600;
             font-size: 1.1rem;
         }
         
-        .continue-btn {
+        .submit-btn {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border: none;
-            padding: 18px 40px;
-            border-radius: 12px;
+            padding: 16px 40px;
+            border-radius: 50px;
             font-size: 1.1rem;
             font-weight: 600;
             cursor: pointer;
-            transition: transform 0.3s ease;
+            transition: all 0.3s ease;
             width: 100%;
+            text-transform: uppercase;
+            letter-spacing: 1px;
             margin-top: 20px;
         }
         
-        .continue-btn:hover {
+        .submit-btn:hover {
             transform: translateY(-2px);
+            box-shadow: 0 12px 35px rgba(102, 126, 234, 0.4);
         }
         
-        .continue-btn:disabled {
+        .submit-btn:disabled {
             opacity: 0.6;
             cursor: not-allowed;
             transform: none;
         }
         
+        .tool-info {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .tool-info h3 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .tool-info p {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 40px;
+        }
+        
+        .loading-spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
         @media (max-width: 768px) {
-            .tiers {
+            .processing-options {
                 grid-template-columns: 1fr;
                 gap: 20px;
+            }
+            
+            .option-card {
+                padding: 20px;
+            }
+            
+            .option-price {
+                font-size: 2rem;
             }
         }
     </style>
@@ -196,150 +246,317 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>⚡ Choose Your Processing Tier</h1>
-            <p>Select the AI processing level that's right for your project</p>
+            <h1>🎬 Processing Selection</h1>
+            <p>Choose your AI processing tier for professional results</p>
         </div>
         
-        <div class="tiers-container">
-            <div class="tiers">
-                <div class="tier" id="standardTier" onclick="selectTier('standard')">
-                    <div class="tier-badge">FREE</div>
-                    <h3>Standard Processing</h3>
-                    <div class="price"><span class="currency">$</span>0</div>
-                    <div class="description">
-                        Professional quality content powered by Gemini 1.5 Flash
+        <div class="content">
+            <div class="tool-info">
+                <h3 id="toolTitle">Loading...</h3>
+                <p id="toolDescription">Preparing your submission for processing...</p>
+            </div>
+            
+            <div class="processing-options" id="optionsContainer">
+                <div class="option-card" data-tier="standard" onclick="selectOption('standard')">
+                    <div class="option-badge">RECOMMENDED</div>
+                    <div class="option-price">FREE</div>
+                    <div class="option-title">Standard Processing</div>
+                    <div class="option-description">
+                        AI-powered content generation using Gemini 1.5 Flash for fast, professional results.
                     </div>
-                    <ul class="features">
-                        <li>AI-powered content generation</li>
-                        <li>Professional formatting</li>
-                        <li>Email delivery</li>
-                        <li>Fast processing</li>
-                        <li>Industry-standard templates</li>
+                    <ul class="option-features">
+                        <li>Gemini 1.5 Flash AI</li>
+                        <li>Professional taglines</li>
+                        <li>Industry-standard synopsis</li>
+                        <li>Festival recommendations</li>
+                        <li>Email delivery in 2-5 minutes</li>
                     </ul>
                 </div>
                 
-                <div class="tier" id="premiumTier" onclick="selectTier('premium')">
-                    <div class="tier-badge premium">PREMIUM</div>
-                    <h3>Premium Processing</h3>
-                    <div class="price"><span class="currency">$</span>4.99</div>
-                    <div class="description">
-                        Enhanced content with advanced AI reasoning using Gemini 2.0 Pro
+                <div class="option-card" data-tier="premium" onclick="selectOption('premium')">
+                    <div class="option-badge premium-badge">PREMIUM</div>
+                    <div class="option-price">$4.99</div>
+                    <div class="option-title">Premium Processing</div>
+                    <div class="option-description">
+                        Advanced AI processing using Gemini 2.0 Pro for superior creative content and insights.
                     </div>
-                    <ul class="features">
-                        <li>Advanced AI model (Gemini 2.0 Pro)</li>
-                        <li>Deeper creative analysis</li>
-                        <li>More sophisticated language</li>
-                        <li>Enhanced storytelling insights</li>
-                        <li>Festival-specific optimization</li>
-                        <li>Priority processing</li>
+                    <ul class="option-features premium-features">
+                        <li>Gemini 2.0 Pro AI (Latest Model)</li>
+                        <li>Multiple creative tagline options</li>
+                        <li>Enhanced synopsis with deeper insights</li>
+                        <li>Advanced festival strategy</li>
+                        <li>Priority processing (under 1 minute)</li>
+                        <li>Extended character analysis</li>
                     </ul>
+                    
+                    <div class="promo-code">
+                        <div class="promo-code-text">
+                            Use code: <strong>FESTIVALREADY25</strong><br>
+                            for 25% off your first premium processing!
+                        </div>
+                    </div>
                 </div>
             </div>
             
-            <div class="promo">
-                <div class="promo-code">Use code: festivalready25 for 25% off!</div>
-                <div style="font-size: 0.9rem; color: #856404; margin-top: 5px;">Valid for premium processing</div>
-            </div>
-            
-            <button class="continue-btn" id="continueBtn" onclick="continueProcessing()" disabled>
-                Continue to Processing
+            <button class="submit-btn" id="submitBtn" onclick="processSubmission()" disabled>
+                Select an option to continue
             </button>
+            
+            <div class="loading" id="loadingContainer">
+                <div class="loading-spinner"></div>
+                <h3>Processing your submission...</h3>
+                <p>This usually takes 2-5 minutes. Please don't close this window.</p>
+            </div>
         </div>
     </div>
     
     <script>
         let selectedTier = null;
+        let toolData = null;
         let toolType = null;
-        let submissionData = null;
         
-        // Get tool type from URL
-        const urlParams = new URLSearchParams(window.location.search);
-        toolType = urlParams.get('tool');
-        
-        // Load submission data from sessionStorage
-        if (toolType) {
-            const storageKey = toolType.replace('-', '') + 'Data';
-            const storedData = sessionStorage.getItem(storageKey);
-            if (storedData) {
-                submissionData = JSON.parse(storedData);
+        // Tool descriptions
+        const toolDescriptions = {
+            'tagline-generator': {
+                title: '✨ Tagline Generator',
+                description: 'Generate memorable, marketable taglines optimized for 9th grade reading level (10-15 words)'
+            },
+            'film-synopsis': {
+                title: '🎬 Film Synopsis',
+                description: 'Create a professional synopsis for your completed film project'
+            },
+            'screenplay-synopsis': {
+                title: '📝 Screenplay Synopsis',
+                description: 'Generate an industry-standard synopsis for your screenplay submission'
+            },
+            'music-video-synopsis': {
+                title: '🎵 Music Video Synopsis',
+                description: 'Craft a compelling synopsis for your music video project'
+            },
+            'actors-biography': {
+                title: '🎭 Actor\'s Biography',
+                description: 'Create a professional career-focused actor\'s biography (150-200 words)'
+            },
+            'directors-biography': {
+                title: '🎬 Director\'s Biography',
+                description: 'Generate a professional career-focused director\'s biography (150-200 words)'
+            },
+            'producers-biography': {
+                title: '💼 Producer\'s Biography',
+                description: 'Create a professional career-focused producer\'s biography (150-200 words)'
+            },
+            'writers-biography': {
+                title: '✍️ Writer\'s Biography',
+                description: 'Generate a professional career-focused writer\'s biography (150-200 words)'
+            },
+            'actors-statement': {
+                title: '🎭 Actor\'s Statement',
+                description: 'Share your creative journey and connection to this specific project (200-250 words)'
+            },
+            'directors-statement': {
+                title: '🎬 Director\'s Statement',
+                description: 'Express your creative vision and directorial approach for this project (200-250 words)'
+            },
+            'producers-statement': {
+                title: '💼 Producer\'s Statement',
+                description: 'Share your production vision and strategic approach to this project (200-250 words)'
+            },
+            'writers-statement': {
+                title: '✍️ Writer\'s Statement',
+                description: 'Express your creative journey and connection to this specific story (200-250 words)'
             }
-        }
+        };
         
-        function selectTier(tier) {
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get tool type from URL parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            toolType = urlParams.get('tool');
+            
+            if (!toolType) {
+                alert('Error: No tool specified. Redirecting to homepage.');
+                window.location.href = 'index.html';
+                return;
+            }
+            
+            // Load tool data from sessionStorage
+            const storageKey = toolType.replace(/-/g, '') + 'Data';
+            const storedData = sessionStorage.getItem(storageKey);
+            
+            if (!storedData) {
+                alert('Error: No form data found. Please fill out the form again.');
+                window.location.href = toolType + '.html';
+                return;
+            }
+            
+            try {
+                toolData = JSON.parse(storedData);
+            } catch (error) {
+                alert('Error: Invalid form data. Please fill out the form again.');
+                window.location.href = toolType + '.html';
+                return;
+            }
+            
+            // Update tool info display
+            const toolInfo = toolDescriptions[toolType];
+            if (toolInfo) {
+                document.getElementById('toolTitle').textContent = toolInfo.title;
+                document.getElementById('toolDescription').textContent = toolInfo.description;
+            }
+            
+            // Track page view
+            gtag('event', 'page_view', {
+                'event_category': 'Processing_Selection',
+                'event_label': toolType,
+                'value': 1
+            });
+        });
+        
+        function selectOption(tier) {
             selectedTier = tier;
             
             // Update UI
-            document.querySelectorAll('.tier').forEach(t => t.classList.remove('selected'));
-            document.getElementById(tier + 'Tier').classList.add('selected');
+            document.querySelectorAll('.option-card').forEach(card => {
+                card.classList.remove('selected');
+            });
             
-            // Enable continue button
-            document.getElementById('continueBtn').disabled = false;
+            document.querySelector(`[data-tier="${tier}"]`).classList.add('selected');
             
-            // Google Analytics tracking
+            // Update submit button
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.disabled = false;
+            
+            if (tier === 'standard') {
+                submitBtn.textContent = 'Process with Standard AI (FREE)';
+            } else {
+                submitBtn.textContent = 'Process with Premium AI ($4.99)';
+            }
+            
+            // Track selection
             gtag('event', 'tier_selection', {
-                'event_category': 'Processing',
+                'event_category': 'Processing_Selection',
                 'event_label': tier,
+                'tool': toolType,
                 'value': tier === 'premium' ? 4.99 : 0
             });
         }
         
-        async function continueProcessing() {
-            if (!selectedTier || !submissionData) {
-                alert('Please select a processing tier.');
+        async function processSubmission() {
+            if (!selectedTier || !toolData) {
+                alert('Please select a processing option.');
                 return;
             }
             
-            const continueBtn = document.getElementById('continueBtn');
-            continueBtn.disabled = true;
-            continueBtn.textContent = 'Processing...';
+            // Show loading state
+            document.getElementById('optionsContainer').style.display = 'none';
+            document.getElementById('submitBtn').style.display = 'none';
+            document.getElementById('loadingContainer').style.display = 'block';
             
             try {
-                // Add processing tier and session ID to submission data
-                submissionData.processingTier = selectedTier;
-                submissionData.sessionId = Date.now().toString();
-                
+                // If premium tier selected, redirect to payment (Stripe)
                 if (selectedTier === 'premium') {
-                    // Redirect to Stripe for payment
-                    // This would integrate with your Stripe setup
-                    alert('Premium processing coming soon! For now, using standard processing.');
+                    // For now, we'll process with standard since Stripe isn't set up
+                    // In production, this would redirect to Stripe checkout
+                    alert('Premium processing coming soon! Processing with standard AI for now.');
                     selectedTier = 'standard';
-                    submissionData.processingTier = 'standard';
                 }
                 
-                // Process with the appropriate edge function
-                const functionName = 'process-' + toolType;
-                const response = await fetch(`https://your-project.supabase.co/functions/v1/${functionName}`, {
+                // Prepare submission data
+                const submissionData = {
+                    ...toolData,
+                    tool_type: toolType,
+                    processing_tier: selectedTier,
+                    use_new_ai: true,
+                    submission_type: getSubmissionType(toolType),
+                    created_at: new Date().toISOString()
+                };
+                
+                // Submit to Supabase
+                const supabaseUrl = 'https://vmfhxkfprrbshwniguaq.supabase.co';
+                const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZtZmh4a2ZwcnJic2h3bmlndWFxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk2ODYxNTcsImV4cCI6MjA2NTI2MjE1N30.k0OdvFzcO1nwZzxsgLPcQBeSITmV6dA_ncXpN0cpAgQ';
+                
+                const response = await fetch(`${supabaseUrl}/rest/v1/submissions`, {
                     method: 'POST',
                     headers: {
+                        'Authorization': `Bearer ${supabaseKey}`,
+                        'apikey': supabaseKey,
                         'Content-Type': 'application/json',
-                        'Authorization': 'Bearer your-anon-key'
+                        'Prefer': 'return=representation'
                     },
                     body: JSON.stringify(submissionData)
                 });
                 
-                if (response.ok) {
-                    const result = await response.json();
-                    // Redirect to thank you page
-                    window.location.href = 'thank-you.html?submission=' + result.submissionId;
-                } else {
-                    throw new Error('Processing failed');
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${await response.text()}`);
                 }
                 
-            } catch (error) {
-                console.error('Processing error:', error);
-                alert('There was an error processing your submission. Please try again.');
+                const submission = await response.json();
+                const submissionId = submission[0]?.id;
                 
-                continueBtn.disabled = false;
-                continueBtn.textContent = 'Continue to Processing';
+                if (!submissionId) {
+                    throw new Error('No submission ID returned');
+                }
+                
+                // Trigger processing
+                const processResponse = await fetch(`${supabaseUrl}/functions/v1/process-submission`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${supabaseKey}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ submissionId })
+                });
+                
+                if (!processResponse.ok) {
+                    throw new Error(`Processing failed: ${processResponse.status}`);
+                }
+                
+                // Track successful submission
+                gtag('event', 'submission_success', {
+                    'event_category': 'Processing',
+                    'event_label': toolType,
+                    'tier': selectedTier,
+                    'value': selectedTier === 'premium' ? 4.99 : 0
+                });
+                
+                // Clear stored data
+                const storageKey = toolType.replace(/-/g, '') + 'Data';
+                sessionStorage.removeItem(storageKey);
+                
+                // Redirect to thank you page
+                window.location.href = 'thank-you.html?tool=' + toolType + '&tier=' + selectedTier;
+                
+            } catch (error) {
+                console.error('Submission error:', error);
+                
+                // Track error
+                gtag('event', 'submission_error', {
+                    'event_category': 'Processing',
+                    'event_label': toolType,
+                    'error': error.message
+                });
+                
+                // Show error and restore form
+                alert('There was an error processing your submission. Please try again or contact support.');
+                
+                document.getElementById('loadingContainer').style.display = 'none';
+                document.getElementById('optionsContainer').style.display = 'grid';
+                document.getElementById('submitBtn').style.display = 'block';
             }
         }
         
-        // Auto-select standard tier if no selection made after 10 seconds
-        setTimeout(() => {
-            if (!selectedTier) {
-                selectTier('standard');
+        function getSubmissionType(toolType) {
+            if (toolType.includes('synopsis')) {
+                return toolType.replace('-synopsis', '');
+            } else if (toolType.includes('biography')) {
+                return 'biography';
+            } else if (toolType.includes('statement')) {
+                return 'statement';
+            } else if (toolType === 'tagline-generator') {
+                return 'tagline';
             }
-        }, 10000);
+            return 'unknown';
+        }
     </script>
 </body>
 </html>
