@@ -226,61 +226,52 @@
             font-size: 0.9rem;
         }
         
-        .info-box {
-            background: #f8f9fa;
-            border-left: 4px solid #667eea;
-            padding: 15px;
-            margin-bottom: 25px;
-            border-radius: 0 8px 8px 0;
+        .home-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
         }
         
-        .info-box h3 {
-            color: #333;
-            margin-bottom: 8px;
-            font-size: 1.1rem;
+        .home-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
         }
         
-        .info-box p {
-            color: #666;
-            line-height: 1.6;
-            margin-bottom: 8px;
-        }
-        
-        .info-box ul {
-            color: #666;
-            margin-left: 20px;
-        }
-        
-        .info-box li {
-            margin-bottom: 4px;
+        .personal-info-section {
+            background: rgba(102, 126, 234, 0.03);
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(102, 126, 234, 0.1);
         }
     </style>
 </head>
 <body>
+    <a href="index.html" class="home-button">← Home</a>
+    <div id="book-banner-container"></div>
+    
     <div class="container">
         <div class="header">
             <h1>✨ Tagline Generator</h1>
-            <p>Create memorable, marketable taglines optimized for 9th grade reading level (10-15 words)</p>
+            <p>Create a memorable, marketable tagline for your creative work that will generate interest in your work without revealing the plot.</p>
         </div>
         
         <div class="form-container">
-            <div class="info-box">
-                <h3>What Makes a Great Tagline?</h3>
-                <p>A compelling tagline should be:</p>
-                <ul>
-                    <li>10-15 words maximum</li>
-                    <li>Easy to understand (9th grade reading level)</li>
-                    <li>Memorable and catchy</li>
-                    <li>Emotionally engaging</li>
-                    <li>Captures the essence of your story</li>
-                </ul>
-            </div>
-            
-            <form id="taglineForm">
+            <form id="taglineGeneratorForm">
                 <!-- Honeypot field -->
                 <input type="text" name="website" class="honeypot" tabindex="-1" autocomplete="off">
                 
-                <div class="form-row">
+                <div class="personal-info-section">
+                    <div class="form-row">
                     <div class="form-group">
                         <label for="first_name">First Name <span class="required">*</span></label>
                         <input type="text" id="first_name" name="first_name" required>
@@ -310,12 +301,78 @@
                             <option value="United States">United States</option>
                             <option value="Canada">Canada</option>
                             <option value="United Kingdom">United Kingdom</option>
+                            <option value="Afghanistan">Afghanistan</option>
+                            <option value="Albania">Albania</option>
+                            <option value="Algeria">Algeria</option>
+                            <option value="Argentina">Argentina</option>
+                            <option value="Armenia">Armenia</option>
                             <option value="Australia">Australia</option>
-                            <option value="Germany">Germany</option>
+                            <option value="Austria">Austria</option>
+                            <option value="Azerbaijan">Azerbaijan</option>
+                            <option value="Bahrain">Bahrain</option>
+                            <option value="Bangladesh">Bangladesh</option>
+                            <option value="Belarus">Belarus</option>
+                            <option value="Belgium">Belgium</option>
+                            <option value="Bolivia">Bolivia</option>
+                            <option value="Brazil">Brazil</option>
+                            <option value="Bulgaria">Bulgaria</option>
+                            <option value="Cambodia">Cambodia</option>
+                            <option value="Chile">Chile</option>
+                            <option value="China">China</option>
+                            <option value="Colombia">Colombia</option>
+                            <option value="Croatia">Croatia</option>
+                            <option value="Czech Republic">Czech Republic</option>
+                            <option value="Denmark">Denmark</option>
+                            <option value="Ecuador">Ecuador</option>
+                            <option value="Egypt">Egypt</option>
+                            <option value="Estonia">Estonia</option>
+                            <option value="Finland">Finland</option>
                             <option value="France">France</option>
+                            <option value="Germany">Germany</option>
+                            <option value="Greece">Greece</option>
+                            <option value="Hungary">Hungary</option>
+                            <option value="Iceland">Iceland</option>
+                            <option value="India">India</option>
+                            <option value="Indonesia">Indonesia</option>
+                            <option value="Iran">Iran</option>
+                            <option value="Iraq">Iraq</option>
+                            <option value="Ireland">Ireland</option>
+                            <option value="Israel">Israel</option>
                             <option value="Italy">Italy</option>
-                            <option value="Spain">Spain</option>
+                            <option value="Japan">Japan</option>
+                            <option value="Jordan">Jordan</option>
+                            <option value="Kazakhstan">Kazakhstan</option>
+                            <option value="Latvia">Latvia</option>
+                            <option value="Lebanon">Lebanon</option>
+                            <option value="Lithuania">Lithuania</option>
+                            <option value="Luxembourg">Luxembourg</option>
+                            <option value="Malaysia">Malaysia</option>
+                            <option value="Mexico">Mexico</option>
                             <option value="Netherlands">Netherlands</option>
+                            <option value="New Zealand">New Zealand</option>
+                            <option value="Norway">Norway</option>
+                            <option value="Pakistan">Pakistan</option>
+                            <option value="Peru">Peru</option>
+                            <option value="Philippines">Philippines</option>
+                            <option value="Poland">Poland</option>
+                            <option value="Portugal">Portugal</option>
+                            <option value="Romania">Romania</option>
+                            <option value="Russia">Russia</option>
+                            <option value="Saudi Arabia">Saudi Arabia</option>
+                            <option value="Singapore">Singapore</option>
+                            <option value="Slovakia">Slovakia</option>
+                            <option value="Slovenia">Slovenia</option>
+                            <option value="South Africa">South Africa</option>
+                            <option value="South Korea">South Korea</option>
+                            <option value="Spain">Spain</option>
+                            <option value="Sweden">Sweden</option>
+                            <option value="Switzerland">Switzerland</option>
+                            <option value="Thailand">Thailand</option>
+                            <option value="Turkey">Turkey</option>
+                            <option value="Ukraine">Ukraine</option>
+                            <option value="United Arab Emirates">United Arab Emirates</option>
+                            <option value="Venezuela">Venezuela</option>
+                            <option value="Vietnam">Vietnam</option>
                             <option value="Other">Other</option>
                         </select>
                     </div>
@@ -323,6 +380,7 @@
                         <label for="person_location">City or State (optional)</label>
                         <input type="text" id="person_location" name="person_location">
                     </div>
+                </div>
                 </div>
                 
                 <div class="form-group">
@@ -332,20 +390,16 @@
                 
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="project_duration">Total Runtime/Length <span class="required">*</span></label>
-                        <input type="text" id="project_duration" name="project_duration" placeholder="e.g., 95 minutes, 120 pages, 12 min" required>
+                        <label for="project_duration">Project Duration <span class="required">*</span></label>
+                        <input type="text" id="project_duration" name="project_duration" placeholder="e.g., 95 minutes, 12 pages, 2 hours" required>
                     </div>
                     <div class="form-group">
                         <label for="project_type">Project Type <span class="required">*</span></label>
                         <select id="project_type" name="project_type" required>
                             <option value="">Select type</option>
-                            <option value="feature_film">Feature Film</option>
-                            <option value="short_film">Short Film</option>
-                            <option value="screenplay">Screenplay</option>
-                            <option value="documentary">Documentary</option>
-                            <option value="music_video">Music Video</option>
-                            <option value="web_series">Web Series</option>
-                            <option value="other">Other</option>
+                            <option value="standalone">Standalone work</option>
+                            <option value="episode">Episode in ongoing series</option>
+                            <option value="not_sure">I'm not sure</option>
                         </select>
                     </div>
                 </div>
@@ -393,8 +447,8 @@
                 </div>
                 
                 <div class="form-group">
-                    <label for="main_characters">Main Characters <span class="required">*</span></label>
-                    <textarea id="main_characters" name="main_characters" placeholder="Describe your main characters briefly (e.g., Martha - 34 year old teacher, James - 12 year old student)" required></textarea>
+                    <label for="main_characters">Please describe the main characters <span class="required">*</span></label>
+                    <textarea id="main_characters" name="main_characters" placeholder="Example: Martha 34 year old teacher, James 12 year old student" required></textarea>
                     <div class="char-count" id="main_charactersCount">0 characters</div>
                 </div>
                 
@@ -404,21 +458,21 @@
                 </div>
                 
                 <div class="form-group">
-                    <label for="main_challenge">Plot, Stakes, and Conflict <span class="required">*</span></label>
-                    <textarea id="main_challenge" name="main_challenge" placeholder="What's the central conflict? What are the stakes? What challenges do your characters face? This is the heart of your tagline." required></textarea>
+                    <label for="main_challenge">Plot, Stakes, and Challenges <span class="required">*</span></label>
+                    <textarea id="main_challenge" name="main_challenge" placeholder="Highlight the plot, stakes or challenges faced by the main characters. If you already have a synopsis or description, you can paste it here as well." required></textarea>
                     <div class="char-count" id="main_challengeCount">0 characters</div>
                 </div>
                 
                 <div class="form-group">
-                    <label for="script_text">Story Details & Tone</label>
-                    <textarea id="script_text" name="script_text" placeholder="Describe the tone, mood, and any unique elements of your story that should be captured in the tagline"></textarea>
+                    <label for="script_text">Script or Story Details</label>
+                    <textarea id="script_text" name="script_text" placeholder="Tell us what the story is about (character arcs, events, beginning, climax, time period, ending, etc...)"></textarea>
                     <div class="char-count" id="script_textCount">0 characters</div>
                 </div>
                 
                 <div class="form-group">
-                    <label for="scriptUpload">Upload Script or Treatment (Optional)</label>
+                    <label for="scriptUpload">Upload Script (Optional)</label>
                     <div class="upload-area" onclick="document.getElementById('script_upload').click()">
-                        <div class="upload-text">📄 Click to upload or drag & drop</div>
+                        <div class="upload-text">📝 Click to upload or drag & drop</div>
                         <div class="upload-subtext">PDF files only</div>
                     </div>
                     <input type="file" id="script_upload" name="script_upload" accept=".pdf" style="display: none;">
@@ -433,14 +487,11 @@
                 </div>
                 
                 <button type="submit" class="submit-btn" id="submitBtn">
-                    Generate Professional Taglines
+                    Generate Tagline
                 </button>
             </form>
         </div>
     </div>
-    
-    <!-- Book Banner -->
-    <div id="book-banner-container"></div>
     
     <script src="pdf-extraction.js"></script>
     <script src="book-banner.js"></script>
@@ -500,7 +551,7 @@
         setupPDFUpload(uploadArea, fileInput, fileInfo);
         
         // Form submission
-        document.getElementById('taglineForm').addEventListener('submit', async function(e) {
+        document.getElementById('taglineGeneratorForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
             // Check honeypot
@@ -557,7 +608,7 @@
                 alert('There was an error processing your submission. Please try again.');
                 
                 submitBtn.disabled = false;
-                submitBtn.textContent = 'Generate Professional Taglines';
+                submitBtn.textContent = 'Generate Tagline';
             }
         });
         

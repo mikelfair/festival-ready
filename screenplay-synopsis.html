@@ -55,79 +55,82 @@
             font-size: 1.1rem;
         }
         
-        .content {
+        .form-container {
             padding: 40px;
         }
         
-        .form-section {
-            margin-bottom: 30px;
-        }
-        
-        .form-section h3 {
-            color: #333;
-            margin-bottom: 15px;
-            font-size: 1.3rem;
+        .form-group {
+            margin-bottom: 25px;
         }
         
         .form-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 20px;
-            margin-bottom: 20px;
         }
         
-        .form-group {
-            margin-bottom: 20px;
-        }
-        
-        .form-group.full-width {
-            grid-column: span 2;
-        }
-        
-        label {
+        .form-group label {
             display: block;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
             font-weight: 600;
             color: #333;
+            font-size: 1rem;
         }
         
-        input, textarea {
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
             width: 100%;
             padding: 12px;
             border: 2px solid #e1e5e9;
             border-radius: 8px;
-            font-size: 1rem;
+            font-size: 0.95rem;
             transition: border-color 0.3s ease;
+            font-family: inherit;
         }
         
-        input:focus, textarea:focus {
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
             outline: none;
             border-color: #667eea;
         }
         
-        textarea {
+        .form-group textarea {
             resize: vertical;
-            min-height: 120px;
+            min-height: 100px;
+        }
+        
+        .char-count {
+            text-align: right;
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .char-count.warning {
+            color: #e74c3c;
+        }
+        
+        .required {
+            color: #e74c3c;
         }
         
         .submit-btn {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border: none;
-            padding: 16px 40px;
-            border-radius: 50px;
-            font-size: 1.1rem;
+            padding: 16px 32px;
+            border-radius: 8px;
+            font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: transform 0.3s ease;
             width: 100%;
-            text-transform: uppercase;
-            letter-spacing: 1px;
         }
         
         .submit-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 12px 35px rgba(102, 126, 234, 0.4);
         }
         
         .submit-btn:disabled {
@@ -136,141 +139,359 @@
             transform: none;
         }
         
-        .error-message {
-            color: #e74c3c;
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+        
+        .checkbox-group input[type="checkbox"] {
+            width: auto;
+            margin-top: 3px;
+        }
+        
+        .checkbox-group label {
+            margin-bottom: 0;
+            font-weight: 400;
+            flex: 1;
             font-size: 0.9rem;
+        }
+        
+        .upload-area {
+            border: 2px dashed #667eea;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            background: rgba(102, 126, 234, 0.05);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .upload-area:hover {
+            background: rgba(102, 126, 234, 0.1);
+        }
+        
+        .upload-text {
+            color: #667eea;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .upload-subtext {
+            color: #666;
+            font-size: 0.85rem;
+        }
+        
+        .file-info {
+            background: rgba(102, 126, 234, 0.1);
+            padding: 10px;
+            border-radius: 6px;
+            margin-top: 8px;
+        }
+        
+        .honeypot {
+            position: absolute;
+            left: -9999px;
+            opacity: 0;
+        }
+        
+        .email-match-error {
+            color: #e74c3c;
+            font-size: 0.85rem;
             margin-top: 5px;
             display: none;
         }
         
-        .back-link {
-            display: inline-block;
-            color: #667eea;
+        .genre-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            margin-top: 8px;
+        }
+        
+        .genre-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .genre-item input[type="checkbox"] {
+            width: auto;
+        }
+        
+        .genre-item label {
+            margin: 0;
+            font-weight: 400;
+            font-size: 0.9rem;
+        }
+        
+        .home-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            padding: 10px 20px;
+            border-radius: 8px;
             text-decoration: none;
-            margin-bottom: 20px;
             font-weight: 600;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
         }
         
-        .back-link:hover {
-            text-decoration: underline;
+        .home-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
         }
         
-        @media (max-width: 768px) {
-            .form-row {
-                grid-template-columns: 1fr;
-            }
-            
-            .form-group.full-width {
-                grid-column: span 1;
-            }
-            
-            .container {
-                margin: 10px;
-            }
-            
-            .header {
-                padding: 30px 20px;
-            }
-            
-            .content {
-                padding: 20px;
-            }
+        .personal-info-section {
+            background: rgba(102, 126, 234, 0.03);
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(102, 126, 234, 0.1);
         }
     </style>
 </head>
 <body>
+    <a href="index.html" class="home-button">← Home</a>
+    <div id="book-banner-container"></div>
+    
     <div class="container">
         <div class="header">
             <h1>📝 Screenplay Synopsis Generator</h1>
-            <p>Generate an industry-standard synopsis for your screenplay submission</p>
+            <p>Use this tool to create compelling synopsis for all types of screenplays including features, shorts, and teleplays.</p>
         </div>
         
-        <div class="content">
-            <a href="index.html" class="back-link">← Back to Festival Ready</a>
-            
+        <div class="form-container">
             <form id="screenplaySynopsisForm">
-                <div class="form-section">
-                    <h3>Personal Information</h3>
+                <!-- Honeypot field -->
+                <input type="text" name="website" class="honeypot" tabindex="-1" autocomplete="off">
+                
+                <div class="personal-info-section">
                     <div class="form-row">
-                        <div class="form-group">
-                            <label for="firstName">First Name *</label>
-                            <input type="text" id="firstName" name="firstName" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="lastName">Last Name *</label>
-                            <input type="text" id="lastName" name="lastName" required>
-                        </div>
+                    <div class="form-group">
+                        <label for="first_name">First Name <span class="required">*</span></label>
+                        <input type="text" id="first_name" name="first_name" required>
                     </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="email">Email Address *</label>
-                            <input type="email" id="email" name="email" required>
+                    <div class="form-group">
+                        <label for="last_name">Last Name <span class="required">*</span></label>
+                        <input type="text" id="last_name" name="last_name" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email Address <span class="required">*</span></label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="emailConfirm">Confirm Email Address <span class="required">*</span></label>
+                    <input type="email" id="emailConfirm" name="emailConfirm" required>
+                    <div class="email-match-error" id="emailError">Email addresses do not match</div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="country">Country <span class="required">*</span></label>
+                        <select id="country" name="country" required>
+                            <option value="">Select country</option>
+                            <option value="United States">United States</option>
+                            <option value="Canada">Canada</option>
+                            <option value="United Kingdom">United Kingdom</option>
+                            <option value="Afghanistan">Afghanistan</option>
+                            <option value="Albania">Albania</option>
+                            <option value="Algeria">Algeria</option>
+                            <option value="Argentina">Argentina</option>
+                            <option value="Armenia">Armenia</option>
+                            <option value="Australia">Australia</option>
+                            <option value="Austria">Austria</option>
+                            <option value="Azerbaijan">Azerbaijan</option>
+                            <option value="Bahrain">Bahrain</option>
+                            <option value="Bangladesh">Bangladesh</option>
+                            <option value="Belarus">Belarus</option>
+                            <option value="Belgium">Belgium</option>
+                            <option value="Bolivia">Bolivia</option>
+                            <option value="Brazil">Brazil</option>
+                            <option value="Bulgaria">Bulgaria</option>
+                            <option value="Cambodia">Cambodia</option>
+                            <option value="Chile">Chile</option>
+                            <option value="China">China</option>
+                            <option value="Colombia">Colombia</option>
+                            <option value="Croatia">Croatia</option>
+                            <option value="Czech Republic">Czech Republic</option>
+                            <option value="Denmark">Denmark</option>
+                            <option value="Ecuador">Ecuador</option>
+                            <option value="Egypt">Egypt</option>
+                            <option value="Estonia">Estonia</option>
+                            <option value="Finland">Finland</option>
+                            <option value="France">France</option>
+                            <option value="Germany">Germany</option>
+                            <option value="Greece">Greece</option>
+                            <option value="Hungary">Hungary</option>
+                            <option value="Iceland">Iceland</option>
+                            <option value="India">India</option>
+                            <option value="Indonesia">Indonesia</option>
+                            <option value="Iran">Iran</option>
+                            <option value="Iraq">Iraq</option>
+                            <option value="Ireland">Ireland</option>
+                            <option value="Israel">Israel</option>
+                            <option value="Italy">Italy</option>
+                            <option value="Japan">Japan</option>
+                            <option value="Jordan">Jordan</option>
+                            <option value="Kazakhstan">Kazakhstan</option>
+                            <option value="Latvia">Latvia</option>
+                            <option value="Lebanon">Lebanon</option>
+                            <option value="Lithuania">Lithuania</option>
+                            <option value="Luxembourg">Luxembourg</option>
+                            <option value="Malaysia">Malaysia</option>
+                            <option value="Mexico">Mexico</option>
+                            <option value="Netherlands">Netherlands</option>
+                            <option value="New Zealand">New Zealand</option>
+                            <option value="Norway">Norway</option>
+                            <option value="Pakistan">Pakistan</option>
+                            <option value="Peru">Peru</option>
+                            <option value="Philippines">Philippines</option>
+                            <option value="Poland">Poland</option>
+                            <option value="Portugal">Portugal</option>
+                            <option value="Romania">Romania</option>
+                            <option value="Russia">Russia</option>
+                            <option value="Saudi Arabia">Saudi Arabia</option>
+                            <option value="Singapore">Singapore</option>
+                            <option value="Slovakia">Slovakia</option>
+                            <option value="Slovenia">Slovenia</option>
+                            <option value="South Africa">South Africa</option>
+                            <option value="South Korea">South Korea</option>
+                            <option value="Spain">Spain</option>
+                            <option value="Sweden">Sweden</option>
+                            <option value="Switzerland">Switzerland</option>
+                            <option value="Thailand">Thailand</option>
+                            <option value="Turkey">Turkey</option>
+                            <option value="Ukraine">Ukraine</option>
+                            <option value="United Arab Emirates">United Arab Emirates</option>
+                            <option value="Venezuela">Venezuela</option>
+                            <option value="Vietnam">Vietnam</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="person_location">City or State (optional)</label>
+                        <input type="text" id="person_location" name="person_location">
+                    </div>
+                </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="project_title">Screenplay Title <span class="required">*</span></label>
+                    <input type="text" id="project_title" name="project_title" required>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="project_duration">Page Count <span class="required">*</span></label>
+                        <input type="text" id="project_duration" name="project_duration" placeholder="e.g., 95 pages, 120 pages" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="project_type">Project Type <span class="required">*</span></label>
+                        <select id="project_type" name="project_type" required>
+                            <option value="">Select type</option>
+                            <option value="standalone">Standalone work</option>
+                            <option value="episode">Episode in ongoing series</option>
+                            <option value="not_sure">I'm not sure</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="genres">Genre (select all that apply) <span class="required">*</span></label>
+                    <div class="genre-grid">
+                        <div class="genre-item">
+                            <input type="checkbox" id="action" name="genres" value="Action">
+                            <label for="action">Action</label>
                         </div>
-                        <div class="form-group">
-                            <label for="emailConfirm">Confirm Email *</label>
-                            <input type="email" id="emailConfirm" name="emailConfirm" required>
-                            <div class="error-message" id="emailError">Email addresses do not match</div>
+                        <div class="genre-item">
+                            <input type="checkbox" id="comedy" name="genres" value="Comedy">
+                            <label for="comedy">Comedy</label>
+                        </div>
+                        <div class="genre-item">
+                            <input type="checkbox" id="drama" name="genres" value="Drama">
+                            <label for="drama">Drama</label>
+                        </div>
+                        <div class="genre-item">
+                            <input type="checkbox" id="experimental" name="genres" value="Experimental">
+                            <label for="experimental">Experimental</label>
+                        </div>
+                        <div class="genre-item">
+                            <input type="checkbox" id="fantasy" name="genres" value="Fantasy">
+                            <label for="fantasy">Fantasy</label>
+                        </div>
+                        <div class="genre-item">
+                            <input type="checkbox" id="horror" name="genres" value="Horror">
+                            <label for="horror">Horror</label>
+                        </div>
+                        <div class="genre-item">
+                            <input type="checkbox" id="musicVideo" name="genres" value="Music Video">
+                            <label for="musicVideo">Music Video</label>
+                        </div>
+                        <div class="genre-item">
+                            <input type="checkbox" id="sciFi" name="genres" value="Sci-Fi">
+                            <label for="sciFi">Sci-Fi</label>
+                        </div>
+                        <div class="genre-item">
+                            <input type="checkbox" id="suspense" name="genres" value="Suspense Thriller">
+                            <label for="suspense">Suspense Thriller</label>
                         </div>
                     </div>
                 </div>
                 
-                <div class="form-section">
-                    <h3>Screenplay Details</h3>
-                    <div class="form-group">
-                        <label for="title">Screenplay Title *</label>
-                        <input type="text" id="title" name="title" required>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="characters">Main Characters</label>
-                            <input type="text" id="characters" name="characters" placeholder="e.g., Sarah (protagonist), Mike (antagonist)">
-                        </div>
-                        <div class="form-group">
-                            <label for="duration">Script Page Length (including cover page)</label>
-                            <input type="number" id="duration" name="duration" placeholder="120">
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="plot">Plot Summary</label>
-                        <textarea id="plot" name="plot" placeholder="Brief description of your screenplay's main storyline and conflict"></textarea>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="projectLocation">Setting/Location</label>
-                        <input type="text" id="projectLocation" name="projectLocation" placeholder="Where does your story take place?">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="scriptText">Additional Script/Story Details</label>
-                        <textarea id="scriptText" name="scriptText" placeholder="Any additional context about your story that would help create a compelling synopsis"></textarea>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="writers">Writer(s)</label>
-                            <input type="text" id="writers" name="writers" placeholder="Name(s) of writer(s)">
-                        </div>
-                        <div class="form-group">
-                            <label for="genres">Genre(s)</label>
-                            <input type="text" id="genres" name="genres" placeholder="Drama, Comedy, Thriller, etc.">
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="additionalDetails">Additional Details</label>
-                        <textarea id="additionalDetails" name="additionalDetails" placeholder="Any other information that would help create your synopsis"></textarea>
-                    </div>
+                <div class="form-group">
+                    <label for="main_characters">Please describe the main characters <span class="required">*</span></label>
+                    <textarea id="main_characters" name="main_characters" placeholder="Example: Martha 34 year old teacher, James 12 year old student" required></textarea>
+                    <div class="char-count" id="main_charactersCount">0 characters</div>
                 </div>
                 
-                <button type="submit" class="submit-btn" id="submitBtn">Generate Synopsis</button>
+                <div class="form-group">
+                    <label for="story_location">Story Location <span class="required">*</span></label>
+                    <input type="text" id="story_location" name="story_location" placeholder="e.g., New York City, a fictional small town, or both real and imaginary places" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="main_challenge">Plot, Stakes, and Challenges <span class="required">*</span></label>
+                    <textarea id="main_challenge" name="main_challenge" placeholder="Highlight the plot, stakes or challenges faced by the main characters. If you already have a synopsis or description, you can paste it here as well." required></textarea>
+                    <div class="char-count" id="main_challengeCount">0 characters</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="script_text">Script or Story Details</label>
+                    <textarea id="script_text" name="script_text" placeholder="Tell us what the story is about (character arcs, events, beginning, climax, time period, ending, etc...)"></textarea>
+                    <div class="char-count" id="script_textCount">0 characters</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="scriptUpload">Upload Script (Optional)</label>
+                    <div class="upload-area" onclick="document.getElementById('script_upload').click()">
+                        <div class="upload-text">📝 Click to upload or drag & drop</div>
+                        <div class="upload-subtext">PDF files only</div>
+                    </div>
+                    <input type="file" id="script_upload" name="script_upload" accept=".pdf" style="display: none;">
+                    <div id="fileInfo" class="file-info" style="display: none;"></div>
+                </div>
+                
+                <div class="checkbox-group">
+                    <input type="checkbox" id="marketing" name="marketing">
+                    <label for="marketing">
+                        Would you like to receive 1 email per month about updates to this app and our latest film festival submission discounts?
+                    </label>
+                </div>
+                
+                <button type="submit" class="submit-btn" id="submitBtn">
+                    Generate Screenplay Synopsis
+                </button>
             </form>
         </div>
     </div>
-    
-    <!-- Book Banner -->
-    <div id="book-banner-container"></div>
     
     <script src="pdf-extraction.js"></script>
     <script src="book-banner.js"></script>
@@ -278,19 +499,35 @@
         // Initialize book banner
         createBookBanner('book-banner-container', 'screenplay-synopsis');
         
-        // Form validation and submission
-        const form = document.getElementById('screenplaySynopsisForm');
+        // Character counting
+        const textareas = ['main_characters', 'main_challenge', 'script_text'];
+        
+        textareas.forEach(id => {
+            const textarea = document.getElementById(id);
+            const counter = document.getElementById(id + 'Count');
+            
+            textarea.addEventListener('input', function() {
+                const count = this.value.length;
+                counter.textContent = `${count} characters`;
+                
+                if (count > 1000) {
+                    counter.classList.add('warning');
+                } else {
+                    counter.classList.remove('warning');
+                }
+            });
+        });
+        
+        // Email confirmation validation
         const email = document.getElementById('email');
         const emailConfirm = document.getElementById('emailConfirm');
         const emailError = document.getElementById('emailError');
-        const submitBtn = document.getElementById('submitBtn');
         
         // Disable copy/paste on email confirmation
         emailConfirm.addEventListener('paste', function(e) {
             e.preventDefault();
         });
         
-        // Email validation
         function validateEmail() {
             if (email.value && emailConfirm.value && email.value !== emailConfirm.value) {
                 emailError.style.display = 'block';
@@ -303,43 +540,110 @@
             }
         }
         
-        emailConfirm.addEventListener('blur', validateEmail);
+        email.addEventListener('input', validateEmail);
         emailConfirm.addEventListener('input', validateEmail);
         
+        // PDF upload handling
+        const uploadArea = document.querySelector('.upload-area');
+        const fileInput = document.getElementById('script_upload');
+        const fileInfo = document.getElementById('fileInfo');
+        
+        setupPDFUpload(uploadArea, fileInput, fileInfo);
+        
         // Form submission
-        form.addEventListener('submit', function(e) {
+        document.getElementById('screenplaySynopsisForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            if (!validateEmail()) {
+            // Check honeypot
+            if (document.querySelector('input[name="website"]').value) {
                 return;
             }
             
-            // Collect form data
-            const formData = new FormData(form);
-            const data = {};
-            for (let [key, value] of formData.entries()) {
-                data[key] = value;
+            // Validate email match
+            if (!validateEmail()) {
+                alert('Please ensure both email addresses match.');
+                return;
             }
             
-            // Store data in sessionStorage
-            sessionStorage.setItem('screenplaysynopsisData', JSON.stringify(data));
+            // Validate genre selection
+            const genreCheckboxes = document.querySelectorAll('input[name="genres"]:checked');
+            if (genreCheckboxes.length === 0) {
+                alert('Please select at least one genre.');
+                return;
+            }
             
-            // Track form submission
-            gtag('event', 'form_submit', {
-                'event_category': 'Screenplay_Synopsis',
-                'event_label': 'form_completed',
-                'value': 1
-            });
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Processing...';
             
-            // Redirect to processing selection
-            window.location.href = 'processing-selection.html?tool=screenplay-synopsis';
+            // Collect form data
+            const formData = new FormData(this);
+            const submissionData = Object.fromEntries(formData.entries());
+            
+            // Handle multiple genre selections
+            const selectedGenres = Array.from(genreCheckboxes).map(cb => cb.value);
+            submissionData.genres = selectedGenres;
+            
+            // Add extracted PDF text if available
+            if (window.extractedPDFText) {
+                submissionData.script_upload_text = window.extractedPDFText;
+            }
+            
+            try {
+                // Google Analytics tracking
+                gtag('event', 'form_submit', {
+                    'event_category': 'Tool_Usage',
+                    'event_label': 'screenplay-synopsis',
+                    'value': 1
+                });
+                
+                // Store data for processing selection
+                sessionStorage.setItem('screenplaysynopsisData', JSON.stringify(submissionData));
+                
+                // Redirect to processing selection
+                window.location.href = 'processing-selection.html?tool=screenplay-synopsis';
+                
+            } catch (error) {
+                console.error('Submission error:', error);
+                alert('There was an error processing your submission. Please try again.');
+                
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Generate Screenplay Synopsis';
+            }
         });
         
-        // Track page view
-        gtag('event', 'page_view', {
-            'event_category': 'Screenplay_Synopsis',
-            'event_label': 'form_loaded',
-            'value': 1
+        // Drag and drop functionality
+        uploadArea.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            this.classList.add('dragover');
+        });
+        
+        uploadArea.addEventListener('dragleave', function(e) {
+            e.preventDefault();
+            this.classList.remove('dragover');
+        });
+        
+        uploadArea.addEventListener('drop', function(e) {
+            e.preventDefault();
+            this.classList.remove('dragover');
+            
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                fileInput.files = files;
+                handleFileUpload(files[0]);
+            }
+        });
+        
+        function handleFileUpload(file) {
+            if (file && file.type === 'application/pdf') {
+                extractTextFromPDF(file, fileInfo);
+            }
+        }
+        
+        fileInput.addEventListener('change', function(e) {
+            if (e.target.files.length > 0) {
+                handleFileUpload(e.target.files[0]);
+            }
         });
     </script>
 </body>
