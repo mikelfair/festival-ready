@@ -59,6 +59,36 @@
             padding: 40px;
         }
         
+        .testimonial-section {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .testimonial-image {
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            margin-bottom: 20px;
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            color: #555;
+            line-height: 1.6;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+        
+        .testimonial-author {
+            font-weight: 600;
+            color: #333;
+        }
+        
         .processing-options {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -146,21 +176,6 @@
             color: #ff6b6b;
         }
         
-        .promo-code {
-            background: rgba(255, 107, 107, 0.1);
-            border: 2px dashed #ff6b6b;
-            border-radius: 10px;
-            padding: 15px;
-            margin: 20px 0;
-            text-align: center;
-        }
-        
-        .promo-code-text {
-            color: #ff6b6b;
-            font-weight: 600;
-            font-size: 1.1rem;
-        }
-        
         .submit-btn {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
@@ -186,24 +201,6 @@
             opacity: 0.6;
             cursor: not-allowed;
             transform: none;
-        }
-        
-        .tool-info {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 30px;
-            border-left: 4px solid #667eea;
-        }
-        
-        .tool-info h3 {
-            color: #333;
-            margin-bottom: 10px;
-        }
-        
-        .tool-info p {
-            color: #666;
-            line-height: 1.6;
         }
         
         .loading {
@@ -247,29 +244,33 @@
     <div class="container">
         <div class="header">
             <h1>🎬 Processing Selection</h1>
-            <p>Choose your AI processing tier for professional results</p>
+            <p id="dynamicHeaderText">We are ready to craft an industry standard film synopsis for your creative project.</p>
         </div>
         
         <div class="content">
-            <div class="tool-info">
-                <h3 id="toolTitle">Loading...</h3>
-                <p id="toolDescription">Preparing your submission for processing...</p>
+            <div class="testimonial-section">
+                <img src="images/austin-comedy-awards.png" alt="Austin Comedy Awards" class="testimonial-image">
+                <p class="testimonial-text">"I love using Festival Ready. The premium processing blew me away with its insight into my film. It's obvious that Mikel Fair's algorithm is based on real film industry marketing experience. I'm impressed."</p>
+                <p class="testimonial-author">- John McManus from Boise, Idaho</p>
             </div>
             
             <div class="processing-options" id="optionsContainer">
                 <div class="option-card" data-tier="standard" onclick="selectOption('standard')">
-                    <div class="option-badge">RECOMMENDED</div>
+                    <div class="option-badge">STANDARD</div>
                     <div class="option-price">FREE</div>
                     <div class="option-title">Standard Processing</div>
                     <div class="option-description">
-                        AI-powered content generation using Gemini 1.5 Flash for fast, professional results.
+                        Content generation using film industry standards and historical research. Processed using Google Gemini for fast professional results.
                     </div>
                     <ul class="option-features">
-                        <li>Gemini 1.5 Flash AI</li>
-                        <li>Professional taglines</li>
-                        <li>Industry-standard synopsis</li>
-                        <li>Festival recommendations</li>
-                        <li>Email delivery in 2-5 minutes</li>
+                        <li>Google Gemini AI</li>
+                        <li>Film Industry Standards</li>
+                        <li>Grammatically Correct</li>
+                        <li>Natural Language</li>
+                        <li>9th Grade Reading Level</li>
+                        <li>FilmFreeway Submission Ready</li>
+                        <li>Email with an exclusive 25% Film Festival Submission Discount</li>
+                        <li>Email delivery in 3-5 minutes</li>
                     </ul>
                 </div>
                 
@@ -278,23 +279,19 @@
                     <div class="option-price">$4.99</div>
                     <div class="option-title">Premium Processing</div>
                     <div class="option-description">
-                        Advanced AI processing using Gemini 2.0 Pro for superior creative content and insights.
+                        Highly Advanced Processing For the Best results using Mikel Fair's signature algorithm. Carefully crafted and processed to maximize the insight and professionalism of the highest film industry standards.
                     </div>
                     <ul class="option-features premium-features">
-                        <li>Gemini 2.0 Pro AI (Latest Model)</li>
-                        <li>Multiple creative tagline options</li>
-                        <li>Enhanced synopsis with deeper insights</li>
-                        <li>Advanced festival strategy</li>
-                        <li>Priority processing (under 1 minute)</li>
-                        <li>Extended character analysis</li>
+                        <li>Uses the Highest Reasoning AI Processing Available</li>
+                        <li>Film Industry Standards</li>
+                        <li>Grammatically Correct</li>
+                        <li>Natural Language</li>
+                        <li>9th Grade Reading Level</li>
+                        <li>FilmFreeway Submission Ready</li>
+                        <li>Email with an exclusive 25% Film Festival Submission Discount</li>
+                        <li>Comparable to the best Hollywood level marketing language of all time</li>
+                        <li>Deep historical research and film industry referencing</li>
                     </ul>
-                    
-                    <div class="promo-code">
-                        <div class="promo-code-text">
-                            Use code: <strong>FESTIVALREADY25</strong><br>
-                            for 25% off your first premium processing!
-                        </div>
-                    </div>
                 </div>
             </div>
             
@@ -310,61 +307,33 @@
         </div>
     </div>
     
+    <!-- Book Banner -->
+    <div id="book-banner-container"></div>
+    
+    <script src="pdf-extraction.js"></script>
+    <script src="book-banner.js"></script>
     <script>
+        // Initialize book banner
+        createBookBanner('book-banner-container', 'processing-selection');
+        
         let selectedTier = null;
         let toolData = null;
         let toolType = null;
         
-        // Tool descriptions
-        const toolDescriptions = {
-            'tagline-generator': {
-                title: '✨ Tagline Generator',
-                description: 'Generate memorable, marketable taglines optimized for 9th grade reading level (10-15 words)'
-            },
-            'film-synopsis': {
-                title: '🎬 Film Synopsis',
-                description: 'Create a professional synopsis for your completed film project'
-            },
-            'screenplay-synopsis': {
-                title: '📝 Screenplay Synopsis',
-                description: 'Generate an industry-standard synopsis for your screenplay submission'
-            },
-            'music-video-synopsis': {
-                title: '🎵 Music Video Synopsis',
-                description: 'Craft a compelling synopsis for your music video project'
-            },
-            'actors-biography': {
-                title: '🎭 Actor\'s Biography',
-                description: 'Create a professional career-focused actor\'s biography (150-200 words)'
-            },
-            'directors-biography': {
-                title: '🎬 Director\'s Biography',
-                description: 'Generate a professional career-focused director\'s biography (150-200 words)'
-            },
-            'producers-biography': {
-                title: '💼 Producer\'s Biography',
-                description: 'Create a professional career-focused producer\'s biography (150-200 words)'
-            },
-            'writers-biography': {
-                title: '✍️ Writer\'s Biography',
-                description: 'Generate a professional career-focused writer\'s biography (150-200 words)'
-            },
-            'actors-statement': {
-                title: '🎭 Actor\'s Statement',
-                description: 'Share your creative journey and connection to this specific project (200-250 words)'
-            },
-            'directors-statement': {
-                title: '🎬 Director\'s Statement',
-                description: 'Express your creative vision and directorial approach for this project (200-250 words)'
-            },
-            'producers-statement': {
-                title: '💼 Producer\'s Statement',
-                description: 'Share your production vision and strategic approach to this project (200-250 words)'
-            },
-            'writers-statement': {
-                title: '✍️ Writer\'s Statement',
-                description: 'Express your creative journey and connection to this specific story (200-250 words)'
-            }
+        // Tool type mappings for dynamic header text
+        const toolTypeNames = {
+            'tagline-generator': 'tagline',
+            'film-synopsis': 'film synopsis',
+            'screenplay-synopsis': 'screenplay synopsis',
+            'music-video-synopsis': 'music video synopsis',
+            'actors-biography': 'actor\'s biography',
+            'directors-biography': 'director\'s biography',
+            'producers-biography': 'producer\'s biography',
+            'writers-biography': 'writer\'s biography',
+            'actors-statement': 'actor\'s statement',
+            'directors-statement': 'director\'s statement',
+            'producers-statement': 'producer\'s statement',
+            'writers-statement': 'writer\'s statement'
         };
         
         // Initialize on page load
@@ -378,6 +347,11 @@
                 window.location.href = 'index.html';
                 return;
             }
+            
+            // Update dynamic header text
+            const toolName = toolTypeNames[toolType] || 'content';
+            const headerText = `We are ready to craft an industry standard ${toolName} for your creative project.`;
+            document.getElementById('dynamicHeaderText').textContent = headerText;
             
             // Load tool data from sessionStorage
             const storageKey = toolType.replace(/-/g, '') + 'Data';
@@ -395,13 +369,6 @@
                 alert('Error: Invalid form data. Please fill out the form again.');
                 window.location.href = toolType + '.html';
                 return;
-            }
-            
-            // Update tool info display
-            const toolInfo = toolDescriptions[toolType];
-            if (toolInfo) {
-                document.getElementById('toolTitle').textContent = toolInfo.title;
-                document.getElementById('toolDescription').textContent = toolInfo.description;
             }
             
             // Track page view
