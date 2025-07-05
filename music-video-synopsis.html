@@ -275,7 +275,15 @@
         </div>
     </div>
     
+    <!-- Book Banner -->
+    <div id="book-banner-container"></div>
+    
+    <script src="pdf-extraction.js"></script>
+    <script src="book-banner.js"></script>
     <script>
+        // Initialize book banner
+        createBookBanner('book-banner-container', 'music-video-synopsis');
+        
         // Form validation and submission
         const form = document.getElementById('musicVideoSynopsisForm');
         const email = document.getElementById('email');
