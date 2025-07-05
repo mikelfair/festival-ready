@@ -269,7 +269,15 @@
         </div>
     </div>
     
+    <!-- Book Banner -->
+    <div id="book-banner-container"></div>
+    
+    <script src="pdf-extraction.js"></script>
+    <script src="book-banner.js"></script>
     <script>
+        // Initialize book banner
+        createBookBanner('book-banner-container', 'screenplay-synopsis');
+        
         // Form validation and submission
         const form = document.getElementById('screenplaySynopsisForm');
         const email = document.getElementById('email');
