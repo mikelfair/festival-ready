@@ -206,7 +206,7 @@
     <div class="container">
         <div class="header">
             <h1>💼 Producer's Statement Generator</h1>
-            <p>Share your production vision and strategic approach to this project (200-250 words)</p>
+            <p>Use this tool to create an producer's statement, which explains your personal motivation to help produce this project.</p>
         </div>
         
         <div class="form-container">
@@ -328,26 +328,38 @@
                 </div>
                 
                 <div class="form-group">
-                    <label for="project_title">Project Title <span class="required">*</span></label>
-                    <input type="text" id="project_title" name="project_title" required>
+                    <label for="role">Project Title <span class="required">*</span></label>
+                    <input type="text" id="role" name="role" placeholder="Were you the only producer for this project? Are you a first time producer?" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="main_characters">Production Vision and Goals <span class="required">*</span></label>
-                    <textarea id="main_characters" name="main_characters" placeholder="What drove you to produce this project? What were your production goals and vision?" required></textarea>
+                    <label for="main_characters">Tell us about your character <span class="required">*</span></label>
+                    <textarea id="main_characters" name="main_characters" placeholder="What is your character's name and why is this character important to the story?" required></textarea>
                     <div class="char-count" id="main_charactersCount">0 characters</div>
                 </div>
                 
                 <div class="form-group">
-                    <label for="main_challenge">Strategic Approach and Challenges <span class="required">*</span></label>
-                    <textarea id="main_challenge" name="main_challenge" placeholder="Describe your strategic approach to this production, challenges overcome, or unique aspects of bringing this project to life" required></textarea>
+                    <label for="main_challenge">Creative Inspirations</label>
+                    <textarea id="main_challenge" name="main_challenge" placeholder="Name any creative works that inspired you to perform this role? Example: Indiana Jones, Shrek, Game of Thrones, Ghostbusters, Animal Kingdom, etc ..."></textarea>
                     <div class="char-count" id="main_challengeCount">0 characters</div>
                 </div>
                 
                 <div class="form-group">
-                    <label for="script_text">Additional Details</label>
-                    <textarea id="script_text" name="script_text" placeholder="Share more about your production experience, team collaboration, or the impact you hope this project will have"></textarea>
+                    <label for="inspirations_people">Producer Inspirations</label>
+                    <textarea id="inspirations_people" name="inspirations_people" placeholder="Name any creative people that inspired you to produce this film"></textarea>
+                    <div class="char-count" id="inspirations_peopleCount">0 characters</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="script_text">Relevant Work Experience</label>
+                    <textarea id="script_text" name="script_text" placeholder="What are some of the film/tv industry projects that may have prepared you for a role this project?"></textarea>
                     <div class="char-count" id="script_textCount">0 characters</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="goals">Goals</label>
+                    <textarea id="goals" name="goals" placeholder="In the future, what are you working towards any goals? Examples: Work on big budget theatrical films or streaming programs? Join the [Screen Actor's Guild SAG], [Director's Guild DGA],[Writer's Guild WGA] [Producer's Guild PGA]"></textarea>
+                    <div class="char-count" id="goalsCount">0 characters</div>
                 </div>
                 
                 <div class="checkbox-group">
@@ -370,7 +382,7 @@
         createBookBanner('book-banner-container', 'producers-statement');
         
         // Character counting
-        const textareas = ['main_characters', 'main_challenge', 'script_text'];
+        const textareas = ['main_characters', 'main_challenge', 'inspirations_people', 'script_text', 'goals'];
         
         textareas.forEach(id => {
             const textarea = document.getElementById(id);
