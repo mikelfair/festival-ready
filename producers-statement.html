@@ -177,7 +177,7 @@
             left: 20px;
             background: rgba(255, 255, 255, 0.2);
             color: white;
-            border: none;
+            border: 2px solid rgba(255, 255, 255, 0.3);
             padding: 10px 20px;
             border-radius: 8px;
             text-decoration: none;
@@ -205,8 +205,8 @@
     
     <div class="container">
         <div class="header">
-            <h1>💼 Producer's Statement Generator</h1>
-            <p>Use this tool to create an producer's statement, which explains your personal motivation to help produce this project.</p>
+            <h1>🎯 Producer's Statement Generator</h1>
+            <p>Use this tool to create a compelling producer's statement that tells your personal story and why you're the right producer for this project.</p>
         </div>
         
         <div class="form-container">
@@ -328,13 +328,18 @@
                 </div>
                 
                 <div class="form-group">
-                    <label for="role">Project Title <span class="required">*</span></label>
+                    <label for="project_title">Project Title <span class="required">*</span></label>
+                    <input type="text" id="project_title" name="project_title" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="role">Your Production Role <span class="required">*</span></label>
                     <input type="text" id="role" name="role" placeholder="Were you the only producer for this project? Are you a first time producer?" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="main_characters">Tell us about your character <span class="required">*</span></label>
-                    <textarea id="main_characters" name="main_characters" placeholder="What is your character's name and why is this character important to the story?" required></textarea>
+                    <label for="main_characters">Your Role as a Producer <span class="required">*</span></label>
+                    <textarea id="main_characters" name="main_characters" placeholder="What was your primary role(s) in completing this project?" required></textarea>
                     <div class="char-count" id="main_charactersCount">0 characters</div>
                 </div>
                 
@@ -346,19 +351,19 @@
                 
                 <div class="form-group">
                     <label for="inspirations_people">Producer Inspirations</label>
-                    <textarea id="inspirations_people" name="inspirations_people" placeholder="Name any creative people that inspired you to produce this film"></textarea>
+                    <textarea id="inspirations_people" name="inspirations_people" placeholder="Which producers, have inspired you. Example: Walt Disney, Jerry Bruckheimer, Kevin Feige, Kathleen Kennedy, etc ..."></textarea>
                     <div class="char-count" id="inspirations_peopleCount">0 characters</div>
                 </div>
                 
                 <div class="form-group">
                     <label for="script_text">Relevant Work Experience</label>
-                    <textarea id="script_text" name="script_text" placeholder="What are some of the film/tv industry projects that may have prepared you for a role this project?"></textarea>
+                    <textarea id="script_text" name="script_text" placeholder="Other relevant work experience that helped you bring this project to life."></textarea>
                     <div class="char-count" id="script_textCount">0 characters</div>
                 </div>
                 
                 <div class="form-group">
-                    <label for="goals">Goals</label>
-                    <textarea id="goals" name="goals" placeholder="In the future, what are you working towards any goals? Examples: Work on big budget theatrical films or streaming programs? Join the [Producer's Guild PGA]"></textarea>
+                    <label for="goals">Goals <span class="required">*</span></label>
+                    <textarea id="goals" name="goals" placeholder="In the future, what are you working towards any goals? Examples: Work on big budget theatrical films or streaming programs? Join the [Producer's Guild PGA]" required></textarea>
                     <div class="char-count" id="goalsCount">0 characters</div>
                 </div>
                 
