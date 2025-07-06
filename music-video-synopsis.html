@@ -226,6 +226,13 @@
             font-size: 0.9rem;
         }
         
+        .genre-section {
+            background: rgba(128, 128, 128, 0.1);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+        }
+        
         .home-button {
             position: absolute;
             top: 20px;
@@ -261,7 +268,7 @@
     <div class="container">
         <div class="header">
             <h1>🎵 Music Video Synopsis Generator</h1>
-            <p>Craft a compelling synopsis for your music video.</p>
+            <p>Use this tool to create compelling synopsis your music video.</p>
         </div>
         
         <div class="form-container">
@@ -389,7 +396,7 @@
                 
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="project_duration">Video Length <span class="required">*</span></label>
+                        <label for="project_duration">Total Runtime (including credits) <span class="required">*</span></label>
                         <input type="text" id="project_duration" name="project_duration" placeholder="e.g., 3:45, 4 minutes, 2:30" required>
                     </div>
                     <div class="form-group">
@@ -397,79 +404,79 @@
                         <select id="project_type" name="project_type" required>
                             <option value="">Select type</option>
                             <option value="standalone">Standalone music video</option>
-                            <option value="episode">Part of a series/album</option>
+                            <option value="episode">Episode in an ongoing series</option>
                             <option value="not_sure">I'm not sure</option>
                         </select>
                     </div>
                 </div>
                 
-                <div class="form-group">
-                    <label for="genres">Music Genre (select all that apply) <span class="required">*</span></label>
+                <div class="form-group genre-section">
+                    <label for="genres">Genres (select all that apply) <span class="required">*</span></label>
                     <div class="genre-grid">
                         <div class="genre-item">
-                            <input type="checkbox" id="pop" name="genres" value="Pop">
-                            <label for="pop">Pop</label>
+                            <input type="checkbox" id="action" name="genres" value="Action">
+                            <label for="action">Action</label>
                         </div>
                         <div class="genre-item">
-                            <input type="checkbox" id="rock" name="genres" value="Rock">
-                            <label for="rock">Rock</label>
+                            <input type="checkbox" id="comedy" name="genres" value="Comedy">
+                            <label for="comedy">Comedy</label>
                         </div>
                         <div class="genre-item">
-                            <input type="checkbox" id="hiphop" name="genres" value="Hip-Hop">
-                            <label for="hiphop">Hip-Hop</label>
+                            <input type="checkbox" id="drama" name="genres" value="Drama">
+                            <label for="drama">Drama</label>
                         </div>
                         <div class="genre-item">
-                            <input type="checkbox" id="electronic" name="genres" value="Electronic">
-                            <label for="electronic">Electronic</label>
+                            <input type="checkbox" id="experimental" name="genres" value="Experimental">
+                            <label for="experimental">Experimental</label>
                         </div>
                         <div class="genre-item">
-                            <input type="checkbox" id="country" name="genres" value="Country">
-                            <label for="country">Country</label>
+                            <input type="checkbox" id="fantasy" name="genres" value="Fantasy">
+                            <label for="fantasy">Fantasy</label>
                         </div>
                         <div class="genre-item">
-                            <input type="checkbox" id="indie" name="genres" value="Indie">
-                            <label for="indie">Indie</label>
+                            <input type="checkbox" id="horror" name="genres" value="Horror">
+                            <label for="horror">Horror</label>
                         </div>
                         <div class="genre-item">
-                            <input type="checkbox" id="rnb" name="genres" value="R&B">
-                            <label for="rnb">R&B</label>
+                            <input type="checkbox" id="music_video" name="genres" value="Music Video">
+                            <label for="music_video">Music Video</label>
                         </div>
                         <div class="genre-item">
-                            <input type="checkbox" id="folk" name="genres" value="Folk">
-                            <label for="folk">Folk</label>
+                            <input type="checkbox" id="scifi" name="genres" value="Sci-Fi">
+                            <label for="scifi">Sci-Fi</label>
                         </div>
                         <div class="genre-item">
-                            <input type="checkbox" id="jazz" name="genres" value="Jazz">
-                            <label for="jazz">Jazz</label>
+                            <input type="checkbox" id="suspense_thriller" name="genres" value="Suspense Thriller">
+                            <label for="suspense_thriller">Suspense Thriller</label>
                         </div>
                     </div>
                 </div>
                 
                 <div class="form-group">
-                    <label for="main_characters">Artist/Band and Key Visual Elements <span class="required">*</span></label>
-                    <textarea id="main_characters" name="main_characters" placeholder="Describe the artist/band and main visual elements, performers, or characters in the video" required></textarea>
+                    <label for="main_characters">Please describe the main characters <span class="required">*</span></label>
+                    <textarea id="main_characters" name="main_characters" placeholder="Example: Martha 34 year old teacher, James 12 year old student" required></textarea>
                     <div class="char-count" id="main_charactersCount">0 characters</div>
                 </div>
                 
                 <div class="form-group">
-                    <label for="story_location">Video Locations and Settings <span class="required">*</span></label>
-                    <input type="text" id="story_location" name="story_location" placeholder="e.g., Recording studio, concert venue, city streets, fantasy world" required>
+                    <label for="story_location">Story Location(s) <span class="required">*</span></label>
+                    <input type="text" id="story_location" name="story_location" placeholder="e.g., New York City, a fictional small town, or both real and imaginary places" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="main_challenge">Video Concept and Story <span class="required">*</span></label>
-                    <textarea id="main_challenge" name="main_challenge" placeholder="Describe the video's concept, narrative, mood, or creative approach. What story does the video tell?" required></textarea>
+                    <label for="main_challenge">Plot, Stakes, and Challenges <span class="required">*</span></label>
+                    <textarea id="main_challenge" name="main_challenge" placeholder="Highlight the plot, stakes or challenges faced by the main characters. If you already have a synopsis or description, you can paste it here as well." required></textarea>
                     <div class="char-count" id="main_challengeCount">0 characters</div>
                 </div>
                 
                 <div class="form-group">
-                    <label for="script_text">Additional Details</label>
-                    <textarea id="script_text" name="script_text" placeholder="Tell us more about the artistic vision, themes, visual style, or any other creative elements"></textarea>
+                    <label for="script_text">Script or Story Details</label>
+                    <textarea id="script_text" name="script_text" placeholder="Tell us what the story/lyrics are about. (character arcs, events, beginning, climax, time period, ending, etc ...)"></textarea>
                     <div class="char-count" id="script_textCount">0 characters</div>
                 </div>
                 
                 <div class="form-group">
-                    <label for="scriptUpload">Upload Treatment or Notes (Optional)</label>
+                    <label for="scriptUpload">Upload Script (Optional)</label>
                     <div class="upload-area" onclick="document.getElementById('script_upload').click()">
                         <div class="upload-text">📄 Click to upload or drag & drop</div>
                         <div class="upload-subtext">PDF files only</div>

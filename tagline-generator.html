@@ -226,6 +226,13 @@
             font-size: 0.9rem;
         }
         
+        .genre-section {
+            background: rgba(128, 128, 128, 0.1);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+        }
+        
         .home-button {
             position: absolute;
             top: 20px;
@@ -403,8 +410,8 @@
                     </div>
                 </div>
                 
-                <div class="form-group">
-                    <label for="genres">Genre (select all that apply) <span class="required">*</span></label>
+                <div class="form-group genre-section">
+                    <label for="genres">Genres (select all that apply) <span class="required">*</span></label>
                     <div class="genre-grid">
                         <div class="genre-item">
                             <input type="checkbox" id="action" name="genres" value="Action">
@@ -452,7 +459,7 @@
                 </div>
                 
                 <div class="form-group">
-                    <label for="story_location">Story Location <span class="required">*</span></label>
+                    <label for="story_location">Story Location(s) <span class="required">*</span></label>
                     <input type="text" id="story_location" name="story_location" placeholder="e.g., New York City, a fictional small town, or both real and imaginary places" required>
                 </div>
                 
