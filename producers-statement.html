@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Producer's Statement - Festival Ready v3.0</title>
+    <title>Producer's Statement Generator - Festival Ready v3.0</title>
     
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-F2CSZ9KX52"></script>
@@ -60,7 +60,13 @@
         }
         
         .form-group {
-            margin-bottom: 30px;
+            margin-bottom: 25px;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
         }
         
         .form-group label {
@@ -68,17 +74,17 @@
             margin-bottom: 8px;
             font-weight: 600;
             color: #333;
-            font-size: 1.1rem;
+            font-size: 1rem;
         }
         
         .form-group input,
         .form-group textarea,
         .form-group select {
             width: 100%;
-            padding: 15px;
+            padding: 12px;
             border: 2px solid #e1e5e9;
-            border-radius: 12px;
-            font-size: 1rem;
+            border-radius: 8px;
+            font-size: 0.95rem;
             transition: border-color 0.3s ease;
             font-family: inherit;
         }
@@ -92,12 +98,12 @@
         
         .form-group textarea {
             resize: vertical;
-            min-height: 120px;
+            min-height: 100px;
         }
         
         .char-count {
             text-align: right;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: #666;
             margin-top: 5px;
         }
@@ -114,9 +120,9 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border: none;
-            padding: 18px 40px;
-            border-radius: 12px;
-            font-size: 1.1rem;
+            padding: 16px 32px;
+            border-radius: 8px;
+            font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
             transition: transform 0.3s ease;
@@ -136,8 +142,8 @@
         .checkbox-group {
             display: flex;
             align-items: flex-start;
-            gap: 12px;
-            margin-bottom: 30px;
+            gap: 10px;
+            margin-bottom: 25px;
         }
         
         .checkbox-group input[type="checkbox"] {
@@ -149,43 +155,7 @@
             margin-bottom: 0;
             font-weight: 400;
             flex: 1;
-        }
-        
-        .upload-area {
-            border: 2px dashed #667eea;
-            border-radius: 12px;
-            padding: 30px;
-            text-align: center;
-            background: rgba(102, 126, 234, 0.05);
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .upload-area:hover {
-            background: rgba(102, 126, 234, 0.1);
-        }
-        
-        .upload-area.dragover {
-            background: rgba(102, 126, 234, 0.15);
-            border-color: #764ba2;
-        }
-        
-        .upload-text {
-            color: #667eea;
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
-        
-        .upload-subtext {
-            color: #666;
             font-size: 0.9rem;
-        }
-        
-        .file-info {
-            background: rgba(102, 126, 234, 0.1);
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 10px;
         }
         
         .honeypot {
@@ -193,30 +163,67 @@
             left: -9999px;
             opacity: 0;
         }
+        
+        .email-match-error {
+            color: #e74c3c;
+            font-size: 0.85rem;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        .home-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .home-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .personal-info-section {
+            background: rgba(102, 126, 234, 0.03);
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(102, 126, 234, 0.1);
+        }
     </style>
 </head>
 <body>
-    <div id="book-banner-container"></div>
+    <a href="index.html" class="home-button">← Home</a>
     
     <div class="container">
         <div class="header">
-            <h1>💼 Producer's Statement</h1>
-            <p>Create a compelling producer's statement for film festival submissions</p>
+            <h1>💼 Producer's Statement Generator</h1>
+            <p>Share your production vision and strategic approach to this project (200-250 words)</p>
         </div>
         
         <div class="form-container">
-            <form id="producersForm">
+            <form id="producersStatementForm">
                 <!-- Honeypot field -->
                 <input type="text" name="website" class="honeypot" tabindex="-1" autocomplete="off">
                 
-                <div class="form-group">
-                    <label for="producerName">Producer's Full Name <span class="required">*</span></label>
-                    <input type="text" id="producerName" name="producerName" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="filmTitle">Film Title <span class="required">*</span></label>
-                    <input type="text" id="filmTitle" name="filmTitle" required>
+                <div class="personal-info-section">
+                    <div class="form-row">
+                    <div class="form-group">
+                        <label for="first_name">First Name <span class="required">*</span></label>
+                        <input type="text" id="first_name" name="first_name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="last_name">Last Name <span class="required">*</span></label>
+                        <input type="text" id="last_name" name="last_name" required>
+                    </div>
                 </div>
                 
                 <div class="form-group">
@@ -225,98 +232,145 @@
                 </div>
                 
                 <div class="form-group">
-                    <label for="producerRole">Your Role as Producer</label>
-                    <select id="producerRole" name="producerRole">
-                        <option value="">Select your role</option>
-                        <option value="executive">Executive Producer</option>
-                        <option value="line">Line Producer</option>
-                        <option value="creative">Creative Producer</option>
-                        <option value="associate">Associate Producer</option>
-                        <option value="independent">Independent Producer</option>
-                    </select>
+                    <label for="emailConfirm">Confirm Email Address <span class="required">*</span></label>
+                    <input type="email" id="emailConfirm" name="emailConfirm" required>
+                    <div class="email-match-error" id="emailError">Email addresses do not match</div>
                 </div>
                 
-                <div class="form-group">
-                    <label for="projectType">Project Type</label>
-                    <select id="projectType" name="projectType">
-                        <option value="">Select project type</option>
-                        <option value="feature">Feature Film</option>
-                        <option value="short">Short Film</option>
-                        <option value="documentary">Documentary</option>
-                        <option value="series">Series/Web Series</option>
-                        <option value="commercial">Commercial</option>
-                        <option value="music-video">Music Video</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label for="motivation">Why were you inspired to work with this film crew to finish this film? <span class="required">*</span></label>
-                    <textarea id="motivation" name="motivation" required placeholder="Describe what drew you to this project and team. What made you want to be part of bringing this story to life?"></textarea>
-                    <div class="char-count" id="motivationCount">0 characters</div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="businessVision">What is your business and creative vision for this project?</label>
-                    <textarea id="businessVision" name="businessVision" placeholder="How do you see this film in the marketplace? What audience are you targeting and why?"></textarea>
-                    <div class="char-count" id="businessVisionCount">0 characters</div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="productionChallenges">What production challenges did you overcome?</label>
-                    <textarea id="productionChallenges" name="productionChallenges" placeholder="Describe any significant obstacles you faced during production and how you solved them."></textarea>
-                    <div class="char-count" id="productionChallengesCount">0 characters</div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="teamCollaboration">How did you collaborate with the creative team?</label>
-                    <textarea id="teamCollaboration" name="teamCollaboration" placeholder="Describe your working relationship with the director, writers, and other key creative personnel."></textarea>
-                    <div class="char-count" id="teamCollaborationCount">0 characters</div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="industryImpact">What impact do you hope this film will have in the industry?</label>
-                    <textarea id="industryImpact" name="industryImpact" placeholder="How do you see this film contributing to the industry, your career, or important conversations?"></textarea>
-                    <div class="char-count" id="industryImpactCount">0 characters</div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="personalStory">What personal or professional experience led you to this project?</label>
-                    <textarea id="personalStory" name="personalStory" placeholder="Share your background and what in your experience made you the right person to produce this film."></textarea>
-                    <div class="char-count" id="personalStoryCount">0 characters</div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="existingStatement">Upload Existing Statement (Optional)</label>
-                    <div class="upload-area" onclick="document.getElementById('statementUpload').click()">
-                        <div class="upload-text">📄 Click to upload or drag & drop</div>
-                        <div class="upload-subtext">PDF files only</div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="country">Country <span class="required">*</span></label>
+                        <select id="country" name="country" required>
+                            <option value="">Select country</option>
+                            <option value="United States">United States</option>
+                            <option value="Canada">Canada</option>
+                            <option value="United Kingdom">United Kingdom</option>
+                            <option value="Afghanistan">Afghanistan</option>
+                            <option value="Albania">Albania</option>
+                            <option value="Algeria">Algeria</option>
+                            <option value="Argentina">Argentina</option>
+                            <option value="Armenia">Armenia</option>
+                            <option value="Australia">Australia</option>
+                            <option value="Austria">Austria</option>
+                            <option value="Azerbaijan">Azerbaijan</option>
+                            <option value="Bahrain">Bahrain</option>
+                            <option value="Bangladesh">Bangladesh</option>
+                            <option value="Belarus">Belarus</option>
+                            <option value="Belgium">Belgium</option>
+                            <option value="Bolivia">Bolivia</option>
+                            <option value="Brazil">Brazil</option>
+                            <option value="Bulgaria">Bulgaria</option>
+                            <option value="Cambodia">Cambodia</option>
+                            <option value="Chile">Chile</option>
+                            <option value="China">China</option>
+                            <option value="Colombia">Colombia</option>
+                            <option value="Croatia">Croatia</option>
+                            <option value="Czech Republic">Czech Republic</option>
+                            <option value="Denmark">Denmark</option>
+                            <option value="Ecuador">Ecuador</option>
+                            <option value="Egypt">Egypt</option>
+                            <option value="Estonia">Estonia</option>
+                            <option value="Finland">Finland</option>
+                            <option value="France">France</option>
+                            <option value="Germany">Germany</option>
+                            <option value="Greece">Greece</option>
+                            <option value="Hungary">Hungary</option>
+                            <option value="Iceland">Iceland</option>
+                            <option value="India">India</option>
+                            <option value="Indonesia">Indonesia</option>
+                            <option value="Iran">Iran</option>
+                            <option value="Iraq">Iraq</option>
+                            <option value="Ireland">Ireland</option>
+                            <option value="Israel">Israel</option>
+                            <option value="Italy">Italy</option>
+                            <option value="Japan">Japan</option>
+                            <option value="Jordan">Jordan</option>
+                            <option value="Kazakhstan">Kazakhstan</option>
+                            <option value="Latvia">Latvia</option>
+                            <option value="Lebanon">Lebanon</option>
+                            <option value="Lithuania">Lithuania</option>
+                            <option value="Luxembourg">Luxembourg</option>
+                            <option value="Malaysia">Malaysia</option>
+                            <option value="Mexico">Mexico</option>
+                            <option value="Netherlands">Netherlands</option>
+                            <option value="New Zealand">New Zealand</option>
+                            <option value="Norway">Norway</option>
+                            <option value="Pakistan">Pakistan</option>
+                            <option value="Peru">Peru</option>
+                            <option value="Philippines">Philippines</option>
+                            <option value="Poland">Poland</option>
+                            <option value="Portugal">Portugal</option>
+                            <option value="Romania">Romania</option>
+                            <option value="Russia">Russia</option>
+                            <option value="Saudi Arabia">Saudi Arabia</option>
+                            <option value="Singapore">Singapore</option>
+                            <option value="Slovakia">Slovakia</option>
+                            <option value="Slovenia">Slovenia</option>
+                            <option value="South Africa">South Africa</option>
+                            <option value="South Korea">South Korea</option>
+                            <option value="Spain">Spain</option>
+                            <option value="Sweden">Sweden</option>
+                            <option value="Switzerland">Switzerland</option>
+                            <option value="Thailand">Thailand</option>
+                            <option value="Turkey">Turkey</option>
+                            <option value="Ukraine">Ukraine</option>
+                            <option value="United Arab Emirates">United Arab Emirates</option>
+                            <option value="Venezuela">Venezuela</option>
+                            <option value="Vietnam">Vietnam</option>
+                            <option value="Other">Other</option>
+                        </select>
                     </div>
-                    <input type="file" id="statementUpload" name="statementUpload" accept=".pdf" style="display: none;">
-                    <div id="fileInfo" class="file-info" style="display: none;"></div>
+                    <div class="form-group">
+                        <label for="person_location">City or State (optional)</label>
+                        <input type="text" id="person_location" name="person_location">
+                    </div>
+                </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="project_title">Project Title <span class="required">*</span></label>
+                    <input type="text" id="project_title" name="project_title" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="main_characters">Production Vision and Goals <span class="required">*</span></label>
+                    <textarea id="main_characters" name="main_characters" placeholder="What drove you to produce this project? What were your production goals and vision?" required></textarea>
+                    <div class="char-count" id="main_charactersCount">0 characters</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="main_challenge">Strategic Approach and Challenges <span class="required">*</span></label>
+                    <textarea id="main_challenge" name="main_challenge" placeholder="Describe your strategic approach to this production, challenges overcome, or unique aspects of bringing this project to life" required></textarea>
+                    <div class="char-count" id="main_challengeCount">0 characters</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="script_text">Additional Details</label>
+                    <textarea id="script_text" name="script_text" placeholder="Share more about your production experience, team collaboration, or the impact you hope this project will have"></textarea>
+                    <div class="char-count" id="script_textCount">0 characters</div>
                 </div>
                 
                 <div class="checkbox-group">
-                    <input type="checkbox" id="marketingOptIn" name="marketingOptIn">
-                    <label for="marketingOptIn">
-                        I'd like to receive updates about Festival Ready features, film industry news, and submission opportunities. You can unsubscribe anytime.
+                    <input type="checkbox" id="marketing" name="marketing">
+                    <label for="marketing">
+                        Would you like to receive 1 email per month about updates to this app and our latest film festival submission discounts?
                     </label>
                 </div>
                 
                 <button type="submit" class="submit-btn" id="submitBtn">
-                    Generate Professional Producer's Statement
+                    Generate Producer's Statement
                 </button>
             </form>
         </div>
     </div>
     
-    <script src="pdf-extraction.js"></script>
     <script src="book-banner.js"></script>
     <script>
         // Initialize book banner
         createBookBanner('book-banner-container', 'producers-statement');
         
         // Character counting
-        const textareas = ['motivation', 'businessVision', 'productionChallenges', 'teamCollaboration', 'industryImpact', 'personalStory'];
+        const textareas = ['main_characters', 'main_challenge', 'script_text'];
         
         textareas.forEach(id => {
             const textarea = document.getElementById(id);
@@ -326,7 +380,7 @@
                 const count = this.value.length;
                 counter.textContent = `${count} characters`;
                 
-                if (count > 2000) {
+                if (count > 1000) {
                     counter.classList.add('warning');
                 } else {
                     counter.classList.remove('warning');
@@ -334,19 +388,43 @@
             });
         });
         
-        // PDF upload handling
-        const uploadArea = document.querySelector('.upload-area');
-        const fileInput = document.getElementById('statementUpload');
-        const fileInfo = document.getElementById('fileInfo');
+        // Email confirmation validation
+        const email = document.getElementById('email');
+        const emailConfirm = document.getElementById('emailConfirm');
+        const emailError = document.getElementById('emailError');
         
-        setupPDFUpload(uploadArea, fileInput, fileInfo);
+        // Disable copy/paste on email confirmation
+        emailConfirm.addEventListener('paste', function(e) {
+            e.preventDefault();
+        });
+        
+        function validateEmail() {
+            if (email.value && emailConfirm.value && email.value !== emailConfirm.value) {
+                emailError.style.display = 'block';
+                emailConfirm.style.borderColor = '#e74c3c';
+                return false;
+            } else {
+                emailError.style.display = 'none';
+                emailConfirm.style.borderColor = '#e1e5e9';
+                return true;
+            }
+        }
+        
+        email.addEventListener('input', validateEmail);
+        emailConfirm.addEventListener('input', validateEmail);
         
         // Form submission
-        document.getElementById('producersForm').addEventListener('submit', async function(e) {
+        document.getElementById('producersStatementForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
             // Check honeypot
             if (document.querySelector('input[name="website"]').value) {
+                return;
+            }
+            
+            // Validate email match
+            if (!validateEmail()) {
+                alert('Please ensure both email addresses match.');
                 return;
             }
             
@@ -357,11 +435,6 @@
             // Collect form data
             const formData = new FormData(this);
             const submissionData = Object.fromEntries(formData.entries());
-            
-            // Add extracted PDF text if available
-            if (window.extractedPDFText) {
-                submissionData.existingStatementText = window.extractedPDFText;
-            }
             
             try {
                 // Google Analytics tracking
@@ -382,43 +455,10 @@
                 alert('There was an error processing your submission. Please try again.');
                 
                 submitBtn.disabled = false;
-                submitBtn.textContent = 'Generate Professional Producer\'s Statement';
-            }
-        });
-        
-        // Drag and drop functionality
-        uploadArea.addEventListener('dragover', function(e) {
-            e.preventDefault();
-            this.classList.add('dragover');
-        });
-        
-        uploadArea.addEventListener('dragleave', function(e) {
-            e.preventDefault();
-            this.classList.remove('dragover');
-        });
-        
-        uploadArea.addEventListener('drop', function(e) {
-            e.preventDefault();
-            this.classList.remove('dragover');
-            
-            const files = e.dataTransfer.files;
-            if (files.length > 0) {
-                fileInput.files = files;
-                handleFileUpload(files[0]);
-            }
-        });
-        
-        function handleFileUpload(file) {
-            if (file && file.type === 'application/pdf') {
-                extractTextFromPDF(file, fileInfo);
-            }
-        }
-        
-        fileInput.addEventListener('change', function(e) {
-            if (e.target.files.length > 0) {
-                handleFileUpload(e.target.files[0]);
+                submitBtn.textContent = 'Generate Producer\'s Statement';
             }
         });
     </script>
+    <div id="book-banner-container"></div>
 </body>
 </html>
