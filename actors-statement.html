@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Actor's Statement - Festival Ready v3.0</title>
+    <title>Actor's Statement Generator - Festival Ready v3.0</title>
     
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-F2CSZ9KX52"></script>
@@ -60,7 +60,13 @@
         }
         
         .form-group {
-            margin-bottom: 30px;
+            margin-bottom: 25px;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
         }
         
         .form-group label {
@@ -68,17 +74,17 @@
             margin-bottom: 8px;
             font-weight: 600;
             color: #333;
-            font-size: 1.1rem;
+            font-size: 1rem;
         }
         
         .form-group input,
         .form-group textarea,
         .form-group select {
             width: 100%;
-            padding: 15px;
+            padding: 12px;
             border: 2px solid #e1e5e9;
-            border-radius: 12px;
-            font-size: 1rem;
+            border-radius: 8px;
+            font-size: 0.95rem;
             transition: border-color 0.3s ease;
             font-family: inherit;
         }
@@ -92,12 +98,12 @@
         
         .form-group textarea {
             resize: vertical;
-            min-height: 120px;
+            min-height: 100px;
         }
         
         .char-count {
             text-align: right;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: #666;
             margin-top: 5px;
         }
@@ -114,9 +120,9 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border: none;
-            padding: 18px 40px;
-            border-radius: 12px;
-            font-size: 1.1rem;
+            padding: 16px 32px;
+            border-radius: 8px;
+            font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
             transition: transform 0.3s ease;
@@ -136,8 +142,8 @@
         .checkbox-group {
             display: flex;
             align-items: flex-start;
-            gap: 12px;
-            margin-bottom: 30px;
+            gap: 10px;
+            margin-bottom: 25px;
         }
         
         .checkbox-group input[type="checkbox"] {
@@ -149,43 +155,7 @@
             margin-bottom: 0;
             font-weight: 400;
             flex: 1;
-        }
-        
-        .upload-area {
-            border: 2px dashed #667eea;
-            border-radius: 12px;
-            padding: 30px;
-            text-align: center;
-            background: rgba(102, 126, 234, 0.05);
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .upload-area:hover {
-            background: rgba(102, 126, 234, 0.1);
-        }
-        
-        .upload-area.dragover {
-            background: rgba(102, 126, 234, 0.15);
-            border-color: #764ba2;
-        }
-        
-        .upload-text {
-            color: #667eea;
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
-        
-        .upload-subtext {
-            color: #666;
             font-size: 0.9rem;
-        }
-        
-        .file-info {
-            background: rgba(102, 126, 234, 0.1);
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 10px;
         }
         
         .honeypot {
@@ -193,30 +163,67 @@
             left: -9999px;
             opacity: 0;
         }
+        
+        .email-match-error {
+            color: #e74c3c;
+            font-size: 0.85rem;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        .home-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .home-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .personal-info-section {
+            background: rgba(102, 126, 234, 0.03);
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(102, 126, 234, 0.1);
+        }
     </style>
 </head>
 <body>
-    <div id="book-banner-container"></div>
+    <a href="index.html" class="home-button">← Home</a>
     
     <div class="container">
         <div class="header">
-            <h1>🎭 Actor's Statement</h1>
-            <p>Create a compelling actor's statement for film festival submissions</p>
+            <h1>🎭 Actor's Statement Generator</h1>
+            <p>Share your creative journey and connection to this specific project (200-250 words)</p>
         </div>
         
         <div class="form-container">
-            <form id="actorsForm">
+            <form id="actorsStatementForm">
                 <!-- Honeypot field -->
                 <input type="text" name="website" class="honeypot" tabindex="-1" autocomplete="off">
                 
-                <div class="form-group">
-                    <label for="actorName">Actor's Full Name <span class="required">*</span></label>
-                    <input type="text" id="actorName" name="actorName" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="filmTitle">Film Title <span class="required">*</span></label>
-                    <input type="text" id="filmTitle" name="filmTitle" required>
+                <div class="personal-info-section">
+                    <div class="form-row">
+                    <div class="form-group">
+                        <label for="first_name">First Name <span class="required">*</span></label>
+                        <input type="text" id="first_name" name="first_name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="last_name">Last Name <span class="required">*</span></label>
+                        <input type="text" id="last_name" name="last_name" required>
+                    </div>
                 </div>
                 
                 <div class="form-group">
@@ -225,89 +232,145 @@
                 </div>
                 
                 <div class="form-group">
-                    <label for="characterName">Character Name</label>
-                    <input type="text" id="characterName" name="characterName" placeholder="Name of the character you play">
+                    <label for="emailConfirm">Confirm Email Address <span class="required">*</span></label>
+                    <input type="email" id="emailConfirm" name="emailConfirm" required>
+                    <div class="email-match-error" id="emailError">Email addresses do not match</div>
                 </div>
                 
-                <div class="form-group">
-                    <label for="roleType">Role Type</label>
-                    <select id="roleType" name="roleType">
-                        <option value="">Select role type</option>
-                        <option value="lead">Lead Role</option>
-                        <option value="supporting">Supporting Role</option>
-                        <option value="ensemble">Ensemble Cast Member</option>
-                        <option value="cameo">Cameo Appearance</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label for="motivation">Why did you want to take a role in this film? <span class="required">*</span></label>
-                    <textarea id="motivation" name="motivation" required placeholder="What drew you to this project? What excited you about this character or story?"></textarea>
-                    <div class="char-count" id="motivationCount">0 characters</div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="characterAnalysis">How did you approach and develop this character?</label>
-                    <textarea id="characterAnalysis" name="characterAnalysis" placeholder="Describe your process for understanding and bringing this character to life. What research or preparation did you do?"></textarea>
-                    <div class="char-count" id="characterAnalysisCount">0 characters</div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="directorCollaboration">How did you collaborate with the director?</label>
-                    <textarea id="directorCollaboration" name="directorCollaboration" placeholder="Describe your working relationship with the director and how they helped shape your performance."></textarea>
-                    <div class="char-count" id="directorCollaborationCount">0 characters</div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="performanceChallenges">What challenges did you face in this role?</label>
-                    <textarea id="performanceChallenges" name="performanceChallenges" placeholder="Were there any particularly demanding scenes, emotional challenges, or technical difficulties you had to overcome?"></textarea>
-                    <div class="char-count" id="performanceChallengesCount">0 characters</div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="personalConnection">What personal connection do you have to this character or story?</label>
-                    <textarea id="personalConnection" name="personalConnection" placeholder="How does this role relate to your own experiences or interests? What aspects of the character resonated with you?"></textarea>
-                    <div class="char-count" id="personalConnectionCount">0 characters</div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="castExperience">How was your experience working with the cast and crew?</label>
-                    <textarea id="castExperience" name="castExperience" placeholder="Describe the collaborative atmosphere on set and any particularly memorable moments or relationships formed during production."></textarea>
-                    <div class="char-count" id="castExperienceCount">0 characters</div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="existingStatement">Upload Existing Statement (Optional)</label>
-                    <div class="upload-area" onclick="document.getElementById('statementUpload').click()">
-                        <div class="upload-text">📄 Click to upload or drag & drop</div>
-                        <div class="upload-subtext">PDF files only</div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="country">Country <span class="required">*</span></label>
+                        <select id="country" name="country" required>
+                            <option value="">Select country</option>
+                            <option value="United States">United States</option>
+                            <option value="Canada">Canada</option>
+                            <option value="United Kingdom">United Kingdom</option>
+                            <option value="Afghanistan">Afghanistan</option>
+                            <option value="Albania">Albania</option>
+                            <option value="Algeria">Algeria</option>
+                            <option value="Argentina">Argentina</option>
+                            <option value="Armenia">Armenia</option>
+                            <option value="Australia">Australia</option>
+                            <option value="Austria">Austria</option>
+                            <option value="Azerbaijan">Azerbaijan</option>
+                            <option value="Bahrain">Bahrain</option>
+                            <option value="Bangladesh">Bangladesh</option>
+                            <option value="Belarus">Belarus</option>
+                            <option value="Belgium">Belgium</option>
+                            <option value="Bolivia">Bolivia</option>
+                            <option value="Brazil">Brazil</option>
+                            <option value="Bulgaria">Bulgaria</option>
+                            <option value="Cambodia">Cambodia</option>
+                            <option value="Chile">Chile</option>
+                            <option value="China">China</option>
+                            <option value="Colombia">Colombia</option>
+                            <option value="Croatia">Croatia</option>
+                            <option value="Czech Republic">Czech Republic</option>
+                            <option value="Denmark">Denmark</option>
+                            <option value="Ecuador">Ecuador</option>
+                            <option value="Egypt">Egypt</option>
+                            <option value="Estonia">Estonia</option>
+                            <option value="Finland">Finland</option>
+                            <option value="France">France</option>
+                            <option value="Germany">Germany</option>
+                            <option value="Greece">Greece</option>
+                            <option value="Hungary">Hungary</option>
+                            <option value="Iceland">Iceland</option>
+                            <option value="India">India</option>
+                            <option value="Indonesia">Indonesia</option>
+                            <option value="Iran">Iran</option>
+                            <option value="Iraq">Iraq</option>
+                            <option value="Ireland">Ireland</option>
+                            <option value="Israel">Israel</option>
+                            <option value="Italy">Italy</option>
+                            <option value="Japan">Japan</option>
+                            <option value="Jordan">Jordan</option>
+                            <option value="Kazakhstan">Kazakhstan</option>
+                            <option value="Latvia">Latvia</option>
+                            <option value="Lebanon">Lebanon</option>
+                            <option value="Lithuania">Lithuania</option>
+                            <option value="Luxembourg">Luxembourg</option>
+                            <option value="Malaysia">Malaysia</option>
+                            <option value="Mexico">Mexico</option>
+                            <option value="Netherlands">Netherlands</option>
+                            <option value="New Zealand">New Zealand</option>
+                            <option value="Norway">Norway</option>
+                            <option value="Pakistan">Pakistan</option>
+                            <option value="Peru">Peru</option>
+                            <option value="Philippines">Philippines</option>
+                            <option value="Poland">Poland</option>
+                            <option value="Portugal">Portugal</option>
+                            <option value="Romania">Romania</option>
+                            <option value="Russia">Russia</option>
+                            <option value="Saudi Arabia">Saudi Arabia</option>
+                            <option value="Singapore">Singapore</option>
+                            <option value="Slovakia">Slovakia</option>
+                            <option value="Slovenia">Slovenia</option>
+                            <option value="South Africa">South Africa</option>
+                            <option value="South Korea">South Korea</option>
+                            <option value="Spain">Spain</option>
+                            <option value="Sweden">Sweden</option>
+                            <option value="Switzerland">Switzerland</option>
+                            <option value="Thailand">Thailand</option>
+                            <option value="Turkey">Turkey</option>
+                            <option value="Ukraine">Ukraine</option>
+                            <option value="United Arab Emirates">United Arab Emirates</option>
+                            <option value="Venezuela">Venezuela</option>
+                            <option value="Vietnam">Vietnam</option>
+                            <option value="Other">Other</option>
+                        </select>
                     </div>
-                    <input type="file" id="statementUpload" name="statementUpload" accept=".pdf" style="display: none;">
-                    <div id="fileInfo" class="file-info" style="display: none;"></div>
+                    <div class="form-group">
+                        <label for="person_location">City or State (optional)</label>
+                        <input type="text" id="person_location" name="person_location">
+                    </div>
+                </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="project_title">Project Title <span class="required">*</span></label>
+                    <input type="text" id="project_title" name="project_title" placeholder="The film/project this statement is for" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="main_characters">Your Role and Character <span class="required">*</span></label>
+                    <textarea id="main_characters" name="main_characters" placeholder="Describe the character you play and your role in this project" required></textarea>
+                    <div class="char-count" id="main_charactersCount">0 characters</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="main_challenge">Connection to This Project <span class="required">*</span></label>
+                    <textarea id="main_challenge" name="main_challenge" placeholder="Why were you drawn to this role? What does this character mean to you? How does this project connect to your personal journey as an actor?" required></textarea>
+                    <div class="char-count" id="main_challengeCount">0 characters</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="script_text">Creative Process and Experience</label>
+                    <textarea id="script_text" name="script_text" placeholder="Share your experience working on this project, your creative process, collaboration with the director/cast, or any insights gained"></textarea>
+                    <div class="char-count" id="script_textCount">0 characters</div>
                 </div>
                 
                 <div class="checkbox-group">
-                    <input type="checkbox" id="marketingOptIn" name="marketingOptIn">
-                    <label for="marketingOptIn">
-                        I'd like to receive updates about Festival Ready features, film industry news, and submission opportunities. You can unsubscribe anytime.
+                    <input type="checkbox" id="marketing" name="marketing">
+                    <label for="marketing">
+                        Would you like to receive 1 email per month about updates to this app and our latest film festival submission discounts?
                     </label>
                 </div>
                 
                 <button type="submit" class="submit-btn" id="submitBtn">
-                    Generate Professional Actor's Statement
+                    Generate Actor's Statement
                 </button>
             </form>
         </div>
     </div>
     
-    <script src="pdf-extraction.js"></script>
     <script src="book-banner.js"></script>
     <script>
         // Initialize book banner
         createBookBanner('book-banner-container', 'actors-statement');
         
         // Character counting
-        const textareas = ['motivation', 'characterAnalysis', 'directorCollaboration', 'performanceChallenges', 'personalConnection', 'castExperience'];
+        const textareas = ['main_characters', 'main_challenge', 'script_text'];
         
         textareas.forEach(id => {
             const textarea = document.getElementById(id);
@@ -317,7 +380,7 @@
                 const count = this.value.length;
                 counter.textContent = `${count} characters`;
                 
-                if (count > 2000) {
+                if (count > 1000) {
                     counter.classList.add('warning');
                 } else {
                     counter.classList.remove('warning');
@@ -325,19 +388,43 @@
             });
         });
         
-        // PDF upload handling
-        const uploadArea = document.querySelector('.upload-area');
-        const fileInput = document.getElementById('statementUpload');
-        const fileInfo = document.getElementById('fileInfo');
+        // Email confirmation validation
+        const email = document.getElementById('email');
+        const emailConfirm = document.getElementById('emailConfirm');
+        const emailError = document.getElementById('emailError');
         
-        setupPDFUpload(uploadArea, fileInput, fileInfo);
+        // Disable copy/paste on email confirmation
+        emailConfirm.addEventListener('paste', function(e) {
+            e.preventDefault();
+        });
+        
+        function validateEmail() {
+            if (email.value && emailConfirm.value && email.value !== emailConfirm.value) {
+                emailError.style.display = 'block';
+                emailConfirm.style.borderColor = '#e74c3c';
+                return false;
+            } else {
+                emailError.style.display = 'none';
+                emailConfirm.style.borderColor = '#e1e5e9';
+                return true;
+            }
+        }
+        
+        email.addEventListener('input', validateEmail);
+        emailConfirm.addEventListener('input', validateEmail);
         
         // Form submission
-        document.getElementById('actorsForm').addEventListener('submit', async function(e) {
+        document.getElementById('actorsStatementForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
             // Check honeypot
             if (document.querySelector('input[name="website"]').value) {
+                return;
+            }
+            
+            // Validate email match
+            if (!validateEmail()) {
+                alert('Please ensure both email addresses match.');
                 return;
             }
             
@@ -348,11 +435,6 @@
             // Collect form data
             const formData = new FormData(this);
             const submissionData = Object.fromEntries(formData.entries());
-            
-            // Add extracted PDF text if available
-            if (window.extractedPDFText) {
-                submissionData.existingStatementText = window.extractedPDFText;
-            }
             
             try {
                 // Google Analytics tracking
@@ -373,43 +455,10 @@
                 alert('There was an error processing your submission. Please try again.');
                 
                 submitBtn.disabled = false;
-                submitBtn.textContent = 'Generate Professional Actor\'s Statement';
-            }
-        });
-        
-        // Drag and drop functionality
-        uploadArea.addEventListener('dragover', function(e) {
-            e.preventDefault();
-            this.classList.add('dragover');
-        });
-        
-        uploadArea.addEventListener('dragleave', function(e) {
-            e.preventDefault();
-            this.classList.remove('dragover');
-        });
-        
-        uploadArea.addEventListener('drop', function(e) {
-            e.preventDefault();
-            this.classList.remove('dragover');
-            
-            const files = e.dataTransfer.files;
-            if (files.length > 0) {
-                fileInput.files = files;
-                handleFileUpload(files[0]);
-            }
-        });
-        
-        function handleFileUpload(file) {
-            if (file && file.type === 'application/pdf') {
-                extractTextFromPDF(file, fileInfo);
-            }
-        }
-        
-        fileInput.addEventListener('change', function(e) {
-            if (e.target.files.length > 0) {
-                handleFileUpload(e.target.files[0]);
+                submitBtn.textContent = 'Generate Actor\'s Statement';
             }
         });
     </script>
+    <div id="book-banner-container"></div>
 </body>
 </html>
