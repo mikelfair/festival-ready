@@ -90,10 +90,10 @@ cp .env.example .env
 
 ### Statement Type Routing
 The AI processor determines statement type from the tool used:
-- `directors-statement.html` → `director_statement` column
-- `writers-statement.html` → `writer_statement` column  
-- `producers-statement.html` → `producer_statement` column
-- `actors-statement.html` → `actor_statement` column
+- `director-statement.html` → `director_statement` column
+- `writer-statement.html` → `writer_statement` column  
+- `producer-statement.html` → `producer_statement` column
+- `actor-statement.html` → `actor_statement` column
 
 ## Critical Configuration
 
@@ -132,40 +132,47 @@ writer_statement, similar_works
 Form data maps to approved database columns:
 - `toolData.first_name` → `first_name`
 - `toolData.project_title` → `project_title` 
-- `toolData.main_characters` → `characters` (NOTE: mapped to `characters`, not `main_characters`)
-- `toolData.main_challenge` → `plot` (NOTE: mapped to `plot`, not `main_challenge`)
+- `toolData.main_characters` → `main_characters`
+- `toolData.main_challenge` → `main_challenge`
 - `toolData.genres` → `genres` (array)
 - `toolData.script_text` → `script_text`
-- `toolData.script_upload_text` → `uploaded_script_text` (NOTE: mapped to `uploaded_script_text`)
+- `toolData.script_upload_text` → `script_upload_text`
+- `toolData.role` → `role` (Actor's Statement specific)
+- `toolData.inspirations_people` → `inspirations_people` (Statement tools)
+- `toolData.goals` → `goals` (Statement tools)
+
+### Statement Generator Field Structure
+**Enhanced field structure for statement generators (Actor, Director, Producer, Writer):**
+- Personal info section (first_name, last_name, email, country, person_location)
+- Project-specific fields (project_title, character description/creative vision)
+- Inspirations fields (creative works and people that inspired them)
+- Experience/approach fields (relevant work experience, creative process)
+- Goals field (future aspirations and career objectives)
 
 ## Tool Categories and Types
 
 **Synopsis Tools**: Film, Screenplay, Music Video
+- Common fields: Story Location(s), main characters, plot/stakes/challenges, script details
+- Music Video uses story/lyrics placeholder text to distinguish from film content
+
 **Biography Tools**: Actor, Director, Producer, Writer (150-200 words, career-focused, third person)
-**Statement Tools**: Actor, Director, Producer, Writer (200-250 words, project-specific, first person)  
+**Statement Tools**: Actor, Director, Producer, Writer (200-250 words, project-specific, first person)
+- All statement tools include: Creative Inspirations, Goals field, Relevant Work Experience
+- Actor's Statement: Character description, role connection, actor inspirations
+- Director's Statement: Creative vision, directorial approach, director inspirations, work experience
+
 **Utility Tools**: Tagline Generator (9th grade reading level, 10-15 words)
 
 ### UI Components
-- **Book Banner**: festival-books-banner.png Amazon affiliate integration on all tool pages
-- **PDF Upload**: pdf-extraction.js utility handles script file uploads  
-- **Dynamic Processing**: processing-selection.html adapts content based on tool type
-
-## AI Processing Patterns
-
-### Statement Opening Lines (from AI_PROMPT_PATTERNS.md)
-When generating statements, the AI processor uses these opening patterns:
-- **Writer's Statement**: "I was inspired to write this story because..."
-- **Director's Statement**: "I was inspired to direct this film because..."
-- **Producer's Statement**: "I was inspired to produce this film because..."
-- **Actor's Statement**: "I was inspired to play this role because..."
-
-### Node.js Dependencies
-The ai-processor.js requires:
-- `@google-ai/generativelanguage`: ^3.2.0
-- `@google/generative-ai`: ^0.15.0
-- `@supabase/supabase-js`: ^2.38.0
-- `node-fetch`: ^2.7.0
-- Node.js >= 16.0.0
+- **Book Banner**: `book-banner.js` creates standardized Amazon affiliate banner for all tool pages
+  - Automatically positions at bottom of page after DOM loads
+  - Includes Google Analytics tracking via `trackBookBannerClick()`
+  - Uses responsive CSS with hover animations
+- **PDF Upload**: `pdf-extraction.js` utility handles script file uploads with drag-and-drop
+  - Extracts text content and stores in `window.extractedPDFText`
+  - Supports drag-and-drop and click-to-upload interfaces
+- **Dynamic Processing**: `processing-selection.html` adapts content based on tool type
+- **Character Counting**: All textarea fields include real-time character counters with warning states
 
 ## API Integration Patterns
 
@@ -227,10 +234,8 @@ const response = await fetch(`${supabaseUrl}/rest/v1/submissions_v3`, {
 2. Verify snake_case naming convention is followed
 3. Check that `submissions_v3` table is being used, not legacy `submissions`
 4. Confirm `v3-process-submission` edge function is being called
-5. CRITICAL: Verify field mapping corrections:
-   - `main_characters` → `characters`
-   - `main_challenge` → `plot`  
-   - `script_upload_text` → `uploaded_script_text`
+5. Verify JavaScript character counting arrays include all textarea field IDs
+6. Ensure sessionStorage keys follow `{tooltype}Data` pattern (e.g., `actorsstatementData`)
 
 ## Security Considerations
 
