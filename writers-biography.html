@@ -221,6 +221,13 @@
             font-weight: 400;
             font-size: 0.9rem;
         }
+        
+        .genre-section {
+            background: rgba(128, 128, 128, 0.1);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+        }
     </style>
 </head>
 <body>
@@ -351,8 +358,8 @@
                 </div>
                 
                 <div class="form-group">
-                    <label for="relevant_work_experience">Writer Experience <span class="required">*</span></label>
-                    <textarea id="relevant_work_experience" name="relevant_work_experience" placeholder="What are some of the film/tv industry projects that you've worked on, that you're very proud of." required></textarea>
+                    <label for="relevant_work_experience">Screenwriter Experience <span class="required">*</span></label>
+                    <textarea id="relevant_work_experience" name="relevant_work_experience" placeholder="What are some of the Film/TV industry experiences that may have prepared you to work on this project." required></textarea>
                     <div class="char-count" id="relevant_work_experienceCount">0 characters</div>
                 </div>
                 
@@ -362,25 +369,7 @@
                     <div class="char-count" id="screenings_awardsCount">0 characters</div>
                 </div>
                 
-                <div class="form-group">
-                    <label for="non_film_industry_experience">Non-Film Industry Related Experience</label>
-                    <textarea id="non_film_industry_experience" name="non_film_industry_experience" placeholder="As a student I experienced ... , as a parent I experienced ... , working in real estate for ten years I experienced ... growing up in Seattle I experienced ..."></textarea>
-                    <div class="char-count" id="non_film_industry_experienceCount">0 characters</div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="community">Community</label>
-                    <textarea id="community" name="community" placeholder="In your own words, creatively do you feel like you career is focused on serving a particular audience? Autism Awareness, Latin community, LGBTQ community, Black Community, Religious Community, Family Programming, Environmental awareness? A political community? no preference?"></textarea>
-                    <div class="char-count" id="communityCount">0 characters</div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="goals">Goals</label>
-                    <textarea id="goals" name="goals" placeholder="In the future, what are you working towards, any goals? Example: Direct a big budget theatrical films or streaming programs. Join the Director's Guild, etc .."></textarea>
-                    <div class="char-count" id="goalsCount">0 characters</div>
-                </div>
-                
-                <div class="form-group">
+                <div class="form-group genre-section">
                     <label for="genres">Do you have any personal favorite genres? Click on all that apply.</label>
                     <div class="genre-grid">
                         <div class="genre-item">
@@ -420,6 +409,24 @@
                             <label for="suspense_thriller">Suspense Thriller</label>
                         </div>
                     </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="non_film_industry_experience">Non-Film Industry Related Experience <span class="required">*</span></label>
+                    <textarea id="non_film_industry_experience" name="non_film_industry_experience" placeholder="As a student I experienced ... , as a parent I experienced ... , working in real estate for ten years I experienced ... growing up in Seattle I experienced ..." required></textarea>
+                    <div class="char-count" id="non_film_industry_experienceCount">0 characters</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="community">Community <span class="required">*</span></label>
+                    <textarea id="community" name="community" placeholder="In your own words, creatively do you feel like you career is focused on serving a particular audience? Autism Awareness, Latin community, LGBTQ community, Black Community, Religious Community, Family Programming, Environmental awareness? A political community? no preference?" required></textarea>
+                    <div class="char-count" id="communityCount">0 characters</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="goals">Goals <span class="required">*</span></label>
+                    <textarea id="goals" name="goals" placeholder="In the future, what are you working towards any goals? Examples: Work on big budget theatrical films or streaming programs? Join the [Screen Actor's Guild SAG], [Director's Guild DGA],[Writer's Guild WGA] [Producer's Guild PGA]" required></textarea>
+                    <div class="char-count" id="goalsCount">0 characters</div>
                 </div>
                 
                 <div class="checkbox-group">
