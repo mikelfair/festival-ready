@@ -177,7 +177,7 @@
             left: 20px;
             background: rgba(255, 255, 255, 0.2);
             color: white;
-            border: none;
+            border: 2px solid rgba(255, 255, 255, 0.3);
             padding: 10px 20px;
             border-radius: 8px;
             text-decoration: none;
@@ -206,7 +206,7 @@
     <div class="container">
         <div class="header">
             <h1>🎭 Actor's Statement Generator</h1>
-            <p>Share your creative journey and connection to this specific project (200-250 words)</p>
+            <p>Use this tool to create an actor's statement, which explains your personal motivation for accepting this role.</p>
         </div>
         
         <div class="form-container">
@@ -333,21 +333,39 @@
                 </div>
                 
                 <div class="form-group">
-                    <label for="main_characters">Your Role and Character <span class="required">*</span></label>
-                    <textarea id="main_characters" name="main_characters" placeholder="Describe the character you play and your role in this project" required></textarea>
+                    <label for="main_characters">Tell us about your character <span class="required">*</span></label>
+                    <textarea id="main_characters" name="main_characters" placeholder="What is your character's name and why is this character important to the story?" required></textarea>
                     <div class="char-count" id="main_charactersCount">0 characters</div>
                 </div>
                 
                 <div class="form-group">
-                    <label for="main_challenge">Connection to This Project <span class="required">*</span></label>
-                    <textarea id="main_challenge" name="main_challenge" placeholder="Why were you drawn to this role? What does this character mean to you? How does this project connect to your personal journey as an actor?" required></textarea>
+                    <label for="role">Connection to This Project <span class="required">*</span></label>
+                    <textarea id="role" name="role" placeholder="Why were you drawn to this role? What does this character mean to you? How does this project connect to your personal journey as an actor?" required></textarea>
+                    <div class="char-count" id="roleCount">0 characters</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="main_challenge">Creative Inspirations</label>
+                    <textarea id="main_challenge" name="main_challenge" placeholder="Name any creative works that inspired you to perform this role? Example: Indiana Jones, Shrek, Game of Thrones, Ghostbusters, Animal Kingdom, etc ..."></textarea>
                     <div class="char-count" id="main_challengeCount">0 characters</div>
                 </div>
                 
                 <div class="form-group">
-                    <label for="script_text">Creative Process and Experience</label>
-                    <textarea id="script_text" name="script_text" placeholder="Share your experience working on this project, your creative process, collaboration with the director/cast, or any insights gained"></textarea>
+                    <label for="inspirations_people">Actor Inspirations</label>
+                    <textarea id="inspirations_people" name="inspirations_people" placeholder="Name any creative people that inspired you to perform this role? Example: Jennifer Lopez, Tom Hanks, Julia Roberts, Denzel Washington, etc ..."></textarea>
+                    <div class="char-count" id="inspirations_peopleCount">0 characters</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="script_text">Relevant Work Experience</label>
+                    <textarea id="script_text" name="script_text" placeholder="What are some of the film/tv industry projects that may have prepared you for a role this project?"></textarea>
                     <div class="char-count" id="script_textCount">0 characters</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="goals">Goals</label>
+                    <textarea id="goals" name="goals" placeholder="In the future, what are you working towards, any goals? Example: Direct a big budget theatrical films or streaming programs. Join the Director's Guild, etc .."></textarea>
+                    <div class="char-count" id="goalsCount">0 characters</div>
                 </div>
                 
                 <div class="checkbox-group">
@@ -370,7 +388,7 @@
         createBookBanner('book-banner-container', 'actors-statement');
         
         // Character counting
-        const textareas = ['main_characters', 'main_challenge', 'script_text'];
+        const textareas = ['main_characters', 'role', 'main_challenge', 'inspirations_people', 'script_text', 'goals'];
         
         textareas.forEach(id => {
             const textarea = document.getElementById(id);
