@@ -2,6 +2,12 @@
 // Creates a standardized book banner for all tool pages
 
 function createBookBanner(containerId, toolType) {
+    // Ensure DOM is loaded before creating banner
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => createBookBanner(containerId, toolType));
+        return;
+    }
+    
     const container = document.getElementById(containerId);
     if (!container) {
         console.warn('Book banner container not found:', containerId);
