@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actor's Statement Generator - Festival Ready v3.0</title>
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-F2CSZ9KX52"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-F2CSZ9KX52');
+    </script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .header p {
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+        
+        .form-container {
+            padding: 40px;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+            font-size: 1rem;
+        }
+        
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            transition: border-color 0.3s ease;
+            font-family: inherit;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        .char-count {
+            text-align: right;
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .char-count.warning {
+            color: #e74c3c;
+        }
+        
+        .required {
+            color: #e74c3c;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 16px 32px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            width: 100%;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+        
+        .checkbox-group input[type="checkbox"] {
+            width: auto;
+            margin-top: 3px;
+        }
+        
+        .checkbox-group label {
+            margin-bottom: 0;
+            font-weight: 400;
+            flex: 1;
+            font-size: 0.9rem;
+        }
+        
+        .honeypot {
+            position: absolute;
+            left: -9999px;
+            opacity: 0;
+        }
+        
+        .email-match-error {
+            color: #e74c3c;
+            font-size: 0.85rem;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        .home-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .home-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .personal-info-section {
+            background: rgba(102, 126, 234, 0.03);
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(102, 126, 234, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="home-button">← Home</a>
+    
+    <div class="container">
+        <div class="header">
+            <h1>🎭 Actor's Statement Generator</h1>
+            <p>Use this tool to create an actor's statement, which explains your personal motivation for accepting this role.</p>
+        </div>
+        
+        <div class="form-container">
+            <form id="actorsStatementForm">
+                <!-- Honeypot field -->
+                <input type="text" name="website" class="honeypot" tabindex="-1" autocomplete="off">
+                
+                <div class="personal-info-section">
+                    <div class="form-row">
+                    <div class="form-group">
+                        <label for="first_name">First Name <span class="required">*</span></label>
+                        <input type="text" id="first_name" name="first_name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="last_name">Last Name <span class="required">*</span></label>
+                        <input type="text" id="last_name" name="last_name" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email Address <span class="required">*</span></label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="emailConfirm">Confirm Email Address <span class="required">*</span></label>
+                    <input type="email" id="emailConfirm" name="emailConfirm" required>
+                    <div class="email-match-error" id="emailError">Email addresses do not match</div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="country">Country <span class="required">*</span></label>
+                        <select id="country" name="country" required>
+                            <option value="">Select country</option>
+                            <option value="United States">United States</option>
+                            <option value="Canada">Canada</option>
+                            <option value="United Kingdom">United Kingdom</option>
+                            <option value="Afghanistan">Afghanistan</option>
+                            <option value="Albania">Albania</option>
+                            <option value="Algeria">Algeria</option>
+                            <option value="Argentina">Argentina</option>
+                            <option value="Armenia">Armenia</option>
+                            <option value="Australia">Australia</option>
+                            <option value="Austria">Austria</option>
+                            <option value="Azerbaijan">Azerbaijan</option>
+                            <option value="Bahrain">Bahrain</option>
+                            <option value="Bangladesh">Bangladesh</option>
+                            <option value="Belarus">Belarus</option>
+                            <option value="Belgium">Belgium</option>
+                            <option value="Bolivia">Bolivia</option>
+                            <option value="Brazil">Brazil</option>
+                            <option value="Bulgaria">Bulgaria</option>
+                            <option value="Cambodia">Cambodia</option>
+                            <option value="Chile">Chile</option>
+                            <option value="China">China</option>
+                            <option value="Colombia">Colombia</option>
+                            <option value="Croatia">Croatia</option>
+                            <option value="Czech Republic">Czech Republic</option>
+                            <option value="Denmark">Denmark</option>
+                            <option value="Ecuador">Ecuador</option>
+                            <option value="Egypt">Egypt</option>
+                            <option value="Estonia">Estonia</option>
+                            <option value="Finland">Finland</option>
+                            <option value="France">France</option>
+                            <option value="Germany">Germany</option>
+                            <option value="Greece">Greece</option>
+                            <option value="Hungary">Hungary</option>
+                            <option value="Iceland">Iceland</option>
+                            <option value="India">India</option>
+                            <option value="Indonesia">Indonesia</option>
+                            <option value="Iran">Iran</option>
+                            <option value="Iraq">Iraq</option>
+                            <option value="Ireland">Ireland</option>
+                            <option value="Israel">Israel</option>
+                            <option value="Italy">Italy</option>
+                            <option value="Japan">Japan</option>
+                            <option value="Jordan">Jordan</option>
+                            <option value="Kazakhstan">Kazakhstan</option>
+                            <option value="Latvia">Latvia</option>
+                            <option value="Lebanon">Lebanon</option>
+                            <option value="Lithuania">Lithuania</option>
+                            <option value="Luxembourg">Luxembourg</option>
+                            <option value="Malaysia">Malaysia</option>
+                            <option value="Mexico">Mexico</option>
+                            <option value="Netherlands">Netherlands</option>
+                            <option value="New Zealand">New Zealand</option>
+                            <option value="Norway">Norway</option>
+                            <option value="Pakistan">Pakistan</option>
+                            <option value="Peru">Peru</option>
+                            <option value="Philippines">Philippines</option>
+                            <option value="Poland">Poland</option>
+                            <option value="Portugal">Portugal</option>
+                            <option value="Romania">Romania</option>
+                            <option value="Russia">Russia</option>
+                            <option value="Saudi Arabia">Saudi Arabia</option>
+                            <option value="Singapore">Singapore</option>
+                            <option value="Slovakia">Slovakia</option>
+                            <option value="Slovenia">Slovenia</option>
+                            <option value="South Africa">South Africa</option>
+                            <option value="South Korea">South Korea</option>
+                            <option value="Spain">Spain</option>
+                            <option value="Sweden">Sweden</option>
+                            <option value="Switzerland">Switzerland</option>
+                            <option value="Thailand">Thailand</option>
+                            <option value="Turkey">Turkey</option>
+                            <option value="Ukraine">Ukraine</option>
+                            <option value="United Arab Emirates">United Arab Emirates</option>
+                            <option value="Venezuela">Venezuela</option>
+                            <option value="Vietnam">Vietnam</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="person_location">City or State (optional)</label>
+                        <input type="text" id="person_location" name="person_location">
+                    </div>
+                </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="role">Project Title <span class="required">*</span></label>
+                    <input type="text" id="role" name="role" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="main_characters">Tell us about your character <span class="required">*</span></label>
+                    <textarea id="main_characters" name="main_characters" placeholder="What is your character's name and why is this character important to the story?" required></textarea>
+                    <div class="char-count" id="main_charactersCount">0 characters</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="project_connection">Connection to This Project <span class="required">*</span></label>
+                    <textarea id="project_connection" name="project_connection" placeholder="Why were you drawn to this role? What does this character mean to you? How does this project connect to your personal journey as an actor?" required></textarea>
+                    <div class="char-count" id="project_connectionCount">0 characters</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="main_challenge">Creative Inspirations</label>
+                    <textarea id="main_challenge" name="main_challenge" placeholder="Name any creative works that inspired you to perform this role? Example: Indiana Jones, Shrek, Game of Thrones, Ghostbusters, Animal Kingdom, etc ..."></textarea>
+                    <div class="char-count" id="main_challengeCount">0 characters</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="inspirations_people">Actor Inspirations</label>
+                    <textarea id="inspirations_people" name="inspirations_people" placeholder="Name any creative people that inspired you to perform this role? Example: Jennifer Lopez, Tom Hanks, Julia Roberts, Denzel Washington, etc ..."></textarea>
+                    <div class="char-count" id="inspirations_peopleCount">0 characters</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="script_text">Relevant Work Experience</label>
+                    <textarea id="script_text" name="script_text" placeholder="What are some of the film/tv industry projects that may have prepared you for a role this project?"></textarea>
+                    <div class="char-count" id="script_textCount">0 characters</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="goals">Goals</label>
+                    <textarea id="goals" name="goals" placeholder="In the future, what are you working towards any goals? Examples: Work on big budget theatrical films or streaming programs? Join the Screen Actor's Guild SAG?"></textarea>
+                    <div class="char-count" id="goalsCount">0 characters</div>
+                </div>
+                
+                <div class="checkbox-group">
+                    <input type="checkbox" id="marketing" name="marketing">
+                    <label for="marketing">
+                        Would you like to receive 1 email per month about updates to this app and our latest film festival submission discounts?
+                    </label>
+                </div>
+                
+                <button type="submit" class="submit-btn" id="submitBtn">
+                    Generate Actor's Statement
+                </button>
+            </form>
+        </div>
+    </div>
+    
+    <script src="book-banner.js"></script>
+    <script>
+        // Initialize book banner
+        createBookBanner('book-banner-container', 'actors-statement');
+        
+        // Character counting
+        const textareas = ['main_characters', 'project_connection', 'main_challenge', 'inspirations_people', 'script_text', 'goals'];
+        
+        textareas.forEach(id => {
+            const textarea = document.getElementById(id);
+            const counter = document.getElementById(id + 'Count');
+            
+            textarea.addEventListener('input', function() {
+                const count = this.value.length;
+                counter.textContent = `${count} characters`;
+                
+                if (count > 1000) {
+                    counter.classList.add('warning');
+                } else {
+                    counter.classList.remove('warning');
+                }
+            });
+        });
+        
+        // Email confirmation validation
+        const email = document.getElementById('email');
+        const emailConfirm = document.getElementById('emailConfirm');
+        const emailError = document.getElementById('emailError');
+        
+        // Disable copy/paste on email confirmation
+        emailConfirm.addEventListener('paste', function(e) {
+            e.preventDefault();
+        });
+        
+        function validateEmail() {
+            if (email.value && emailConfirm.value && email.value !== emailConfirm.value) {
+                emailError.style.display = 'block';
+                emailConfirm.style.borderColor = '#e74c3c';
+                return false;
+            } else {
+                emailError.style.display = 'none';
+                emailConfirm.style.borderColor = '#e1e5e9';
+                return true;
+            }
+        }
+        
+        email.addEventListener('input', validateEmail);
+        emailConfirm.addEventListener('input', validateEmail);
+        
+        // Form submission
+        document.getElementById('actorsStatementForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Check honeypot
+            if (document.querySelector('input[name="website"]').value) {
+                return;
+            }
+            
+            // Validate email match
+            if (!validateEmail()) {
+                alert('Please ensure both email addresses match.');
+                return;
+            }
+            
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Processing...';
+            
+            // Collect form data
+            const formData = new FormData(this);
+            const submissionData = Object.fromEntries(formData.entries());
+            
+            try {
+                // Google Analytics tracking
+                gtag('event', 'form_submit', {
+                    'event_category': 'Tool_Usage',
+                    'event_label': 'actors-statement',
+                    'value': 1
+                });
+                
+                // Store data for processing selection
+                sessionStorage.setItem('actorsstatementData', JSON.stringify(submissionData));
+                
+                // Redirect to processing selection
+                window.location.href = 'processing-selection.html?tool=actors-statement';
+                
+            } catch (error) {
+                console.error('Submission error:', error);
+                alert('There was an error processing your submission. Please try again.');
+                
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Generate Actor\'s Statement';
+            }
+        });
+    </script>
+    <div id="book-banner-container"></div>
+</body>
+</html>
