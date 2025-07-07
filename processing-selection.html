@@ -487,14 +487,18 @@
                     throw new Error('No submission ID returned');
                 }
                 
-                // Trigger processing
+                // Trigger processing - NOW INCLUDES TOOLTYPE PARAMETER
                 const processResponse = await fetch(`${supabaseUrl}/functions/v1/v3-process-submission`, {
                     method: 'POST',
                     headers: {
                         'Authorization': `Bearer ${supabaseKey}`,
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ submissionId })
+                    body: JSON.stringify({ 
+                        submissionId: submissionId,
+                        toolType: toolType,
+                        tier: selectedTier
+                    })
                 });
                 
                 if (!processResponse.ok) {
