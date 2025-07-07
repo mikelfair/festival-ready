@@ -328,19 +328,8 @@
                 </div>
                 
                 <div class="form-group">
-                    <label for="project_title">Project Title <span class="required">*</span></label>
-                    <input type="text" id="project_title" name="project_title" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="role">Your Writing Role <span class="required">*</span></label>
-                    <input type="text" id="role" name="role" placeholder="Were you the only writer for this project? Are you a first time writer?" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="main_characters">Your Role as a Screenwriter for This Project <span class="required">*</span></label>
-                    <textarea id="main_characters" name="main_characters" placeholder="Who are the writers and story contributors for this screenplay?" required></textarea>
-                    <div class="char-count" id="main_charactersCount">0 characters</div>
+                    <label for="role">Project Title <span class="required">*</span></label>
+                    <input type="text" id="role" name="role" required>
                 </div>
                 
                 <div class="form-group">
@@ -362,8 +351,8 @@
                 </div>
                 
                 <div class="form-group">
-                    <label for="goals">Goals <span class="required">*</span></label>
-                    <textarea id="goals" name="goals" placeholder="In the future, what are you working towards any goals? Examples: Work on big budget theatrical films or streaming programs? Join the [Writer's Guild WGA]" required></textarea>
+                    <label for="goals">Goals</label>
+                    <textarea id="goals" name="goals" placeholder="In the future, what are you working towards any goals? Examples: Work on big budget theatrical films or streaming programs? Join the Writer's Guild WGA"></textarea>
                     <div class="char-count" id="goalsCount">0 characters</div>
                 </div>
                 
@@ -387,7 +376,7 @@
         createBookBanner('book-banner-container', 'writers-statement');
         
         // Character counting
-        const textareas = ['main_characters', 'main_challenge', 'inspirations_people', 'script_text', 'goals'];
+        const textareas = ['main_challenge', 'inspirations_people', 'script_text', 'goals'];
         
         textareas.forEach(id => {
             const textarea = document.getElementById(id);
