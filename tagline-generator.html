@@ -313,6 +313,33 @@
             font-size: 0.9rem;
             line-height: 1.4;
         }
+        
+        .option-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 10px 0;
+            width: 100%;
+        }
+        
+        .option-btn:hover {
+            background: #5a67d8;
+            transform: translateY(-1px);
+        }
+        
+        .premium-btn {
+            background: #ff6b6b;
+        }
+        
+        .premium-btn:hover {
+            background: #ff5252;
+        }
     </style>
 </head>
 <body>
@@ -549,16 +576,22 @@
                     <div class="option-card" data-tier="standard" onclick="selectOption('standard')">
                         <div class="option-badge">FREE</div>
                         <div class="option-title">Standard Processing</div>
+                        <button type="button" class="option-btn" id="standardBtn" onclick="selectOption('standard')">
+                            Free
+                        </button>
                         <div class="option-description">
-                            One professional tagline using Gemini 1.5 Flash
+                            Generate a film industry standard tagline powered by Google Gemini.
                         </div>
                     </div>
                     
                     <div class="option-card" data-tier="premium" onclick="selectOption('premium')">
                         <div class="option-badge premium-badge">PREMIUM</div>
                         <div class="option-title">Premium Processing</div>
+                        <button type="button" class="option-btn premium-btn" id="premiumBtn" onclick="selectOption('premium')">
+                            Premium
+                        </button>
                         <div class="option-description">
-                            Four taglines (Challenge, Mission, Question, Warning) using Gemini 1.5 Pro
+                            Generate 4 different types of taglines with industry standards using Mikel Fair's signature algorithm powered by the high end AI processing.
                         </div>
                     </div>
                 </div>
@@ -587,6 +620,10 @@
             });
             
             document.querySelector(`[data-tier="${tier}"]`).classList.add('selected');
+            
+            // Update button states
+            document.getElementById('standardBtn').style.background = tier === 'standard' ? '#5a67d8' : '#667eea';
+            document.getElementById('premiumBtn').style.background = tier === 'premium' ? '#ff5252' : '#ff6b6b';
             
             // Update submit button
             const submitBtn = document.getElementById('submitBtn');
