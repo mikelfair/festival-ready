@@ -321,7 +321,7 @@
     <div class="container">
         <div class="header">
             <h1>✨ Tagline Generator</h1>
-            <p>Create memorable, marketable taglines optimized for 9th grade reading level (10-15 words)</p>
+            <p>Create a memorable, marketable tagline for your creative work that will generate interest in your work without revealing the plot.</p>
         </div>
         
         <div class="form-container">
@@ -449,8 +449,8 @@
                 
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="duration">Total Runtime (including credits) <span class="required">*</span></label>
-                        <input type="text" id="duration" name="duration" placeholder="e.g., 95 minutes, 12 min, 2 hours" required>
+                        <label for="project_duration">Project Duration <span class="required">*</span></label>
+                        <input type="text" id="project_duration" name="project_duration" placeholder="e.g., 95 minutes, 12 pages, 2 hours" required>
                     </div>
                     <div class="form-group">
                         <label for="project_type">Project Type <span class="required">*</span></label>
@@ -506,9 +506,9 @@
                 </div>
                 
                 <div class="form-group">
-                    <label for="characters">Please describe the main characters <span class="required">*</span></label>
-                    <textarea id="characters" name="characters" placeholder="Example: Martha 34 year old teacher, James 12 year old student" required></textarea>
-                    <div class="char-count" id="charactersCount">0 characters</div>
+                    <label for="main_characters">Please describe the main characters <span class="required">*</span></label>
+                    <textarea id="main_characters" name="main_characters" placeholder="Example: Martha 34 year old teacher, James 12 year old student" required></textarea>
+                    <div class="char-count" id="main_charactersCount">0 characters</div>
                 </div>
                 
                 <div class="form-group">
@@ -517,9 +517,9 @@
                 </div>
                 
                 <div class="form-group">
-                    <label for="plot">Plot, Stakes, and Challenges <span class="required">*</span></label>
-                    <textarea id="plot" name="plot" placeholder="Highlight the plot, stakes or challenges faced by the main characters. If you already have a synopsis or description, you can paste it here as well." required></textarea>
-                    <div class="char-count" id="plotCount">0 characters</div>
+                    <label for="main_challenge">Plot, Stakes, and Challenges <span class="required">*</span></label>
+                    <textarea id="main_challenge" name="main_challenge" placeholder="Highlight the plot, stakes or challenges faced by the main characters. If you already have a synopsis or description, you can paste it here as well." required></textarea>
+                    <div class="char-count" id="main_challengeCount">0 characters</div>
                 </div>
                 
                 <div class="form-group">
@@ -558,7 +558,7 @@
                         <div class="option-badge premium-badge">PREMIUM</div>
                         <div class="option-title">Premium Processing</div>
                         <div class="option-description">
-                            Four taglines (Challenge, Mission, Question, Warning) using Gemini 2.5 Pro
+                            Four taglines (Challenge, Mission, Question, Warning) using Gemini 1.5 Pro
                         </div>
                     </div>
                 </div>
@@ -600,7 +600,7 @@
         }
         
         // Character counting
-        const textareas = ['characters', 'plot', 'script_text'];
+        const textareas = ['main_characters', 'main_challenge', 'script_text'];
         
         textareas.forEach(id => {
             const textarea = document.getElementById(id);
@@ -716,10 +716,10 @@
                     person_location: submissionData.person_location,
                     project_title: submissionData.project_title,
                     project_type: submissionData.project_type,
-                    duration: submissionData.duration,
+                    duration: submissionData.project_duration,
                     genres: submissionData.genres,
-                    characters: submissionData.characters,
-                    plot: submissionData.plot,
+                    characters: submissionData.main_characters,
+                    plot: submissionData.main_challenge,
                     story_location: submissionData.story_location,
                     script_text: submissionData.script_text,
                     uploaded_script_text: submissionData.script_upload_text,
