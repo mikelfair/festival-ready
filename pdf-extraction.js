@@ -38,7 +38,8 @@ function setupPDFUpload(uploadArea, fileInput, fileInfo) {
 
 function handleFileUpload(file) {
     if (file && file.type === 'application/pdf') {
-        extractTextFromPDF(file);
+        const fileInfo = document.getElementById('fileInfo');
+        extractTextFromPDF(file, fileInfo);
     } else {
         alert('Please upload a PDF file only.');
     }
@@ -72,7 +73,7 @@ async function extractTextFromPDF(file, fileInfoElement) {
         let extractedText = '';
         
         // Extract text from all pages
-        for (let pageNum = 1; pageNum <= Math.min(pdf.numPages, 50); pageNum++) { // Limit to 50 pages
+        for (let pageNum = 1; pageNum <= Math.min(pdf.numPages, 100); pageNum++) { // Limit to 100 pages
             const page = await pdf.getPage(pageNum);
             const textContent = await page.getTextContent();
             const pageText = textContent.items.map(item => item.str).join(' ');
