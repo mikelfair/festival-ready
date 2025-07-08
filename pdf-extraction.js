@@ -1,6 +1,6 @@
 // PDF Extraction utility for Festival Ready v3.0 - Updated 2025-01-08
 // Handles PDF file upload and text extraction for script uploads
-console.log('PDF extraction utility loaded - v3.0.1');
+console.log('PDF extraction utility loaded - v3.0.2');
 
 function setupPDFUpload(uploadArea, fileInput, fileInfo) {
     // Set up file input change handler

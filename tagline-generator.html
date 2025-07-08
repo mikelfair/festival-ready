@@ -422,7 +422,6 @@
                             <option value="Indonesia">Indonesia</option>
                             <option value="Iran">Iran</option>
                             <option value="Iraq">Iraq</option>
-                            <option value="Lebanon">Lebanon</option>
                             <option value="Ireland">Ireland</option>
                             <option value="Israel">Israel</option>
                             <option value="Italy">Italy</option>
@@ -430,6 +429,7 @@
                             <option value="Jordan">Jordan</option>
                             <option value="Kazakhstan">Kazakhstan</option>
                             <option value="Latvia">Latvia</option>
+                            <option value="Lebanon">Lebanon</option>
                             <option value="Lithuania">Lithuania</option>
                             <option value="Luxembourg">Luxembourg</option>
                             <option value="Malaysia">Malaysia</option>
@@ -595,7 +595,7 @@
         </div>
     </div>
     
-    <script src="pdf-extraction.js?v=3.0.1"></script>
+    <script src="pdf-extraction.js?v=3.0.2"></script>
     <script src="book-banner.js"></script>
     <script>
         // Initialize book banner
@@ -678,6 +678,13 @@
         const fileInfo = document.getElementById('fileInfo');
         
         setupPDFUpload(uploadArea, fileInput, fileInfo);
+        
+        function handleFileUpload(file) {
+            if (file && file.type === 'application/pdf') {
+                const fileInfo = document.getElementById('fileInfo');
+                extractTextFromPDF(file, fileInfo);
+            }
+        }
         
         // Form submission
         document.getElementById('taglineGeneratorForm').addEventListener('submit', async function(e) {
@@ -816,40 +823,6 @@
                 
                 submitBtn.disabled = false;
                 submitBtn.textContent = 'Generate Tagline';
-            }
-        });
-        
-        // Drag and drop functionality
-        uploadArea.addEventListener('dragover', function(e) {
-            e.preventDefault();
-            this.classList.add('dragover');
-        });
-        
-        uploadArea.addEventListener('dragleave', function(e) {
-            e.preventDefault();
-            this.classList.remove('dragover');
-        });
-        
-        uploadArea.addEventListener('drop', function(e) {
-            e.preventDefault();
-            this.classList.remove('dragover');
-            
-            const files = e.dataTransfer.files;
-            if (files.length > 0) {
-                fileInput.files = files;
-                handleFileUpload(files[0]);
-            }
-        });
-        
-        function handleFileUpload(file) {
-            if (file && file.type === 'application/pdf') {
-                extractTextFromPDF(file, fileInfo);
-            }
-        }
-        
-        fileInput.addEventListener('change', function(e) {
-            if (e.target.files.length > 0) {
-                handleFileUpload(e.target.files[0]);
             }
         });
     </script>
