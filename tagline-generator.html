@@ -545,14 +545,8 @@
                 
                 <div class="form-group">
                     <label for="main_challenge">Plot, Stakes, and Challenges <span class="required">*</span></label>
-                    <textarea id="main_challenge" name="main_challenge" placeholder="Highlight the plot, stakes or challenges faced by the main characters. If you already have a synopsis or description, you can paste it here as well." required></textarea>
+                    <textarea id="main_challenge" name="main_challenge" placeholder="Highlight the plot, stakes or challenges faced by the main characters. If you already have a synopsis or summary, you can paste it here as well." required></textarea>
                     <div class="char-count" id="main_challengeCount">0 characters</div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="script_text">Script or Story Details</label>
-                    <textarea id="script_text" name="script_text" placeholder="Tell us what the story is about (character arcs, events, beginning, climax, time period, ending, etc...)"></textarea>
-                    <div class="char-count" id="script_textCount">0 characters</div>
                 </div>
                 
                 <div class="form-group">
@@ -563,6 +557,12 @@
                     </div>
                     <input type="file" id="script_upload" name="script_upload" accept=".pdf" style="display: none;">
                     <div id="fileInfo" class="file-info" style="display: none;"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="script_text">Script Text (Optional)</label>
+                    <textarea id="script_text" name="script_text" placeholder="Extracted text from your script will appear here. You can edit this field before generating a new tagline. This information will not be used for AI training"></textarea>
+                    <div class="char-count" id="script_textCount">0 characters</div>
                 </div>
                 
                 
@@ -721,7 +721,8 @@
             
             // Add extracted PDF text if available
             if (window.extractedPDFText) {
-                submissionData.script_upload_text = window.extractedPDFText;
+                // PDF text will be added to script_text field directly, not stored separately
+                // This happens in the PDF extraction handler
             }
             
             try {
@@ -751,7 +752,7 @@
                     plot: submissionData.main_challenge,
                     story_location: submissionData.story_location,
                     script_text: submissionData.script_text,
-                    uploaded_script_text: submissionData.script_upload_text,
+                    // uploaded_script_text field not used - PDF text goes directly to script_text
                     processing_tier: selectedTier,
                     status: 'pending'
                 };
