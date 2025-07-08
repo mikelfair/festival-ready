@@ -59,36 +59,6 @@
             padding: 40px;
         }
         
-        .testimonial-section {
-            background: #f8f9fa;
-            padding: 30px;
-            border-radius: 15px;
-            margin-bottom: 30px;
-            text-align: center;
-        }
-        
-        .testimonial-image {
-            width: 100%;
-            max-width: 500px;
-            height: auto;
-            border-radius: 12px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-            margin-bottom: 20px;
-        }
-        
-        .testimonial-text {
-            font-style: italic;
-            color: #555;
-            line-height: 1.6;
-            font-size: 1.1rem;
-            margin-bottom: 10px;
-        }
-        
-        .testimonial-author {
-            font-weight: 600;
-            color: #333;
-        }
-        
         .processing-options {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -176,6 +146,21 @@
             color: #ff6b6b;
         }
         
+        .promo-code {
+            background: rgba(255, 107, 107, 0.1);
+            border: 2px dashed #ff6b6b;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .promo-code-text {
+            color: #ff6b6b;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
         .submit-btn {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
@@ -201,6 +186,24 @@
             opacity: 0.6;
             cursor: not-allowed;
             transform: none;
+        }
+        
+        .tool-info {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .tool-info h3 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .tool-info p {
+            color: #666;
+            line-height: 1.6;
         }
         
         .loading {
@@ -244,32 +247,29 @@
     <div class="container">
         <div class="header">
             <h1>🎬 Processing Selection</h1>
-            <p id="dynamicHeaderText">We are ready to craft an industry standard film synopsis for your creative project.</p>
+            <p>Choose your AI processing tier for professional results</p>
         </div>
         
         <div class="content">
-            <div class="testimonial-section">
-                <img src="images/austin-comedy-awards.png" alt="Austin Comedy Awards" class="testimonial-image">
-                <p class="testimonial-text">"I love using Festival Ready. The premium processing blew me away with its insight into my film. It's obvious that Mikel Fair's algorithm is based on real film industry marketing experience. I'm impressed."</p>
-                <p class="testimonial-author">- John McManus from Boise, Idaho</p>
+            <div class="tool-info">
+                <h3 id="toolTitle">Loading...</h3>
+                <p id="toolDescription">Preparing your submission for processing...</p>
             </div>
             
             <div class="processing-options" id="optionsContainer">
                 <div class="option-card" data-tier="standard" onclick="selectOption('standard')">
-                    <div class="option-badge">STANDARD</div>
+                    <div class="option-badge">RECOMMENDED</div>
                     <div class="option-price">FREE</div>
                     <div class="option-title">Standard Processing</div>
                     <div class="option-description">
-                        Professional content generation built on film industry standards and comprehensive historical research. Powered by Google Gemini AI for fast, reliable results.
+                        AI-powered content generation using Gemini 1.5 Flash for fast, professional results.
                     </div>
                     <ul class="option-features">
-                        <li>Google Gemini AI technology</li>
-                        <li>Film industry-standard formatting</li>
-                        <li>Grammar and style optimization</li>
-                        <li>Natural, accessible language (9th-grade reading level)</li>
-                        <li>FilmFreeway submission-ready format</li>
-                        <li>Exclusive 25% discount on film festival submissions</li>
-                        <li>Delivered via email in 3-5 minutes</li>
+                        <li>Gemini 1.5 Flash AI</li>
+                        <li>Professional taglines</li>
+                        <li>Industry-standard synopsis</li>
+                        <li>Festival recommendations</li>
+                        <li>Email delivery in 2-5 minutes</li>
                     </ul>
                 </div>
                 
@@ -278,19 +278,23 @@
                     <div class="option-price">$4.99</div>
                     <div class="option-title">Premium Processing</div>
                     <div class="option-description">
-                        Advanced content generation using Mikel Fair's proprietary algorithm. Meticulously crafted to deliver exceptional insight and unparalleled professionalism that exceeds the highest film industry standards.
+                        Advanced AI processing using Gemini 2.0 Pro for superior creative content and insights.
                     </div>
                     <ul class="option-features premium-features">
-                        <li>State-of-the-art AI reasoning technology</li>
-                        <li>Film industry-standard formatting</li>
-                        <li>Grammar and style optimization</li>
-                        <li>Natural, accessible language (9th-grade reading level)</li>
-                        <li>FilmFreeway submission-ready format</li>
-                        <li>Exclusive 25% discount on film festival submissions</li>
-                        <li>Hollywood-caliber marketing language</li>
-                        <li>In-depth historical research and film industry analysis</li>
-                        <li>Expert-level contextual references</li>
+                        <li>Gemini 2.0 Pro AI (Latest Model)</li>
+                        <li>Multiple creative tagline options</li>
+                        <li>Enhanced synopsis with deeper insights</li>
+                        <li>Advanced festival strategy</li>
+                        <li>Priority processing (under 1 minute)</li>
+                        <li>Extended character analysis</li>
                     </ul>
+                    
+                    <div class="promo-code">
+                        <div class="promo-code-text">
+                            Use code: <strong>FESTIVALREADY25</strong><br>
+                            for 25% off your first premium processing!
+                        </div>
+                    </div>
                 </div>
             </div>
             
@@ -314,25 +318,60 @@
     <script>
         // Initialize book banner
         createBookBanner('book-banner-container', 'processing-selection');
-        
         let selectedTier = null;
         let toolData = null;
         let toolType = null;
         
-        // Tool type mappings for dynamic header text
-        const toolTypeNames = {
-            'tagline-generator': 'tagline',
-            'film-synopsis': 'film synopsis',
-            'screenplay-synopsis': 'screenplay synopsis',
-            'music-video-synopsis': 'music video synopsis',
-            'actors-biography': 'actor\'s biography',
-            'directors-biography': 'director\'s biography',
-            'producers-biography': 'producer\'s biography',
-            'writers-biography': 'writer\'s biography',
-            'actors-statement': 'actor\'s statement',
-            'directors-statement': 'director\'s statement',
-            'producers-statement': 'producer\'s statement',
-            'writers-statement': 'writer\'s statement'
+        // Tool descriptions
+        const toolDescriptions = {
+            'tagline-generator': {
+                title: '✨ Tagline Generator',
+                description: 'Generate memorable, marketable taglines optimized for 9th grade reading level (10-15 words)'
+            },
+            'film-synopsis': {
+                title: '🎬 Film Synopsis',
+                description: 'Create a professional synopsis for your completed film project'
+            },
+            'screenplay-synopsis': {
+                title: '📝 Screenplay Synopsis',
+                description: 'Generate an industry-standard synopsis for your screenplay submission'
+            },
+            'music-video-synopsis': {
+                title: '🎵 Music Video Synopsis',
+                description: 'Craft a compelling synopsis for your music video project'
+            },
+            'actors-biography': {
+                title: '🎭 Actor\'s Biography',
+                description: 'Create a professional career-focused actor\'s biography (150-200 words)'
+            },
+            'directors-biography': {
+                title: '🎬 Director\'s Biography',
+                description: 'Generate a professional career-focused director\'s biography (150-200 words)'
+            },
+            'producers-biography': {
+                title: '💼 Producer\'s Biography',
+                description: 'Create a professional career-focused producer\'s biography (150-200 words)'
+            },
+            'writers-biography': {
+                title: '✍️ Writer\'s Biography',
+                description: 'Generate a professional career-focused writer\'s biography (150-200 words)'
+            },
+            'actors-statement': {
+                title: '🎭 Actor\'s Statement',
+                description: 'Share your creative journey and connection to this specific project (200-250 words)'
+            },
+            'directors-statement': {
+                title: '🎬 Director\'s Statement',
+                description: 'Express your creative vision and directorial approach for this project (200-250 words)'
+            },
+            'producers-statement': {
+                title: '💼 Producer\'s Statement',
+                description: 'Share your production vision and strategic approach to this project (200-250 words)'
+            },
+            'writers-statement': {
+                title: '✍️ Writer\'s Statement',
+                description: 'Express your creative journey and connection to this specific story (200-250 words)'
+            }
         };
         
         // Initialize on page load
@@ -346,11 +385,6 @@
                 window.location.href = 'index.html';
                 return;
             }
-            
-            // Update dynamic header text
-            const toolName = toolTypeNames[toolType] || 'content';
-            const headerText = `We are ready to craft an industry standard ${toolName} for your creative project.`;
-            document.getElementById('dynamicHeaderText').textContent = headerText;
             
             // Load tool data from sessionStorage
             const storageKey = toolType.replace(/-/g, '') + 'Data';
@@ -368,6 +402,13 @@
                 alert('Error: Invalid form data. Please fill out the form again.');
                 window.location.href = toolType + '.html';
                 return;
+            }
+            
+            // Update tool info display
+            const toolInfo = toolDescriptions[toolType];
+            if (toolInfo) {
+                document.getElementById('toolTitle').textContent = toolInfo.title;
+                document.getElementById('toolDescription').textContent = toolInfo.description;
             }
             
             // Track page view
@@ -427,31 +468,54 @@
                     selectedTier = 'standard';
                 }
                 
-                // Prepare submission data - map form fields to actual database columns in submissions_v3
+                // Prepare submission data - map form fields to approved 56-field schema
                 const submissionData = {
-                    // Personal Information
+                    // INPUT FIELDS (30) - Personal/Contact Information
                     first_name: toolData.first_name,
                     last_name: toolData.last_name,
                     email: toolData.email,
+                    country: toolData.country,
                     person_location: toolData.person_location,
+                    city_state: toolData.city_state,
                     
                     // Project Information
                     project_title: toolData.project_title,
                     project_type: toolData.project_type,
+                    duration: toolData.duration || toolData.project_duration, // New schema field
+                    pages: toolData.pages, // For screenplays
+                    audience: toolData.audience,
                     story_location: toolData.story_location,
                     
-                    // Content Fields (map to actual database column names)
-                    characters: toolData.main_characters,
-                    plot: toolData.main_challenge,
+                    // Content Fields (mapped to new schema)
+                    characters: toolData.characters || toolData.main_characters, // New schema field
+                    plot: toolData.plot || toolData.main_challenge, // New schema field
                     script_text: toolData.script_text,
-                    uploaded_script_text: toolData.script_upload_text,
+                    uploaded_script_text: toolData.script_upload_text || toolData.uploaded_script_text,
+                    uploaded_script_url: toolData.uploaded_script_url,
+                    music: toolData.music, // For music videos
+                    
+                    // Statement/Biography Fields
+                    role: toolData.role, // Director(s) for films, character for actors, etc.
+                    inspirations_creative: toolData.inspirations_creative,
+                    inspirations_people: toolData.inspirations_people,
+                    goals: toolData.goals,
+                    relevant_work_experience: toolData.relevant_work_experience,
+                    non_film_industry_experience: toolData.non_film_industry_experience,
+                    screenings_awards: toolData.screenings_awards,
+                    community: toolData.community,
+                    learning: toolData.learning,
+                    marketing: toolData.marketing,
                     
                     // Arrays and Lists
                     genres: Array.isArray(toolData.genres) ? toolData.genres : [toolData.genres],
                     
-                    // Meta Information
-                    country: toolData.country,
-                    marketing: toolData.marketing === 'on'
+                    // Processing Fields  
+                    standard_ai_prompt: toolData.standard_ai_prompt,
+                    premium_ai_prompt: toolData.premium_ai_prompt,
+                    processing_tier: selectedTier,
+                    
+                    // System fields (not in 56-field schema but needed for processing)
+                    status: 'pending'
                 };
                 
                 // Submit to Supabase
@@ -487,18 +551,15 @@
                     throw new Error('No submission ID returned');
                 }
                 
-                // Trigger processing - NOW INCLUDES TOOLTYPE PARAMETER
-                const processResponse = await fetch(`${supabaseUrl}/functions/v1/v3-process-submission`, {
+                // Trigger processing with specific isolated edge function
+                const edgeFunctionName = getEdgeFunctionName(toolType);
+                const processResponse = await fetch(`${supabaseUrl}/functions/v1/${edgeFunctionName}`, {
                     method: 'POST',
                     headers: {
                         'Authorization': `Bearer ${supabaseKey}`,
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ 
-                        submissionId: submissionId,
-                        toolType: toolType,
-                        tier: selectedTier
-                    })
+                    body: JSON.stringify({ submissionId, tier: selectedTier })
                 });
                 
                 if (!processResponse.ok) {
@@ -552,6 +613,26 @@
                 return 'tagline';
             }
             return 'unknown';
+        }
+        
+        function getEdgeFunctionName(toolType) {
+            // Map tool types to their isolated edge function names
+            const edgeFunctionMap = {
+                'tagline-generator': 'tagline-generator-processor',
+                'film-synopsis': 'film-synopsis-processor',
+                'screenplay-synopsis': 'screenplay-synopsis-processor',
+                'music-video-synopsis': 'music-video-synopsis-processor',
+                'actors-biography': 'actors-biography-processor',
+                'directors-biography': 'directors-biography-processor',
+                'producers-biography': 'producers-biography-processor',
+                'writers-biography': 'writers-biography-processor',
+                'actors-statement': 'actors-statement-processor',
+                'directors-statement': 'directors-statement-processor',
+                'producers-statement': 'producers-statement-processor',
+                'writers-statement': 'writers-statement-processor'
+            };
+            
+            return edgeFunctionMap[toolType] || 'v3-process-submission';
         }
     </script>
 </body>
