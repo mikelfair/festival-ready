@@ -268,7 +268,7 @@
     <div class="container">
         <div class="header">
             <h1>✨ Tagline Generator</h1>
-            <p>Create a memorable, marketable tagline for your creative work that will generate interest in your work without revealing the plot.</p>
+            <p>Create memorable, marketable taglines optimized for 9th grade reading level (10-15 words)</p>
         </div>
         
         <div class="form-container">
@@ -396,8 +396,8 @@
                 
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="project_duration">Project Duration <span class="required">*</span></label>
-                        <input type="text" id="project_duration" name="project_duration" placeholder="e.g., 95 minutes, 12 pages, 2 hours" required>
+                        <label for="duration">Total Runtime (including credits) <span class="required">*</span></label>
+                        <input type="text" id="duration" name="duration" placeholder="e.g., 95 minutes, 12 min, 2 hours" required>
                     </div>
                     <div class="form-group">
                         <label for="project_type">Project Type <span class="required">*</span></label>
@@ -453,9 +453,9 @@
                 </div>
                 
                 <div class="form-group">
-                    <label for="main_characters">Please describe the main characters <span class="required">*</span></label>
-                    <textarea id="main_characters" name="main_characters" placeholder="Example: Martha 34 year old teacher, James 12 year old student" required></textarea>
-                    <div class="char-count" id="main_charactersCount">0 characters</div>
+                    <label for="characters">Please describe the main characters <span class="required">*</span></label>
+                    <textarea id="characters" name="characters" placeholder="Example: Martha 34 year old teacher, James 12 year old student" required></textarea>
+                    <div class="char-count" id="charactersCount">0 characters</div>
                 </div>
                 
                 <div class="form-group">
@@ -464,9 +464,9 @@
                 </div>
                 
                 <div class="form-group">
-                    <label for="main_challenge">Plot, Stakes, and Challenges <span class="required">*</span></label>
-                    <textarea id="main_challenge" name="main_challenge" placeholder="Highlight the plot, stakes or challenges faced by the main characters. If you already have a synopsis or description, you can paste it here as well." required></textarea>
-                    <div class="char-count" id="main_challengeCount">0 characters</div>
+                    <label for="plot">Plot, Stakes, and Challenges <span class="required">*</span></label>
+                    <textarea id="plot" name="plot" placeholder="Highlight the plot, stakes or challenges faced by the main characters. If you already have a synopsis or description, you can paste it here as well." required></textarea>
+                    <div class="char-count" id="plotCount">0 characters</div>
                 </div>
                 
                 <div class="form-group">
@@ -506,7 +506,7 @@
         createBookBanner('book-banner-container', 'tagline-generator');
         
         // Character counting
-        const textareas = ['main_characters', 'main_challenge', 'script_text'];
+        const textareas = ['characters', 'plot', 'script_text'];
         
         textareas.forEach(id => {
             const textarea = document.getElementById(id);
@@ -603,11 +603,77 @@
                     'value': 1
                 });
                 
-                // Store data for processing selection
-                sessionStorage.setItem('taglinegeneratorData', JSON.stringify(submissionData));
+                // Submit directly to Supabase database
+                const supabaseUrl = 'https://vmfhxkfprrbshwniguaq.supabase.co';
+                const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZtZmh4a2ZwcnJic2h3bmlndWFxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk2ODYxNTcsImV4cCI6MjA2NTI2MjE1N30.k0OdvFzcO1nwZzxsgLPcQBeSITmV6dA_ncXpN0cpAgQ';
                 
-                // Redirect to processing selection
-                window.location.href = 'processing-selection.html?tool=tagline-generator';
+                // Map form data to database schema
+                const dbSubmission = {
+                    first_name: submissionData.first_name,
+                    last_name: submissionData.last_name,
+                    email: submissionData.email,
+                    country: submissionData.country,
+                    person_location: submissionData.person_location,
+                    project_title: submissionData.project_title,
+                    project_type: submissionData.project_type,
+                    duration: submissionData.duration,
+                    genres: submissionData.genres,
+                    characters: submissionData.characters,
+                    plot: submissionData.plot,
+                    story_location: submissionData.story_location,
+                    script_text: submissionData.script_text,
+                    uploaded_script_text: submissionData.script_upload_text,
+                    processing_tier: 'standard',
+                    status: 'pending'
+                };
+                
+                // Submit to database
+                const dbResponse = await fetch(`${supabaseUrl}/rest/v1/submissions_v3`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${supabaseKey}`,
+                        'apikey': supabaseKey,
+                        'Content-Type': 'application/json',
+                        'Prefer': 'return=representation'
+                    },
+                    body: JSON.stringify(dbSubmission)
+                });
+                
+                if (!dbResponse.ok) {
+                    throw new Error(`Database submission failed: ${dbResponse.status}`);
+                }
+                
+                const submission = await dbResponse.json();
+                const submissionId = submission[0]?.id;
+                
+                if (!submissionId) {
+                    throw new Error('No submission ID returned');
+                }
+                
+                // Call tagline processor directly
+                const processorResponse = await fetch(`${supabaseUrl}/functions/v1/tagline-generator-processor`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${supabaseKey}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ submissionId, tier: 'standard' })
+                });
+                
+                if (!processorResponse.ok) {
+                    throw new Error(`Processing failed: ${processorResponse.status}`);
+                }
+                
+                // Show success message
+                submitBtn.textContent = 'Tagline Generated! Check Your Email';
+                submitBtn.style.backgroundColor = '#28a745';
+                
+                // Track success
+                gtag('event', 'tagline_generated', {
+                    'event_category': 'Success',
+                    'event_label': 'tagline-generator',
+                    'value': 1
+                });
                 
             } catch (error) {
                 console.error('Submission error:', error);
