@@ -177,7 +177,7 @@ IMPORTANT: Create ONLY a short tagline (6-15 words ending with question mark). D
       })
     });
 
-    if (!geminiResponse.ok) {
+    if (!response.ok) {
       throw new Error(`Gemini API failed: ${geminiResponse.status}`);
     }
 
@@ -216,9 +216,9 @@ async function sendTaglineEmail(submission: any) {
       <h2 style="color: #333;">📋 Project Details</h2>
       <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; border-left: 4px solid #667eea;">
         <p style="line-height: 1.6; margin: 0 0 10px 0;"><strong>Title:</strong> ${submission.project_title}</p>
+        <p style="line-height: 1.6; margin: 0 0 10px 0;"><strong>Project Type:</strong> ${submission.project_type || 'Not specified'}</p>
         <p style="line-height: 1.6; margin: 0 0 10px 0;"><strong>Genre:</strong> ${submission.genres ? submission.genres.join(', ') : 'Not specified'}</p>
-        <p style="line-height: 1.6; margin: 0 0 10px 0;"><strong>Location:</strong> ${submission.city_state || submission.person_location || 'Not specified'}</p>
-        <p style="line-height: 1.6; margin: 0;"><strong>Processing Tier:</strong> ${submission.processing_tier || 'standard'}</p>
+        <p style="line-height: 1.6; margin: 0;"><strong>Duration:</strong> ${submission.duration || submission.project_duration || 'Not specified'}</p>
       </div>
       
       <div style="text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee;">
