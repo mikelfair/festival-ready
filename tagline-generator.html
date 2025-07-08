@@ -260,6 +260,59 @@
             margin-bottom: 30px;
             border: 1px solid rgba(102, 126, 234, 0.1);
         }
+        
+        .processing-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .option-card {
+            border: 2px solid #e1e5e9;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .option-card:hover {
+            border-color: #667eea;
+            transform: translateY(-2px);
+        }
+        
+        .option-card.selected {
+            border-color: #667eea;
+            background: rgba(102, 126, 234, 0.1);
+        }
+        
+        .option-badge {
+            background: #667eea;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .premium-badge {
+            background: #ff6b6b;
+        }
+        
+        .option-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        
+        .option-description {
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
     </style>
 </head>
 <body>
@@ -492,8 +545,26 @@
                     </label>
                 </div>
                 
-                <button type="submit" class="submit-btn" id="submitBtn">
-                    Generate Tagline
+                <div class="processing-options">
+                    <div class="option-card" data-tier="standard" onclick="selectOption('standard')">
+                        <div class="option-badge">FREE</div>
+                        <div class="option-title">Standard Processing</div>
+                        <div class="option-description">
+                            One professional tagline using Gemini 1.5 Flash
+                        </div>
+                    </div>
+                    
+                    <div class="option-card" data-tier="premium" onclick="selectOption('premium')">
+                        <div class="option-badge premium-badge">PREMIUM</div>
+                        <div class="option-title">Premium Processing</div>
+                        <div class="option-description">
+                            Four taglines (Challenge, Mission, Question, Warning) using Gemini 2.5 Pro
+                        </div>
+                    </div>
+                </div>
+                
+                <button type="submit" class="submit-btn" id="submitBtn" disabled>
+                    Select processing option to continue
                 </button>
             </form>
         </div>
@@ -504,6 +575,29 @@
     <script>
         // Initialize book banner
         createBookBanner('book-banner-container', 'tagline-generator');
+        
+        let selectedTier = null;
+        
+        function selectOption(tier) {
+            selectedTier = tier;
+            
+            // Update UI
+            document.querySelectorAll('.option-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            
+            document.querySelector(`[data-tier="${tier}"]`).classList.add('selected');
+            
+            // Update submit button
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.disabled = false;
+            
+            if (tier === 'standard') {
+                submitBtn.textContent = 'Generate Tagline (FREE)';
+            } else {
+                submitBtn.textContent = 'Generate 4 Taglines (PREMIUM)';
+            }
+        }
         
         // Character counting
         const textareas = ['characters', 'plot', 'script_text'];
@@ -565,6 +659,12 @@
                 return;
             }
             
+            // Validate tier selection
+            if (!selectedTier) {
+                alert('Please select a processing option.');
+                return;
+            }
+            
             // Validate email match
             if (!validateEmail()) {
                 alert('Please ensure both email addresses match.');
@@ -623,7 +723,7 @@
                     story_location: submissionData.story_location,
                     script_text: submissionData.script_text,
                     uploaded_script_text: submissionData.script_upload_text,
-                    processing_tier: 'standard',
+                    processing_tier: selectedTier,
                     status: 'pending'
                 };
                 
@@ -657,7 +757,7 @@
                         'Authorization': `Bearer ${supabaseKey}`,
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ submissionId, tier: 'standard' })
+                    body: JSON.stringify({ submissionId, tier: selectedTier })
                 });
                 
                 if (!processorResponse.ok) {
@@ -665,13 +765,18 @@
                 }
                 
                 // Show success message
-                submitBtn.textContent = 'Tagline Generated! Check Your Email';
+                if (selectedTier === 'premium') {
+                    submitBtn.textContent = '4 Taglines Generated! Check Your Email';
+                } else {
+                    submitBtn.textContent = 'Tagline Generated! Check Your Email';
+                }
                 submitBtn.style.backgroundColor = '#28a745';
                 
                 // Track success
                 gtag('event', 'tagline_generated', {
                     'event_category': 'Success',
                     'event_label': 'tagline-generator',
+                    'tier': selectedTier,
                     'value': 1
                 });
                 
