@@ -177,7 +177,7 @@ IMPORTANT: Create ONLY a short tagline (6-15 words ending with question mark). D
       })
     });
 
-    if (!response.ok) {
+    if (!geminiResponse.ok) {
       throw new Error(`Gemini API failed: ${geminiResponse.status}`);
     }
 
