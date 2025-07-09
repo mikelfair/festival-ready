@@ -476,6 +476,11 @@
                     </div>
                 </div>
                 
+                <div class="form-group">
+                    <label for="role">Writer(s) <span class="required">*</span></label>
+                    <input type="text" id="role" name="role" placeholder="Please list the screenwriter(s) and story contributor(s) for this project." required>
+                </div>
+                
                 <div class="form-group genre-section">
                     <label for="genres">Genres (select all that apply) <span class="required">*</span></label>
                     <div class="genre-grid">
@@ -731,6 +736,7 @@
                     project_title: submissionData.project_title,
                     project_type: submissionData.project_type,
                     pages: submissionData.project_duration,
+                    role: submissionData.role,
                     genres: submissionData.genres,
                     characters: submissionData.main_characters,
                     plot: submissionData.main_challenge,
