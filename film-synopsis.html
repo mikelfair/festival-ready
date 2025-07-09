@@ -333,7 +333,7 @@
     
     <div class="container">
         <div class="header">
-            <h1>🎦 Film Synopsis Generator</h1>
+            <h1>🎬 Film Synopsis Generator</h1>
             <p>Use this tool to create a compelling synopsis for all types of video submissions including features, shorts, documentaries, and series episodes.</p>
         </div>
         
@@ -524,26 +524,20 @@
                 </div>
                 
                 <div class="form-group">
-                    <label for="characters">Please describe the main characters <span class="required">*</span></label>
-                    <textarea id="characters" name="characters" placeholder="Example: Martha 34 year old teacher, James 12 year old student" required></textarea>
-                    <div class="char-count" id="charactersCount">0 characters</div>
-                </div>
-                
-                <div class="form-group">
                     <label for="story_location">Story Location(s) <span class="required">*</span></label>
                     <input type="text" id="story_location" name="story_location" placeholder="e.g., New York City, a fictional small town, or both real and imaginary places" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="plot">Plot, Stakes, and Challenges <span class="required">*</span></label>
-                    <textarea id="plot" name="plot" placeholder="Highlight the plot, stakes or challenges faced by the main characters. If you already have a synopsis or description, you can paste it here as well." required></textarea>
-                    <div class="char-count" id="plotCount">0 characters</div>
+                    <label for="main_characters">Please describe the main character(s) <span class="required">*</span></label>
+                    <textarea id="main_characters" name="main_characters" placeholder="Example: Martha 34 year old teacher, James 12 year old student" required></textarea>
+                    <div class="char-count" id="main_charactersCount">0 characters</div>
                 </div>
                 
                 <div class="form-group">
-                    <label for="script_text">Script or Story Details</label>
-                    <textarea id="script_text" name="script_text" placeholder="Tell us what the story is about (character arcs, events, beginning, climax, time period, ending, etc...)"></textarea>
-                    <div class="char-count" id="script_textCount">0 characters</div>
+                    <label for="main_challenge">Plot, Stakes, and Challenges <span class="required">*</span></label>
+                    <textarea id="main_challenge" name="main_challenge" placeholder="Highlight the plot, stakes or challenges faced by the main characters. If you already have a synopsis or summary, you can paste it here as well." required></textarea>
+                    <div class="char-count" id="main_challengeCount">0 characters</div>
                 </div>
                 
                 <div class="form-group">
@@ -554,6 +548,12 @@
                     </div>
                     <input type="file" id="script_upload" name="script_upload" accept=".pdf" style="display: none;">
                     <div id="fileInfo" class="file-info" style="display: none;"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="script_text">Script Text (Optional)</label>
+                    <textarea id="script_text" name="script_text" placeholder="Extracted text from your script will appear here. You can edit this field before generating a new tagline. This information will not be used for AI training"></textarea>
+                    <div class="char-count" id="script_textCount">0 characters</div>
                 </div>
                 
                 <div class="processing-options">
@@ -573,7 +573,7 @@
                             Premium
                         </button>
                         <div class="option-description">
-                            Enhanced synopsis with deeper insights and festival strategy powered by advanced AI processing.
+                            Generate a film industry standard film synopsis using Mikel Fair's signature algorithm powered by high end AI processing.
                         </div>
                     </div>
                 </div>
@@ -619,7 +619,7 @@
         }
         
         // Character counting
-        const textareas = ['characters', 'plot', 'script_text'];
+        const textareas = ['main_characters', 'main_challenge', 'script_text'];
         
         textareas.forEach(id => {
             const textarea = document.getElementById(id);
@@ -738,8 +738,8 @@
                     duration: submissionData.duration,
                     role: submissionData.role,
                     genres: submissionData.genres,
-                    characters: submissionData.characters,
-                    plot: submissionData.plot,
+                    characters: submissionData.main_characters,
+                    plot: submissionData.main_challenge,
                     story_location: submissionData.story_location,
                     script_text: submissionData.script_text,
                     uploaded_script_text: submissionData.uploaded_script_text,
