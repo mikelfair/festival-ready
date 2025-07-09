@@ -679,13 +679,6 @@
         
         setupPDFUpload(uploadArea, fileInput, fileInfo);
         
-        function handleFileUpload(file) {
-            if (file && file.type === 'application/pdf') {
-                const fileInfo = document.getElementById('fileInfo');
-                extractTextFromPDF(file, fileInfo);
-            }
-        }
-        
         // Form submission
         document.getElementById('taglineGeneratorForm').addEventListener('submit', async function(e) {
             e.preventDefault();
@@ -825,6 +818,8 @@
                 submitBtn.textContent = 'Generate Tagline';
             }
         });
+        
+        // PDF upload functionality is handled by setupPDFUpload in pdf-extraction.js
     </script>
     <div id="book-banner-container"></div>
 </body>

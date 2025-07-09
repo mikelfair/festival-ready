@@ -334,7 +334,7 @@
     <div class="container">
         <div class="header">
             <h1>🎵 Music Video Synopsis Generator</h1>
-            <p>Use this tool to create compelling synopsis for all types of music videos, including both narrative and performance based videos.</p>
+            <p>Use this tool to create compelling synopsis your music video.</p>
         </div>
         
         <div class="form-container">
@@ -456,30 +456,24 @@
                 </div>
                 
                 <div class="form-group">
-                    <label for="project_title">Project Title (song title and artist) <span class="required">*</span></label>
-                    <input type="text" id="project_title" name="project_title" placeholder="e.g., 'Love Song' by Artist Name" required>
+                    <label for="project_title">Music Video Title <span class="required">*</span></label>
+                    <input type="text" id="project_title" name="project_title" required>
                 </div>
                 
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="duration">Total Runtime <span class="required">*</span></label>
-                        <input type="text" id="duration" name="duration" placeholder="e.g., 3:45, 4 minutes" required>
+                        <label for="project_duration">Total Runtime (including credits) <span class="required">*</span></label>
+                        <input type="text" id="project_duration" name="project_duration" placeholder="e.g., 3:45, 4 minutes, 2:30" required>
                     </div>
                     <div class="form-group">
                         <label for="project_type">Project Type <span class="required">*</span></label>
                         <select id="project_type" name="project_type" required>
                             <option value="">Select type</option>
-                            <option value="standalone">Standalone work</option>
-                            <option value="episode">Episode in ongoing series</option>
+                            <option value="standalone">Standalone music video</option>
+                            <option value="episode">Episode in an ongoing series</option>
                             <option value="not_sure">I'm not sure</option>
                         </select>
                     </div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="music">Song Information <span class="required">*</span></label>
-                    <textarea id="music" name="music" placeholder="Describe the song style, lyrics themes, artist background, or anything relevant to understanding the music." required></textarea>
-                    <div class="char-count" id="musicCount">0 characters</div>
                 </div>
                 
                 <div class="form-group genre-section">
@@ -525,26 +519,20 @@
                 </div>
                 
                 <div class="form-group">
-                    <label for="main_characters">Please describe the main characters <span class="required">*</span></label>
-                    <textarea id="main_characters" name="main_characters" placeholder="Example: Martha 34 year old teacher, James 12 year old student" required></textarea>
-                    <div class="char-count" id="main_charactersCount">0 characters</div>
-                </div>
-                
-                <div class="form-group">
                     <label for="story_location">Story Location(s) <span class="required">*</span></label>
                     <input type="text" id="story_location" name="story_location" placeholder="e.g., New York City, a fictional small town, or both real and imaginary places" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="main_challenge">Story, Themes, or Concepts <span class="required">*</span></label>
-                    <textarea id="main_challenge" name="main_challenge" placeholder="What's the story/lyrics about? What concepts, themes, or narrative does the music video explore?" required></textarea>
-                    <div class="char-count" id="main_challengeCount">0 characters</div>
+                    <label for="main_characters">Please describe the main character(s) <span class="required">*</span></label>
+                    <textarea id="main_characters" name="main_characters" placeholder="Example: Martha 34 year old teacher, James 12 year old student" required></textarea>
+                    <div class="char-count" id="main_charactersCount">0 characters</div>
                 </div>
                 
                 <div class="form-group">
-                    <label for="script_text">Story/Lyrics Details</label>
-                    <textarea id="script_text" name="script_text" placeholder="Additional context about the video concept, narrative elements, or the story behind the song."></textarea>
-                    <div class="char-count" id="script_textCount">0 characters</div>
+                    <label for="main_challenge">Plot, Stakes, and Challenges <span class="required">*</span></label>
+                    <textarea id="main_challenge" name="main_challenge" placeholder="Highlight the plot, stakes or challenges faced by the main characters. If you already have a synopsis or summary, you can paste it here as well." required></textarea>
+                    <div class="char-count" id="main_challengeCount">0 characters</div>
                 </div>
                 
                 <div class="form-group">
@@ -555,6 +543,12 @@
                     </div>
                     <input type="file" id="script_upload" name="script_upload" accept=".pdf" style="display: none;">
                     <div id="fileInfo" class="file-info" style="display: none;"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="script_text">Script Text (Optional)</label>
+                    <textarea id="script_text" name="script_text" placeholder="Extracted text from your script will appear here. You can edit this field before generating a new tagline. This information will not be used for AI training"></textarea>
+                    <div class="char-count" id="script_textCount">0 characters</div>
                 </div>
                 
                 <div class="processing-options">
@@ -574,7 +568,7 @@
                             Premium
                         </button>
                         <div class="option-description">
-                            Enhanced synopsis with music industry insights and promotional strategy powered by advanced AI processing.
+                            Generate a film industry standard music video synopsis using Mikel Fair's signature algorithm powered by high end AI processing.
                         </div>
                     </div>
                 </div>
@@ -620,7 +614,7 @@
         }
         
         // Character counting
-        const textareas = ['main_characters', 'main_challenge', 'script_text', 'music'];
+        const textareas = ['main_characters', 'main_challenge', 'script_text'];
         
         textareas.forEach(id => {
             const textarea = document.getElementById(id);
@@ -736,7 +730,7 @@
                     person_location: submissionData.person_location,
                     project_title: submissionData.project_title,
                     project_type: submissionData.project_type,
-                    duration: submissionData.duration,
+                    duration: submissionData.project_duration,
                     music: submissionData.music,
                     genres: submissionData.genres,
                     characters: submissionData.main_characters,
