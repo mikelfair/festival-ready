@@ -460,46 +460,25 @@
                     <input type="text" id="project_title" name="project_title" required>
                 </div>
                 
+                <div class="form-group">
+                    <label for="role">Your Role <span class="required">*</span></label>
+                    <input type="text" id="role" name="role" placeholder="e.g., Director, Producer, Writer/Director" required>
+                </div>
+                
                 <div class="form-row">
+                    <div class="form-group">
+                        <label for="duration">Total Runtime (including credits) <span class="required">*</span></label>
+                        <input type="text" id="duration" name="duration" placeholder="e.g., 95 minutes, 12 min, 2 hours" required>
+                    </div>
                     <div class="form-group">
                         <label for="project_type">Project Type <span class="required">*</span></label>
                         <select id="project_type" name="project_type" required>
                             <option value="">Select type</option>
-                            <option value="narrative_feature">Narrative Feature</option>
-                            <option value="documentary_feature">Documentary Feature</option>
-                            <option value="narrative_short">Narrative Short</option>
-                            <option value="documentary_short">Documentary Short</option>
-                            <option value="animated_short">Animated Short</option>
-                            <option value="student_short">Student Short</option>
-                            <option value="experimental_short">Experimental Short</option>
-                            <option value="music_video">Music Video</option>
-                            <option value="web_series">Web Series</option>
-                            <option value="tv_pilot">TV Pilot</option>
-                            <option value="other">Other</option>
+                            <option value="standalone">Standalone work</option>
+                            <option value="episode">Episode in ongoing series</option>
+                            <option value="not_sure">I'm not sure</option>
                         </select>
                     </div>
-                    <div class="form-group">
-                        <label for="duration">Duration <span class="required">*</span></label>
-                        <input type="text" id="duration" name="duration" placeholder="e.g., 95 minutes, 23 minutes, 1h 30m" required>
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="role">Your Role (select all that apply) <span class="required">*</span></label>
-                    <select id="role" name="role" required>
-                        <option value="">Select your role</option>
-                        <option value="director">Director</option>
-                        <option value="writer_director">Writer/Director</option>
-                        <option value="producer">Producer</option>
-                        <option value="executive_producer">Executive Producer</option>
-                        <option value="cinematographer">Cinematographer</option>
-                        <option value="editor">Editor</option>
-                        <option value="writer">Writer</option>
-                        <option value="actor">Actor</option>
-                        <option value="composer">Composer</option>
-                        <option value="production_designer">Production Designer</option>
-                        <option value="other">Other</option>
-                    </select>
                 </div>
                 
                 <div class="form-group genre-section">
