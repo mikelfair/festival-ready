@@ -678,6 +678,12 @@
         
         // TEST DATA OBJECT
         const TEST_DATA = {
+            // CONTACT FIELDS
+            first_name: 'Dev',
+            last_name: 'test',
+            country: 'United States',
+            person_location: 'Texas',
+            
             // CORE STORY DATA (consistent across all tools)
             project_title: 'Gillian the Backwoods Maniac',
             duration: '8 minutes',
@@ -705,12 +711,16 @@
             fillField('script_text', TEST_DATA.script_text);
             fillField('role', TEST_DATA.role);
             
+            // CONTACT FIELDS (auto-filled for testing convenience)
+            fillField('first_name', TEST_DATA.first_name);
+            fillField('last_name', TEST_DATA.last_name);
+            fillField('country', TEST_DATA.country);
+            fillField('person_location', TEST_DATA.person_location);
+            // email and emailConfirm left blank for manual entry
+            
             // GENRE CHECKBOXES
             checkGenre('comedy', true);
             checkGenre('action', true);
-            
-            // CONTACT FIELDS - DO NOT FILL (remain empty for manual entry)
-            // first_name, last_name, email, emailConfirm, country, person_location
             
             // Update character counters
             updateCharacterCounters();
