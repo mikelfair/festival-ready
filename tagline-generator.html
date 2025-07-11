@@ -116,6 +116,47 @@
             color: #e74c3c;
         }
         
+        .upload-area {
+            border: 2px dashed #667eea;
+            border-radius: 8px;
+            padding: 40px;
+            text-align: center;
+            background: rgba(102, 126, 234, 0.05);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .upload-area:hover {
+            background: rgba(102, 126, 234, 0.1);
+            border-color: #5a67d8;
+        }
+        
+        .upload-area.dragging {
+            background: rgba(102, 126, 234, 0.15);
+            border-color: #4c51bf;
+        }
+        
+        .upload-text {
+            font-size: 1.2rem;
+            color: #667eea;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .upload-subtext {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .file-info {
+            margin-top: 15px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            color: #333;
+        }
+        
         .test-section {
             background: #f0f8ff;
             padding: 20px;
@@ -200,38 +241,6 @@
             font-size: 0.9rem;
         }
         
-        .upload-area {
-            border: 2px dashed #667eea;
-            border-radius: 8px;
-            padding: 20px;
-            text-align: center;
-            background: rgba(102, 126, 234, 0.05);
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .upload-area:hover {
-            background: rgba(102, 126, 234, 0.1);
-        }
-        
-        .upload-text {
-            color: #667eea;
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
-        
-        .upload-subtext {
-            color: #666;
-            font-size: 0.85rem;
-        }
-        
-        .file-info {
-            background: rgba(102, 126, 234, 0.1);
-            padding: 10px;
-            border-radius: 6px;
-            margin-top: 8px;
-        }
-        
         .honeypot {
             position: absolute;
             left: -9999px;
@@ -243,6 +252,34 @@
             font-size: 0.85rem;
             margin-top: 5px;
             display: none;
+        }
+        
+        .home-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .home-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .personal-info-section {
+            background: rgba(102, 126, 234, 0.03);
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(102, 126, 234, 0.1);
         }
         
         .genre-grid {
@@ -275,34 +312,6 @@
             margin-bottom: 25px;
         }
         
-        .home-button {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            padding: 10px 20px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-        }
-        
-        .home-button:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: translateY(-2px);
-        }
-        
-        .personal-info-section {
-            background: rgba(102, 126, 234, 0.03);
-            padding: 25px;
-            border-radius: 10px;
-            margin-bottom: 30px;
-            border: 1px solid rgba(102, 126, 234, 0.1);
-        }
-        
         .processing-options {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -327,20 +336,6 @@
         .option-card.selected {
             border-color: #667eea;
             background: rgba(102, 126, 234, 0.1);
-        }
-        
-        .option-badge {
-            background: #667eea;
-            color: white;
-            padding: 4px 10px;
-            border-radius: 15px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
-        
-        .premium-badge {
-            background: #ff6b6b;
         }
         
         .option-title {
@@ -389,8 +384,8 @@
     
     <div class="container">
         <div class="header">
-            <h1>✨ Tagline Generator</h1>
-            <p>Create a memorable, marketable tagline for your creative work that will generate interest in your work without revealing the plot.</p>
+            <h1>🎬 Tagline Generator</h1>
+            <p>Use this tool to create a 9th grade reading level length tagline that averages 10-15 words to use with your film festival submission form.</p>
         </div>
         
         <div class="form-container">
@@ -692,14 +687,12 @@
             
             // TAGLINE SPECIFIC DATA
             project_title: 'Midnight Runner',
-            duration: '12',
+            project_duration: '12',
             project_type: 'standalone',
-            audience: 'Young adults who enjoy action thrillers and coming-of-age stories.',
-            characters: 'Alex Martinez is a teenage street racer with a secret.',
-            plot: 'Alex must win an underground race to save their family\'s garage from being seized by a corrupt business mogul.',
             story_location: 'Underground racing scene in Miami',
-            script_text: 'The neon lights blur as Alex grips the steering wheel, knowing everything depends on the next sixty seconds...',
-            role: 'Director, Producer'
+            main_characters: 'Alex Martinez is a teenage street racer with a secret.',
+            main_challenge: 'Alex must win an underground race to save their family\'s garage from being seized by a corrupt business mogul.',
+            script_text: 'The neon lights blur as Alex grips the steering wheel, knowing everything depends on the next sixty seconds...'
         };
         
         // Test button functionality
@@ -744,7 +737,7 @@
             document.getElementById('taglineGeneratorForm').reset();
             
             // Clear character counters
-            const textareas = ['audience', 'characters', 'plot', 'script_text'];
+            const textareas = ['main_characters', 'main_challenge', 'script_text'];
             textareas.forEach(id => {
                 const counter = document.getElementById(id + 'Count');
                 if (counter) {
@@ -789,7 +782,7 @@
             if (tier === 'standard') {
                 submitBtn.textContent = 'Generate Tagline (FREE)';
             } else {
-                submitBtn.textContent = 'Generate 4 Taglines (PREMIUM)';
+                submitBtn.textContent = 'Generate Enhanced Taglines (PREMIUM)';
             }
         }
         
@@ -837,12 +830,47 @@
         email.addEventListener('input', validateEmail);
         emailConfirm.addEventListener('input', validateEmail);
         
-        // PDF upload handling
+        // PDF Upload handling
         const uploadArea = document.querySelector('.upload-area');
         const fileInput = document.getElementById('script_upload');
         const fileInfo = document.getElementById('fileInfo');
+        const scriptText = document.getElementById('script_text');
         
-        setupPDFUpload(uploadArea, fileInput, fileInfo);
+        // Drag and drop events
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('dragging');
+        });
+        
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('dragging');
+        });
+        
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragging');
+            
+            const files = e.dataTransfer.files;
+            if (files.length > 0 && files[0].type === 'application/pdf') {
+                handleFileUpload(files[0]);
+            }
+        });
+        
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                handleFileUpload(e.target.files[0]);
+            }
+        });
+        
+        function handleFileUpload(file) {
+            fileInfo.innerHTML = `📄 ${file.name} (${(file.size / 1024).toFixed(1)} KB)`;
+            fileInfo.style.display = 'block';
+            
+            // Use PDFExtractor to process the file
+            if (typeof PDFExtractor !== 'undefined') {
+                PDFExtractor.processFile(file, scriptText);
+            }
+        }
         
         // Form submission
         document.getElementById('taglineGeneratorForm').addEventListener('submit', async function(e) {
@@ -859,16 +887,16 @@
                 return;
             }
             
-            // Validate email match
-            if (!validateEmail()) {
-                alert('Please ensure both email addresses match.');
+            // Validate genre selection
+            const selectedGenres = document.querySelectorAll('input[name="genres"]:checked');
+            if (selectedGenres.length === 0) {
+                alert('Please select at least one genre.');
                 return;
             }
             
-            // Validate genre selection
-            const genreCheckboxes = document.querySelectorAll('input[name="genres"]:checked');
-            if (genreCheckboxes.length === 0) {
-                alert('Please select at least one genre.');
+            // Validate email match
+            if (!validateEmail()) {
+                alert('Please ensure both email addresses match.');
                 return;
             }
             
@@ -881,14 +909,9 @@
             const submissionData = Object.fromEntries(formData.entries());
             
             // Handle multiple genre selections
-            const selectedGenres = Array.from(genreCheckboxes).map(cb => cb.value);
-            submissionData.genres = selectedGenres;
-            
-            // Add extracted PDF text if available
-            if (window.extractedPDFText) {
-                // PDF text will be added to script_text field directly, not stored separately
-                // This happens in the PDF extraction handler
-            }
+            const genreCheckboxes = document.querySelectorAll('input[name="genres"]:checked');
+            const selectedGenresArray = Array.from(genreCheckboxes).map(cb => cb.value);
+            submissionData.genres = selectedGenresArray;
             
             try {
                 // Google Analytics tracking
@@ -910,14 +933,13 @@
                     country: submissionData.country,
                     person_location: submissionData.person_location,
                     project_title: submissionData.project_title,
+                    duration: parseInt(submissionData.project_duration),
                     project_type: submissionData.project_type,
-                    duration: parseInt(submissionData.project_duration) || null,
-                    genres: submissionData.genres,
+                    genres: selectedGenresArray,
+                    story_location: submissionData.story_location,
                     characters: submissionData.main_characters,
                     plot: submissionData.main_challenge,
-                    story_location: submissionData.story_location,
                     script_text: submissionData.script_text,
-                    // uploaded_script_text field not used - PDF text goes directly to script_text
                     processing_tier: selectedTier,
                     status: 'pending'
                 };
@@ -945,7 +967,7 @@
                     throw new Error('No submission ID returned');
                 }
                 
-                // Call tagline processor directly
+                // Call tagline generator processor directly
                 const processorResponse = await fetch(`${supabaseUrl}/functions/v1/tagline-generator-processor`, {
                     method: 'POST',
                     headers: {
@@ -961,7 +983,7 @@
                 
                 // Show success message
                 if (selectedTier === 'premium') {
-                    submitBtn.textContent = '4 Taglines Generated! Check Your Email';
+                    submitBtn.textContent = 'Enhanced Taglines Generated! Check Your Email';
                 } else {
                     submitBtn.textContent = 'Tagline Generated! Check Your Email';
                 }
@@ -980,11 +1002,9 @@
                 alert('There was an error processing your submission. Please try again.');
                 
                 submitBtn.disabled = false;
-                submitBtn.textContent = 'Generate Tagline';
+                submitBtn.textContent = selectedTier === 'premium' ? 'Generate Enhanced Taglines (PREMIUM)' : 'Generate Tagline (FREE)';
             }
         });
-        
-        // PDF upload functionality is handled by setupPDFUpload in pdf-extraction.js
     </script>
     <div id="book-banner-container"></div>
 </body>
