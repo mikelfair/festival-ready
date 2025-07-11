@@ -116,6 +116,48 @@
             color: #e74c3c;
         }
         
+        .test-section {
+            background: #f0f8ff;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border: 2px solid #e0e8f0;
+        }
+        
+        .test-section h3 {
+            color: #2563eb;
+            margin-bottom: 8px;
+        }
+        
+        .test-section p {
+            color: #64748b;
+            margin-bottom: 15px;
+        }
+        
+        .test-btn {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-right: 10px;
+            transition: background 0.3s ease;
+        }
+        
+        .test-btn:hover {
+            background: #2563eb;
+        }
+        
+        .test-btn.clear {
+            background: #6b7280;
+        }
+        
+        .test-btn.clear:hover {
+            background: #4b5563;
+        }
+        
         .submit-btn {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
@@ -338,6 +380,18 @@
         </div>
         
         <div class="form-container">
+            <!-- Test Button Section -->
+            <div class="test-section">
+                <h3>🧪 Development Mode</h3>
+                <p>Populate form with test data for rapid testing</p>
+                <button type="button" id="fillTestDataBtn" class="test-btn">
+                    Fill Test Data
+                </button>
+                <button type="button" id="clearFormBtn" class="test-btn clear">
+                    Clear Form
+                </button>
+            </div>
+            
             <form id="musicVideoSynopsisForm">
                 <!-- Honeypot field -->
                 <input type="text" name="website" class="honeypot" tabindex="-1" autocomplete="off">
@@ -463,7 +517,34 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label for="project_duration">Total Runtime (including credits) <span class="required">*</span></label>
-                        <input type="text" id="project_duration" name="project_duration" placeholder="e.g., 3:45, 4 minutes, 2:30" required>
+                        <select id="project_duration" name="project_duration" required>
+                            <option value="">Select runtime in minutes</option>
+                            <option value="1">1 minute</option>
+                            <option value="2">2 minutes</option>
+                            <option value="3">3 minutes</option>
+                            <option value="4">4 minutes</option>
+                            <option value="5">5 minutes</option>
+                            <option value="6">6 minutes</option>
+                            <option value="7">7 minutes</option>
+                            <option value="8">8 minutes</option>
+                            <option value="9">9 minutes</option>
+                            <option value="10">10 minutes</option>
+                            <option value="15">15 minutes</option>
+                            <option value="20">20 minutes</option>
+                            <option value="25">25 minutes</option>
+                            <option value="30">30 minutes</option>
+                            <option value="45">45 minutes</option>
+                            <option value="60">60 minutes (1 hour)</option>
+                            <option value="75">75 minutes</option>
+                            <option value="90">90 minutes</option>
+                            <option value="105">105 minutes</option>
+                            <option value="120">120 minutes (2 hours)</option>
+                            <option value="135">135 minutes</option>
+                            <option value="150">150 minutes</option>
+                            <option value="165">165 minutes</option>
+                            <option value="180">180 minutes (3 hours)</option>
+                            <option value="200">200 minutes</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="project_type">Project Type <span class="required">*</span></label>
@@ -590,6 +671,90 @@
     <script>
         // Initialize book banner
         createBookBanner('book-banner-container', 'music-video-synopsis');
+        
+        // Test data for rapid testing
+        const TEST_DATA = {
+            // CONTACT FIELDS
+            first_name: 'Dev',
+            last_name: 'Test',
+            country: 'United States',
+            person_location: 'Texas',
+            
+            // MUSIC VIDEO SPECIFIC DATA
+            project_title: 'Electric Dreams',
+            project_duration: '4',
+            project_type: 'standalone',
+            story_location: 'Neon-lit urban landscape',
+            main_characters: 'Maya Rivera is a young dancer discovering her power through movement.',
+            main_challenge: 'Maya must overcome her fears and self-doubt to perform in front of a crowd, using dance as a metaphor for personal transformation.',
+            script_text: 'The video opens with Maya alone in a dimly lit studio, practicing in front of a mirror...',
+            music: 'Electronic pop with pulsing synthesizers and driving beats that build to an euphoric climax.',
+            role: 'Director, Editor'
+        };
+        
+        // Test button functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const fillBtn = document.getElementById('fillTestDataBtn');
+            const clearBtn = document.getElementById('clearFormBtn');
+            
+            if (fillBtn) {
+                fillBtn.addEventListener('click', fillTestData);
+            }
+            
+            if (clearBtn) {
+                clearBtn.addEventListener('click', clearForm);
+            }
+        });
+        
+        function fillTestData() {
+            // Fill all form fields except email fields
+            Object.keys(TEST_DATA).forEach(key => {
+                const element = document.getElementById(key);
+                if (element) {
+                    element.value = TEST_DATA[key];
+                    
+                    // Trigger input event for character counting
+                    if (element.tagName === 'TEXTAREA') {
+                        element.dispatchEvent(new Event('input'));
+                    }
+                }
+            });
+            
+            // Select default genres
+            const popCheckbox = document.querySelector('input[name="genres"][value="Pop"]');
+            const electronicCheckbox = document.querySelector('input[name="genres"][value="Electronic"]');
+            if (popCheckbox) popCheckbox.checked = true;
+            if (electronicCheckbox) electronicCheckbox.checked = true;
+            
+            console.log('Test data filled (excluding email fields)');
+        }
+        
+        function clearForm() {
+            // Clear the form
+            document.getElementById('musicVideoSynopsisForm').reset();
+            
+            // Clear character counters
+            const textareas = ['main_characters', 'main_challenge', 'script_text', 'music'];
+            textareas.forEach(id => {
+                const counter = document.getElementById(id + 'Count');
+                if (counter) {
+                    counter.textContent = '0 characters';
+                    counter.classList.remove('warning');
+                }
+            });
+            
+            // Reset tier selection
+            selectedTier = null;
+            document.querySelectorAll('.option-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Select Processing Option First';
+            
+            console.log('Form cleared');
+        }
         
         let selectedTier = null;
         
@@ -735,8 +900,8 @@
                     person_location: submissionData.person_location,
                     project_title: submissionData.project_title,
                     project_type: submissionData.project_type,
-                    duration: submissionData.project_duration,
-                    role: submissionData.role,
+                    duration: parseInt(submissionData.project_duration) || null,
+                    music: submissionData.music,
                     genres: submissionData.genres,
                     characters: submissionData.main_characters,
                     plot: submissionData.main_challenge,
