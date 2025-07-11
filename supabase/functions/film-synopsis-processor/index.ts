@@ -223,6 +223,11 @@ async function sendFilmSynopsisEmail(submission: any) {
         <p style="line-height: 1.6; margin: 0 0 15px 0;">If you'd like to add your new synopsis to your FilmFreeway submission form for a film, simply log into FilmFreeway. Click on "My Projects" from the top menu. Click on the edit button next to your project. The third heading you will see is labeled "Brief Synopsis." Simply paste your new synopsis text into that box.</p>
       </div>
       
+      <h2 style="color: #333;">💰 Save 25% on Film Festival Submissions</h2>
+      <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; border-left: 4px solid #667eea; margin-bottom: 30px;">
+        <p style="line-height: 1.6; margin: 0;">Use promo code <strong>festivalready25</strong> at checkout in order to save 25% on all films, screenplay, and music video submissions at <a href="https://filmfestivalcircuit.com/submissions" style="color: #667eea; text-decoration: none;">https://filmfestivalcircuit.com/submissions</a></p>
+      </div>
+      
       <div style="text-align: center; margin: 30px 0;">
         <a href="https://amzn.to/4naJ4FT" target="_blank" style="display: inline-block; text-decoration: none;">
           <img src="https://apps.filmfestivalcircuit.com/images/festival-books-banner.png" alt="Film Festival Submitter's Handbook & Screenplay Judging Guide - Available on Amazon" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);">
@@ -230,10 +235,15 @@ async function sendFilmSynopsisEmail(submission: any) {
       </div>
       
       <div style="text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee;">
-        <p style="color: #999; font-size: 0.9rem; margin: 0;">
-          Need help? Reply to this email or visit 
-          <a href="https://www.filmfestivalcircuit.com" style="color: #667eea;">filmfestivalcircuit.com</a>
-        </p>
+        <div style="margin-bottom: 20px;">
+          <a href="https://apps.filmfestivalcircuit.com/subscribe?email=${encodeURIComponent(submission.email)}&source=film-synopsis" style="background: #28a745; color: white; text-decoration: none; padding: 10px 30px; border-radius: 5px; font-size: 16px; display: inline-block; margin-bottom: 10px;">Subscribe</a>
+          <p style="color: #666; font-size: 0.9rem; margin: 10px 0;">Would you like to receive 1 email per month about updates to this app and our latest film festival submission discounts?</p>
+        </div>
+        
+        <div style="margin-top: 20px;">
+          <a href="https://apps.filmfestivalcircuit.com/unsubscribe?email=${encodeURIComponent(submission.email)}&source=film-synopsis" style="background: #6c757d; color: white; text-decoration: none; padding: 8px 20px; border-radius: 5px; font-size: 14px; display: inline-block;">Unsubscribe</a>
+          <p style="color: #999; font-size: 0.85rem; margin: 5px 0;">Unsubscribe from all Festival Ready email communication.</p>
+        </div>
       </div>
       
     </body>
@@ -245,7 +255,7 @@ async function sendFilmSynopsisEmail(submission: any) {
         subject: subject
       }],
       from: { 
-        email: 'noreply@filmfestivalcircuit.com',
+        email: 'submissions@filmfestivalcircuit.com',
         name: 'Festival Ready'
       },
       content: [{
