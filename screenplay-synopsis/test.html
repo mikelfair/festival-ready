@@ -225,6 +225,19 @@
             margin: 0;
         }
         
+        .genre-item label {
+            margin: 0;
+            font-weight: 400;
+            font-size: 0.9rem;
+        }
+        
+        .genre-section {
+            background: rgba(128, 128, 128, 0.1);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+        }
+        
         .email-match-error {
             color: #e74c3c;
             font-size: 0.8rem;
@@ -344,6 +357,14 @@
             margin-top: 10px;
             font-size: 0.9rem;
             color: #666;
+        }
+        
+        .personal-info-section {
+            background: rgba(102, 126, 234, 0.03);
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(102, 126, 234, 0.1);
         }
         
         @media (max-width: 768px) {
@@ -515,34 +536,31 @@
                 
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="project_duration">Total Runtime (including credits) <span class="required">*</span></label>
-                        <select id="project_duration" name="project_duration" required>
-                            <option value="">Select runtime in minutes</option>
-                            <option value="1">1 minute</option>
-                            <option value="2">2 minutes</option>
-                            <option value="3">3 minutes</option>
-                            <option value="4">4 minutes</option>
-                            <option value="5">5 minutes</option>
-                            <option value="6">6 minutes</option>
-                            <option value="7">7 minutes</option>
-                            <option value="8">8 minutes</option>
-                            <option value="9">9 minutes</option>
-                            <option value="10">10 minutes</option>
-                            <option value="15">15 minutes</option>
-                            <option value="20">20 minutes</option>
-                            <option value="25">25 minutes</option>
-                            <option value="30">30 minutes</option>
-                            <option value="45">45 minutes</option>
-                            <option value="60">60 minutes (1 hour)</option>
-                            <option value="75">75 minutes</option>
-                            <option value="90">90 minutes</option>
-                            <option value="105">105 minutes</option>
-                            <option value="120">120 minutes (2 hours)</option>
-                            <option value="135">135 minutes</option>
-                            <option value="150">150 minutes</option>
-                            <option value="165">165 minutes</option>
-                            <option value="180">180 minutes (3 hours)</option>
-                            <option value="200">200 minutes</option>
+                        <label for="pages">Number of Pages <span class="required">*</span></label>
+                        <select id="pages" name="pages" required>
+                            <option value="">Select page count</option>
+                            <option value="1">1 page</option>
+                            <option value="2">2 pages</option>
+                            <option value="3">3 pages</option>
+                            <option value="4">4 pages</option>
+                            <option value="5">5 pages</option>
+                            <option value="10">10 pages</option>
+                            <option value="15">15 pages</option>
+                            <option value="20">20 pages</option>
+                            <option value="25">25 pages</option>
+                            <option value="30">30 pages</option>
+                            <option value="40">40 pages</option>
+                            <option value="50">50 pages</option>
+                            <option value="60">60 pages</option>
+                            <option value="70">70 pages</option>
+                            <option value="80">80 pages</option>
+                            <option value="90">90 pages</option>
+                            <option value="100">100 pages</option>
+                            <option value="110">110 pages</option>
+                            <option value="120">120 pages</option>
+                            <option value="130">130 pages</option>
+                            <option value="140">140 pages</option>
+                            <option value="150">150 pages</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -561,7 +579,7 @@
                     <input type="text" id="role" name="role" placeholder="e.g., Writer, Director, Producer" required>
                 </div>
                 
-                <div class="form-group">
+                <div class="form-group genre-section">
                     <label>Genre(s) <span class="required">*</span></label>
                     <div class="genre-grid">
                         <div class="genre-item">
@@ -700,7 +718,7 @@
             
             // SCREENPLAY SPECIFIC DATA
             project_title: 'The Last Stand',
-            project_duration: '120',
+            pages: '20',
             project_type: 'standalone',
             story_location: 'Post-apocalyptic Chicago',
             main_characters: 'Sarah Chen is a former military engineer turned survivor leader who must overcome her traumatic past to unite the fractured survivor communities.',
@@ -917,7 +935,7 @@
                     person_location: submissionData.person_location,
                     project_title: submissionData.project_title,
                     project_type: submissionData.project_type,
-                    duration: parseInt(submissionData.project_duration),
+                    pages: parseInt(submissionData.pages),
                     role: submissionData.role,
                     genres: submissionData.genres,
                     characters: submissionData.main_characters,
