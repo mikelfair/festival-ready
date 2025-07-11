@@ -51,111 +51,92 @@
         }
         
         .header p {
-            opacity: 0.9;
             font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.5;
         }
         
         .form-container {
-            padding: 40px;
+            padding: 50px;
         }
         
-        .form-group {
-            margin-bottom: 25px;
+        .personal-info-section {
+            margin-bottom: 40px;
         }
         
         .form-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 20px;
+            margin-bottom: 30px;
         }
         
-        .form-group label {
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .full-width {
+            grid-column: span 2;
+        }
+        
+        label {
             display: block;
             margin-bottom: 8px;
             font-weight: 600;
-            color: #333;
-            font-size: 1rem;
+            color: #2d3748;
+            font-size: 0.95rem;
         }
         
-        .form-group input,
-        .form-group textarea,
-        .form-group select {
+        input[type="text"],
+        input[type="email"],
+        select,
+        textarea {
             width: 100%;
-            padding: 12px;
-            border: 2px solid #e1e5e9;
+            padding: 12px 16px;
+            border: 2px solid #e2e8f0;
             border-radius: 8px;
-            font-size: 0.95rem;
-            transition: border-color 0.3s ease;
+            font-size: 1rem;
+            transition: all 0.3s ease;
             font-family: inherit;
         }
         
-        .form-group input:focus,
-        .form-group textarea:focus,
-        .form-group select:focus {
+        input:focus,
+        select:focus,
+        textarea:focus {
             outline: none;
             border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
         }
         
-        .form-group textarea {
+        textarea {
             resize: vertical;
-            min-height: 100px;
+            min-height: 120px;
+            line-height: 1.5;
         }
         
-        .char-count {
-            text-align: right;
+        .honeypot {
+            position: absolute;
+            left: -9999px;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+        }
+        
+        .character-count {
             font-size: 0.85rem;
-            color: #666;
+            color: #718096;
             margin-top: 5px;
+            text-align: right;
         }
         
-        .char-count.warning {
+        .character-count.warning {
             color: #e74c3c;
         }
         
         .required {
             color: #e74c3c;
-        }
-        
-        .test-section {
-            background: #f0f8ff;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 30px;
-            border: 2px solid #e0e8f0;
-        }
-        
-        .test-section h3 {
-            color: #2563eb;
-            margin-bottom: 8px;
-        }
-        
-        .test-section p {
-            color: #64748b;
-            margin-bottom: 15px;
-        }
-        
-        .test-btn {
-            background: #3b82f6;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-            margin-right: 10px;
-            transition: background 0.3s ease;
-        }
-        
-        .test-btn:hover {
-            background: #2563eb;
-        }
-        
-        .test-btn.clear {
-            background: #6b7280;
-        }
-        
-        .test-btn.clear:hover {
-            background: #4b5563;
         }
         
         .submit-btn {
@@ -164,202 +145,227 @@
             border: none;
             padding: 16px 32px;
             border-radius: 8px;
-            font-size: 1rem;
+            font-size: 1.1rem;
             font-weight: 600;
             cursor: pointer;
-            transition: transform 0.3s ease;
+            transition: all 0.3s ease;
             width: 100%;
+            margin-top: 30px;
         }
         
-        .submit-btn:hover {
+        .submit-btn:hover:not(:disabled) {
             transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
         }
         
         .submit-btn:disabled {
-            opacity: 0.6;
+            background: #a0aec0;
             cursor: not-allowed;
             transform: none;
+            box-shadow: none;
         }
         
-        .checkbox-group {
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            margin-bottom: 25px;
-        }
-        
-        .checkbox-group input[type="checkbox"] {
-            width: auto;
-            margin-top: 3px;
-        }
-        
-        .checkbox-group label {
-            margin-bottom: 0;
-            font-weight: 400;
-            flex: 1;
-            font-size: 0.9rem;
-        }
-        
-        .honeypot {
-            position: absolute;
-            left: -9999px;
-            opacity: 0;
-        }
-        
-        .email-match-error {
-            color: #e74c3c;
-            font-size: 0.85rem;
-            margin-top: 5px;
-            display: none;
-        }
-        
-        .home-button {
-            position: absolute;
+        .home-btn {
+            position: fixed;
             top: 20px;
             left: 20px;
             background: rgba(255, 255, 255, 0.2);
             color: white;
-            border: none;
+            border: 2px solid rgba(255, 255, 255, 0.3);
             padding: 10px 20px;
-            border-radius: 8px;
+            border-radius: 25px;
             text-decoration: none;
             font-weight: 600;
             transition: all 0.3s ease;
             backdrop-filter: blur(10px);
         }
         
-        .home-button:hover {
+        .home-btn:hover {
             background: rgba(255, 255, 255, 0.3);
             transform: translateY(-2px);
         }
         
-        .personal-info-section {
-            background: rgba(102, 126, 234, 0.03);
-            padding: 25px;
-            border-radius: 10px;
-            margin-bottom: 30px;
-            border: 1px solid rgba(102, 126, 234, 0.1);
+        .processing-options {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 30px;
+            margin: 30px 0;
+            border: 2px solid #e2e8f0;
         }
         
-        .processing-options {
+        .processing-options h3 {
+            color: #2d3748;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 1.3rem;
+        }
+        
+        .options-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 20px;
-            margin-bottom: 30px;
         }
         
         .option-card {
-            border: 2px solid #e1e5e9;
-            border-radius: 12px;
-            padding: 20px;
-            text-align: center;
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 25px;
             cursor: pointer;
             transition: all 0.3s ease;
+            text-align: center;
         }
         
         .option-card:hover {
             border-color: #667eea;
-            transform: translateY(-2px);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.15);
         }
         
         .option-card.selected {
             border-color: #667eea;
-            background: rgba(102, 126, 234, 0.1);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
         }
         
         .option-title {
             font-size: 1.2rem;
-            font-weight: 600;
-            color: #333;
+            font-weight: 700;
             margin-bottom: 8px;
         }
         
-        .option-description {
-            color: #666;
-            font-size: 0.9rem;
-            line-height: 1.4;
-        }
-        
-        .option-btn {
-            background: #667eea;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 6px;
-            font-size: 0.9rem;
+        .option-price {
+            font-size: 1.1rem;
             font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin: 10px 0;
-            width: 100%;
+            margin-bottom: 15px;
         }
         
-        .option-btn:hover {
-            background: #5a67d8;
-            transform: translateY(-1px);
-        }
-        
-        .premium-btn {
-            background: #ff6b6b;
-        }
-        
-        .premium-btn:hover {
-            background: #ff5252;
-        }
-        
-        .genre-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 10px;
-            margin-top: 8px;
-        }
-        
-        .genre-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .genre-item input[type="checkbox"] {
-            width: auto;
-        }
-        
-        .genre-item label {
+        .option-features {
+            list-style: none;
+            padding: 0;
             margin: 0;
-            font-weight: 400;
+        }
+        
+        .option-features li {
+            margin-bottom: 8px;
             font-size: 0.9rem;
         }
         
-        .genre-section {
-            background: rgba(128, 128, 128, 0.1);
+        .option-features li:before {
+            content: "✓";
+            margin-right: 8px;
+            font-weight: bold;
+        }
+        
+        .option-card.selected .option-features li:before {
+            color: #a7f3d0;
+        }
+        
+        .success-message {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            margin-top: 30px;
+            display: none;
+        }
+        
+        .success-message h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 10px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .info-section {
+            background: #f0f9ff;
+            border-left: 4px solid #0ea5e9;
             padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .info-section h3 {
+            color: #0c4a6e;
+            margin-bottom: 10px;
+        }
+        
+        .info-section p {
+            color: #0369a1;
+            margin: 0;
+            line-height: 1.6;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                border-radius: 15px;
+            }
+            
+            .form-container {
+                padding: 30px 25px;
+            }
+            
+            .header {
+                padding: 30px 25px;
+            }
+            
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+            
+            .full-width {
+                grid-column: span 1;
+            }
+            
+            .options-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .home-btn {
+                position: static;
+                display: inline-block;
+                margin-bottom: 20px;
+            }
         }
     </style>
 </head>
 <body>
-    <a href="index.html" class="home-button">← Home</a>
+    <a href="index.html" class="home-btn">← Home</a>
     
     <div class="container">
         <div class="header">
             <h1>🎭 Actor's Biography Generator</h1>
+            <p>Create a professional actor biography optimized for film festival submissions with industry-standard formatting and compelling narrative structure.</p>
+        </div>
+        
+        <div class="info-section">
+            <h3>📝 Professional Actor Biography Tool</h3>
             <p>Use this tool to create an industry standard Actor Biography for your film festival submission forms with optimal length, format and doesn't look like a job resume.</p>
         </div>
         
         <div class="form-container">
-            <!-- Test Button Section -->
-            <div class="test-section">
-                <h3>🧪 Development Mode</h3>
-                <p>Populate form with test data for rapid testing</p>
-                <button type="button" id="fillTestDataBtn" class="test-btn">
-                    Fill Test Data
-                </button>
-                <button type="button" id="clearFormBtn" class="test-btn clear">
-                    Clear Form
-                </button>
-            </div>
-            
             <form id="actorsBiographyForm">
                 <!-- Honeypot field -->
                 <input type="text" name="website" class="honeypot" tabindex="-1" autocomplete="off">
@@ -376,288 +382,141 @@
                     </div>
                 </div>
                 
-                <div class="form-group">
-                    <label for="email">Email Address <span class="required">*</span></label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="emailConfirm">Confirm Email Address <span class="required">*</span></label>
-                    <input type="email" id="emailConfirm" name="emailConfirm" required>
-                    <div class="email-match-error" id="emailError">Email addresses do not match</div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="email">Email Address <span class="required">*</span></label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email_confirm">Confirm Email Address <span class="required">*</span></label>
+                        <input type="email" id="email_confirm" name="email_confirm" required>
+                    </div>
                 </div>
                 
                 <div class="form-row">
                     <div class="form-group">
                         <label for="country">Country <span class="required">*</span></label>
                         <select id="country" name="country" required>
-                            <option value="">Select country</option>
+                            <option value="">Select your country</option>
                             <option value="United States">United States</option>
                             <option value="Canada">Canada</option>
                             <option value="United Kingdom">United Kingdom</option>
-                            <option value="Afghanistan">Afghanistan</option>
-                            <option value="Albania">Albania</option>
-                            <option value="Algeria">Algeria</option>
-                            <option value="Argentina">Argentina</option>
-                            <option value="Armenia">Armenia</option>
                             <option value="Australia">Australia</option>
-                            <option value="Austria">Austria</option>
-                            <option value="Azerbaijan">Azerbaijan</option>
-                            <option value="Bahrain">Bahrain</option>
-                            <option value="Bangladesh">Bangladesh</option>
-                            <option value="Belarus">Belarus</option>
-                            <option value="Belgium">Belgium</option>
-                            <option value="Bolivia">Bolivia</option>
-                            <option value="Brazil">Brazil</option>
-                            <option value="Bulgaria">Bulgaria</option>
-                            <option value="Cambodia">Cambodia</option>
-                            <option value="Chile">Chile</option>
-                            <option value="China">China</option>
-                            <option value="Colombia">Colombia</option>
-                            <option value="Croatia">Croatia</option>
-                            <option value="Czech Republic">Czech Republic</option>
-                            <option value="Denmark">Denmark</option>
-                            <option value="Ecuador">Ecuador</option>
-                            <option value="Egypt">Egypt</option>
-                            <option value="Estonia">Estonia</option>
-                            <option value="Finland">Finland</option>
-                            <option value="France">France</option>
                             <option value="Germany">Germany</option>
-                            <option value="Greece">Greece</option>
-                            <option value="Hungary">Hungary</option>
-                            <option value="Iceland">Iceland</option>
-                            <option value="India">India</option>
-                            <option value="Indonesia">Indonesia</option>
-                            <option value="Iran">Iran</option>
-                            <option value="Iraq">Iraq</option>
-                            <option value="Ireland">Ireland</option>
-                            <option value="Israel">Israel</option>
+                            <option value="France">France</option>
                             <option value="Italy">Italy</option>
-                            <option value="Japan">Japan</option>
-                            <option value="Jordan">Jordan</option>
-                            <option value="Kazakhstan">Kazakhstan</option>
-                            <option value="Latvia">Latvia</option>
-                            <option value="Lebanon">Lebanon</option>
-                            <option value="Lithuania">Lithuania</option>
-                            <option value="Luxembourg">Luxembourg</option>
-                            <option value="Malaysia">Malaysia</option>
-                            <option value="Mexico">Mexico</option>
-                            <option value="Netherlands">Netherlands</option>
-                            <option value="New Zealand">New Zealand</option>
-                            <option value="Norway">Norway</option>
-                            <option value="Pakistan">Pakistan</option>
-                            <option value="Peru">Peru</option>
-                            <option value="Philippines">Philippines</option>
-                            <option value="Poland">Poland</option>
-                            <option value="Portugal">Portugal</option>
-                            <option value="Romania">Romania</option>
-                            <option value="Russia">Russia</option>
-                            <option value="Saudi Arabia">Saudi Arabia</option>
-                            <option value="Singapore">Singapore</option>
-                            <option value="Slovakia">Slovakia</option>
-                            <option value="Slovenia">Slovenia</option>
-                            <option value="South Africa">South Africa</option>
-                            <option value="South Korea">South Korea</option>
                             <option value="Spain">Spain</option>
-                            <option value="Sweden">Sweden</option>
+                            <option value="Netherlands">Netherlands</option>
+                            <option value="Belgium">Belgium</option>
                             <option value="Switzerland">Switzerland</option>
-                            <option value="Thailand">Thailand</option>
-                            <option value="Turkey">Turkey</option>
-                            <option value="Ukraine">Ukraine</option>
-                            <option value="United Arab Emirates">United Arab Emirates</option>
-                            <option value="Venezuela">Venezuela</option>
-                            <option value="Vietnam">Vietnam</option>
+                            <option value="Austria">Austria</option>
+                            <option value="Sweden">Sweden</option>
+                            <option value="Norway">Norway</option>
+                            <option value="Denmark">Denmark</option>
+                            <option value="Finland">Finland</option>
+                            <option value="Ireland">Ireland</option>
+                            <option value="New Zealand">New Zealand</option>
+                            <option value="Japan">Japan</option>
+                            <option value="South Korea">South Korea</option>
+                            <option value="Singapore">Singapore</option>
+                            <option value="Hong Kong">Hong Kong</option>
+                            <option value="India">India</option>
+                            <option value="Brazil">Brazil</option>
+                            <option value="Mexico">Mexico</option>
+                            <option value="Argentina">Argentina</option>
+                            <option value="Chile">Chile</option>
+                            <option value="South Africa">South Africa</option>
+                            <option value="Israel">Israel</option>
                             <option value="Other">Other</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="person_location">City or State (optional)</label>
-                        <input type="text" id="person_location" name="person_location">
-                    </div>
-                </div>
-                </div>
-                
-                
-                <div class="form-group">
-                    <label for="relevant_work_experience">Actor Experience <span class="required">*</span></label>
-                    <textarea id="relevant_work_experience" name="relevant_work_experience" placeholder="What are some of the Film/TV industry experiences that may have prepared you to work on this project." required></textarea>
-                    <div class="char-count" id="relevant_work_experienceCount">0 characters</div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="screenings_awards">Acting Career Highlights <span class="required">*</span></label>
-                    <textarea id="screenings_awards" name="screenings_awards" placeholder="Share your notable TV/Film Industry related achievements and film festival awards/recognition." required></textarea>
-                    <div class="char-count" id="screenings_awardsCount">0 characters</div>
-                </div>
-                
-                <div class="form-group genre-section">
-                    <label for="genres">Do you have any personal favorite genres? Click on all that apply.</label>
-                    <div class="genre-grid">
-                        <div class="genre-item">
-                            <input type="checkbox" id="action" name="genres" value="Action">
-                            <label for="action">Action</label>
-                        </div>
-                        <div class="genre-item">
-                            <input type="checkbox" id="comedy" name="genres" value="Comedy">
-                            <label for="comedy">Comedy</label>
-                        </div>
-                        <div class="genre-item">
-                            <input type="checkbox" id="drama" name="genres" value="Drama">
-                            <label for="drama">Drama</label>
-                        </div>
-                        <div class="genre-item">
-                            <input type="checkbox" id="experimental" name="genres" value="Experimental">
-                            <label for="experimental">Experimental</label>
-                        </div>
-                        <div class="genre-item">
-                            <input type="checkbox" id="fantasy" name="genres" value="Fantasy">
-                            <label for="fantasy">Fantasy</label>
-                        </div>
-                        <div class="genre-item">
-                            <input type="checkbox" id="horror" name="genres" value="Horror">
-                            <label for="horror">Horror</label>
-                        </div>
-                        <div class="genre-item">
-                            <input type="checkbox" id="music_video" name="genres" value="Music Video">
-                            <label for="music_video">Music Video</label>
-                        </div>
-                        <div class="genre-item">
-                            <input type="checkbox" id="scifi" name="genres" value="Sci-Fi">
-                            <label for="scifi">Sci-Fi</label>
-                        </div>
-                        <div class="genre-item">
-                            <input type="checkbox" id="suspense_thriller" name="genres" value="Suspense Thriller">
-                            <label for="suspense_thriller">Suspense Thriller</label>
-                        </div>
+                        <label for="person_location">City/State/Region <span class="required">*</span></label>
+                        <input type="text" id="person_location" name="person_location" placeholder="e.g., Los Angeles, CA" required>
                     </div>
                 </div>
                 
-                <div class="form-group">
-                    <label for="non_film_industry_experience">Non-Film Industry Related Experience <span class="required">*</span></label>
-                    <textarea id="non_film_industry_experience" name="non_film_industry_experience" placeholder="Examples: As a student I experienced ... , as a parent I experienced ... , working in real estate for ten years I experienced ... growing up in Seattle I experienced ..." required></textarea>
-                    <div class="char-count" id="non_film_industry_experienceCount">0 characters</div>
+                <div class="form-group full-width">
+                    <label for="project_title">Current Project Title <span class="required">*</span></label>
+                    <input type="text" id="project_title" name="project_title" placeholder="The title of your current film, show, or project" required>
+                </div>
                 </div>
                 
                 <div class="form-group">
-                    <label for="community">Community <span class="required">*</span></label>
-                    <textarea id="community" name="community" placeholder="In your own words, creatively do you feel like you career is focused on serving a particular audience? Examples: Autism Awareness, Latin community, LGBTQ community, Black Community, Religious Community, Family Programming, Environmental awareness? A political community? no preference?" required></textarea>
-                    <div class="char-count" id="communityCount">0 characters</div>
+                    <label for="relevant_work_experience">Acting Career Highlights <span class="required">*</span></label>
+                    <textarea id="relevant_work_experience" name="relevant_work_experience" placeholder="Describe your notable acting roles, training, theater work, previous films, TV appearances, or other significant acting experience..." required></textarea>
+                    <div id="relevant_work_experienceCount" class="character-count">0 characters</div>
                 </div>
                 
                 <div class="form-group">
-                    <label for="goals">Goals <span class="required">*</span></label>
-                    <textarea id="goals" name="goals" placeholder="In the future, what are you working towards any goals? Examples: Work on big budget theatrical films or streaming programs? Join the Screen Actor's Guild SAG?" required></textarea>
-                    <div class="char-count" id="goalsCount">0 characters</div>
+                    <label for="non_film_industry_experience">Life Experience & Background</label>
+                    <textarea id="non_film_industry_experience" name="non_film_industry_experience" placeholder="Share relevant life experiences, previous careers, education, or personal background that influences your acting and adds depth to your performances..."></textarea>
+                    <div id="non_film_industry_experienceCount" class="character-count">0 characters</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="screenings_awards">Awards & Recognition</label>
+                    <textarea id="screenings_awards" name="screenings_awards" placeholder="List any acting awards, festival selections, recognition, or notable achievements in your acting career..."></textarea>
+                    <div id="screenings_awardsCount" class="character-count">0 characters</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="community">Community & Industry Involvement</label>
+                    <textarea id="community" name="community" placeholder="Describe your involvement in the acting/theater community, mentoring, teaching, or other ways you contribute to the industry..."></textarea>
+                    <div id="communityCount" class="character-count">0 characters</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="learning">Current Growth & Learning</label>
+                    <textarea id="learning" name="learning" placeholder="Share what you're currently working on to improve your craft, new techniques you're exploring, or future goals in your acting career..."></textarea>
+                    <div id="learningCount" class="character-count">0 characters</div>
                 </div>
                 
                 <div class="processing-options">
-                    <div class="option-card" data-tier="standard" onclick="selectOption('standard')">
-                        <div class="option-title">Standard Processing</div>
-                        <button type="button" class="option-btn" id="standardBtn" onclick="selectOption('standard')">
-                            Free
-                        </button>
-                        <div class="option-description">
-                            Generate a professional actor's biography powered by Google Gemini.
+                    <h3>Select Processing Option</h3>
+                    <div class="options-grid">
+                        <div class="option-card" onclick="selectOption('standard')">
+                            <div class="option-title">Standard</div>
+                            <div class="option-price">FREE</div>
+                            <ul class="option-features">
+                                <li>Professional actor biography</li>
+                                <li>Industry-standard format</li>
+                                <li>Email delivery</li>
+                                <li>150-200 word count</li>
+                            </ul>
                         </div>
-                    </div>
-                    
-                    <div class="option-card" data-tier="premium" onclick="selectOption('premium')">
-                        <div class="option-title">Premium Processing</div>
-                        <button type="button" class="option-btn premium-btn" id="premiumBtn" onclick="selectOption('premium')">
-                            Premium
-                        </button>
-                        <div class="option-description">
-                            Generate a film industry standard actor's biography using Mikel Fair's signature algorithm powered by high end AI processing.
+                        <div class="option-card" onclick="selectOption('premium')">
+                            <div class="option-title">Premium</div>
+                            <div class="option-price">$4.99</div>
+                            <ul class="option-features">
+                                <li>Enhanced narrative flow</li>
+                                <li>Sophisticated language</li>
+                                <li>Cultural context integration</li>
+                                <li>Priority processing</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
                 
-                <button type="submit" class="submit-btn" id="submitBtn" disabled>
-                    Select processing option to continue
+                <button type="submit" id="submitBtn" class="submit-btn" disabled>
+                    Select Processing Option First
                 </button>
+                
+                <div id="successMessage" class="success-message">
+                    <h3>🎉 Biography Processing Started!</h3>
+                    <p>Your professional actor biography is being generated. You'll receive it via email within the next few minutes.</p>
+                </div>
             </form>
         </div>
     </div>
+    
+    <!-- Book Banner Container -->
+    <div id="book-banner-container"></div>
     
     <script src="book-banner.js"></script>
     <script>
         // Initialize book banner
         createBookBanner('book-banner-container', 'actors-biography');
-        
-        // Test data for rapid testing
-        const TEST_DATA = {
-            // CONTACT FIELDS
-            first_name: 'Dev',
-            last_name: 'Test',
-            country: 'United States',
-            person_location: 'Texas',
-            
-            // ACTOR BIOGRAPHY SPECIFIC DATA
-            project_title: 'Broken Dreams',
-            relevant_work_experience: 'Trained at the Stella Adler Studio and performed in regional theater productions including Romeo and Juliet and A Streetcar Named Desire.',
-            non_film_industry_experience: 'Former social worker with experience helping at-risk youth, which brings authenticity to dramatic roles.',
-            screenings_awards: 'Best Actor award at the Austin Film Festival for independent short film "The Last Call".',
-            community: 'Active member of the local theater community and volunteers with drama programs at underserved schools.',
-            learning: 'Currently studying method acting techniques and exploring character development through improvisation workshops.'
-        };
-        
-        // Test button functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            const fillBtn = document.getElementById('fillTestDataBtn');
-            const clearBtn = document.getElementById('clearFormBtn');
-            
-            if (fillBtn) {
-                fillBtn.addEventListener('click', fillTestData);
-            }
-            
-            if (clearBtn) {
-                clearBtn.addEventListener('click', clearForm);
-            }
-        });
-        
-        function fillTestData() {
-            // Fill all form fields except email fields
-            Object.keys(TEST_DATA).forEach(key => {
-                const element = document.getElementById(key);
-                if (element) {
-                    element.value = TEST_DATA[key];
-                    
-                    // Trigger input event for character counting
-                    if (element.tagName === 'TEXTAREA') {
-                        element.dispatchEvent(new Event('input'));
-                    }
-                }
-            });
-            
-            console.log('Test data filled (excluding email fields)');
-        }
-        
-        function clearForm() {
-            // Clear the form
-            document.getElementById('actorsBiographyForm').reset();
-            
-            // Clear character counters
-            const textareas = ['relevant_work_experience', 'non_film_industry_experience', 'screenings_awards', 'community', 'learning'];
-            textareas.forEach(id => {
-                const counter = document.getElementById(id + 'Count');
-                if (counter) {
-                    counter.textContent = '0 characters';
-                    counter.classList.remove('warning');
-                }
-            });
-            
-            // Reset tier selection
-            selectedTier = null;
-            document.querySelectorAll('.option-card').forEach(card => {
-                card.classList.remove('selected');
-            });
-            
-            const submitBtn = document.getElementById('submitBtn');
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Select Processing Option First';
-            
-            console.log('Form cleared');
-        }
         
         let selectedTier = null;
         
@@ -669,33 +528,23 @@
                 card.classList.remove('selected');
             });
             
-            document.querySelector(`[data-tier="${tier}"]`).classList.add('selected');
+            event.target.closest('.option-card').classList.add('selected');
             
-            // Update button states
-            document.getElementById('standardBtn').style.background = tier === 'standard' ? '#5a67d8' : '#667eea';
-            document.getElementById('premiumBtn').style.background = tier === 'premium' ? '#ff5252' : '#ff6b6b';
-            
-            // Update submit button
+            // Enable submit button
             const submitBtn = document.getElementById('submitBtn');
             submitBtn.disabled = false;
-            
-            if (tier === 'standard') {
-                submitBtn.textContent = 'Generate Actor\'s Biography (FREE)';
-            } else {
-                submitBtn.textContent = 'Generate Enhanced Actor\'s Biography (PREMIUM)';
-            }
+            submitBtn.textContent = tier === 'premium' ? 'Generate Premium Biography ($4.99)' : 'Generate Standard Biography (Free)';
         }
         
-        // Character counting
-        const textareas = ['relevant_work_experience', 'screenings_awards', 'non_film_industry_experience', 'community', 'goals'];
-        
+        // Character counting for textareas
+        const textareas = ['relevant_work_experience', 'non_film_industry_experience', 'screenings_awards', 'community', 'learning'];
         textareas.forEach(id => {
             const textarea = document.getElementById(id);
             const counter = document.getElementById(id + 'Count');
             
             textarea.addEventListener('input', function() {
                 const count = this.value.length;
-                counter.textContent = `${count} characters`;
+                counter.textContent = count + ' characters';
                 
                 if (count > 1000) {
                     counter.classList.add('warning');
@@ -705,96 +554,63 @@
             });
         });
         
-        // Email confirmation validation
-        const email = document.getElementById('email');
-        const emailConfirm = document.getElementById('emailConfirm');
-        const emailError = document.getElementById('emailError');
-        
-        // Disable copy/paste on email confirmation
-        emailConfirm.addEventListener('paste', function(e) {
-            e.preventDefault();
-        });
-        
-        function validateEmail() {
-            if (email.value && emailConfirm.value && email.value !== emailConfirm.value) {
-                emailError.style.display = 'block';
-                emailConfirm.style.borderColor = '#e74c3c';
-                return false;
-            } else {
-                emailError.style.display = 'none';
-                emailConfirm.style.borderColor = '#e1e5e9';
-                return true;
-            }
-        }
-        
-        email.addEventListener('input', validateEmail);
-        emailConfirm.addEventListener('input', validateEmail);
-        
         // Form submission
         document.getElementById('actorsBiographyForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            // Check honeypot
-            if (document.querySelector('input[name="website"]').value) {
+            // Honeypot check
+            if (document.querySelector('input[name="website"]').value !== '') {
+                console.log('Spam detected');
                 return;
             }
             
-            // Validate tier selection
+            // Validate email confirmation
+            const email = document.getElementById('email').value;
+            const emailConfirm = document.getElementById('email_confirm').value;
+            
+            if (email !== emailConfirm) {
+                alert('Email addresses do not match. Please check and try again.');
+                return;
+            }
+            
             if (!selectedTier) {
                 alert('Please select a processing option.');
                 return;
             }
             
-            // Validate email match
-            if (!validateEmail()) {
-                alert('Please ensure both email addresses match.');
-                return;
-            }
-            
+            // Show loading state
             const submitBtn = document.getElementById('submitBtn');
+            const originalText = submitBtn.textContent;
+            submitBtn.innerHTML = '<span class="loading"></span>Processing...';
             submitBtn.disabled = true;
-            submitBtn.textContent = 'Processing...';
-            
-            // Collect form data
-            const formData = new FormData(this);
-            const submissionData = Object.fromEntries(formData.entries());
-            
-            // Handle multiple genre selections
-            const genreCheckboxes = document.querySelectorAll('input[name="genres"]:checked');
-            const selectedGenres = Array.from(genreCheckboxes).map(cb => cb.value);
-            submissionData.genres = selectedGenres;
             
             try {
-                // Google Analytics tracking
-                gtag('event', 'form_submit', {
-                    'event_category': 'Tool_Usage',
-                    'event_label': 'actors-biography',
-                    'value': 1
-                });
+                // Collect form data
+                const formData = new FormData(this);
+                const submissionData = {
+                    first_name: formData.get('first_name'),
+                    last_name: formData.get('last_name'),
+                    email: formData.get('email'),
+                    country: formData.get('country'),
+                    person_location: formData.get('person_location'),
+                    project_title: formData.get('project_title'),
+                    relevant_work_experience: formData.get('relevant_work_experience'),
+                    non_film_industry_experience: formData.get('non_film_industry_experience') || '',
+                    screenings_awards: formData.get('screenings_awards') || '',
+                    community: formData.get('community') || '',
+                    learning: formData.get('learning') || '',
+                    processing_tier: selectedTier,
+                    status: 'pending',
+                    created_at: new Date().toISOString()
+                };
                 
-                // Submit directly to Supabase database
+                console.log('Submitting data:', submissionData);
+                
+                // Submit to database
                 const supabaseUrl = 'https://vmfhxkfprrbshwniguaq.supabase.co';
                 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZtZmh4a2ZwcnJic2h3bmlndWFxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk2ODYxNTcsImV4cCI6MjA2NTI2MjE1N30.k0OdvFzcO1nwZzxsgLPcQBeSITmV6dA_ncXpN0cpAgQ';
                 
-                // Map form data to database schema
-                const dbSubmission = {
-                    first_name: submissionData.first_name,
-                    last_name: submissionData.last_name,
-                    email: submissionData.email,
-                    country: submissionData.country,
-                    person_location: submissionData.person_location,
-                    relevant_work_experience: submissionData.relevant_work_experience,
-                    screenings_awards: submissionData.screenings_awards,
-                    genres: selectedGenres,
-                    non_film_industry_experience: submissionData.non_film_industry_experience,
-                    community: submissionData.community,
-                    goals: submissionData.goals,
-                    processing_tier: selectedTier,
-                    status: 'pending'
-                };
-                
-                // Submit to database
-                const dbResponse = await fetch(`${supabaseUrl}/rest/v1/submissions_v3`, {
+                const response = await fetch(`${supabaseUrl}/rest/v1/submissions_v3`, {
                     method: 'POST',
                     headers: {
                         'Authorization': `Bearer ${supabaseKey}`,
@@ -802,59 +618,73 @@
                         'Content-Type': 'application/json',
                         'Prefer': 'return=representation'
                     },
-                    body: JSON.stringify(dbSubmission)
+                    body: JSON.stringify(submissionData)
                 });
                 
-                if (!dbResponse.ok) {
-                    throw new Error(`Database submission failed: ${dbResponse.status}`);
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    console.error('Database error:', errorText);
+                    throw new Error('Failed to save submission');
                 }
                 
-                const submission = await dbResponse.json();
-                const submissionId = submission[0]?.id;
+                const result = await response.json();
+                console.log('Database result:', result);
                 
-                if (!submissionId) {
-                    throw new Error('No submission ID returned');
+                if (!result || result.length === 0) {
+                    throw new Error('No data returned from database');
                 }
                 
-                // Call actors biography processor directly
+                const submissionId = result[0].id;
+                console.log('Submission ID:', submissionId);
+                
+                // Call the processor function
                 const processorResponse = await fetch(`${supabaseUrl}/functions/v1/actors-biography-processor`, {
                     method: 'POST',
                     headers: {
                         'Authorization': `Bearer ${supabaseKey}`,
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ submissionId, tier: selectedTier })
+                    body: JSON.stringify({
+                        submissionId: submissionId,
+                        tier: selectedTier
+                    })
                 });
                 
                 if (!processorResponse.ok) {
-                    throw new Error(`Processing failed: ${processorResponse.status}`);
+                    const errorText = await processorResponse.text();
+                    console.error('Processor error:', errorText);
+                    throw new Error('Failed to process biography');
                 }
+                
+                const processorResult = await processorResponse.json();
+                console.log('Processor result:', processorResult);
                 
                 // Show success message
-                if (selectedTier === 'premium') {
-                    submitBtn.textContent = 'Enhanced Actor\'s Biography Generated! Check Your Email';
-                } else {
-                    submitBtn.textContent = 'Actor\'s Biography Generated! Check Your Email';
-                }
-                submitBtn.style.backgroundColor = '#28a745';
+                document.getElementById('successMessage').style.display = 'block';
+                this.style.display = 'none';
                 
-                // Track success
-                gtag('event', 'actors_biography_generated', {
-                    'event_category': 'Success',
-                    'event_label': 'actors-biography',
-                    'tier': selectedTier,
-                    'value': 1
+                // Track the submission with Google Analytics
+                gtag('event', 'form_submit', {
+                    'event_category': 'Actor Biography',
+                    'event_label': selectedTier,
+                    'value': selectedTier === 'premium' ? 4.99 : 0
                 });
                 
             } catch (error) {
                 console.error('Submission error:', error);
-                alert('There was an error processing your submission. Please try again.');
+                alert('There was an error processing your request. Please try again or contact support if the problem persists.');
                 
+                // Reset button
+                submitBtn.textContent = originalText;
                 submitBtn.disabled = false;
-                submitBtn.textContent = selectedTier === 'premium' ? 'Generate Enhanced Actor\'s Biography (PREMIUM)' : 'Generate Actor\'s Biography (FREE)';
             }
         });
+        
+        // Prevent paste in email confirmation
+        document.getElementById('email_confirm').addEventListener('paste', function(e) {
+            e.preventDefault();
+            alert('Please type your email address to confirm it matches.');
+        });
     </script>
-    <div id="book-banner-container"></div>
 </body>
 </html>
