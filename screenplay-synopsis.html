@@ -98,12 +98,11 @@
         
         .form-group textarea {
             resize: vertical;
-            min-height: 100px;
+            min-height: 120px;
         }
         
         .char-count {
-            text-align: right;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: #666;
             margin-top: 5px;
         }
@@ -114,6 +113,48 @@
         
         .required {
             color: #e74c3c;
+        }
+        
+        .test-section {
+            background: #f0f8ff;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border: 2px solid #e0e8f0;
+        }
+        
+        .test-section h3 {
+            color: #2563eb;
+            margin-bottom: 8px;
+        }
+        
+        .test-section p {
+            color: #64748b;
+            margin-bottom: 15px;
+        }
+        
+        .test-btn {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-right: 10px;
+            transition: background 0.3s ease;
+        }
+        
+        .test-btn:hover {
+            background: #2563eb;
+        }
+        
+        .test-btn.clear {
+            background: #6b7280;
+        }
+        
+        .test-btn.clear:hover {
+            background: #4b5563;
         }
         
         .submit-btn {
@@ -139,75 +180,38 @@
             transform: none;
         }
         
-        .checkbox-group {
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            margin-bottom: 25px;
-        }
-        
-        .checkbox-group input[type="checkbox"] {
-            width: auto;
-            margin-top: 3px;
-        }
-        
-        .checkbox-group label {
-            margin-bottom: 0;
-            font-weight: 400;
-            flex: 1;
-            font-size: 0.9rem;
-        }
-        
-        .upload-area {
-            border: 2px dashed #667eea;
-            border-radius: 8px;
-            padding: 20px;
-            text-align: center;
-            background: rgba(102, 126, 234, 0.05);
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .upload-area:hover {
-            background: rgba(102, 126, 234, 0.1);
-        }
-        
-        .upload-text {
-            color: #667eea;
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
-        
-        .upload-subtext {
-            color: #666;
-            font-size: 0.85rem;
-        }
-        
-        .file-info {
-            background: rgba(102, 126, 234, 0.1);
-            padding: 10px;
-            border-radius: 6px;
-            margin-top: 8px;
-        }
-        
         .honeypot {
             position: absolute;
             left: -9999px;
-            opacity: 0;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
         }
         
-        .email-match-error {
-            color: #e74c3c;
-            font-size: 0.85rem;
-            margin-top: 5px;
-            display: none;
+        .home-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .home-button:hover {
+            background: white;
+            transform: translateY(-2px);
         }
         
         .genre-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 10px;
-            margin-top: 8px;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 10px;
         }
         
         .genre-item {
@@ -218,54 +222,21 @@
         
         .genre-item input[type="checkbox"] {
             width: auto;
-        }
-        
-        .genre-item label {
             margin: 0;
-            font-weight: 400;
-            font-size: 0.9rem;
         }
         
-        .genre-section {
-            background: rgba(128, 128, 128, 0.1);
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 25px;
-        }
-        
-        .home-button {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            padding: 10px 20px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-        }
-        
-        .home-button:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: translateY(-2px);
-        }
-        
-        .personal-info-section {
-            background: rgba(102, 126, 234, 0.03);
-            padding: 25px;
-            border-radius: 10px;
-            margin-bottom: 30px;
-            border: 1px solid rgba(102, 126, 234, 0.1);
+        .email-match-error {
+            color: #e74c3c;
+            font-size: 0.8rem;
+            margin-top: 5px;
+            display: none;
         }
         
         .processing-options {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 20px;
-            margin-bottom: 30px;
+            margin: 30px 0;
         }
         
         .option-card {
@@ -284,47 +255,117 @@
         
         .option-card.selected {
             border-color: #667eea;
-            background: rgba(102, 126, 234, 0.1);
+            background: #f0f4ff;
         }
         
-        .option-title {
-            font-size: 1.2rem;
-            font-weight: 600;
+        .option-card h3 {
+            margin-bottom: 10px;
             color: #333;
-            margin-bottom: 8px;
         }
         
-        .option-description {
+        .option-card .price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        .option-card .description {
+            font-size: 0.9rem;
             color: #666;
-            font-size: 0.9rem;
-            line-height: 1.4;
         }
         
-        .option-btn {
-            background: #667eea;
-            color: white;
+        .option-card .features {
+            list-style: none;
+            padding: 0;
+            margin: 15px 0;
+        }
+        
+        .option-card .features li {
+            padding: 5px 0;
+            font-size: 0.85rem;
+            color: #666;
+        }
+        
+        .option-card .features li:before {
+            content: "✓";
+            color: #28a745;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+        
+        .tier-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .tier-btn {
+            flex: 1;
+            padding: 8px 16px;
             border: none;
-            padding: 10px 20px;
             border-radius: 6px;
-            font-size: 0.9rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            margin: 10px 0;
-            width: 100%;
         }
         
-        .option-btn:hover {
-            background: #5a67d8;
-            transform: translateY(-1px);
+        #standardBtn {
+            background: #667eea;
+            color: white;
         }
         
-        .premium-btn {
+        #premiumBtn {
             background: #ff6b6b;
+            color: white;
         }
         
-        .premium-btn:hover {
-            background: #ff5252;
+        .upload-area {
+            border: 2px dashed #ccc;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+        
+        .upload-area:hover {
+            border-color: #667eea;
+            background: #f8f9ff;
+        }
+        
+        .upload-area.dragover {
+            border-color: #667eea;
+            background: #f0f4ff;
+        }
+        
+        .file-info {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .processing-options {
+                grid-template-columns: 1fr;
+            }
+            
+            .container {
+                margin: 10px;
+            }
+            
+            .header {
+                padding: 30px 20px;
+            }
+            
+            .form-container {
+                padding: 30px 20px;
+            }
         }
     </style>
 </head>
@@ -338,6 +379,18 @@
         </div>
         
         <div class="form-container">
+            <!-- Test Button Section -->
+            <div class="test-section">
+                <h3>🧪 Development Mode</h3>
+                <p>Populate form with test data for rapid testing</p>
+                <button type="button" id="fillTestDataBtn" class="test-btn">
+                    Fill Test Data
+                </button>
+                <button type="button" id="clearFormBtn" class="test-btn clear">
+                    Clear Form
+                </button>
+            </div>
+            
             <form id="screenplaySynopsisForm">
                 <!-- Honeypot field -->
                 <input type="text" name="website" class="honeypot" tabindex="-1" autocomplete="off">
@@ -462,8 +515,35 @@
                 
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="project_duration">Page Count <span class="required">*</span></label>
-                        <input type="text" id="project_duration" name="project_duration" placeholder="e.g., 95 pages, 120 pages" required>
+                        <label for="project_duration">Total Runtime (including credits) <span class="required">*</span></label>
+                        <select id="project_duration" name="project_duration" required>
+                            <option value="">Select runtime in minutes</option>
+                            <option value="1">1 minute</option>
+                            <option value="2">2 minutes</option>
+                            <option value="3">3 minutes</option>
+                            <option value="4">4 minutes</option>
+                            <option value="5">5 minutes</option>
+                            <option value="6">6 minutes</option>
+                            <option value="7">7 minutes</option>
+                            <option value="8">8 minutes</option>
+                            <option value="9">9 minutes</option>
+                            <option value="10">10 minutes</option>
+                            <option value="15">15 minutes</option>
+                            <option value="20">20 minutes</option>
+                            <option value="25">25 minutes</option>
+                            <option value="30">30 minutes</option>
+                            <option value="45">45 minutes</option>
+                            <option value="60">60 minutes (1 hour)</option>
+                            <option value="75">75 minutes</option>
+                            <option value="90">90 minutes</option>
+                            <option value="105">105 minutes</option>
+                            <option value="120">120 minutes (2 hours)</option>
+                            <option value="135">135 minutes</option>
+                            <option value="150">150 minutes</option>
+                            <option value="165">165 minutes</option>
+                            <option value="180">180 minutes (3 hours)</option>
+                            <option value="200">200 minutes</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="project_type">Project Type <span class="required">*</span></label>
@@ -477,16 +557,20 @@
                 </div>
                 
                 <div class="form-group">
-                    <label for="role">Writer(s) <span class="required">*</span></label>
-                    <input type="text" id="role" name="role" placeholder="Please list the screenwriter(s) and story contributor(s) for this project." required>
+                    <label for="role">Your Role(s) <span class="required">*</span></label>
+                    <input type="text" id="role" name="role" placeholder="e.g., Writer, Director, Producer" required>
                 </div>
                 
-                <div class="form-group genre-section">
-                    <label for="genres">Genres (select all that apply) <span class="required">*</span></label>
+                <div class="form-group">
+                    <label>Genre(s) <span class="required">*</span></label>
                     <div class="genre-grid">
                         <div class="genre-item">
                             <input type="checkbox" id="action" name="genres" value="Action">
                             <label for="action">Action</label>
+                        </div>
+                        <div class="genre-item">
+                            <input type="checkbox" id="adventure" name="genres" value="Adventure">
+                            <label for="adventure">Adventure</label>
                         </div>
                         <div class="genre-item">
                             <input type="checkbox" id="comedy" name="genres" value="Comedy">
@@ -497,10 +581,6 @@
                             <label for="drama">Drama</label>
                         </div>
                         <div class="genre-item">
-                            <input type="checkbox" id="experimental" name="genres" value="Experimental">
-                            <label for="experimental">Experimental</label>
-                        </div>
-                        <div class="genre-item">
                             <input type="checkbox" id="fantasy" name="genres" value="Fantasy">
                             <label for="fantasy">Fantasy</label>
                         </div>
@@ -509,78 +589,97 @@
                             <label for="horror">Horror</label>
                         </div>
                         <div class="genre-item">
-                            <input type="checkbox" id="musicVideo" name="genres" value="Music Video">
-                            <label for="musicVideo">Music Video</label>
+                            <input type="checkbox" id="mystery" name="genres" value="Mystery">
+                            <label for="mystery">Mystery</label>
                         </div>
                         <div class="genre-item">
-                            <input type="checkbox" id="sciFi" name="genres" value="Sci-Fi">
-                            <label for="sciFi">Sci-Fi</label>
+                            <input type="checkbox" id="romance" name="genres" value="Romance">
+                            <label for="romance">Romance</label>
                         </div>
                         <div class="genre-item">
-                            <input type="checkbox" id="suspense" name="genres" value="Suspense Thriller">
-                            <label for="suspense">Suspense Thriller</label>
+                            <input type="checkbox" id="sci-fi" name="genres" value="Sci-Fi">
+                            <label for="sci-fi">Sci-Fi</label>
+                        </div>
+                        <div class="genre-item">
+                            <input type="checkbox" id="thriller" name="genres" value="Thriller">
+                            <label for="thriller">Thriller</label>
+                        </div>
+                        <div class="genre-item">
+                            <input type="checkbox" id="documentary" name="genres" value="Documentary">
+                            <label for="documentary">Documentary</label>
+                        </div>
+                        <div class="genre-item">
+                            <input type="checkbox" id="other-genre" name="genres" value="Other">
+                            <label for="other-genre">Other</label>
                         </div>
                     </div>
                 </div>
                 
                 <div class="form-group">
                     <label for="story_location">Story Location(s) <span class="required">*</span></label>
-                    <input type="text" id="story_location" name="story_location" placeholder="e.g., New York City, a fictional small town, or both real and imaginary places" required>
+                    <input type="text" id="story_location" name="story_location" placeholder="e.g., New York City, 1920s Paris, Small town America" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="main_characters">Please describe the main character(s) <span class="required">*</span></label>
-                    <textarea id="main_characters" name="main_characters" placeholder="Example: Martha 34 year old teacher, James 12 year old student" required></textarea>
+                    <label for="main_characters">Main Characters <span class="required">*</span></label>
+                    <textarea id="main_characters" name="main_characters" placeholder="Describe the main characters (who they are, what they want, what makes them compelling)" required></textarea>
                     <div class="char-count" id="main_charactersCount">0 characters</div>
                 </div>
                 
                 <div class="form-group">
-                    <label for="main_challenge">Plot, Stakes, and Challenges <span class="required">*</span></label>
-                    <textarea id="main_challenge" name="main_challenge" placeholder="Highlight the plot, stakes or challenges faced by the main characters. If you already have a synopsis or summary, you can paste it here as well." required></textarea>
+                    <label for="main_challenge">Plot/Stakes/Challenges <span class="required">*</span></label>
+                    <textarea id="main_challenge" name="main_challenge" placeholder="What is the main conflict or challenge your characters face? What are the stakes if they fail?" required></textarea>
                     <div class="char-count" id="main_challengeCount">0 characters</div>
                 </div>
                 
                 <div class="form-group">
-                    <label for="scriptUpload">Upload Script (Optional)</label>
-                    <div class="upload-area" onclick="document.getElementById('script_upload').click()">
-                        <div class="upload-text">📄 Click to upload or drag & drop</div>
-                        <div class="upload-subtext">PDF files only</div>
-                    </div>
-                    <input type="file" id="script_upload" name="script_upload" accept=".pdf" style="display: none;">
-                    <div id="fileInfo" class="file-info" style="display: none;"></div>
+                    <label for="script_text">Script/Story Details (optional)</label>
+                    <textarea id="script_text" name="script_text" placeholder="Provide key scenes, dialogue, or story elements that should be highlighted in the synopsis"></textarea>
+                    <div class="char-count" id="script_textCount">0 characters</div>
                 </div>
                 
                 <div class="form-group">
-                    <label for="script_text">Script Text (Optional)</label>
-                    <textarea id="script_text" name="script_text" placeholder="Extracted text from your script will appear here. You can edit this field before generating a new tagline. This information will not be used for AI training"></textarea>
-                    <div class="char-count" id="script_textCount">0 characters</div>
+                    <label for="script_upload">Upload Script (optional)</label>
+                    <div class="upload-area" id="uploadArea">
+                        <p>Click to upload or drag and drop your script (PDF only)</p>
+                        <input type="file" id="script_upload" name="script_upload" accept=".pdf" style="display: none;">
+                    </div>
+                    <div class="file-info" id="fileInfo"></div>
                 </div>
                 
                 <div class="processing-options">
                     <div class="option-card" data-tier="standard" onclick="selectOption('standard')">
-                        <div class="option-title">Standard Processing</div>
-                        <button type="button" class="option-btn" id="standardBtn" onclick="selectOption('standard')">
-                            Free
-                        </button>
-                        <div class="option-description">
-                            Generate a professional screenplay synopsis powered by Google Gemini.
+                        <h3>Standard Processing</h3>
+                        <div class="price">FREE</div>
+                        <div class="description">AI-powered synopsis generation</div>
+                        <ul class="features">
+                            <li>Professional synopsis structure</li>
+                            <li>Genre-appropriate tone</li>
+                            <li>Character-focused narrative</li>
+                            <li>Email delivery</li>
+                        </ul>
+                        <div class="tier-buttons">
+                            <button type="button" class="tier-btn" id="standardBtn" onclick="selectOption('standard')">Select Standard</button>
                         </div>
                     </div>
                     
                     <div class="option-card" data-tier="premium" onclick="selectOption('premium')">
-                        <div class="option-title">Premium Processing</div>
-                        <button type="button" class="option-btn premium-btn" id="premiumBtn" onclick="selectOption('premium')">
-                            Premium
-                        </button>
-                        <div class="option-description">
-                            Generate a film industry standard screenplay synopsis using Mikel Fair's signature algorithm powered by high end AI processing.
+                        <h3>Premium Processing</h3>
+                        <div class="price">$4.99</div>
+                        <div class="description">Enhanced AI with advanced features</div>
+                        <ul class="features">
+                            <li>All standard features</li>
+                            <li>Advanced narrative analysis</li>
+                            <li>Multiple synopsis variations</li>
+                            <li>Priority processing</li>
+                        </ul>
+                        <div class="tier-buttons">
+                            <button type="button" class="tier-btn" id="premiumBtn" onclick="selectOption('premium')">Select Premium</button>
                         </div>
                     </div>
                 </div>
                 
-                <button type="submit" class="submit-btn" id="submitBtn" disabled>
-                    Select processing option to continue
-                </button>
+                <button type="submit" class="submit-btn" id="submitBtn" disabled>Select Processing Option First</button>
             </form>
         </div>
     </div>
@@ -590,6 +689,89 @@
     <script>
         // Initialize book banner
         createBookBanner('book-banner-container', 'screenplay-synopsis');
+        
+        // Test data for rapid testing
+        const TEST_DATA = {
+            // CONTACT FIELDS
+            first_name: 'Dev',
+            last_name: 'Test',
+            country: 'United States',
+            person_location: 'Texas',
+            
+            // SCREENPLAY SPECIFIC DATA
+            project_title: 'The Last Stand',
+            project_duration: '120',
+            project_type: 'standalone',
+            story_location: 'Post-apocalyptic Chicago',
+            main_characters: 'Sarah Chen is a former military engineer turned survivor leader.',
+            main_challenge: 'Sarah must unite fractured survivor groups to defend against a hostile military faction seeking to control the city\'s remaining resources.',
+            script_text: 'FADE IN: EXT. CHICAGO RUINS - DAWN. The skeletal remains of skyscrapers pierce the morning sky...',
+            role: 'Writer, Director'
+        };
+        
+        // Test button functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const fillBtn = document.getElementById('fillTestDataBtn');
+            const clearBtn = document.getElementById('clearFormBtn');
+            
+            if (fillBtn) {
+                fillBtn.addEventListener('click', fillTestData);
+            }
+            
+            if (clearBtn) {
+                clearBtn.addEventListener('click', clearForm);
+            }
+        });
+        
+        function fillTestData() {
+            // Fill all form fields except email fields
+            Object.keys(TEST_DATA).forEach(key => {
+                const element = document.getElementById(key);
+                if (element) {
+                    element.value = TEST_DATA[key];
+                    
+                    // Trigger input event for character counting
+                    if (element.tagName === 'TEXTAREA') {
+                        element.dispatchEvent(new Event('input'));
+                    }
+                }
+            });
+            
+            // Select default genres
+            const dramaCheckbox = document.querySelector('input[name="genres"][value="Drama"]');
+            const thrillerCheckbox = document.querySelector('input[name="genres"][value="Thriller"]');
+            if (dramaCheckbox) dramaCheckbox.checked = true;
+            if (thrillerCheckbox) thrillerCheckbox.checked = true;
+            
+            console.log('Test data filled (excluding email fields)');
+        }
+        
+        function clearForm() {
+            // Clear the form
+            document.getElementById('screenplaySynopsisForm').reset();
+            
+            // Clear character counters
+            const textareas = ['main_characters', 'main_challenge', 'script_text'];
+            textareas.forEach(id => {
+                const counter = document.getElementById(id + 'Count');
+                if (counter) {
+                    counter.textContent = '0 characters';
+                    counter.classList.remove('warning');
+                }
+            });
+            
+            // Reset tier selection
+            selectedTier = null;
+            document.querySelectorAll('.option-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Select Processing Option First';
+            
+            console.log('Form cleared');
+        }
         
         let selectedTier = null;
         
@@ -735,7 +917,7 @@
                     person_location: submissionData.person_location,
                     project_title: submissionData.project_title,
                     project_type: submissionData.project_type,
-                    pages: submissionData.project_duration,
+                    duration: parseInt(submissionData.project_duration),
                     role: submissionData.role,
                     genres: submissionData.genres,
                     characters: submissionData.main_characters,
