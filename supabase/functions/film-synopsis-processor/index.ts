@@ -223,12 +223,10 @@ async function sendFilmSynopsisEmail(submission: any) {
         <p style="line-height: 1.6; margin: 0 0 15px 0;">If you'd like to add your new synopsis to your FilmFreeway submission form for a film, simply log into FilmFreeway. Click on "My Projects" from the top menu. Click on the edit button next to your project. The third heading you will see is labeled "Brief Synopsis." Simply paste your new synopsis text into that box.</p>
       </div>
       
-      <h2 style="color: #333;">📚 Free Resources</h2>
-      <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; border-left: 4px solid #667eea;">
-        <p style="line-height: 1.6; margin: 0 0 15px 0;"><strong>📖 Download our free book:</strong></p>
-        <ul style="margin: 0 0 15px 20px; padding: 0;">
-          <li style="margin-bottom: 10px;"><a href="https://www.filmfestivalcircuit.com/film-festival-handbook" style="color: #667eea; text-decoration: none;">Film Festival Handbook</a> - Complete guide to film festivals</li>
-        </ul>
+      <div style="text-align: center; margin: 30px 0;">
+        <a href="https://amzn.to/4naJ4FT" target="_blank" style="display: inline-block; text-decoration: none;">
+          <img src="https://apps.filmfestivalcircuit.com/images/festival-books-banner.png" alt="Film Festival Submitter's Handbook & Screenplay Judging Guide - Available on Amazon" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);">
+        </a>
       </div>
       
       <div style="text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee;">
