@@ -296,17 +296,19 @@
         }
         
         .test-section {
-            background: #f8f9fa;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
             padding: 20px;
-            border-radius: 8px;
+            border-radius: 12px;
             margin-bottom: 30px;
-            border: 2px solid #e9ecef;
+            border: 2px solid #5a67d8;
         }
         
         .test-section h3 {
-            color: #495057;
+            color: white;
             margin-bottom: 15px;
             font-size: 1.1rem;
+            font-weight: 600;
         }
         
         .test-buttons {
@@ -316,27 +318,32 @@
         }
         
         .test-btn {
-            background: #28a745;
+            background: rgba(255, 255, 255, 0.2);
             color: white;
-            border: none;
+            border: 2px solid rgba(255, 255, 255, 0.3);
             padding: 8px 16px;
             border-radius: 6px;
             font-size: 0.9rem;
+            font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
         }
         
         .test-btn:hover {
-            background: #218838;
+            background: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.5);
             transform: translateY(-1px);
         }
         
         .test-btn.clear {
-            background: #dc3545;
+            background: rgba(220, 53, 69, 0.8);
+            border-color: rgba(220, 53, 69, 0.9);
         }
         
         .test-btn.clear:hover {
-            background: #c82333;
+            background: rgba(200, 35, 51, 0.9);
+            border-color: rgba(200, 35, 51, 1);
         }
     </style>
 </head>
@@ -351,7 +358,7 @@
         
         <div class="form-container">
             <div class="test-section">
-                <h3>🧪 Test Mode</h3>
+                <h3>🧪 Development Mode</h3>
                 <div class="test-buttons">
                     <button type="button" class="test-btn" onclick="fillTestData()">Fill Test Data</button>
                     <button type="button" class="test-btn clear" onclick="clearForm()">Clear Form</button>
