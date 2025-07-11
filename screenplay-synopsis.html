@@ -115,48 +115,6 @@
             color: #e74c3c;
         }
         
-        .test-section {
-            background: #f0f8ff;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 30px;
-            border: 2px solid #e0e8f0;
-        }
-        
-        .test-section h3 {
-            color: #2563eb;
-            margin-bottom: 8px;
-        }
-        
-        .test-section p {
-            color: #64748b;
-            margin-bottom: 15px;
-        }
-        
-        .test-btn {
-            background: #3b82f6;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-            margin-right: 10px;
-            transition: background 0.3s ease;
-        }
-        
-        .test-btn:hover {
-            background: #2563eb;
-        }
-        
-        .test-btn.clear {
-            background: #6b7280;
-        }
-        
-        .test-btn.clear:hover {
-            background: #4b5563;
-        }
-        
         .submit-btn {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
@@ -205,6 +163,21 @@
         .home-button:hover {
             background: white;
             transform: translateY(-2px);
+        }
+        
+        .personal-info-section {
+            background: rgba(102, 126, 234, 0.03);
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(102, 126, 234, 0.1);
+        }
+        
+        .genre-section {
+            background: rgba(128, 128, 128, 0.1);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
         }
         
         .genre-grid {
@@ -379,18 +352,6 @@
         </div>
         
         <div class="form-container">
-            <!-- Test Button Section -->
-            <div class="test-section">
-                <h3>🧪 Development Mode</h3>
-                <p>Populate form with test data for rapid testing</p>
-                <button type="button" id="fillTestDataBtn" class="test-btn">
-                    Fill Test Data
-                </button>
-                <button type="button" id="clearFormBtn" class="test-btn clear">
-                    Clear Form
-                </button>
-            </div>
-            
             <form id="screenplaySynopsisForm">
                 <!-- Honeypot field -->
                 <input type="text" name="website" class="honeypot" tabindex="-1" autocomplete="off">
@@ -515,34 +476,37 @@
                 
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="project_duration">Total Runtime (including credits) <span class="required">*</span></label>
-                        <select id="project_duration" name="project_duration" required>
-                            <option value="">Select runtime in minutes</option>
-                            <option value="1">1 minute</option>
-                            <option value="2">2 minutes</option>
-                            <option value="3">3 minutes</option>
-                            <option value="4">4 minutes</option>
-                            <option value="5">5 minutes</option>
-                            <option value="6">6 minutes</option>
-                            <option value="7">7 minutes</option>
-                            <option value="8">8 minutes</option>
-                            <option value="9">9 minutes</option>
-                            <option value="10">10 minutes</option>
-                            <option value="15">15 minutes</option>
-                            <option value="20">20 minutes</option>
-                            <option value="25">25 minutes</option>
-                            <option value="30">30 minutes</option>
-                            <option value="45">45 minutes</option>
-                            <option value="60">60 minutes (1 hour)</option>
-                            <option value="75">75 minutes</option>
-                            <option value="90">90 minutes</option>
-                            <option value="105">105 minutes</option>
-                            <option value="120">120 minutes (2 hours)</option>
-                            <option value="135">135 minutes</option>
-                            <option value="150">150 minutes</option>
-                            <option value="165">165 minutes</option>
-                            <option value="180">180 minutes (3 hours)</option>
-                            <option value="200">200 minutes</option>
+                        <label for="pages">Number of Pages <span class="required">*</span></label>
+                        <select id="pages" name="pages" required>
+                            <option value="">Select page count</option>
+                            <option value="1">1 page</option>
+                            <option value="2">2 pages</option>
+                            <option value="3">3 pages</option>
+                            <option value="4">4 pages</option>
+                            <option value="5">5 pages</option>
+                            <option value="6">6 pages</option>
+                            <option value="7">7 pages</option>
+                            <option value="8">8 pages</option>
+                            <option value="9">9 pages</option>
+                            <option value="10">10 pages</option>
+                            <option value="15">15 pages</option>
+                            <option value="20" selected>20 pages</option>
+                            <option value="25">25 pages</option>
+                            <option value="30">30 pages</option>
+                            <option value="35">35 pages</option>
+                            <option value="40">40 pages</option>
+                            <option value="45">45 pages</option>
+                            <option value="50">50 pages</option>
+                            <option value="60">60 pages</option>
+                            <option value="70">70 pages</option>
+                            <option value="80">80 pages</option>
+                            <option value="90">90 pages</option>
+                            <option value="100">100 pages</option>
+                            <option value="110">110 pages</option>
+                            <option value="120">120 pages</option>
+                            <option value="130">130 pages</option>
+                            <option value="140">140 pages</option>
+                            <option value="150">150 pages</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -561,7 +525,7 @@
                     <input type="text" id="role" name="role" placeholder="e.g., Writer, Director, Producer" required>
                 </div>
                 
-                <div class="form-group">
+                <div class="form-group genre-section">
                     <label>Genre(s) <span class="required">*</span></label>
                     <div class="genre-grid">
                         <div class="genre-item">
@@ -689,89 +653,6 @@
     <script>
         // Initialize book banner
         createBookBanner('book-banner-container', 'screenplay-synopsis');
-        
-        // Test data for rapid testing
-        const TEST_DATA = {
-            // CONTACT FIELDS
-            first_name: 'Dev',
-            last_name: 'Test',
-            country: 'United States',
-            person_location: 'Texas',
-            
-            // SCREENPLAY SPECIFIC DATA
-            project_title: 'The Last Stand',
-            project_duration: '120',
-            project_type: 'standalone',
-            story_location: 'Post-apocalyptic Chicago',
-            main_characters: 'Sarah Chen is a former military engineer turned survivor leader.',
-            main_challenge: 'Sarah must unite fractured survivor groups to defend against a hostile military faction seeking to control the city\'s remaining resources.',
-            script_text: 'FADE IN: EXT. CHICAGO RUINS - DAWN. The skeletal remains of skyscrapers pierce the morning sky...',
-            role: 'Writer, Director'
-        };
-        
-        // Test button functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            const fillBtn = document.getElementById('fillTestDataBtn');
-            const clearBtn = document.getElementById('clearFormBtn');
-            
-            if (fillBtn) {
-                fillBtn.addEventListener('click', fillTestData);
-            }
-            
-            if (clearBtn) {
-                clearBtn.addEventListener('click', clearForm);
-            }
-        });
-        
-        function fillTestData() {
-            // Fill all form fields except email fields
-            Object.keys(TEST_DATA).forEach(key => {
-                const element = document.getElementById(key);
-                if (element) {
-                    element.value = TEST_DATA[key];
-                    
-                    // Trigger input event for character counting
-                    if (element.tagName === 'TEXTAREA') {
-                        element.dispatchEvent(new Event('input'));
-                    }
-                }
-            });
-            
-            // Select default genres
-            const dramaCheckbox = document.querySelector('input[name="genres"][value="Drama"]');
-            const thrillerCheckbox = document.querySelector('input[name="genres"][value="Thriller"]');
-            if (dramaCheckbox) dramaCheckbox.checked = true;
-            if (thrillerCheckbox) thrillerCheckbox.checked = true;
-            
-            console.log('Test data filled (excluding email fields)');
-        }
-        
-        function clearForm() {
-            // Clear the form
-            document.getElementById('screenplaySynopsisForm').reset();
-            
-            // Clear character counters
-            const textareas = ['main_characters', 'main_challenge', 'script_text'];
-            textareas.forEach(id => {
-                const counter = document.getElementById(id + 'Count');
-                if (counter) {
-                    counter.textContent = '0 characters';
-                    counter.classList.remove('warning');
-                }
-            });
-            
-            // Reset tier selection
-            selectedTier = null;
-            document.querySelectorAll('.option-card').forEach(card => {
-                card.classList.remove('selected');
-            });
-            
-            const submitBtn = document.getElementById('submitBtn');
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Select Processing Option First';
-            
-            console.log('Form cleared');
-        }
         
         let selectedTier = null;
         
@@ -917,7 +798,7 @@
                     person_location: submissionData.person_location,
                     project_title: submissionData.project_title,
                     project_type: submissionData.project_type,
-                    duration: parseInt(submissionData.project_duration),
+                    pages: parseInt(submissionData.pages),
                     role: submissionData.role,
                     genres: submissionData.genres,
                     characters: submissionData.main_characters,
