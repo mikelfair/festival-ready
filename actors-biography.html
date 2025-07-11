@@ -116,6 +116,48 @@
             color: #e74c3c;
         }
         
+        .test-section {
+            background: #f0f8ff;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border: 2px solid #e0e8f0;
+        }
+        
+        .test-section h3 {
+            color: #2563eb;
+            margin-bottom: 8px;
+        }
+        
+        .test-section p {
+            color: #64748b;
+            margin-bottom: 15px;
+        }
+        
+        .test-btn {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-right: 10px;
+            transition: background 0.3s ease;
+        }
+        
+        .test-btn:hover {
+            background: #2563eb;
+        }
+        
+        .test-btn.clear {
+            background: #6b7280;
+        }
+        
+        .test-btn.clear:hover {
+            background: #4b5563;
+        }
+        
         .submit-btn {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
@@ -306,6 +348,18 @@
         </div>
         
         <div class="form-container">
+            <!-- Test Button Section -->
+            <div class="test-section">
+                <h3>🧪 Development Mode</h3>
+                <p>Populate form with test data for rapid testing</p>
+                <button type="button" id="fillTestDataBtn" class="test-btn">
+                    Fill Test Data
+                </button>
+                <button type="button" id="clearFormBtn" class="test-btn clear">
+                    Clear Form
+                </button>
+            </div>
+            
             <form id="actorsBiographyForm">
                 <!-- Honeypot field -->
                 <input type="text" name="website" class="honeypot" tabindex="-1" autocomplete="off">
@@ -313,11 +367,11 @@
                 <div class="personal-info-section">
                     <div class="form-row">
                     <div class="form-group">
-                        <label for="first_name">First Name <span class="required">*</span></label>
+                        <label for="first_name">Actor's First Name <span class="required">*</span></label>
                         <input type="text" id="first_name" name="first_name" required>
                     </div>
                     <div class="form-group">
-                        <label for="last_name">Last Name <span class="required">*</span></label>
+                        <label for="last_name">Actor's Last Name <span class="required">*</span></label>
                         <input type="text" id="last_name" name="last_name" required>
                     </div>
                 </div>
@@ -529,6 +583,81 @@
     <script>
         // Initialize book banner
         createBookBanner('book-banner-container', 'actors-biography');
+        
+        // Test data for rapid testing
+        const TEST_DATA = {
+            // CONTACT FIELDS
+            first_name: 'Dev',
+            last_name: 'Test',
+            country: 'United States',
+            person_location: 'Texas',
+            
+            // ACTOR BIOGRAPHY SPECIFIC DATA
+            project_title: 'Broken Dreams',
+            relevant_work_experience: 'Trained at the Stella Adler Studio and performed in regional theater productions including Romeo and Juliet and A Streetcar Named Desire.',
+            non_film_industry_experience: 'Former social worker with experience helping at-risk youth, which brings authenticity to dramatic roles.',
+            screenings_awards: 'Best Actor award at the Austin Film Festival for independent short film "The Last Call".',
+            community: 'Active member of the local theater community and volunteers with drama programs at underserved schools.',
+            learning: 'Currently studying method acting techniques and exploring character development through improvisation workshops.'
+        };
+        
+        // Test button functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const fillBtn = document.getElementById('fillTestDataBtn');
+            const clearBtn = document.getElementById('clearFormBtn');
+            
+            if (fillBtn) {
+                fillBtn.addEventListener('click', fillTestData);
+            }
+            
+            if (clearBtn) {
+                clearBtn.addEventListener('click', clearForm);
+            }
+        });
+        
+        function fillTestData() {
+            // Fill all form fields except email fields
+            Object.keys(TEST_DATA).forEach(key => {
+                const element = document.getElementById(key);
+                if (element) {
+                    element.value = TEST_DATA[key];
+                    
+                    // Trigger input event for character counting
+                    if (element.tagName === 'TEXTAREA') {
+                        element.dispatchEvent(new Event('input'));
+                    }
+                }
+            });
+            
+            console.log('Test data filled (excluding email fields)');
+        }
+        
+        function clearForm() {
+            // Clear the form
+            document.getElementById('actorsBiographyForm').reset();
+            
+            // Clear character counters
+            const textareas = ['relevant_work_experience', 'non_film_industry_experience', 'screenings_awards', 'community', 'learning'];
+            textareas.forEach(id => {
+                const counter = document.getElementById(id + 'Count');
+                if (counter) {
+                    counter.textContent = '0 characters';
+                    counter.classList.remove('warning');
+                }
+            });
+            
+            // Reset tier selection
+            selectedTier = null;
+            document.querySelectorAll('.option-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Select Processing Option First';
+            
+            console.log('Form cleared');
+        }
         
         let selectedTier = null;
         
