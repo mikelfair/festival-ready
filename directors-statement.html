@@ -300,11 +300,11 @@
         }
         
         .premium-btn {
-            background: #ff6b6b !important;
+            background: #ff6b6b;
         }
         
         .premium-btn:hover {
-            background: #ff5252 !important;
+            background: #ff5252;
         }
     </style>
 </head>
@@ -314,21 +314,10 @@
     <div class="container">
         <div class="header">
             <h1>🎬 Director's Statement Generator</h1>
-            <p>Use this tool to create an director's statement, which explains your personal motivation for directing this project.</p>
+            <p>Use this tool to create a director's statement that explains your creative vision and approach to this project.</p>
         </div>
         
         <div class="form-container">
-            <!-- Test Button Section -->
-            <div class="test-section">
-                <h3>🧪 Development Mode</h3>
-                <p>Populate form with test data for rapid testing</p>
-                <button type="button" id="fillTestDataBtn" class="test-btn">
-                    Fill Test Data
-                </button>
-                <button type="button" id="clearFormBtn" class="test-btn clear">
-                    Clear Form
-                </button>
-            </div>
             
             <form id="directorsStatementForm">
                 <!-- Honeypot field -->
@@ -453,31 +442,32 @@
                 </div>
                 
                 <div class="form-group">
-                    <label for="role">Director(s) <span class="required">*</span></label>
-                    <input type="text" id="role" name="role" placeholder="Explain your role on this project? Examples: The main director? Co-director?" required>
+                    <label for="role">Creative Vision</label>
+                    <textarea id="role" name="role" placeholder="Describe your creative vision for this project."></textarea>
+                    <div class="char-count" id="roleCount">0 characters</div>
                 </div>
                 
                 <div class="form-group">
                     <label for="inspirations_creative">Creative Inspirations</label>
-                    <textarea id="inspirations_creative" name="inspirations_creative" placeholder="Name any creative works that inspired you to perform this role? Example: Indiana Jones, Shrek, Game of Thrones, Ghostbusters, Animal Kingdom, etc ..."></textarea>
+                    <textarea id="inspirations_creative" name="inspirations_creative" placeholder="Name any creative works that inspired you to direct this project in a specific way? Example: Indiana Jones, Shrek, Game of Thrones, Ghostbusters, Animal Kingdom, Mare of Easttown, etc ..."></textarea>
                     <div class="char-count" id="inspirations_creativeCount">0 characters</div>
                 </div>
                 
                 <div class="form-group">
                     <label for="inspirations_people">Director Inspirations</label>
-                    <textarea id="inspirations_people" name="inspirations_people" placeholder="Name any creative people that inspired you to direct this film"></textarea>
+                    <textarea id="inspirations_people" name="inspirations_people" placeholder="Name any directors or people that inspired you to approach this project the way you did."></textarea>
                     <div class="char-count" id="inspirations_peopleCount">0 characters</div>
                 </div>
                 
                 <div class="form-group">
                     <label for="relevant_work_experience">Relevant Work Experience</label>
-                    <textarea id="relevant_work_experience" name="relevant_work_experience" placeholder="What are some of the film/tv industry projects that may have prepared you for a role this project?"></textarea>
+                    <textarea id="relevant_work_experience" name="relevant_work_experience" placeholder="What are some of the film/tv industry projects that may have prepared you to direct this project?"></textarea>
                     <div class="char-count" id="relevant_work_experienceCount">0 characters</div>
                 </div>
                 
                 <div class="form-group">
                     <label for="goals">Goals</label>
-                    <textarea id="goals" name="goals" placeholder="In the future, what are you working towards any goals? Examples: Work on big budget theatrical films or streaming programs? Join the Director's Guild DGA?"></textarea>
+                    <textarea id="goals" name="goals" placeholder="In the future, what are you working towards any goals? Examples: Work on big budget theatrical films or streaming programs? Join the Directors Guild DGA?"></textarea>
                     <div class="char-count" id="goalsCount">0 characters</div>
                 </div>
                 
@@ -515,80 +505,6 @@
         // Initialize book banner
         createBookBanner('book-banner-container', 'directors-statement');
         
-        // Test data for rapid testing
-        const TEST_DATA = {
-            // CONTACT FIELDS
-            first_name: 'Dev',
-            last_name: 'Test',
-            country: 'United States',
-            person_location: 'Texas',
-            
-            // DIRECTOR STATEMENT SPECIFIC DATA
-            project_title: 'Fragments of Memory',
-            role: 'My vision for this film explores the fragmented nature of memory and how trauma shapes our perception of reality.',
-            inspirations_creative: 'The non-linear storytelling of "Eternal Sunshine of the Spotless Mind" and the visual poetry of Andrei Tarkovsky\'s work inform my approach.',
-            inspirations_people: 'My grandmother who lived through war and taught me that healing comes through sharing stories, and Chloe Zhao whose intimate filmmaking style influences my direction.',
-            goals: 'To create a film that honors the complexity of human memory while providing a cathartic experience for audiences who have experienced loss.',
-            relevant_work_experience: 'My background in documentary filmmaking has taught me to find authentic moments and emotional truth within structured narratives.'
-        };
-        
-        // Test button functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            const fillBtn = document.getElementById('fillTestDataBtn');
-            const clearBtn = document.getElementById('clearFormBtn');
-            
-            if (fillBtn) {
-                fillBtn.addEventListener('click', fillTestData);
-            }
-            
-            if (clearBtn) {
-                clearBtn.addEventListener('click', clearForm);
-            }
-        });
-        
-        function fillTestData() {
-            // Fill all form fields except email fields
-            Object.keys(TEST_DATA).forEach(key => {
-                const element = document.getElementById(key);
-                if (element) {
-                    element.value = TEST_DATA[key];
-                    
-                    // Trigger input event for character counting
-                    if (element.tagName === 'TEXTAREA') {
-                        element.dispatchEvent(new Event('input'));
-                    }
-                }
-            });
-            
-            console.log('Test data filled (excluding email fields)');
-        }
-        
-        function clearForm() {
-            // Clear the form
-            document.getElementById('directorsStatementForm').reset();
-            
-            // Clear character counters
-            const textareas = ['inspirations_creative', 'inspirations_people', 'relevant_work_experience', 'goals'];
-            textareas.forEach(id => {
-                const counter = document.getElementById(id + 'Count');
-                if (counter) {
-                    counter.textContent = '0 characters';
-                    counter.classList.remove('warning');
-                }
-            });
-            
-            // Reset tier selection
-            selectedTier = null;
-            document.querySelectorAll('.option-card').forEach(card => {
-                card.classList.remove('selected');
-            });
-            
-            const submitBtn = document.getElementById('submitBtn');
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Select Processing Option First';
-            
-            console.log('Form cleared');
-        }
         
         let selectedTier = null;
         
@@ -618,7 +534,7 @@
         }
         
         // Character counting
-        const textareas = ['inspirations_creative', 'inspirations_people', 'relevant_work_experience', 'goals'];
+        const textareas = ['role', 'inspirations_creative', 'inspirations_people', 'relevant_work_experience', 'goals'];
         
         textareas.forEach(id => {
             const textarea = document.getElementById(id);

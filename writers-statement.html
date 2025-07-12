@@ -300,11 +300,11 @@
         }
         
         .premium-btn {
-            background: #ff6b6b !important;
+            background: #ff6b6b;
         }
         
         .premium-btn:hover {
-            background: #ff5252 !important;
+            background: #ff5252;
         }
     </style>
 </head>
@@ -318,17 +318,6 @@
         </div>
         
         <div class="form-container">
-            <!-- Test Button Section -->
-            <div class="test-section">
-                <h3>🧪 Development Mode</h3>
-                <p>Populate form with test data for rapid testing</p>
-                <button type="button" id="fillTestDataBtn" class="test-btn">
-                    Fill Test Data
-                </button>
-                <button type="button" id="clearFormBtn" class="test-btn clear">
-                    Clear Form
-                </button>
-            </div>
             
             <form id="writersStatementForm">
                 <!-- Honeypot field -->
@@ -515,80 +504,6 @@
         // Initialize book banner
         createBookBanner('book-banner-container', 'writers-statement');
         
-        // Test data for rapid testing
-        const TEST_DATA = {
-            // CONTACT FIELDS
-            first_name: 'Dev',
-            last_name: 'Test',
-            country: 'United States',
-            person_location: 'Texas',
-            
-            // WRITER STATEMENT SPECIFIC DATA
-            project_title: 'Between the Lines',
-            role: 'My script explores the invisible connections between strangers in a city, examining how small moments of kindness can transform lives.',
-            inspirations_creative: 'The interconnected storytelling of "Crash" and the quiet humanity of Alice Munro\'s short stories influence my narrative approach.',
-            inspirations_people: 'My mother, who taught me that every person has a story worth telling, and Charlie Kaufman, whose fearless exploration of human complexity inspires my writing.',
-            goals: 'To create a screenplay that reveals the profound in the mundane and reminds audiences of our shared humanity despite our differences.',
-            relevant_work_experience: 'My background in journalism has taught me to find the universal story within specific details and to write with precision and emotional truth.'
-        };
-        
-        // Test button functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            const fillBtn = document.getElementById('fillTestDataBtn');
-            const clearBtn = document.getElementById('clearFormBtn');
-            
-            if (fillBtn) {
-                fillBtn.addEventListener('click', fillTestData);
-            }
-            
-            if (clearBtn) {
-                clearBtn.addEventListener('click', clearForm);
-            }
-        });
-        
-        function fillTestData() {
-            // Fill all form fields except email fields
-            Object.keys(TEST_DATA).forEach(key => {
-                const element = document.getElementById(key);
-                if (element) {
-                    element.value = TEST_DATA[key];
-                    
-                    // Trigger input event for character counting
-                    if (element.tagName === 'TEXTAREA') {
-                        element.dispatchEvent(new Event('input'));
-                    }
-                }
-            });
-            
-            console.log('Test data filled (excluding email fields)');
-        }
-        
-        function clearForm() {
-            // Clear the form
-            document.getElementById('writersStatementForm').reset();
-            
-            // Clear character counters
-            const textareas = ['main_challenge', 'inspirations_people', 'script_text', 'goals'];
-            textareas.forEach(id => {
-                const counter = document.getElementById(id + 'Count');
-                if (counter) {
-                    counter.textContent = '0 characters';
-                    counter.classList.remove('warning');
-                }
-            });
-            
-            // Reset tier selection
-            selectedTier = null;
-            document.querySelectorAll('.option-card').forEach(card => {
-                card.classList.remove('selected');
-            });
-            
-            const submitBtn = document.getElementById('submitBtn');
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Select Processing Option First';
-            
-            console.log('Form cleared');
-        }
         
         let selectedTier = null;
         

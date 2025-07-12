@@ -314,21 +314,10 @@
     <div class="container">
         <div class="header">
             <h1>🎭 Actor's Statement Generator</h1>
-            <p>Use this tool to create an actor's statement, which explains your personal motivation for accepting this role.</p>
+            <p>Use this tool to create an artist's statement that explains your personal connection and approach to this specific role.</p>
         </div>
         
         <div class="form-container">
-            <!-- Test Button Section -->
-            <div class="test-section">
-                <h3>🧪 Development Mode</h3>
-                <p>Populate form with test data for rapid testing</p>
-                <button type="button" id="fillTestDataBtn" class="test-btn">
-                    Fill Test Data
-                </button>
-                <button type="button" id="clearFormBtn" class="test-btn clear">
-                    Clear Form
-                </button>
-            </div>
             
             <form id="actorsStatementForm">
                 <!-- Honeypot field -->
@@ -453,41 +442,40 @@
                 </div>
                 
                 <div class="form-group">
-                    <label for="main_characters">Tell us about your character <span class="required">*</span></label>
-                    <textarea id="main_characters" name="main_characters" placeholder="What is your character's name and why is this character important to the story?" required></textarea>
+                    <label for="main_characters">Character Description</label>
+                    <textarea id="main_characters" name="main_characters" placeholder="Please describe the character you are playing in this project."></textarea>
                     <div class="char-count" id="main_charactersCount">0 characters</div>
                 </div>
                 
                 <div class="form-group">
-                    <label for="role">Connection to this role <span class="required">*</span></label>
-                    <textarea id="role" name="role" placeholder="Why were you drawn to this role? What does this character mean to you? How does this project connect to your personal journey as an actor?" required></textarea>
+                    <label for="role">Role Connection</label>
+                    <textarea id="role" name="role" placeholder="Why do you feel connected to this role?"></textarea>
                     <div class="char-count" id="roleCount">0 characters</div>
                 </div>
                 
                 <div class="form-group">
                     <label for="inspirations_creative">Creative Inspirations</label>
-                    <textarea id="inspirations_creative" name="inspirations_creative" placeholder="Name any creative works that inspired you to perform this role? Example: Indiana Jones, Shrek, Game of Thrones, Ghostbusters, Animal Kingdom, etc ..."></textarea>
+                    <textarea id="inspirations_creative" name="inspirations_creative" placeholder="Name any creative works that inspired you to approach this role in a specific way? Example: Indiana Jones, Shrek, Game of Thrones, Ghostbusters, Animal Kingdom, Mare of Easttown, etc ..."></textarea>
                     <div class="char-count" id="inspirations_creativeCount">0 characters</div>
                 </div>
                 
                 <div class="form-group">
                     <label for="inspirations_people">Actor Inspirations</label>
-                    <textarea id="inspirations_people" name="inspirations_people" placeholder="Name any creative people that inspired you to perform this role? Example: Jennifer Lopez, Tom Hanks, Julia Roberts, Denzel Washington, etc ..."></textarea>
+                    <textarea id="inspirations_people" name="inspirations_people" placeholder="Name any actors or people that inspired you to approach this role the way you did."></textarea>
                     <div class="char-count" id="inspirations_peopleCount">0 characters</div>
                 </div>
                 
                 <div class="form-group">
                     <label for="relevant_work_experience">Relevant Work Experience</label>
-                    <textarea id="relevant_work_experience" name="relevant_work_experience" placeholder="What are some of the film/tv industry projects that may have prepared you for a role this project?"></textarea>
+                    <textarea id="relevant_work_experience" name="relevant_work_experience" placeholder="What are some of the film/tv industry projects that may have prepared you for this role?"></textarea>
                     <div class="char-count" id="relevant_work_experienceCount">0 characters</div>
                 </div>
                 
                 <div class="form-group">
                     <label for="goals">Goals</label>
-                    <textarea id="goals" name="goals" placeholder="In the future, what are you working towards any goals? Examples: Work on big budget theatrical films or streaming programs? Join the Screen Actor's Guild SAG?"></textarea>
+                    <textarea id="goals" name="goals" placeholder="In the future, what are you working towards any goals? Examples: Work on big budget theatrical films or streaming programs? Join the Actors Guild SAG-AFTRA?"></textarea>
                     <div class="char-count" id="goalsCount">0 characters</div>
                 </div>
-                
                 
                 <div class="processing-options">
                     <div class="option-card" data-tier="standard" onclick="selectOption('standard')">
@@ -523,80 +511,6 @@
         // Initialize book banner
         createBookBanner('book-banner-container', 'actors-statement');
         
-        // Test data for rapid testing
-        const TEST_DATA = {
-            // CONTACT FIELDS
-            first_name: 'Dev',
-            last_name: 'Test',
-            country: 'United States',
-            person_location: 'Texas',
-            
-            // ACTOR STATEMENT SPECIFIC DATA
-            project_title: 'Hidden Truths',
-            role: 'Maya Chen, a conflicted detective struggling with moral ambiguity',
-            inspirations_creative: 'The complex character development in "Mare of Easttown" and the psychological depth of "True Detective" season one inspired my approach to this role.',
-            inspirations_people: 'Viola Davis and her commitment to authentic emotional truth, and my grandmother who taught me that strength comes from vulnerability.',
-            goals: 'To create a nuanced portrayal that challenges stereotypes about law enforcement while exploring the human cost of seeking justice.',
-            relevant_work_experience: 'Previous experience playing complex characters in regional theater and independent films has prepared me for this emotionally demanding role.'
-        };
-        
-        // Test button functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            const fillBtn = document.getElementById('fillTestDataBtn');
-            const clearBtn = document.getElementById('clearFormBtn');
-            
-            if (fillBtn) {
-                fillBtn.addEventListener('click', fillTestData);
-            }
-            
-            if (clearBtn) {
-                clearBtn.addEventListener('click', clearForm);
-            }
-        });
-        
-        function fillTestData() {
-            // Fill all form fields except email fields
-            Object.keys(TEST_DATA).forEach(key => {
-                const element = document.getElementById(key);
-                if (element) {
-                    element.value = TEST_DATA[key];
-                    
-                    // Trigger input event for character counting
-                    if (element.tagName === 'TEXTAREA') {
-                        element.dispatchEvent(new Event('input'));
-                    }
-                }
-            });
-            
-            console.log('Test data filled (excluding email fields)');
-        }
-        
-        function clearForm() {
-            // Clear the form
-            document.getElementById('actorsStatementForm').reset();
-            
-            // Clear character counters
-            const textareas = ['main_characters', 'role', 'inspirations_creative', 'inspirations_people', 'relevant_work_experience', 'goals'];
-            textareas.forEach(id => {
-                const counter = document.getElementById(id + 'Count');
-                if (counter) {
-                    counter.textContent = '0 characters';
-                    counter.classList.remove('warning');
-                }
-            });
-            
-            // Reset tier selection
-            selectedTier = null;
-            document.querySelectorAll('.option-card').forEach(card => {
-                card.classList.remove('selected');
-            });
-            
-            const submitBtn = document.getElementById('submitBtn');
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Select Processing Option First';
-            
-            console.log('Form cleared');
-        }
         
         let selectedTier = null;
         
@@ -718,8 +632,8 @@
                     country: submissionData.country,
                     person_location: submissionData.person_location,
                     project_title: submissionData.project_title,
-                    role: submissionData.role,
                     characters: submissionData.main_characters,
+                    role: submissionData.role,
                     inspirations_creative: submissionData.inspirations_creative,
                     inspirations_people: submissionData.inspirations_people,
                     relevant_work_experience: submissionData.relevant_work_experience,
