@@ -833,11 +833,19 @@
                 
                 if (selectedTier === 'premium') {
                     // Handle premium payment
-                    await handlePremiumPayment(submissionId, data.project_title);
+                    await handlePremiumPayment(submissionId);
                 } else {
-                    // Process standard submission
+                    // Process standard (free) immediately
                     await processStandardSubmission(submissionId);
                 }
+                
+                // Track success
+                gtag('event', 'film_synopsis_generated', {
+                    'event_category': 'Success',
+                    'event_label': 'film-synopsis',
+                    'tier': selectedTier,
+                    'value': 1
+                });
                 
             } catch (error) {
                 console.error('Submission error:', error);
@@ -848,13 +856,78 @@
             }
         });
         
+        async function handlePremiumPayment(submissionId) {
+            try {
+                const submitBtn = document.getElementById('submitBtn');
+                submitBtn.textContent = 'Creating payment session...';
+
+                // Create Stripe checkout session
+                const response = await fetch('https://vmfhxkfprrbshwniguaq.supabase.co/functions/v1/stripe-checkout-processor', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${supabaseKey}`,
+                        'apikey': supabaseKey,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        submissionId: submissionId,
+                        toolType: 'film-synopsis',
+                        successUrl: window.location.href + '?payment=success&submission=' + submissionId,
+                        cancelUrl: window.location.href + '?payment=cancelled&submission=' + submissionId
+                    })
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.text();
+                    console.error('Payment session creation failed:', response.status, errorData);
+                    throw new Error(`Payment session failed: ${response.status} - ${errorData}`);
+                }
+
+                const { checkoutUrl } = await response.json();
+                
+                // Track payment initiation
+                gtag('event', 'payment_initiated', {
+                    'event_category': 'Payment',
+                    'event_label': 'film-synopsis-premium',
+                    'value': 4.99
+                });
+
+                // Redirect to Stripe checkout
+                window.location.href = checkoutUrl;
+
+            } catch (error) {
+                console.error('Payment error:', error);
+                
+                // Reset button state
+                const submitBtn = document.getElementById('submitBtn');
+                submitBtn.textContent = 'Continue to Payment ($4.99)';
+                
+                // Show user-friendly error with option to proceed with free version
+                if (confirm('Payment processing is temporarily unavailable. Would you like to proceed with standard (free) processing instead?')) {
+                    await processStandardSubmission(submissionId);
+                } else {
+                    // Hide loading and show error
+                    document.getElementById('loading').style.display = 'none';
+                    document.getElementById('errorMessage').textContent = 'Payment processing failed. Please try again or use standard processing.';
+                    document.getElementById('errorMessage').style.display = 'block';
+                }
+            }
+        }
+        
         async function processStandardSubmission(submissionId) {
             try {
+                const submitBtn = document.getElementById('submitBtn');
+                const supabaseUrl = 'https://vmfhxkfprrbshwniguaq.supabase.co';
+                const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZtZmh4a2ZwcnJic2h3bmlndWFxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk2ODYxNTcsImV4cCI6MjA2NTI2MjE1N30.k0OdvFzcO1nwZzxsgLPcQBeSITmV6dA_ncXpN0cpAgQ';
+
+                submitBtn.textContent = 'Generating synopsis...';
+
                 // Call the film synopsis processor
                 const processorResponse = await fetch(`${supabaseUrl}/functions/v1/film-synopsis-processor`, {
                     method: 'POST',
                     headers: {
                         'Authorization': `Bearer ${supabaseKey}`,
+                        'apikey': supabaseKey,
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
@@ -862,71 +935,32 @@
                         tier: 'standard'
                     })
                 });
-                
+
                 if (!processorResponse.ok) {
-                    throw new Error('Processing failed. Please try again.');
+                    const errorData = await processorResponse.text();
+                    console.error('Processing failed:', errorData);
+                    throw new Error('AI processing failed. Please try again.');
                 }
-                
+
                 // Show success message
                 document.getElementById('loading').style.display = 'none';
                 document.getElementById('successMessage').style.display = 'block';
-                
-                // Track success
-                if (typeof gtag !== 'undefined') {
-                    gtag('event', 'form_submit_success', {
-                        'event_category': 'engagement',
-                        'event_label': 'film_synopsis_standard',
-                        'value': 1
-                    });
-                }
-                
+
                 // Reset form
                 document.getElementById('filmForm').reset();
                 selectedTier = null;
                 document.querySelectorAll('.option-card').forEach(card => {
                     card.classList.remove('selected');
                 });
-                
+                document.getElementById('submitBtn').disabled = true;
+                document.getElementById('submitBtn').textContent = 'Generate Film Synopsis';
+
             } catch (error) {
                 console.error('Processing error:', error);
-                throw error;
-            }
-        }
-        
-        async function handlePremiumPayment(submissionId, projectTitle) {
-            try {
-                // Create Stripe checkout session
-                const checkoutResponse = await fetch(`${supabaseUrl}/functions/v1/create-checkout-session`, {
-                    method: 'POST',
-                    headers: {
-                        'Authorization': `Bearer ${supabaseKey}`,
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        submissionId: submissionId,
-                        toolType: 'film-synopsis',
-                        projectTitle: projectTitle
-                    })
-                });
-                
-                if (!checkoutResponse.ok) {
-                    throw new Error('Payment setup failed. Please try again.');
-                }
-                
-                const { sessionId } = await checkoutResponse.json();
-                
-                // Redirect to Stripe Checkout
-                const { error } = await stripe.redirectToCheckout({
-                    sessionId: sessionId
-                });
-                
-                if (error) {
-                    throw new Error(error.message);
-                }
-                
-            } catch (error) {
-                console.error('Payment error:', error);
-                throw error;
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('errorMessage').textContent = error.message;
+                document.getElementById('errorMessage').style.display = 'block';
+                document.getElementById('submitBtn').disabled = false;
             }
         }
         
