@@ -149,13 +149,13 @@
             font-size: 0.9rem;
         }
         
-        .character-count {
+        .char-count {
             font-size: 0.8rem;
             color: #666;
             margin-top: 5px;
         }
         
-        .character-count.warning {
+        .char-count.warning {
             color: #e74c3c;
             font-weight: 600;
         }
@@ -672,20 +672,20 @@
                 
                 <div class="form-group">
                     <label for="main_characters">Main Characters *</label>
-                    <textarea id="characters" name="main_characters" placeholder="Describe your main characters, their ages, professions, and key personality traits" required></textarea>
-                    <div id="charactersCount" class="character-count">0 characters</div>
+                    <textarea id="main_characters" name="main_characters" placeholder="Describe your main characters, their ages, professions, and key personality traits" required></textarea>
+                    <div id="main_charactersCount" class="char-count">0 characters</div>
                 </div>
                 
                 <div class="form-group">
                     <label for="main_challenge">Plot/Stakes/Challenges *</label>
-                    <textarea id="plot" name="main_challenge" placeholder="What is the central conflict, challenge, or stakes your characters face? What drives the story forward?" required></textarea>
-                    <div id="plotCount" class="character-count">0 characters</div>
+                    <textarea id="main_challenge" name="main_challenge" placeholder="What is the central conflict, challenge, or stakes your characters face? What drives the story forward?" required></textarea>
+                    <div id="main_challengeCount" class="char-count">0 characters</div>
                 </div>
                 
                 <div class="form-group">
                     <label for="script_text">Script Text (Optional)</label>
                     <textarea id="script_text" name="script_text" placeholder="Paste key dialogue, scenes, or script excerpts that you'd like the AI to reference when creating your synopsis"></textarea>
-                    <div id="script_textCount" class="character-count">0 characters</div>
+                    <div id="script_textCount" class="char-count">0 characters</div>
                     
                     <div class="upload-area" onclick="document.getElementById('script_upload').click()">
                         <p><strong>📄 Upload Script PDF</strong></p>
@@ -758,22 +758,24 @@
         }
         
         // Character counting
-        const textareas = ['characters', 'plot', 'script_text'];
+        const textareas = ['main_characters', 'main_challenge', 'script_text'];
         
         textareas.forEach(id => {
             const textarea = document.getElementById(id);
             const counter = document.getElementById(id + 'Count');
             
-            textarea.addEventListener('input', function() {
-                const count = this.value.length;
-                counter.textContent = `${count} characters`;
-                
-                if (count > 1000) {
-                    counter.classList.add('warning');
-                } else {
-                    counter.classList.remove('warning');
-                }
-            });
+            if (textarea && counter) {
+                textarea.addEventListener('input', function() {
+                    const count = this.value.length;
+                    counter.textContent = `${count} characters`;
+                    
+                    if (count > 1000) {
+                        counter.classList.add('warning');
+                    } else {
+                        counter.classList.remove('warning');
+                    }
+                });
+            }
         });
         
         // Email confirmation validation
@@ -806,7 +808,11 @@
         const fileInput = document.getElementById('script_upload');
         const fileInfo = document.getElementById('fileInfo');
         
-        setupPDFUpload(uploadArea, fileInput, fileInfo);
+        if (typeof setupPDFUpload === 'function') {
+            setupPDFUpload(uploadArea, fileInput, fileInfo);
+        } else {
+            console.error('setupPDFUpload function not available');
+        }
         
         // Form submission
         document.getElementById('filmSynopsisForm').addEventListener('submit', async function(e) {
