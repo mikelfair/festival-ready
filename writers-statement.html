@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Writer's Statement Generator - Festival Ready v3.0</title>
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-F2CSZ9KX52"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-F2CSZ9KX52');
+    </script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .header p {
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+        
+        .form-container {
+            padding: 40px;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+            font-size: 1rem;
+        }
+        
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            transition: border-color 0.3s ease;
+            font-family: inherit;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        .char-count {
+            text-align: right;
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .char-count.warning {
+            color: #e74c3c;
+        }
+        
+        .required {
+            color: #e74c3c;
+        }
+        
+        .test-section {
+            background: #f0f8ff;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border: 2px solid #e0e8f0;
+        }
+        
+        .test-section h3 {
+            color: #2563eb;
+            margin-bottom: 8px;
+        }
+        
+        .test-section p {
+            color: #64748b;
+            margin-bottom: 15px;
+        }
+        
+        .test-btn {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-right: 10px;
+            transition: background 0.3s ease;
+        }
+        
+        .test-btn:hover {
+            background: #2563eb;
+        }
+        
+        .test-btn.clear {
+            background: #6b7280;
+        }
+        
+        .test-btn.clear:hover {
+            background: #4b5563;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 16px 32px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            width: 100%;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+        
+        .checkbox-group input[type="checkbox"] {
+            width: auto;
+            margin-top: 3px;
+        }
+        
+        .checkbox-group label {
+            margin-bottom: 0;
+            font-weight: 400;
+            flex: 1;
+            font-size: 0.9rem;
+        }
+        
+        .honeypot {
+            position: absolute;
+            left: -9999px;
+            opacity: 0;
+        }
+        
+        .email-match-error {
+            color: #e74c3c;
+            font-size: 0.85rem;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        .home-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .home-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .personal-info-section {
+            background: rgba(102, 126, 234, 0.03);
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(102, 126, 234, 0.1);
+        }
+        
+        .processing-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .option-card {
+            border: 2px solid #e1e5e9;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .option-card:hover {
+            border-color: #667eea;
+            transform: translateY(-2px);
+        }
+        
+        .option-card.selected {
+            border-color: #667eea;
+            background: rgba(102, 126, 234, 0.1);
+        }
+        
+        .option-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        
+        .option-description {
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+        
+        .option-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 10px 0;
+            width: 100%;
+        }
+        
+        .option-btn:hover {
+            background: #5a67d8;
+            transform: translateY(-1px);
+        }
+        
+        .premium-btn {
+            background: #ff6b6b;
+        }
+        
+        .premium-btn:hover {
+            background: #ff5252;
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="home-button">← Home</a>
+    
+    <div class="container">
+        <div class="header">
+            <h1>✍️ Writer's Statement Generator</h1>
+            <p>Use this tool to create an writer's statement, which explains your personal motivation for writing this story.</p>
+        </div>
+        
+        <div class="form-container">
+            <!-- Test Button Section -->
+            <div class="test-section">
+                <h3>🧪 Development Mode</h3>
+                <p>Populate form with test data for rapid testing</p>
+                <button type="button" id="fillTestDataBtn" class="test-btn">
+                    Fill Test Data
+                </button>
+                <button type="button" id="clearFormBtn" class="test-btn clear">
+                    Clear Form
+                </button>
+            </div>
+            
+            <form id="writersStatementForm">
+                <!-- Honeypot field -->
+                <input type="text" name="website" class="honeypot" tabindex="-1" autocomplete="off">
+                
+                <div class="personal-info-section">
+                    <div class="form-row">
+                    <div class="form-group">
+                        <label for="first_name">First Name <span class="required">*</span></label>
+                        <input type="text" id="first_name" name="first_name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="last_name">Last Name <span class="required">*</span></label>
+                        <input type="text" id="last_name" name="last_name" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email Address <span class="required">*</span></label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="emailConfirm">Confirm Email Address <span class="required">*</span></label>
+                    <input type="email" id="emailConfirm" name="emailConfirm" required>
+                    <div class="email-match-error" id="emailError">Email addresses do not match</div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="country">Country <span class="required">*</span></label>
+                        <select id="country" name="country" required>
+                            <option value="">Select country</option>
+                            <option value="United States">United States</option>
+                            <option value="Canada">Canada</option>
+                            <option value="United Kingdom">United Kingdom</option>
+                            <option value="Afghanistan">Afghanistan</option>
+                            <option value="Albania">Albania</option>
+                            <option value="Algeria">Algeria</option>
+                            <option value="Argentina">Argentina</option>
+                            <option value="Armenia">Armenia</option>
+                            <option value="Australia">Australia</option>
+                            <option value="Austria">Austria</option>
+                            <option value="Azerbaijan">Azerbaijan</option>
+                            <option value="Bahrain">Bahrain</option>
+                            <option value="Bangladesh">Bangladesh</option>
+                            <option value="Belarus">Belarus</option>
+                            <option value="Belgium">Belgium</option>
+                            <option value="Bolivia">Bolivia</option>
+                            <option value="Brazil">Brazil</option>
+                            <option value="Bulgaria">Bulgaria</option>
+                            <option value="Cambodia">Cambodia</option>
+                            <option value="Chile">Chile</option>
+                            <option value="China">China</option>
+                            <option value="Colombia">Colombia</option>
+                            <option value="Croatia">Croatia</option>
+                            <option value="Czech Republic">Czech Republic</option>
+                            <option value="Denmark">Denmark</option>
+                            <option value="Ecuador">Ecuador</option>
+                            <option value="Egypt">Egypt</option>
+                            <option value="Estonia">Estonia</option>
+                            <option value="Finland">Finland</option>
+                            <option value="France">France</option>
+                            <option value="Germany">Germany</option>
+                            <option value="Greece">Greece</option>
+                            <option value="Hungary">Hungary</option>
+                            <option value="Iceland">Iceland</option>
+                            <option value="India">India</option>
+                            <option value="Indonesia">Indonesia</option>
+                            <option value="Iran">Iran</option>
+                            <option value="Iraq">Iraq</option>
+                            <option value="Ireland">Ireland</option>
+                            <option value="Israel">Israel</option>
+                            <option value="Italy">Italy</option>
+                            <option value="Japan">Japan</option>
+                            <option value="Jordan">Jordan</option>
+                            <option value="Kazakhstan">Kazakhstan</option>
+                            <option value="Latvia">Latvia</option>
+                            <option value="Lebanon">Lebanon</option>
+                            <option value="Lithuania">Lithuania</option>
+                            <option value="Luxembourg">Luxembourg</option>
+                            <option value="Malaysia">Malaysia</option>
+                            <option value="Mexico">Mexico</option>
+                            <option value="Netherlands">Netherlands</option>
+                            <option value="New Zealand">New Zealand</option>
+                            <option value="Norway">Norway</option>
+                            <option value="Pakistan">Pakistan</option>
+                            <option value="Peru">Peru</option>
+                            <option value="Philippines">Philippines</option>
+                            <option value="Poland">Poland</option>
+                            <option value="Portugal">Portugal</option>
+                            <option value="Romania">Romania</option>
+                            <option value="Russia">Russia</option>
+                            <option value="Saudi Arabia">Saudi Arabia</option>
+                            <option value="Singapore">Singapore</option>
+                            <option value="Slovakia">Slovakia</option>
+                            <option value="Slovenia">Slovenia</option>
+                            <option value="South Africa">South Africa</option>
+                            <option value="South Korea">South Korea</option>
+                            <option value="Spain">Spain</option>
+                            <option value="Sweden">Sweden</option>
+                            <option value="Switzerland">Switzerland</option>
+                            <option value="Thailand">Thailand</option>
+                            <option value="Turkey">Turkey</option>
+                            <option value="Ukraine">Ukraine</option>
+                            <option value="United Arab Emirates">United Arab Emirates</option>
+                            <option value="Venezuela">Venezuela</option>
+                            <option value="Vietnam">Vietnam</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="person_location">City or State (optional)</label>
+                        <input type="text" id="person_location" name="person_location">
+                    </div>
+                </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="project_title">Project Title <span class="required">*</span></label>
+                    <input type="text" id="project_title" name="project_title" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="role">Writer(s) <span class="required">*</span></label>
+                    <input type="text" id="role" name="role" placeholder="Explain your role on this project? Examples: Screenwriter? Story contributor?" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="main_challenge">Creative Inspirations</label>
+                    <textarea id="main_challenge" name="main_challenge" placeholder="Name any creative works that inspired you to perform this role? Example: Indiana Jones, Shrek, Game of Thrones, Ghostbusters, Animal Kingdom, etc ..."></textarea>
+                    <div class="char-count" id="main_challengeCount">0 characters</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="inspirations_people">Writer Inspirations</label>
+                    <textarea id="inspirations_people" name="inspirations_people" placeholder="Name any creative people that inspired you to write this story"></textarea>
+                    <div class="char-count" id="inspirations_peopleCount">0 characters</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="script_text">Relevant Work Experience</label>
+                    <textarea id="script_text" name="script_text" placeholder="What are some of the film/tv industry projects that may have prepared you for a role this project?"></textarea>
+                    <div class="char-count" id="script_textCount">0 characters</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="goals">Goals</label>
+                    <textarea id="goals" name="goals" placeholder="In the future, what are you working towards any goals? Examples: Work on big budget theatrical films or streaming programs? Join the Writer's Guild WGA?"></textarea>
+                    <div class="char-count" id="goalsCount">0 characters</div>
+                </div>
+                
+                <div class="processing-options">
+                    <div class="option-card" data-tier="standard" onclick="selectOption('standard')">
+                        <div class="option-title">Standard Processing</div>
+                        <button type="button" class="option-btn" id="standardBtn" onclick="selectOption('standard')">
+                            Free
+                        </button>
+                        <div class="option-description">
+                            Generate a professional writer's statement powered by Google Gemini.
+                        </div>
+                    </div>
+                    
+                    <div class="option-card" data-tier="premium" onclick="selectOption('premium')">
+                        <div class="option-title">Premium Processing</div>
+                        <button type="button" class="option-btn premium-btn" id="premiumBtn" onclick="selectOption('premium')">
+                            Premium
+                        </button>
+                        <div class="option-description">
+                            Generate a film industry standard writer's statement using Mikel Fair's signature algorithm powered by high end AI processing.
+                        </div>
+                    </div>
+                </div>
+                
+                <button type="submit" class="submit-btn" id="submitBtn" disabled>
+                    Select processing option to continue
+                </button>
+            </form>
+        </div>
+    </div>
+    
+    <script src="book-banner.js"></script>
+    <script>
+        // Initialize book banner
+        createBookBanner('book-banner-container', 'writers-statement');
+        
+        // Test data for rapid testing
+        const TEST_DATA = {
+            // CONTACT FIELDS
+            first_name: 'Dev',
+            last_name: 'Test',
+            country: 'United States',
+            person_location: 'Texas',
+            
+            // WRITER STATEMENT SPECIFIC DATA
+            project_title: 'Between the Lines',
+            role: 'My script explores the invisible connections between strangers in a city, examining how small moments of kindness can transform lives.',
+            inspirations_creative: 'The interconnected storytelling of "Crash" and the quiet humanity of Alice Munro\'s short stories influence my narrative approach.',
+            inspirations_people: 'My mother, who taught me that every person has a story worth telling, and Charlie Kaufman, whose fearless exploration of human complexity inspires my writing.',
+            goals: 'To create a screenplay that reveals the profound in the mundane and reminds audiences of our shared humanity despite our differences.',
+            relevant_work_experience: 'My background in journalism has taught me to find the universal story within specific details and to write with precision and emotional truth.'
+        };
+        
+        // Test button functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const fillBtn = document.getElementById('fillTestDataBtn');
+            const clearBtn = document.getElementById('clearFormBtn');
+            
+            if (fillBtn) {
+                fillBtn.addEventListener('click', fillTestData);
+            }
+            
+            if (clearBtn) {
+                clearBtn.addEventListener('click', clearForm);
+            }
+        });
+        
+        function fillTestData() {
+            // Fill all form fields except email fields
+            Object.keys(TEST_DATA).forEach(key => {
+                const element = document.getElementById(key);
+                if (element) {
+                    element.value = TEST_DATA[key];
+                    
+                    // Trigger input event for character counting
+                    if (element.tagName === 'TEXTAREA') {
+                        element.dispatchEvent(new Event('input'));
+                    }
+                }
+            });
+            
+            console.log('Test data filled (excluding email fields)');
+        }
+        
+        function clearForm() {
+            // Clear the form
+            document.getElementById('writersStatementForm').reset();
+            
+            // Clear character counters
+            const textareas = ['main_challenge', 'inspirations_people', 'script_text', 'goals'];
+            textareas.forEach(id => {
+                const counter = document.getElementById(id + 'Count');
+                if (counter) {
+                    counter.textContent = '0 characters';
+                    counter.classList.remove('warning');
+                }
+            });
+            
+            // Reset tier selection
+            selectedTier = null;
+            document.querySelectorAll('.option-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Select Processing Option First';
+            
+            console.log('Form cleared');
+        }
+        
+        let selectedTier = null;
+        
+        function selectOption(tier) {
+            selectedTier = tier;
+            
+            // Update UI
+            document.querySelectorAll('.option-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            
+            document.querySelector(`[data-tier="${tier}"]`).classList.add('selected');
+            
+            // Update button states
+            document.getElementById('standardBtn').style.background = tier === 'standard' ? '#5a67d8' : '#667eea';
+            document.getElementById('premiumBtn').style.background = tier === 'premium' ? '#ff5252' : '#ff6b6b';
+            
+            // Update submit button
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.disabled = false;
+            
+            if (tier === 'standard') {
+                submitBtn.textContent = 'Generate Writer\'s Statement (FREE)';
+            } else {
+                submitBtn.textContent = 'Generate Enhanced Writer\'s Statement (PREMIUM)';
+            }
+        }
+        
+        // Character counting
+        const textareas = ['main_challenge', 'inspirations_people', 'script_text', 'goals'];
+        
+        textareas.forEach(id => {
+            const textarea = document.getElementById(id);
+            const counter = document.getElementById(id + 'Count');
+            
+            textarea.addEventListener('input', function() {
+                const count = this.value.length;
+                counter.textContent = `${count} characters`;
+                
+                if (count > 1000) {
+                    counter.classList.add('warning');
+                } else {
+                    counter.classList.remove('warning');
+                }
+            });
+        });
+        
+        // Email confirmation validation
+        const email = document.getElementById('email');
+        const emailConfirm = document.getElementById('emailConfirm');
+        const emailError = document.getElementById('emailError');
+        
+        // Disable copy/paste on email confirmation
+        emailConfirm.addEventListener('paste', function(e) {
+            e.preventDefault();
+        });
+        
+        function validateEmail() {
+            if (email.value && emailConfirm.value && email.value !== emailConfirm.value) {
+                emailError.style.display = 'block';
+                emailConfirm.style.borderColor = '#e74c3c';
+                return false;
+            } else {
+                emailError.style.display = 'none';
+                emailConfirm.style.borderColor = '#e1e5e9';
+                return true;
+            }
+        }
+        
+        email.addEventListener('input', validateEmail);
+        emailConfirm.addEventListener('input', validateEmail);
+        
+        // Form submission
+        document.getElementById('writersStatementForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Check honeypot
+            if (document.querySelector('input[name="website"]').value) {
+                return;
+            }
+            
+            // Validate tier selection
+            if (!selectedTier) {
+                alert('Please select a processing option.');
+                return;
+            }
+            
+            // Validate email match
+            if (!validateEmail()) {
+                alert('Please ensure both email addresses match.');
+                return;
+            }
+            
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Processing...';
+            
+            // Collect form data
+            const formData = new FormData(this);
+            const submissionData = Object.fromEntries(formData.entries());
+            
+            try {
+                // Google Analytics tracking
+                gtag('event', 'form_submit', {
+                    'event_category': 'Tool_Usage',
+                    'event_label': 'writers-statement',
+                    'value': 1
+                });
+                
+                // Submit directly to Supabase database
+                const supabaseUrl = 'https://vmfhxkfprrbshwniguaq.supabase.co';
+                const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZtZmh4a2ZwcnJic2h3bmlndWFxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk2ODYxNTcsImV4cCI6MjA2NTI2MjE1N30.k0OdvFzcO1nwZzxsgLPcQBeSITmV6dA_ncXpN0cpAgQ';
+                
+                // Map form data to database schema
+                const dbSubmission = {
+                    first_name: submissionData.first_name,
+                    last_name: submissionData.last_name,
+                    email: submissionData.email,
+                    country: submissionData.country,
+                    person_location: submissionData.person_location,
+                    project_title: submissionData.project_title,
+                    role: submissionData.role,
+                    inspirations_creative: submissionData.main_challenge,
+                    inspirations_people: submissionData.inspirations_people,
+                    relevant_work_experience: submissionData.script_text,
+                    goals: submissionData.goals,
+                    processing_tier: selectedTier,
+                    status: 'pending'
+                };
+                
+                // Submit to database
+                const dbResponse = await fetch(`${supabaseUrl}/rest/v1/submissions_v3`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${supabaseKey}`,
+                        'apikey': supabaseKey,
+                        'Content-Type': 'application/json',
+                        'Prefer': 'return=representation'
+                    },
+                    body: JSON.stringify(dbSubmission)
+                });
+                
+                if (!dbResponse.ok) {
+                    throw new Error(`Database submission failed: ${dbResponse.status}`);
+                }
+                
+                const submission = await dbResponse.json();
+                const submissionId = submission[0]?.id;
+                
+                if (!submissionId) {
+                    throw new Error('No submission ID returned');
+                }
+                
+                // Call writers statement processor directly
+                const processorResponse = await fetch(`${supabaseUrl}/functions/v1/writers-statement-processor`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${supabaseKey}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ submissionId, tier: selectedTier })
+                });
+                
+                if (!processorResponse.ok) {
+                    throw new Error(`Processing failed: ${processorResponse.status}`);
+                }
+                
+                // Show success message
+                if (selectedTier === 'premium') {
+                    submitBtn.textContent = 'Enhanced Writer\'s Statement Generated! Check Your Email';
+                } else {
+                    submitBtn.textContent = 'Writer\'s Statement Generated! Check Your Email';
+                }
+                submitBtn.style.backgroundColor = '#28a745';
+                
+                // Track success
+                gtag('event', 'writers_statement_generated', {
+                    'event_category': 'Success',
+                    'event_label': 'writers-statement',
+                    'tier': selectedTier,
+                    'value': 1
+                });
+                
+            } catch (error) {
+                console.error('Submission error:', error);
+                alert('There was an error processing your submission. Please try again.');
+                
+                submitBtn.disabled = false;
+                submitBtn.textContent = selectedTier === 'premium' ? 'Generate Enhanced Writer\'s Statement (PREMIUM)' : 'Generate Writer\'s Statement (FREE)';
+            }
+        });
+    </script>
+    <div id="book-banner-container"></div>
+</body>
+</html>
